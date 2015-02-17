@@ -9,6 +9,7 @@ Application::Application(
 	_pStatusbar(0),
 	_pButtonSavePivOptions(0),
 	_pButtonImage1Select(0),
+	_pButtonImage2Select(0),
 	_pEntryImage1FileName(0),
 	_pWindowHeightSpin(0),
 	_pWindowWidthSpin(0),
@@ -39,13 +40,28 @@ Application::Application(
 
 	// Image Select buttons
 	_refGlade->get_widget("image_1_select_button", _pButtonImage1Select);
+	
+	// Select image 1 button 
 	if(_pButtonImage1Select)
 	{
 		_pButtonImage1Select->signal_clicked().connect(
-				sigc::mem_fun(*this, &Application::on_button_image_1_select_clicked)
-				);
+				sigc::bind<Image>(
+				sigc::mem_fun(*this, &Application::on_button_image_select_clicked),
+				_image1
+				));
 	}
-
+	
+	_refGlade->get_widget("image_2_select_button", _pButtonImage2Select);
+	// Image 2 button select
+	if(_pButtonImage2Select)
+	{
+		_pButtonImage2Select->signal_clicked().connect(
+				sigc::bind<Image>(
+				sigc::mem_fun(*this, &Application::on_button_image_select_clicked),
+				_image2
+				));
+	}
+	
 	// File Name Text Display
 	_refGlade->get_widget("image_1_filename_entry", _pEntryImage1FileName);
 }
@@ -80,7 +96,7 @@ void Application::on_button_save()
 	_pivOptions.print();
 }
 
-void Application::on_button_image_1_select_clicked()
+void Application::on_button_image_select_clicked(Image &im)
 {
 	Gtk::FileChooserDialog dialog("Select image", Gtk::FILE_CHOOSER_ACTION_OPEN);
 	dialog.set_transient_for(*this);
@@ -108,14 +124,14 @@ void Application::on_button_image_1_select_clicked()
 			{
 				std::cout << "Open clicked." << std::endl;
 				// filename is a standard string
-				_image1.set_filename(
+				im.set_filename(
 						dialog.get_filename()
 						);
 
-				std::cout << "Image 1 selected: " << _image1.get_filename() << std::endl;
+				std::cout << "Image 1 selected: " << im.get_filename() << std::endl;
 
 				_pEntryImage1FileName->set_text(
-						_image1.get_filename()	
+						im.get_filename()	
 						);
 				break;
 			}
@@ -130,5 +146,4 @@ void Application::on_button_image_1_select_clicked()
 				break;
 			}
 	}
-
 }

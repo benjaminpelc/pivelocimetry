@@ -420,7 +420,6 @@
                     <property name="can_focus">True</property>
                     <property name="editable">False</property>
                     <property name="text" translatable="yes">Select first image</property>
-                    <property name="xalign">1</property>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>

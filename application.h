@@ -15,13 +15,13 @@ class Application : public Gtk::Window
 	protected:
 		// Sig hand
 		void on_button_save();
-		void on_button_image_1_select_clicked();
+		void on_button_image_select_clicked(Image &im);
 
 		Glib::RefPtr<Gtk::Builder> _refGlade;
 		
 		Gtk::Button	*_pButtonSavePivOptions,
 					*_pButtonImage1Select,
-					*_pButtonImage2Selcet;
+					*_pButtonImage2Select;
 		
 		Gtk::SpinButton *_pWindowHeightSpin,
 						*_pWindowWidthSpin,
