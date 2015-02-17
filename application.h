@@ -30,13 +30,16 @@ class Application : public Gtk::Window
 
 		Gtk::Statusbar *_pStatusbar;
 
-		Gtk::Entry *_pEntryImage1FileName;
+		Gtk::Entry *_pEntryImage1FileName,
+					*_pEntryImage2FileName;
 
 	private:
 		// PIV Settings Holder
 		PivOptions _pivOptions;
 		Image _image1,
 			  _image2;
+
+		void update_image_filname_entry();
 };
 
 #endif

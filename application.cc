@@ -11,6 +11,7 @@ Application::Application(
 	_pButtonImage1Select(0),
 	_pButtonImage2Select(0),
 	_pEntryImage1FileName(0),
+	_pEntryImage2FileName(0),
 	_pWindowHeightSpin(0),
 	_pWindowWidthSpin(0),
 	_pOverlapHSpin(0),
@@ -45,7 +46,7 @@ Application::Application(
 	if(_pButtonImage1Select)
 	{
 		_pButtonImage1Select->signal_clicked().connect(
-				sigc::bind<Image>(
+				sigc::bind<Image&>(
 				sigc::mem_fun(*this, &Application::on_button_image_select_clicked),
 				_image1
 				));
@@ -56,14 +57,15 @@ Application::Application(
 	if(_pButtonImage2Select)
 	{
 		_pButtonImage2Select->signal_clicked().connect(
-				sigc::bind<Image>(
-				sigc::mem_fun(*this, &Application::on_button_image_select_clicked),
-				_image2
+				sigc::bind<Image&>(
+					sigc::mem_fun(*this, &Application::on_button_image_select_clicked),
+					_image2
 				));
 	}
 	
 	// File Name Text Display
 	_refGlade->get_widget("image_1_filename_entry", _pEntryImage1FileName);
+	_refGlade->get_widget("image_2_filename_entry", _pEntryImage2FileName);
 }
 
 Application::~Application() {}
@@ -129,10 +131,8 @@ void Application::on_button_image_select_clicked(Image &im)
 						);
 
 				std::cout << "Image 1 selected: " << im.get_filename() << std::endl;
+				update_image_filname_entry();
 
-				_pEntryImage1FileName->set_text(
-						im.get_filename()	
-						);
 				break;
 			}
 		case(Gtk::RESPONSE_CANCEL):
@@ -145,5 +145,24 @@ void Application::on_button_image_select_clicked(Image &im)
 				std::cout << "Unexpected response" << std::endl;
 				break;
 			}
+	}
+}
+
+void Application::update_image_filname_entry()
+{
+	std::cout << "Image 1: " << _image1.get_filename() << std::endl;
+
+	if (!_image1.get_filename().empty())
+	{
+		_pEntryImage1FileName->set_text(
+			_image1.get_filename()	
+			);
+	}
+
+	if (!_image2.get_filename().empty())
+	{
+		_pEntryImage2FileName->set_text(
+				_image2.get_filename()
+				);
 	}
 }

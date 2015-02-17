@@ -420,7 +420,6 @@
                     <property name="can_focus">True</property>
                     <property name="editable">False</property>
                     <property name="text" translatable="yes">Select first image</property>
-                    <property name="xalign">1</property>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -428,7 +427,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="entry2">
+                  <object class="GtkEntry" id="image_2_filename_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                   </object>
