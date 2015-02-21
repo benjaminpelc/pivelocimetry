@@ -130,7 +130,6 @@ void Application::on_button_image_select_clicked(Image &im)
 						dialog.get_filename()
 						);
 
-				std::cout << "Image 1 selected: " << im.get_filename() << std::endl;
 				update_image_filname_entry();
 
 				break;
@@ -150,9 +149,7 @@ void Application::on_button_image_select_clicked(Image &im)
 
 void Application::update_image_filname_entry()
 {
-	std::cout << "Image 1: " << _image1.get_filename() << std::endl;
-
-	if (!_image1.get_filename().empty())
+	if (!_image1.get_filename().empty() && _image1.get_filename() != _pEntryImage1FileName->get_text())
 	{
 		_pEntryImage1FileName->set_text(
 			_image1.get_filename()	
