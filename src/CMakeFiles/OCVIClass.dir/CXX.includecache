@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.cpp
+int_map.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.h
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.h
+matrix2.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
+int_mappable_abstract.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_mappable_abstract.h
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_mappable_abstract.h
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/main.cpp
+ocv_image.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/ocv_image.h
+matrix2.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
+int_map.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.h
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
+iostream
+-
+math.h
+-
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/ocv_image.cpp
+ocv_image.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/ocv_image.h
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/ocv_image.h
+int_mappable_abstract.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_mappable_abstract.h
+iostream
+-
+opencv2/highgui/highgui.hpp
+-
+

@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project(OCVIClass)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
+find_package(OpenCV REQUIRED)
+add_executable(OCVIClass main.cpp ocv_image.cpp int_map.cpp)
+target_link_libraries(OCVIClass ${OpenCV_LIBS})
