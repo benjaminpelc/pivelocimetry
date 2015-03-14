@@ -1,10 +1,14 @@
 #ifndef PIV_OPTIONS_H
 #define PIV_OPTIONS_H
 
+#include <iostream>
+#include <map>
+
 class PivOptions
 {
 	public:
 		PivOptions();
+		PivOptions(std::map<std::string, std::string> optionMap);
 		~PivOptions();
 
 		// Getters

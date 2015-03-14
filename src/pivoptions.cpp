@@ -1,8 +1,34 @@
 #include "pivoptions.h"
-#include <iostream>
 
 // Constructor
 PivOptions::PivOptions() {}
+
+/*
+ * Constructor for when given a map of key value pairs
+ */
+PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
+{
+	/* Check for window size */
+	if (!optionMap["interrogation_window_x"].empty())
+	{
+		set_windowWidth(atoi(optionMap["interrogation_window_x"].c_str()));
+	}
+	if (!optionMap["interrogation_window_y"].empty())
+	{
+		set_windowHeight(atoi(optionMap["interrogation_window_y"].c_str()));
+	}
+
+	/* Check for overlap */
+	if (!optionMap["window_overlap_x"].empty())
+	{
+		set_overlapHoriz(atoi(optionMap["window_overlap_x"].c_str()));
+	}
+	if (!optionMap["window_overlap_y"].empty())
+	{
+		set_overlapVert(atoi(optionMap["window_overlap_y"].c_str()));
+	}
+	
+}
 
 // Destructor
 PivOptions::~PivOptions() {}
