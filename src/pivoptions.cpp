@@ -9,24 +9,18 @@ PivOptions::PivOptions() {}
 PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 {
 	/* Check for window size */
-	if (!optionMap["interrogation_window_x"].empty())
-	{
-		set_windowWidth(atoi(optionMap["interrogation_window_x"].c_str()));
-	}
-	if (!optionMap["interrogation_window_y"].empty())
-	{
-		set_windowHeight(atoi(optionMap["interrogation_window_y"].c_str()));
-	}
+	_windowWidth = !optionMap["interrogation_window_x"].empty() ?
+		atoi(optionMap["interrogation_window_x"].c_str()) : 16;
+
+	_windowHeight = !optionMap["interrogation_window_y"].empty() ?
+		atoi(optionMap["interrogation_window_y"].c_str()) : 16;
 
 	/* Check for overlap */
-	if (!optionMap["window_overlap_x"].empty())
-	{
-		set_overlapHoriz(atoi(optionMap["window_overlap_x"].c_str()));
-	}
-	if (!optionMap["window_overlap_y"].empty())
-	{
-		set_overlapVert(atoi(optionMap["window_overlap_y"].c_str()));
-	}
+	_overlapHoriz = !optionMap["window_overlap_x"].empty() ?
+		atoi(optionMap["window_overlap_x"].c_str()) : 0;
+
+	_overlapVert = !optionMap["window_overlap_y"].empty() ?
+		atoi(optionMap["window_overlap_y"].c_str()) : 0;
 	
 }
 
