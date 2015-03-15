@@ -18,7 +18,6 @@ int main(int argc, char** argv)
 	// Extract pixel intensity maps
 	IntMap i1 = IntMap(rawIm1),
 		   i2 = IntMap(rawIm2);
-		   // i2 = IntMap(rawIm2);
 
 	/* Load options from config file
 	 * Enable select config file from command line, failing that, use
@@ -27,10 +26,10 @@ int main(int argc, char** argv)
 				ConfigFile::parse("../config/default.cfg")
 			);
 
-	// Matrix2<double> c = Matrix2<double>(17, 17);
-	CCF c = CCF(17, 17);
+	// Initialize a CCF to dump the correlation data in
+	CCF c = CCF(analysisOptions.get_windowHeight() + 1, analysisOptions.get_windowWidth() + 1);
 
-	XCorr2::xCorr2n(c, i1, i2, 255, 255, 16, 16);
+	XCorr2::xCorr2n(c, i1, i2, 255, 255, analysisOptions.get_windowWidth(), analysisOptions.get_windowHeight());
 	std::cout << c;
 
 	/* ToDo:
