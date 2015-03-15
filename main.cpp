@@ -6,8 +6,6 @@
 
 int main(int argc, char** argv)
 {
-	// std::map<std::string, std::string> settings = ConfigFile::parse("./default.cfg");
-	
 	PivOptions po2 = PivOptions(
 			ConfigFile::parse("./default.cfg")
 			);
