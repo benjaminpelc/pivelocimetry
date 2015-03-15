@@ -16,16 +16,20 @@ class Peak
 		void set_iCoord(int i);
 		void set_jCoord(int j);
 		void set_val(double val);
+		void set_isValid(bool torf);
 
 		/* Getters */
 		int get_iCoord();
 		int get_jCoord();
 		double get_val();
+		bool get_isValid();
 		
 
 	private:
 		int _i,
 			_j;
+
+		bool _isValid;
 
 		double _val;
 		
@@ -60,6 +64,11 @@ void Peak::set_val(double v)
 	_val = v;
 }
 
+void Peak::set_isValid(bool torf)
+{
+	_isValid = torf;
+}
+
 int Peak::get_iCoord()
 {
 	return _i;
@@ -73,6 +82,11 @@ int Peak::get_jCoord()
 double Peak::get_val()
 {
 	return _val;
+}
+
+bool Peak::get_isValid()
+{
+	return _isValid;
 }
 
 /* Destructor */

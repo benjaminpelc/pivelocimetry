@@ -46,7 +46,7 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 			it->set_xCoord(xc);
 			it->set_yCoord(yc);
 			// XCorr2::xCorr2n(it->get_ccf(), i1, i2, xc, yc, wX, wY);
-			XCorr2::xCorr2n(it->get_ccf(), i1, i2, 255, 196, wX, wY);
+			XCorr2::xCorr2n(it->get_ccf(), i1, i2, 127, 127, wX, wY);
 			it->get_ccf()->findPeaks(it->get_peaks(), 7);
 			it++;
 			break;
