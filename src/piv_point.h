@@ -20,6 +20,9 @@ class PIVPoint
 		void set_xCoord(int x);
 		void set_yCoord(int y);
 
+		int get_xCoord();
+		int get_yCoord();
+
 	private:
 		std::shared_ptr<CCF> _ccf;
 		int _i, _j;
@@ -45,6 +48,16 @@ void PIVPoint::set_xCoord(int x)
 void PIVPoint::set_yCoord(int y)
 {
 	_j = y;
+}
+
+int PIVPoint::get_xCoord()
+{
+	return _i;
+}
+
+int PIVPoint::get_yCoord()
+{
+	return _j;
 }
 
 PIVPoint::~PIVPoint() {};
