@@ -25,6 +25,8 @@ memory
 -
 iostream
 -
+cmath
+-
 int_map.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/int_map.h
 pivoptions.h

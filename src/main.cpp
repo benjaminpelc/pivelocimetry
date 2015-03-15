@@ -32,19 +32,19 @@ int main(int argc, char** argv)
 				ConfigFile::parse("../config/default.cfg")
 			);	
 
-	// std::shared_ptr<Grid> grid;
+	// Create a grid
 	std::shared_ptr<Grid> grid = std::make_shared<Grid>(analysisOptions, i1);
 
-	// Initialize a CCF to dump the correlation data in
-	std::shared_ptr<CCF> c = std::make_shared<CCF>(
-				analysisOptions->get_windowHeight() + 1, analysisOptions->get_windowWidth() + 1
-			);
+	// // Initialize a CCF to dump the correlation data in
+	// std::shared_ptr<CCF> c = std::make_shared<CCF>(
+	// 			analysisOptions->get_windowHeight() + 1, analysisOptions->get_windowWidth() + 1
+	// 		);
+    // //
+	// XCorr2::xCorr2n(c, i1, i2, 255, 255,
+	// 			analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
+	// 		);
     //
-	XCorr2::xCorr2n(c, i1, i2, 255, 255,
-				analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
-			);
-
-	std::cout << *c;
+	// std::cout << *c;
 
 	/* ToDo:
 	 * 1) Calculate grid
