@@ -8,14 +8,16 @@
 #include "pivoptions.h"
 #include "ccf.h"
 #include "int_map.h"
+#include "peak.h"
 
 class PIVPoint
 {
 	public:
-		PIVPoint(int xCoord, int yCoord, const std::unique_ptr<PivOptions>& options);
+		PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options);
 		~PIVPoint();
 
 		std::shared_ptr<CCF>& get_ccf();
+		std::vector<Peak>& get_peaks();
 
 		void set_xCoord(int x);
 		void set_yCoord(int y);
@@ -25,19 +27,26 @@ class PIVPoint
 
 	private:
 		std::shared_ptr<CCF> _ccf;
+		Peak::PeaksVec _peaksVector;
 		int _i, _j;
 	
 };
 
-PIVPoint::PIVPoint(int xCoord, int yCoord, const std::unique_ptr<PivOptions>& options) :
+PIVPoint::PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options) :
 	_ccf(std::make_shared<CCF>(options->get_windowHeight() + 1, options->get_windowWidth() + 1)),
+	_peaksVector(options->get_noPeaks()),
 	_i(xCoord),
 	_j(yCoord)
 {}
 
 std::shared_ptr<CCF>& PIVPoint::get_ccf()
 {
-	return _ccf;;
+	return _ccf;
+}
+
+std::vector<Peak>& PIVPoint::get_peaks()
+{
+	return _peaksVector;
 }
 
 void PIVPoint::set_xCoord(int x)

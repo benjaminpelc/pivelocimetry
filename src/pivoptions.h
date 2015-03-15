@@ -3,10 +3,13 @@
 
 #include <iostream>
 #include <map>
+#include <memory>
 
 class PivOptions
 {
 	public:
+		typedef std::unique_ptr<PivOptions> Uptr;
+			
 		PivOptions();
 		PivOptions(std::map<std::string, std::string> optionMap);
 		~PivOptions();
@@ -16,12 +19,14 @@ class PivOptions
 		int get_windowHeight();
 		int get_overlapHoriz();
 		int get_overlapVert();
+		int get_noPeaks();
 
 		// Setters
 		void set_windowWidth(int x);
 		void set_windowHeight(int x);
 		void set_overlapHoriz(int x);
 		void set_overlapVert(int x);
+		void set_noPeaks(int n);
 
 		// Print in console
 		void print();
@@ -31,6 +36,7 @@ class PivOptions
 		int _windowWidth,
 			_windowHeight,
 			_overlapHoriz,
-			_overlapVert;
+			_overlapVert,
+			_noPeaks;
 };
 #endif

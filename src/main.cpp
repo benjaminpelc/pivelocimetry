@@ -4,6 +4,7 @@
 #include "int_map.h"
 #include "ocv_image.h"
 #include "pivoptions.h"
+#include "peak.h"
 #include <memory>
 
 int main(int argc, char** argv)
@@ -19,23 +20,29 @@ int main(int argc, char** argv)
 								 rawIm2(new OCVImage("../img/2.bmp"));
 
 	// Extract pixel intensity maps
-	std::unique_ptr<IntMap> i1(new IntMap(rawIm1)),
-		                    i2(new IntMap(rawIm2));
+	// std::unique_ptr<IntMap> i1(new IntMap(rawIm1)),
+	IntMap::Uptr i1(new IntMap(rawIm1)),
+	             i2(new IntMap(rawIm2));
 
 	/* Load options from config file
 	 * Enable select config file from command line, failing that, use
 	 * a default config file 
 	 * ---
 	 *  Clean this up so analysisOptions takes just a filename as argument */
-	std::unique_ptr<PivOptions> analysisOptions(new PivOptions(
+	PivOptions::Uptr analysisOptions(new PivOptions(
 				ConfigFile::parse("../config/default.cfg")
 			));	
 
 	/* Create a grid */
-	std::unique_ptr<Grid> grid( new Grid(analysisOptions, i1));
+	Grid::Uptr g( new Grid(analysisOptions, i1));
 
 	/* We have options, images and a grid, now do some PIV */
-	DoPiv p = DoPiv(analysisOptions, i1, i2, grid);
+	DoPiv p = DoPiv(analysisOptions, i1, i2, g);
+
+	// Peak pk = {15, 18, 0.943};
+	// std::cout << pk.get_iCoord() << std::endl;
+	// std::cout << pk.get_jCoord() << std::endl;
+	// std::cout << pk.get_val() << std::endl;
 
 	/* ToDo:
 	 * 4) Find peaks in correlation function

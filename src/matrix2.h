@@ -37,11 +37,12 @@ class Matrix2
 		template <typename sT>
 		friend std::ostream& operator<<(std::ostream& os, const Matrix2<sT>&mat);
 
+	protected:
+		T **_mat;
+		int _m, _n;
 
 	private:
 		// Matrix dimensions (m x n) = (rows, cols)
-		int _m, _n;
-		T **_mat;
 		void allocate_array_memory(int a, int b);
 };
 

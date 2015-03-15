@@ -21,6 +21,11 @@ PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 
 	_overlapVert = !optionMap["window_overlap_y"].empty() ?
 		atoi(optionMap["window_overlap_y"].c_str()) : 0;
+
+	/* Check for number of correlation peaks to find */
+	_noPeaks = !optionMap["num_ccf_peaks"].empty() ?
+		atoi(optionMap["num_ccf_peaks"].c_str()) : 3;
+
 	
 }
 
@@ -48,6 +53,11 @@ int PivOptions::get_overlapVert()
 	return _overlapVert;
 }
 
+int PivOptions::get_noPeaks()
+{
+	return _noPeaks;
+}
+
 // Setters
 void PivOptions::set_windowWidth(int x)
 {
@@ -67,6 +77,11 @@ void PivOptions::set_overlapHoriz(int x)
 void PivOptions::set_overlapVert(int x)
 {
 	_overlapVert = x;
+}
+
+void PivOptions::set_noPeaks(int n)
+{
+	_noPeaks = n;
 }
 
 void PivOptions::print()
