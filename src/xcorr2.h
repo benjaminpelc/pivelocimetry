@@ -10,6 +10,9 @@
 #include <iostream>
 #include "matrix2.h"
 #include <math.h>
+#include <memory>
+#include "int_map.h"
+#include "ccf.h"
 
 class XCorr2
 {
@@ -23,8 +26,9 @@ class XCorr2
 		template<typename T>
 		static void xCorr2m(Matrix2<double>& mat, Matrix2<T>& m1, Matrix2<T>& m2);
 
-		template<typename T>
-		static void xCorr2n(Matrix2<double>& mat, Matrix2<T>& m1, Matrix2<T>& m2, int x0, int y0, int wx, int wy);
+		// template<typename T>
+		// static void xCorr2n(Matrix2<double>& mat, Matrix2<T>& m1, Matrix2<T>& m2, int x0, int y0, int wx, int wy);
+		static void xCorr2n(std::shared_ptr<CCF>& ccf, std::shared_ptr<IntMap>& m1, std::shared_ptr<IntMap>& m2, int x0, int y0, int wx, int wy);
 	private:
 };
 
@@ -149,12 +153,12 @@ void XCorr2::xCorr2m(
 	}
 }
 
-template<typename T>
-void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x0, int y0, int wx, int wy)
+// template<typename T>
+void XCorr2::xCorr2n(std::shared_ptr<CCF>& ccf, std::shared_ptr<IntMap>& m1, std::shared_ptr<IntMap>& m2, int x0, int y0, int wx, int wy)
 {
 	// Row and column counts of CCF
-	int ccfRows = ccf.get_numRows(),
-		ccfCols = ccf.get_numCols(),
+	int ccfRows = ccf->get_numRows(),
+		ccfCols = ccf->get_numCols(),
 		imRows  = wy,
 		imCols  = wx,
 		mIndex, nIndex,
@@ -193,8 +197,8 @@ void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x
 			// Calculate the overlapping segment averages
 			for (int j = jMin; j < jMax; j++) {
 				for (int i = iMin; i < iMax; i++) {
-					m1Avg += (double) m1.get_elementAt(j + yOff, i + xOff);
-					m2Avg += (double) m2.get_elementAt(j + yOff + m, i + xOff+ n);
+					m1Avg += (double) m1->get_elementAt(j + yOff, i + xOff);
+					m2Avg += (double) m2->get_elementAt(j + yOff + m, i + xOff+ n);
 				}
 			}
 
@@ -206,13 +210,13 @@ void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x
 			for (int j = jMin; j < jMax; j++) {
 				for (int i = iMin; i < iMax; i++) {
 					
-					bitProd += ((double) m1.get_elementAt(j + yOff, i + xOff) - m1Avg) * ((double) m2.get_elementAt( j + yOff + m, i + xOff + n) - m2Avg);
-					denom1 += ((double) m1.get_elementAt(j + yOff, i + xOff) - m1Avg) * ((double) m1.get_elementAt(j + yOff, i + xOff) - m1Avg);
-					denom2 += ((double) m2.get_elementAt(j + yOff +  m, i + xOff + n) - m2Avg) * ((double) m2.get_elementAt(j + yOff + m, i + xOff + n) - m2Avg);
+					bitProd += ((double) m1->get_elementAt(j + yOff, i + xOff) - m1Avg) * ((double) m2->get_elementAt( j + yOff + m, i + xOff + n) - m2Avg);
+					denom1 += ((double) m1->get_elementAt(j + yOff, i + xOff) - m1Avg) * ((double) m1->get_elementAt(j + yOff, i + xOff) - m1Avg);
+					denom2 += ((double) m2->get_elementAt(j + yOff +  m, i + xOff + n) - m2Avg) * ((double) m2->get_elementAt(j + yOff + m, i + xOff + n) - m2Avg);
 				}
 			}
 			// Put everything in and do not divide by zero
-			ccf.set_elem(mIndex, nIndex, denom1 > 0 && denom2 > 0 ? bitProd / sqrt(denom1 * denom2) : -1.0);
+			ccf->set_elem(mIndex, nIndex, denom1 > 0 && denom2 > 0 ? bitProd / sqrt(denom1 * denom2) : -1.0);
 		}
 	}
 }
