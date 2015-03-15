@@ -49,9 +49,6 @@ Grid::Grid(
 				(imH - winH) / (winH - ovlpY) + 1
 			); 
 
-	std::cout << _noVectorsX << std::endl;
-	std::cout << _noVectorsY << std::endl;
-
 	/* Initialize vectors of x and y grid points */
 	_pointsX.resize(_noVectorsX);
 	_pointsY.resize(_noVectorsY);
@@ -65,9 +62,6 @@ Grid::Grid(
 	{
 		_pointsY[i] = (winH - ovlpY) * i - 1 + winH / 2;
 	}
-
-	std::cout << _pointsX[0] << std::endl;
-	std::cout << _pointsX[1] << std::endl;
 }
 
 Grid::~Grid() {};

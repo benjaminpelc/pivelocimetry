@@ -7,18 +7,15 @@
  *
  */
 
-#include <iostream>
+#include "ccf.h"
+#include "int_map.h"
 #include "matrix2.h"
 #include <math.h>
 #include <memory>
-#include "int_map.h"
-#include "ccf.h"
 
 class XCorr2
 {
 	public:
-		static void sayHello() { std::cout << "Hello, World!" << std::endl; }
-
 		// Basic XCorr2 function. No normalising etc
 		template<typename T>
 		static void xCorr2(Matrix2<double>& mat, Matrix2<T>& m1, Matrix2<T>& m2);

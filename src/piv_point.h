@@ -14,7 +14,6 @@ class PIVPoint
 	public:
 		PIVPoint(int xCoord, int yCoord, const std::unique_ptr<PivOptions>& options);
 		~PIVPoint();
-		// void printCcf();
 
 		std::shared_ptr<CCF>& get_ccf();
 
@@ -31,9 +30,7 @@ PIVPoint::PIVPoint(int xCoord, int yCoord, const std::unique_ptr<PivOptions>& op
 	_ccf(std::make_shared<CCF>(options->get_windowHeight() + 1, options->get_windowWidth() + 1)),
 	_i(xCoord),
 	_j(yCoord)
-{
-	
-}
+{}
 
 std::shared_ptr<CCF>& PIVPoint::get_ccf()
 {
