@@ -1,6 +1,8 @@
 #ifndef INT_MAP_H
 #define INT_MAP_H
 
+#include <memory>
+
 #include "matrix2.h"
 #include "int_mappable_abstract.h"
 
@@ -10,6 +12,7 @@ class IntMap:
 	public:
 		IntMap(unsigned int rows, unsigned int cols); 
 		IntMap(IntMappable* raw);
+		IntMap(const std::shared_ptr<IntMappable>& raw);
 		~IntMap();
 	private:
 		

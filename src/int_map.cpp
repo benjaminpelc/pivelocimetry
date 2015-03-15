@@ -13,4 +13,15 @@ IntMap::IntMap(IntMappable* raw) : Matrix2<unsigned int>(raw->getHeight(), raw->
 	}
 }
 
+IntMap::IntMap(const std::shared_ptr<IntMappable>& raw) : Matrix2<unsigned int>(raw->getHeight(), raw->getWidth())
+{
+	unsigned int wdth = raw->getWidth();
+
+	for (int j = 0; j < raw->getHeight(); j++) {
+		for (int i = 0; i < wdth; i++) {
+			set_elem(j, i, raw->getPixelIntensity(j, i));
+		}
+	}
+}
+
 IntMap::~IntMap() {}

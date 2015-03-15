@@ -13,7 +13,7 @@ class CCF : public Matrix2<double>
 					
 };
 
-CCF::CCF(unsigned int rows, unsigned int cols) : Matrix2<double>(rows, cols) {}
+CCF::CCF(unsigned int rows, unsigned int cols) : Matrix2<double>(rows, cols, -1.1) {}
 
 CCF::~CCF() {}
 
