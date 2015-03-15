@@ -8,6 +8,7 @@
 #include "xcorr2.h"
 #include "ccf.h"
 #include "grid.h"
+#include "piv_point.h"
 
 int main(int argc, char** argv)
 {
@@ -15,36 +16,39 @@ int main(int argc, char** argv)
 	// std::cout << "argc: " << argc << std::endl;
 
 	// Load a raw images and extract pixel intensity maps
-	std::shared_ptr<IntMappable> rawIm1 = std::make_shared<OCVImage>("../img/1.bmp"),
-								 rawIm2 = std::make_shared<OCVImage>("../img/2.bmp");
+	std::unique_ptr<IntMappable> rawIm1(new OCVImage("../img/1.bmp")),
+								 rawIm2(new OCVImage("../img/2.bmp"));
 
 	// Extract pixel intensity maps
-	std::shared_ptr<IntMap> i1 = std::make_shared<IntMap>(rawIm1),
-		                    i2 = std::make_shared<IntMap>(rawIm2);
+	std::unique_ptr<IntMap> i1(new IntMap(rawIm1)),
+		                    i2(new IntMap(rawIm2));
 
 	/* Load options from config file
 	 * Enable select config file from command line, failing that, use
 	 * a default config file */
-	// PivOptions analysisOptions = PivOptions(
-	// 			ConfigFile::parse("../config/default.cfg")
-	// 		);
-	std::shared_ptr<PivOptions> analysisOptions = std::make_shared<PivOptions>(
+	std::unique_ptr<PivOptions> analysisOptions(new PivOptions(
 				ConfigFile::parse("../config/default.cfg")
-			);	
+			));	
 
 	// Create a grid
-	std::shared_ptr<Grid> grid = std::make_shared<Grid>(analysisOptions, i1);
+	std::unique_ptr<Grid> grid( new Grid(analysisOptions, i1));
 
-	// // Initialize a CCF to dump the correlation data in
-	// std::shared_ptr<CCF> c = std::make_shared<CCF>(
+	/* Create a PIV point at a grid point */
+	PIVPoint p = PIVPoint(255, 255, analysisOptions);
+
+	std::cout << *p.get_ccf() << std::endl;	
+
+	// Initialize a CCF to dump the correlation data in
+	// std::unique_ptr<CCF> c(new CCF(
 	// 			analysisOptions->get_windowHeight() + 1, analysisOptions->get_windowWidth() + 1
-	// 		);
-    // //
-	// XCorr2::xCorr2n(c, i1, i2, 255, 255,
-	// 			analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
-	// 		);
+	// 		));
+    //
+	XCorr2::xCorr2n(p.get_ccf(), i1, i2, 255, 255,
+				analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
+			);
     //
 	// std::cout << *c;
+	std::cout << *p.get_ccf() << std::endl;
 
 	/* ToDo:
 	 * 1) Calculate grid

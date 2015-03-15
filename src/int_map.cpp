@@ -13,7 +13,7 @@ IntMap::IntMap(IntMappable* raw) : Matrix2<unsigned int>(raw->getHeight(), raw->
 	}
 }
 
-IntMap::IntMap(const std::shared_ptr<IntMappable>& raw) : Matrix2<unsigned int>(raw->getHeight(), raw->getWidth())
+IntMap::IntMap(const std::unique_ptr<IntMappable>& raw) : Matrix2<unsigned int>(raw->getHeight(), raw->getWidth())
 {
 	unsigned int wdth = raw->getWidth();
 

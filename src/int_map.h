@@ -12,7 +12,7 @@ class IntMap:
 	public:
 		IntMap(unsigned int rows, unsigned int cols); 
 		IntMap(IntMappable* raw);
-		IntMap(const std::shared_ptr<IntMappable>& raw);
+		IntMap(const std::unique_ptr<IntMappable>& raw);
 		~IntMap();
 	private:
 		

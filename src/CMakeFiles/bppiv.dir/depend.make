@@ -14,6 +14,7 @@ CMakeFiles/bppiv.dir/main.cpp.o: int_mappable_abstract.h
 CMakeFiles/bppiv.dir/main.cpp.o: main.cpp
 CMakeFiles/bppiv.dir/main.cpp.o: matrix2.h
 CMakeFiles/bppiv.dir/main.cpp.o: ocv_image.h
+CMakeFiles/bppiv.dir/main.cpp.o: piv_point.h
 CMakeFiles/bppiv.dir/main.cpp.o: pivoptions.h
 CMakeFiles/bppiv.dir/main.cpp.o: xcorr2.h
 

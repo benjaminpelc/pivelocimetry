@@ -12,7 +12,7 @@
 class Grid
 {
 	public:
-		Grid(const std::shared_ptr<PivOptions>& config, const std::shared_ptr<IntMap>& image);
+		Grid(const std::unique_ptr<PivOptions>& config, const std::unique_ptr<IntMap>& image);
 		~Grid();
 
 	private:
@@ -22,8 +22,8 @@ class Grid
 };
 
 Grid::Grid(
-			const std::shared_ptr<PivOptions>& config,
-			const std::shared_ptr<IntMap>& image 
+			const std::unique_ptr<PivOptions>& config,
+			const std::unique_ptr<IntMap>& image 
 		)
 {
 	/* Get the image width and height */

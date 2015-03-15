@@ -28,7 +28,7 @@ class XCorr2
 
 		// template<typename T>
 		// static void xCorr2n(Matrix2<double>& mat, Matrix2<T>& m1, Matrix2<T>& m2, int x0, int y0, int wx, int wy);
-		static void xCorr2n(std::shared_ptr<CCF>& ccf, std::shared_ptr<IntMap>& m1, std::shared_ptr<IntMap>& m2, int x0, int y0, int wx, int wy);
+		static void xCorr2n(std::shared_ptr<CCF>& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2, int x0, int y0, int wx, int wy);
 	private:
 };
 
@@ -154,7 +154,7 @@ void XCorr2::xCorr2m(
 }
 
 // template<typename T>
-void XCorr2::xCorr2n(std::shared_ptr<CCF>& ccf, std::shared_ptr<IntMap>& m1, std::shared_ptr<IntMap>& m2, int x0, int y0, int wx, int wy)
+void XCorr2::xCorr2n(std::shared_ptr<CCF>& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2, int x0, int y0, int wx, int wy)
 {
 	// Row and column counts of CCF
 	int ccfRows = ccf->get_numRows(),

@@ -63,6 +63,8 @@ ccf.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
 grid.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/grid.h
+piv_point.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/piv_point.h
 
 /home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
 iostream
@@ -81,6 +83,20 @@ iostream
 -
 opencv2/highgui/highgui.hpp
 -
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/piv_point.h
+memory
+-
+iostream
+-
+vector
+-
+pivoptions.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.h
+ccf.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
+int_map.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.h
 
 /home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.cpp
 pivoptions.h
