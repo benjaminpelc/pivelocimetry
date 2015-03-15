@@ -1,14 +1,10 @@
-// #include <iostream>
-#include <memory>
-
-#include "ocv_image.h"
-#include "int_map.h"
 #include "config_file.h"
-#include "pivoptions.h"
-#include "xcorr2.h"
-#include "ccf.h"
+#include "do_piv.h"
 #include "grid.h"
-#include "piv_point.h"
+#include "int_map.h"
+#include "ocv_image.h"
+#include "pivoptions.h"
+#include <memory>
 
 int main(int argc, char** argv)
 {
@@ -28,36 +24,18 @@ int main(int argc, char** argv)
 
 	/* Load options from config file
 	 * Enable select config file from command line, failing that, use
-	 * a default config file */
+	 * a default config file 
+	 * ---
+	 *  Clean this up so analysisOptions takes just a filename as argument */
 	std::unique_ptr<PivOptions> analysisOptions(new PivOptions(
 				ConfigFile::parse("../config/default.cfg")
 			));	
 
-	// Create a grid
+	/* Create a grid */
 	std::unique_ptr<Grid> grid( new Grid(analysisOptions, i1));
 
-	/* Create a vector of PIVPoints, give constructor to instantiate CCF at correct size, 
-	* for now set coordinate to (-1, -1) to indicate that the piv has not yet been done */
-	std::vector<PIVPoint> vp(grid->get_totalGridPoints(), PIVPoint(-1, -1, analysisOptions));
-
-	/* Loop through each grid point:
-	 * 1) Set the correct coordinates
-	 * 2) Do the PIV */
-	int iNow, jNow;
-	int wX = analysisOptions->get_windowWidth(),
-		wY = analysisOptions->get_windowHeight();
-
-	for (int j = 0; j < grid->get_noPointsY(); j++) {
-		for (int i = 0; i < grid->get_noPointsX(); i++) {
-			iNow = grid->get_xCoord(i);
-			jNow = grid->get_yCoord(j);
-			vp[i*j].set_xCoord(iNow);			
-			vp[i*j].set_yCoord(jNow);			
-			XCorr2::xCorr2n(vp[i*j].get_ccf(), i1, i2, iNow, jNow, wX, wY);
-		}
-	}
-
-	std::cout << "Vectors calculated: " << vp.size() << std::endl;
+	/* We have options, images and a grid, now do some PIV */
+	DoPiv p = DoPiv(analysisOptions, i1, i2, grid);
 
 	/* ToDo:
 	 * 4) Find peaks in correlation function

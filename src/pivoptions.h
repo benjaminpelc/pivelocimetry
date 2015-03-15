@@ -33,5 +33,4 @@ class PivOptions
 			_overlapHoriz,
 			_overlapVert;
 };
-
 #endif
