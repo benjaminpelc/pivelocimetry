@@ -14,6 +14,11 @@ class Grid
 	public:
 		Grid(const std::unique_ptr<PivOptions>& config, const std::unique_ptr<IntMap>& image);
 		~Grid();
+		int get_xCoord(int i);
+		int get_yCoord(int i);
+		int get_noPointsX();
+		int get_noPointsY();
+		int get_totalGridPoints();
 
 	private:
 		int _noVectorsX, _noVectorsY;
@@ -24,7 +29,9 @@ class Grid
 Grid::Grid(
 			const std::unique_ptr<PivOptions>& config,
 			const std::unique_ptr<IntMap>& image 
-		)
+		) :
+	_pointsX(),
+	_pointsY()
 {
 	/* Get the image width and height */
 	int imW = image->get_numCols(),
@@ -46,8 +53,8 @@ Grid::Grid(
 	std::cout << _noVectorsY << std::endl;
 
 	/* Initialize vectors of x and y grid points */
-	std::vector<int> _pointsX(_noVectorsX),
-					 _pointsY(_noVectorsY);
+	_pointsX.resize(_noVectorsX);
+	_pointsY.resize(_noVectorsY);
 
 	for (int i = 0; i < _noVectorsX; i++)
 	{
@@ -65,4 +72,28 @@ Grid::Grid(
 
 Grid::~Grid() {};
 
+int Grid::get_xCoord(int i)
+{
+	return _pointsX[i];
+}
+
+int Grid::get_yCoord(int i)
+{
+	return _pointsY[i];
+}
+
+int Grid::get_noPointsX()
+{
+	return _pointsX.size();
+}
+
+int Grid::get_noPointsY()
+{
+	return _pointsY.size();
+}
+
+int Grid::get_totalGridPoints()
+{
+	return _pointsX.size() * _pointsY.size();
+}
 #endif

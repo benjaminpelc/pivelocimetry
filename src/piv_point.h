@@ -18,31 +18,36 @@ class PIVPoint
 
 		std::shared_ptr<CCF>& get_ccf();
 
+		void set_xCoord(int x);
+		void set_yCoord(int y);
+
 	private:
 		std::shared_ptr<CCF> _ccf;
+		int _i, _j;
 	
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, const std::unique_ptr<PivOptions>& options) :
-	_ccf(std::make_shared<CCF>(17, 17))
-	// _ccf(new CCF(options->get_windowHeight() + 1, options->get_windowWidth() + 1))
+	_ccf(std::make_shared<CCF>(options->get_windowHeight() + 1, options->get_windowWidth() + 1)),
+	_i(xCoord),
+	_j(yCoord)
 {
-	std::cout << "In PIV point" << std::endl;
 	
-	// CCF _ccf = CCF( options->get_windowHeight() + 1, options->get_windowWidth() + 1);
-
-	// std::cout << *_ccf << std::endl;
 }
-
-// void PIVPoint::printCcf()
-// {
-// 	std::cout << *_ccf << std::endl;
-// 	// return _ccf->get_elementAt(j, i);
-// }
 
 std::shared_ptr<CCF>& PIVPoint::get_ccf()
 {
 	return _ccf;;
+}
+
+void PIVPoint::set_xCoord(int x)
+{
+	_i = x;
+}
+
+void PIVPoint::set_yCoord(int y)
+{
+	_j = y;
 }
 
 PIVPoint::~PIVPoint() {};

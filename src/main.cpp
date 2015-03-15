@@ -32,23 +32,43 @@ int main(int argc, char** argv)
 
 	// Create a grid
 	std::unique_ptr<Grid> grid( new Grid(analysisOptions, i1));
+	// std::cout << grid->get_xCoord(4) << std::endl;
 
 	/* Create a PIV point at a grid point */
-	PIVPoint p = PIVPoint(255, 255, analysisOptions);
+	// PIVPoint p = PIVPoint(255, 255, analysisOptions);
+	// std::cout << *p.get_ccf() << std::endl;	
+	
+	/* Create a vector of PIVPoints, give constructor to instantiate CCF at correct size, 
+	* for now set coordinate to (-1, -1) to indicate that the piv has not yet been done */
+	std::vector<PIVPoint> vp(grid->get_totalGridPoints(), PIVPoint(-1, -1, analysisOptions));
 
-	std::cout << *p.get_ccf() << std::endl;	
+	/* Loop through each grid point:
+	 * 1) Set the correct coordinates
+	 * 2) Do the PIV? */
+	int iNow, jNow;
+	for (int j = 0; j < grid->get_noPointsY(); j++) {
+		for (int i = 0; i < grid->get_noPointsX(); i++) {
+			iNow = grid->get_xCoord(i);
+			jNow = grid->get_yCoord(j);
 
-	// Initialize a CCF to dump the correlation data in
-	// std::unique_ptr<CCF> c(new CCF(
-	// 			analysisOptions->get_windowHeight() + 1, analysisOptions->get_windowWidth() + 1
-	// 		));
-    //
-	XCorr2::xCorr2n(p.get_ccf(), i1, i2, 255, 255,
-				analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
-			);
-    //
-	// std::cout << *c;
-	std::cout << *p.get_ccf() << std::endl;
+			vp[i*j].set_xCoord(iNow);			
+			vp[i*j].set_yCoord(jNow);			
+
+			XCorr2::xCorr2n(vp[i*j].get_ccf(), i1, i2, iNow, jNow,
+						analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
+					);
+		}
+	}
+
+	std::cout << "Length of points vector: " << vp.size() << std::endl;
+
+	// // Initialize a CCF to dump the correlation data in
+	// XCorr2::xCorr2n(vp[0].get_ccf(), i1, i2, 255, 255,
+	// 			analysisOptions->get_windowWidth(), analysisOptions->get_windowHeight()
+	// 		);
+
+	// std::cout << "vp[0] ccf at (0,0): " << vp[0].get_ccf()->get_elementAt(16,16) << std::endl; 
+	// std::cout << *p.get_ccf() << std::endl;
 
 	/* ToDo:
 	 * 1) Calculate grid
