@@ -103,24 +103,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named OCVIClass
+# Target rules for targets named bppiv
 
 # Build rule for target.
-OCVIClass: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 OCVIClass
-.PHONY : OCVIClass
+bppiv: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bppiv
+.PHONY : bppiv
 
 # fast build rule for target.
-OCVIClass/fast:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/build
-.PHONY : OCVIClass/fast
+bppiv/fast:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/build
+.PHONY : bppiv/fast
 
 int_map.o: int_map.cpp.o
 .PHONY : int_map.o
 
 # target to build an object file
 int_map.cpp.o:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/int_map.cpp.o
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/int_map.cpp.o
 .PHONY : int_map.cpp.o
 
 int_map.i: int_map.cpp.i
@@ -128,7 +128,7 @@ int_map.i: int_map.cpp.i
 
 # target to preprocess a source file
 int_map.cpp.i:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/int_map.cpp.i
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/int_map.cpp.i
 .PHONY : int_map.cpp.i
 
 int_map.s: int_map.cpp.s
@@ -136,7 +136,7 @@ int_map.s: int_map.cpp.s
 
 # target to generate assembly for a file
 int_map.cpp.s:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/int_map.cpp.s
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/int_map.cpp.s
 .PHONY : int_map.cpp.s
 
 main.o: main.cpp.o
@@ -144,7 +144,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -152,7 +152,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -160,7 +160,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 ocv_image.o: ocv_image.cpp.o
@@ -168,7 +168,7 @@ ocv_image.o: ocv_image.cpp.o
 
 # target to build an object file
 ocv_image.cpp.o:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/ocv_image.cpp.o
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/ocv_image.cpp.o
 .PHONY : ocv_image.cpp.o
 
 ocv_image.i: ocv_image.cpp.i
@@ -176,7 +176,7 @@ ocv_image.i: ocv_image.cpp.i
 
 # target to preprocess a source file
 ocv_image.cpp.i:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/ocv_image.cpp.i
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/ocv_image.cpp.i
 .PHONY : ocv_image.cpp.i
 
 ocv_image.s: ocv_image.cpp.s
@@ -184,8 +184,32 @@ ocv_image.s: ocv_image.cpp.s
 
 # target to generate assembly for a file
 ocv_image.cpp.s:
-	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/ocv_image.cpp.s
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/ocv_image.cpp.s
 .PHONY : ocv_image.cpp.s
+
+pivoptions.o: pivoptions.cpp.o
+.PHONY : pivoptions.o
+
+# target to build an object file
+pivoptions.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/pivoptions.cpp.o
+.PHONY : pivoptions.cpp.o
+
+pivoptions.i: pivoptions.cpp.i
+.PHONY : pivoptions.i
+
+# target to preprocess a source file
+pivoptions.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/pivoptions.cpp.i
+.PHONY : pivoptions.cpp.i
+
+pivoptions.s: pivoptions.cpp.s
+.PHONY : pivoptions.s
+
+# target to generate assembly for a file
+pivoptions.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/pivoptions.cpp.s
+.PHONY : pivoptions.cpp.s
 
 # Help Target
 help:
@@ -195,7 +219,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... OCVIClass"
+	@echo "... bppiv"
 	@echo "... int_map.o"
 	@echo "... int_map.i"
 	@echo "... int_map.s"
@@ -205,6 +229,9 @@ help:
 	@echo "... ocv_image.o"
 	@echo "... ocv_image.i"
 	@echo "... ocv_image.s"
+	@echo "... pivoptions.o"
+	@echo "... pivoptions.i"
+	@echo "... pivoptions.s"
 .PHONY : help
 
 

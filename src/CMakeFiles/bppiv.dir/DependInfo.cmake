@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/OCVIClass.dir/int_map.cpp.o"
-  "/home/ben/Dropbox/Development/C++/BPPIV/src/main.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/OCVIClass.dir/main.cpp.o"
-  "/home/ben/Dropbox/Development/C++/BPPIV/src/ocv_image.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/OCVIClass.dir/ocv_image.cpp.o"
-  "/home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/OCVIClass.dir/pivoptions.cpp.o"
+  "/home/ben/Dropbox/Development/C++/BPPIV/src/int_map.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/bppiv.dir/int_map.cpp.o"
+  "/home/ben/Dropbox/Development/C++/BPPIV/src/main.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/bppiv.dir/main.cpp.o"
+  "/home/ben/Dropbox/Development/C++/BPPIV/src/ocv_image.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/bppiv.dir/ocv_image.cpp.o"
+  "/home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.cpp" "/home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles/bppiv.dir/pivoptions.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

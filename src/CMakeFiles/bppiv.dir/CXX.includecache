@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
+matrix2.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
+
 /home/ben/Dropbox/Development/C++/BPPIV/src/config_file.h
 fstream
 -
@@ -37,6 +41,10 @@ config_file.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/config_file.h
 pivoptions.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.h
+xcorr2.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/xcorr2.h
+ccf.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
 
 /home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
 iostream
@@ -64,5 +72,13 @@ pivoptions.h
 iostream
 -
 map
+-
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/xcorr2.h
+iostream
+-
+matrix2.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
+math.h
 -
 

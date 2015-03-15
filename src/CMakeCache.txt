@@ -114,7 +114,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=OCVIClass
+CMAKE_PROJECT_NAME:STATIC=bppiv
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -190,6 +190,12 @@ OpenCV_LIB_DIR_DBG:PATH=
 
 //Path where release OpenCV libraries are located
 OpenCV_LIB_DIR_OPT:PATH=
+
+//Value Computed by CMake
+bppiv_BINARY_DIR:STATIC=/home/ben/Dropbox/Development/C++/BPPIV/src
+
+//Value Computed by CMake
+bppiv_SOURCE_DIR:STATIC=/home/ben/Dropbox/Development/C++/BPPIV/src
 
 
 ########################

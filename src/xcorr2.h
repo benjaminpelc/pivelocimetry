@@ -155,8 +155,8 @@ void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x
 	// Row and column counts of CCF
 	int ccfRows = ccf.get_numRows(),
 		ccfCols = ccf.get_numCols(),
-		imRows  = wx,
-		imCols  = wy,
+		imRows  = wy,
+		imCols  = wx,
 		mIndex, nIndex,
 		mOffset = imRows + (int) floor((ccfRows/2.0 - imRows)),
 		nOffset = imCols + (int) floor((ccfCols/2.0 - imCols)),
@@ -164,9 +164,6 @@ void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x
 		iMin, iMax, jMin, jMax,
 		xOff = x0 - (int) (wx / 2.0) + 1,
 		yOff = y0 - (int) (wy / 2.0) + 1;
-
-	std::cout << xOff << std::endl;
-	std::cout << yOff << std::endl;
 
 	// Product bit counter 
 	double  bitProd,
@@ -185,19 +182,19 @@ void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x
 		nIndex = n + nOffset;;
 		
 			// Limits of the overlapping regions
-			iMin = m < 0 ? -m : 0;
-			iMax = m + imRows > imRows ? imRows - m : imRows;
-			jMin = n < 0 ? -n : 0;
-			jMax = n + imCols > imCols ? imCols - n : imCols;
+			jMin = m < 0 ? -m : 0;
+			jMax = m + imRows > imRows ? imRows - m : imRows;
+			iMin = n < 0 ? -n : 0;
+			iMax = n + imCols > imCols ? imCols - n : imCols;
 
 			// Reset all counters
 			m1Avg = m2Avg = bitProd = denom1 = denom2 = 0.0;
 
 			// Calculate the overlapping segment averages
-			for (int i = iMin; i < iMax; i++) {
-				for (int j = jMin; j < jMax; j++) {
-					m1Avg += (double) m1.get_elementAt(i + xOff, j + yOff);
-					m2Avg += (double) m2.get_elementAt(i + xOff+ m, j + yOff + n);
+			for (int j = jMin; j < jMax; j++) {
+				for (int i = iMin; i < iMax; i++) {
+					m1Avg += (double) m1.get_elementAt(j + yOff, i + xOff);
+					m2Avg += (double) m2.get_elementAt(j + yOff + m, i + xOff+ n);
 				}
 			}
 
@@ -206,12 +203,12 @@ void XCorr2::xCorr2n(Matrix2<double>& ccf, Matrix2<T>& m1, Matrix2<T>& m2, int x
 			m2Avg /= (double) ((iMax - iMin) * (jMax - jMin));
 
 			// For each element in the overlapping regions sum the piecewise products of the elements minus the region average. Also calculate the two denominators
-			for (int i = iMin; i < iMax; i++) {
-				for (int j = jMin; j < jMax; j++) {
+			for (int j = jMin; j < jMax; j++) {
+				for (int i = iMin; i < iMax; i++) {
 					
-					bitProd += ((double) m1.get_elementAt(i + xOff, j + yOff) - m1Avg) * ((double) m2.get_elementAt(i + xOff + m, j + yOff + n) - m2Avg);
-					denom1 += ((double) m1.get_elementAt(i + xOff, j + yOff) - m1Avg) * ((double) m1.get_elementAt(i + xOff, j + yOff) - m1Avg);
-					denom2 += ((double) m2.get_elementAt(i + xOff + m, j + yOff +  n) - m2Avg) * ((double) m2.get_elementAt(i + xOff + m, j + yOff + n) - m2Avg);
+					bitProd += ((double) m1.get_elementAt(j + yOff, i + xOff) - m1Avg) * ((double) m2.get_elementAt( j + yOff + m, i + xOff + n) - m2Avg);
+					denom1 += ((double) m1.get_elementAt(j + yOff, i + xOff) - m1Avg) * ((double) m1.get_elementAt(j + yOff, i + xOff) - m1Avg);
+					denom2 += ((double) m2.get_elementAt(j + yOff +  m, i + xOff + n) - m2Avg) * ((double) m2.get_elementAt(j + yOff + m, i + xOff + n) - m2Avg);
 				}
 			}
 			// Put everything in and do not divide by zero

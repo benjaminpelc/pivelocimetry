@@ -118,11 +118,35 @@ CMakeFiles/OCVIClass.dir/int_map.cpp.o.provides: CMakeFiles/OCVIClass.dir/int_ma
 
 CMakeFiles/OCVIClass.dir/int_map.cpp.o.provides.build: CMakeFiles/OCVIClass.dir/int_map.cpp.o
 
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.o: CMakeFiles/OCVIClass.dir/flags.make
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.o: pivoptions.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ben/Dropbox/Development/C++/BPPIV/src/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/OCVIClass.dir/pivoptions.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/OCVIClass.dir/pivoptions.cpp.o -c /home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.cpp
+
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/OCVIClass.dir/pivoptions.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.cpp > CMakeFiles/OCVIClass.dir/pivoptions.cpp.i
+
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/OCVIClass.dir/pivoptions.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.cpp -o CMakeFiles/OCVIClass.dir/pivoptions.cpp.s
+
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.requires:
+.PHONY : CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.requires
+
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.provides: CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.requires
+	$(MAKE) -f CMakeFiles/OCVIClass.dir/build.make CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.provides.build
+.PHONY : CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.provides
+
+CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.provides.build: CMakeFiles/OCVIClass.dir/pivoptions.cpp.o
+
 # Object files for target OCVIClass
 OCVIClass_OBJECTS = \
 "CMakeFiles/OCVIClass.dir/main.cpp.o" \
 "CMakeFiles/OCVIClass.dir/ocv_image.cpp.o" \
-"CMakeFiles/OCVIClass.dir/int_map.cpp.o"
+"CMakeFiles/OCVIClass.dir/int_map.cpp.o" \
+"CMakeFiles/OCVIClass.dir/pivoptions.cpp.o"
 
 # External object files for target OCVIClass
 OCVIClass_EXTERNAL_OBJECTS =
@@ -130,6 +154,7 @@ OCVIClass_EXTERNAL_OBJECTS =
 /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: CMakeFiles/OCVIClass.dir/main.cpp.o
 /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: CMakeFiles/OCVIClass.dir/ocv_image.cpp.o
 /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: CMakeFiles/OCVIClass.dir/int_map.cpp.o
+/home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: CMakeFiles/OCVIClass.dir/pivoptions.cpp.o
 /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: CMakeFiles/OCVIClass.dir/build.make
 /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: /usr/lib/libopencv_videostab.so.2.4.10
 /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVIClass: /usr/lib/libopencv_ts.a
@@ -167,6 +192,7 @@ CMakeFiles/OCVIClass.dir/build: /home/ben/Dropbox/Development/C++/BPPIV/bin/OCVI
 CMakeFiles/OCVIClass.dir/requires: CMakeFiles/OCVIClass.dir/main.cpp.o.requires
 CMakeFiles/OCVIClass.dir/requires: CMakeFiles/OCVIClass.dir/ocv_image.cpp.o.requires
 CMakeFiles/OCVIClass.dir/requires: CMakeFiles/OCVIClass.dir/int_map.cpp.o.requires
+CMakeFiles/OCVIClass.dir/requires: CMakeFiles/OCVIClass.dir/pivoptions.cpp.o.requires
 .PHONY : CMakeFiles/OCVIClass.dir/requires
 
 CMakeFiles/OCVIClass.dir/clean:
