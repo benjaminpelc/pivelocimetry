@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 
 	/* Let us try and box the images into a pair
 	 * In effect, a pair of memory addresses to the two images?? */
-	std::pair<IntMap::Uptr&, IntMap::Uptr&> imagePair{i1, i2};
+	IntMap::Pair imagePair{i1, i2};
 
 	/* Load options from config file
 	 * Enable select config file from command line, failing that, use
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	// std::cout << g->get_coordPairsVector().begin()->second<< std::endl;
 
 	/* We have options, images and a grid, now do some PIV */
-	DoPiv p = DoPiv(analysisOptions, i1, i2, g);
+	DoPiv p = DoPiv(analysisOptions, imagePair, g);
 
 	/* ToDo:
 	 * 4) Find peaks in correlation function

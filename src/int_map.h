@@ -12,6 +12,7 @@ class IntMap:
 	public:
 		/* unique pointer typedef call with IntMap::Uptr */
 		typedef std::unique_ptr<IntMap> Uptr;
+		typedef std::pair<IntMap::Uptr&, IntMap::Uptr&> Pair;
 
 		IntMap(unsigned int rows, unsigned int cols); 
 		IntMap(IntMappable* raw);

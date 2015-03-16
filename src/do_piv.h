@@ -17,10 +17,7 @@ class DoPiv
 	public:
 		typedef std::vector<PIVPoint> PivPointVec;
 
-		DoPiv(PivOptions::Uptr& options,
-			  IntMap::Uptr& i1,
-			  IntMap::Uptr& i2,
-			  Grid::Uptr& g);
+		DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g);
 
 		~DoPiv();
 
@@ -33,7 +30,8 @@ class DoPiv
 /* Create a vector of PIVPoints when the object is instantiated, 
  * give constructor to instantiate CCF at correct size, 
  * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done */
-DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid::Uptr& g) 
+// DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid::Uptr& g) 
+DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) 
 	:   _noVectorsX(g->get_noPointsX()),
     	_noVectorsY(g->get_noPointsY()),
 		_vp(g->get_totalGridPoints(), PIVPoint(-1, -1, options))
@@ -59,7 +57,7 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 		 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
 		 * */
 		it->set_coords(*p);
-		XCorr2::xCorr2n(it->get_ccf(), i1, i2, *p, windowSize);
+		XCorr2::xCorr2n(it->get_ccf(), imPair.first, imPair.second, *p, windowSize);
 
 		/* Find some peaks from the correlation function and fill piv point's
 		 * peaks vector */
