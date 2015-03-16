@@ -53,8 +53,18 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 	auto p = g->get_coordPairsVector().begin();
 	int xc, yc;
 	while (it != _vp.end() && p != g->get_coordPairsVector().end()) {
-		// std::cout << "i: " << p->first << " " << p->second << std::endl;
-		/* Advance the iterators */
+		/* Should probably break these inner contents into s sub-method 
+		 * to increase readability 
+		 * something along the lines of:
+		 *
+		 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
+		 *
+		 * if we put image pairs in a container and make some 
+		 * tuples can reduce it to:
+		 *
+		 * void doPointPiv(it, I, X, W)
+		 *
+		 * */
 		xc = p->first;
 		yc = p->second;
 
