@@ -50,36 +50,56 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 	 * Rather than individual x and y coordinate vectors modify grid 
 	 * to return a vector of column major coordinates 
 	 */
-	for (auto xc : g->get_xCoordVector() ) {
-		for (auto yc : g->get_yCoordVector() ) {
-			/* Should probably break these inner contents into s sub-method 
-			 * to increase readability 
-			 * something along the lines of:
-			 *
-			 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
-			 *
-			 * if we put image pairs in a container and make some 
-			 * tuples can reduce it to:
-			 *
-			 * void doPointPiv(it, I, X, W)
-			 *
-			 * */
-			it->set_xCoord(xc);
-			it->set_yCoord(yc);
-			XCorr2::xCorr2n(it->get_ccf(), i1, i2, xc, yc, wX, wY);
-			
-			/* Find some peaks from the correlation function and fill piv point's
-			 * peaks vector */
-			it->get_ccf()->findPeaks(it->get_peaks(), 7);
+	auto p = g->get_coordPairsVector().begin();
+	int xc, yc;
+	while (it != _vp.end() && p != g->get_coordPairsVector().end()) {
+		// std::cout << "i: " << p->first << " " << p->second << std::endl;
+		/* Advance the iterators */
+		xc = p->first;
+		yc = p->second;
 
-			/* Get the subpixel displacements */
-			SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
+		it->set_xCoord(xc);
+		it->set_yCoord(yc);
+		XCorr2::xCorr2n(it->get_ccf(), i1, i2, xc, yc, wX, wY);
 
-			it++;
-			// break;
-		}
-		// break;
+		/* Find some peaks from the correlation function and fill piv point's
+		 * peaks vector */
+		it->get_ccf()->findPeaks(it->get_peaks(), 7);
+
+		/* Get the subpixel displacements */
+		SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
+		it++, p++;
 	}
+	// for (auto xc : g->get_xCoordVector() ) {
+	// 	for (auto yc : g->get_yCoordVector() ) {
+	// 		/* Should probably break these inner contents into s sub-method 
+	// 		 * to increase readability 
+	// 		 * something along the lines of:
+	// 		 *
+	// 		 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
+	// 		 *
+	// 		 * if we put image pairs in a container and make some 
+	// 		 * tuples can reduce it to:
+	// 		 *
+	// 		 * void doPointPiv(it, I, X, W)
+	// 		 *
+	// 		 * */
+	// 		it->set_xCoord(xc);
+	// 		it->set_yCoord(yc);
+	// 		XCorr2::xCorr2n(it->get_ccf(), i1, i2, xc, yc, wX, wY);
+	// 		
+	// 		/* Find some peaks from the correlation function and fill piv point's
+	// 		 * peaks vector */
+	// 		it->get_ccf()->findPeaks(it->get_peaks(), 7);
+    //
+	// 		/* Get the subpixel displacements */
+	// 		SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
+    //
+	// 		it++;
+	// 		// break;
+	// 	}
+	// 	// break;
+	// }
 	// std::cout << _vp[0].get_peaks()[0].get_val() << std::endl;
 	// std::cout << *_vp[0].get_ccf() << std::endl;
 	// std::cout << _vp[0].get_displacementsVector()[0].get_displacementX() << std::endl;
@@ -91,9 +111,9 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 	// std::cout << *_vp[0].get_ccf() << std::endl;
 	for (auto p : _vp)
 	{
-		std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
-			<< ", " << p.get_displacementsVector()[0].get_displacementX()
-			<< ", " << p.get_displacementsVector()[0].get_displacementY() << std::endl;
+		// std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
+		// 	<< ", " << p.get_displacementsVector()[0].get_displacementX()
+		// 	<< ", " << p.get_displacementsVector()[0].get_displacementY() << std::endl;
 	}
 	// std::cout << "Total vectors calculated: " << _vp.size() << std::endl;
 }

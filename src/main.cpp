@@ -35,6 +35,9 @@ int main(int argc, char** argv)
 
 	/* Create a grid */
 	Grid::Uptr g( new Grid(analysisOptions, i1));
+	
+	// std::cout << g->get_coordPairsVector().begin()->first << std::endl;
+	// std::cout << g->get_coordPairsVector().begin()->second<< std::endl;
 
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, i1, i2, g);
