@@ -41,8 +41,7 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 	/* Loop through each grid point:
 	 * 1) Set the correct coordinates
 	 * 2) Do the PIV */
-	int wX = options->get_windowWidth(),
-		wY = options->get_windowHeight();
+	std::pair<int, int> windowSize{options->get_windowWidth(), options->get_windowHeight()};
 	
 	/* Set an iterator to the start of the piv points vector */
 	auto it = _vp.begin();
@@ -65,12 +64,8 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 		 * void doPointPiv(it, I, X, W)
 		 *
 		 * */
-		xc = p->first;
-		yc = p->second;
-
-		it->set_xCoord(xc);
-		it->set_yCoord(yc);
-		XCorr2::xCorr2n(it->get_ccf(), i1, i2, xc, yc, wX, wY);
+		it->set_coords(*p);
+		XCorr2::xCorr2n(it->get_ccf(), i1, i2, *p, windowSize);
 
 		/* Find some peaks from the correlation function and fill piv point's
 		 * peaks vector */
@@ -80,36 +75,6 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 		SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
 		it++, p++;
 	}
-	// for (auto xc : g->get_xCoordVector() ) {
-	// 	for (auto yc : g->get_yCoordVector() ) {
-	// 		/* Should probably break these inner contents into s sub-method 
-	// 		 * to increase readability 
-	// 		 * something along the lines of:
-	// 		 *
-	// 		 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
-	// 		 *
-	// 		 * if we put image pairs in a container and make some 
-	// 		 * tuples can reduce it to:
-	// 		 *
-	// 		 * void doPointPiv(it, I, X, W)
-	// 		 *
-	// 		 * */
-	// 		it->set_xCoord(xc);
-	// 		it->set_yCoord(yc);
-	// 		XCorr2::xCorr2n(it->get_ccf(), i1, i2, xc, yc, wX, wY);
-	// 		
-	// 		/* Find some peaks from the correlation function and fill piv point's
-	// 		 * peaks vector */
-	// 		it->get_ccf()->findPeaks(it->get_peaks(), 7);
-    //
-	// 		/* Get the subpixel displacements */
-	// 		SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
-    //
-	// 		it++;
-	// 		// break;
-	// 	}
-	// 	// break;
-	// }
 	// std::cout << _vp[0].get_peaks()[0].get_val() << std::endl;
 	// std::cout << *_vp[0].get_ccf() << std::endl;
 	// std::cout << _vp[0].get_displacementsVector()[0].get_displacementX() << std::endl;

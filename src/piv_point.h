@@ -35,6 +35,7 @@ class PIVPoint
 
 		void set_xCoord(int x);
 		void set_yCoord(int y);
+		void set_coords(std::pair<int, int>& coords);
 
 		int get_xCoord();
 		int get_yCoord();
@@ -80,6 +81,13 @@ void PIVPoint::set_yCoord(int y)
 {
 	_j = y;
 }
+
+void PIVPoint::set_coords(std::pair<int, int>& coords)
+{
+	_i = coords.first;
+	_j = coords.second;
+}
+
 
 int PIVPoint::get_xCoord()
 {
