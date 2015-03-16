@@ -9,6 +9,7 @@
 #include "ccf.h"
 #include "int_map.h"
 #include "peak.h"
+#include "displacement.h"
 
 class PIVPoint
 {
@@ -17,7 +18,8 @@ class PIVPoint
 		~PIVPoint();
 
 		std::shared_ptr<CCF>& get_ccf();
-		std::vector<Peak>& get_peaks();
+		Peak::PeaksVec& get_peaks();
+		Displacement::DispVec& get_displacementsVector();
 
 		void set_xCoord(int x);
 		void set_yCoord(int y);
@@ -28,6 +30,7 @@ class PIVPoint
 	private:
 		std::shared_ptr<CCF> _ccf;
 		Peak::PeaksVec _peaksVector;
+		Displacement::DispVec _displacementsVector;
 		int _i, _j;
 	
 };
@@ -35,6 +38,7 @@ class PIVPoint
 PIVPoint::PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options) :
 	_ccf(std::make_shared<CCF>(options->get_windowHeight() + 1, options->get_windowWidth() + 1)),
 	_peaksVector(options->get_noPeaks()),
+	_displacementsVector(options->get_noPeaks()),
 	_i(xCoord),
 	_j(yCoord)
 {}
@@ -48,6 +52,12 @@ std::vector<Peak>& PIVPoint::get_peaks()
 {
 	return _peaksVector;
 }
+
+Displacement::DispVec& PIVPoint::get_displacementsVector()
+{
+	return _displacementsVector;
+}
+
 
 void PIVPoint::set_xCoord(int x)
 {

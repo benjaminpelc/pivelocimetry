@@ -69,7 +69,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		if (!valid) break;
 		valid = false; /* reset validity to false for next round */
 	
-		std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.get_val() << ",\t" << peak.get_isValid() << ")" << std::endl;
+		// std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.get_val() << ",\t" << peak.get_isValid() << ")" << std::endl;
 	}
 
 	// pv[0].set_val(maxVal);

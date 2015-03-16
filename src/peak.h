@@ -9,7 +9,7 @@ class Peak
 		typedef std::vector<Peak> PeaksVec;
 
 		Peak();
-		Peak(int i, int y, double v);
+		Peak(int i, int y, double v, bool torf);
 		~Peak();
 
 		/* Setters */
@@ -40,13 +40,15 @@ class Peak
 Peak::Peak() :
 	_i(-1),
 	_j(-1),
-	_val(-1.0)
+	_val(-1.0),
+	_isValid(false)
 {}
 
-Peak::Peak(int i, int j, double v) :
+Peak::Peak(int i, int j, double v, bool torf) :
 	_i(i),
 	_j(j),
-	_val(v)
+	_val(v),
+	_isValid(torf)
 {}
 
 void Peak::set_iCoord(int i)
