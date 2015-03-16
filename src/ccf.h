@@ -13,6 +13,8 @@
 class CCF : public Matrix2<double>
 {
 	public:
+		typedef std::shared_ptr<CCF> Sptr;
+
 		CCF(unsigned int rows, unsigned int cols);
 		~CCF();
 
@@ -43,11 +45,12 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
  	 * 1) Add independent maximum x and y displacements */
 
 	/* Define the boundary of the correlation function search region
-	 * pretty sure this needs 1 subtracting */
+	 * 1) pretty sure this needs 1 subtracting
+	 * 2) Add check to make sure maxDisp does not exceed CCF boundaries */
 	maxDisp = floor(_m / 2) - maxDisp;
 
 	double maxVal = -BIG_DOUBLE, /* Something silly big negative */
-		   cVal   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
+		   currentElement   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
 	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
 
 	/* coords of peack value, set to initial coord */
@@ -59,20 +62,21 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 
 	/* iterate through each of the number of peaks specified to search for */
 	for (auto& peak : pv) {
-		/* Loop through each point in the CCF matrix */
+		/* Loop through each point in the CCF matrix.
+		 * Using raw loop as index values as well as element values are required*/
 		for (int j = maxDisp; j < _m - maxDisp; j++) {
 			for (int i = maxDisp; i < _n - maxDisp; i++) {
-				cVal = _mat[j][i];
+				currentElement = _mat[j][i];
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( cVal > maxVal && cVal < preMax &&
-					 cVal > _mat[j][i-1] && cVal > _mat[j][i+1] &&
-					 cVal > _mat[j-1][i] && cVal > _mat[j+1][i])
+				if ( currentElement > maxVal && currentElement < preMax &&
+					 currentElement > _mat[j][i-1] && currentElement > _mat[j][i+1] &&
+					 currentElement > _mat[j-1][i] && currentElement > _mat[j+1][i])
 				{
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
-					maxVal = cVal;
+					maxVal = currentElement;
 					jC = j;
 					iC = i;
 					valid = true;

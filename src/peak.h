@@ -1,3 +1,11 @@
+/* Class Peak 
+ *
+ * Container class for a correlation function peak,
+ * Contains two integer correlation function coordinates and 
+ * the  correlation function value at those coordinates. 
+ * Contains a validity flag which can be switched on/off as 
+ * appropriate */
+
 #ifndef PEAK_H
 #define PEAK_H
 
@@ -36,7 +44,7 @@ class Peak
 };
 
 /* Default constructor
- * set all values to -1(.0) */
+ * set all values to -1(.0) and validity to false*/
 Peak::Peak() :
 	_i(-1),
 	_j(-1),
@@ -44,6 +52,7 @@ Peak::Peak() :
 	_isValid(false)
 {}
 
+/* Constructor with coordinates, peak value and validty */
 Peak::Peak(int i, int j, double v, bool torf) :
 	_i(i),
 	_j(j),
@@ -51,6 +60,7 @@ Peak::Peak(int i, int j, double v, bool torf) :
 	_isValid(torf)
 {}
 
+/* Setter methods */
 void Peak::set_iCoord(int i)
 {
 	_i = i;
@@ -71,6 +81,7 @@ void Peak::set_isValid(bool torf)
 	_isValid = torf;
 }
 
+/* Getter methods */
 int Peak::get_iCoord()
 {
 	return _i;

@@ -14,7 +14,7 @@ class Grid
 	public:
 		typedef std::unique_ptr<Grid> Uptr;
 
-		Grid(const std::unique_ptr<PivOptions>& config, const std::unique_ptr<IntMap>& image);
+		Grid(const PivOptions::Uptr& config, const std::unique_ptr<IntMap>& image);
 		~Grid();
 		int get_xCoord(int i);
 		int get_yCoord(int i);
@@ -32,7 +32,7 @@ class Grid
 };
 
 Grid::Grid(
-			const std::unique_ptr<PivOptions>& config,
+			const PivOptions::Uptr& config,
 			const std::unique_ptr<IntMap>& image 
 		) :
 	_pointsX(),
