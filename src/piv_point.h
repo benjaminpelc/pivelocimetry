@@ -45,7 +45,6 @@ class PIVPoint
 		Peak::PeaksVec _peaksVector;
 		Displacement::DispVec _displacementsVector;
 		int _i, _j;
-	
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options) :

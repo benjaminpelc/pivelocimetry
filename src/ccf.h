@@ -23,6 +23,7 @@ class CCF : public Matrix2<double>
 
 	private:	
 		const double BIG_DOUBLE = 9999999999.9;
+		bool inRange(double subject, double minimum, double maximum);
 };
 
 /* Constructor:
@@ -71,10 +72,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( currentElement > maxVal && currentElement < preMax && isLocalPeak(j, i) )
-					 // currentElement > _mat[j][i-1] && currentElement > _mat[j][i+1] &&
-					 // currentElement > _mat[j-1][i] && currentElement > _mat[j+1][i])
-				{
+				if ( inRange(currentElement, maxVal, preMax) && isLocalPeak(j, i) ) {
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
 					maxVal = currentElement;
@@ -103,12 +101,22 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	
 		// std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.get_val() << ",\t" << peak.get_isValid() << ")" << std::endl;
 	}
-	// pv[0].set_val(maxVal);
-	// pv[0].set_jCoord(jC); pv[0].set_iCoord(iC);
+}
+
+bool CCF::inRange(double subject, double minimum, double maximum)
+{
+	/* Returns true if the subject is greater than minimum and 
+	 * less than maximum 
+	 *
+	 * todo 
+	 * Template this into a general function */
+	return subject > minimum && subject < maximum;
 }
 
 bool CCF::isLocalPeak(int j, int i)
 {
+	/* Returns true if the point (i,j) has greater 
+	 * value than the four surrounding points */
     return _mat[j][i] > _mat[j][i-1] &&
            _mat[j][i] > _mat[j][i+1] &&
 	       _mat[j][i] > _mat[j-1][i] &&
