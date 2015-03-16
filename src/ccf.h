@@ -1,3 +1,9 @@
+/* Class CCF 
+ * Correlation function matrix for storing two dimensional cross-
+ * correlation values. 
+ * Inherits from Matrix2<double>
+ * Includes method for locating peaks */
+
 #ifndef CCF_H
 #define CCF_H
 
@@ -13,29 +19,42 @@ class CCF : public Matrix2<double>
 		void findPeaks(Peak::PeaksVec& pv, int maxDisp);
 
 	private:	
-					
+		const double BIG_DOUBLE = 9999999999.9;
 };
 
+/* Constructor:
+ * Must be passed with row and column number specifiers.
+ * Calls default Matrix2<double> constructor and sets values to -1 */
 CCF::CCF(unsigned int rows, unsigned int cols) : Matrix2<double>(rows, cols, -1.0) {}
 
+/* Destructor:
+ * Nothing exciting here, all memory is deallocated inside Matrix2 
+ * parent class */
 CCF::~CCF() {}
 
-/* FindPeaks
- * Find peaks in the correlation function. Pass a vector of peak objects to store
- * the results. The number of peaks searched for is dictated by the length of
- * the peak vector passed as an argument 
- *
- * ToDo
- * 1) Add independent maximum x and y displacements
- * 2) Add isValid bool, set to true if a peak is detected, leave as false if 
- * 	  no peak is found */
 void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 {
+	/* FindPeaks
+ 	 * Find peaks in the correlation function. Pass a vector of peak objects to store
+ 	 * the results. The number of peaks searched for is dictated by the length of
+ 	 * the peak vector passed as an argument.
+ 	 *
+ 	 * ToDo
+ 	 * 1) Add independent maximum x and y displacements */
+
+	/* Define the boundary of the correlation function search region
+	 * pretty sure this needs 1 subtracting */
 	maxDisp = floor(_m / 2) - maxDisp;
-	double maxVal = -9999999.9; /* Something silly big negative */
-	double cVal = _mat[maxDisp][maxDisp]; /* Current CCF value, set to initial value */
-	double preMax = 999999999.9; /* something silly big for first iteration */
-	int jC = maxDisp, iC = maxDisp; /* coords of peack value, set to initial coord */
+
+	double maxVal = -BIG_DOUBLE, /* Something silly big negative */
+		   cVal   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
+	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
+
+	/* coords of peack value, set to initial coord */
+	int jC = maxDisp,
+		iC = maxDisp; 
+	
+	/* Be cynical, do not believe any peak to be automatically valid */
 	bool valid = false;
 
 	/* iterate through each of the number of peaks specified to search for */
@@ -44,10 +63,15 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		for (int j = maxDisp; j < _m - maxDisp; j++) {
 			for (int i = maxDisp; i < _n - maxDisp; i++) {
 				cVal = _mat[j][i];
-				/* Check surrounding values to make sure it is in fact a peak value */
-				if (cVal > maxVal && cVal < preMax &&
-						cVal > _mat[j][i-1] && cVal > _mat[j][i+1] && cVal > _mat[j-1][i] && cVal > _mat[j+1][i] )
+				/* Check to see if point is larger than current max but smaller than 
+				 * the previous peak. Check surrounding values to make sure it is in 
+				 * fact a peak value */
+				if ( cVal > maxVal && cVal < preMax &&
+					 cVal > _mat[j][i-1] && cVal > _mat[j][i+1] &&
+					 cVal > _mat[j-1][i] && cVal > _mat[j+1][i])
 				{
+					/* All things being good, update the current peak value, coords
+					 * and validity. These will be used if no other peak is found */
 					maxVal = cVal;
 					jC = j;
 					iC = i;
@@ -61,8 +85,11 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		peak.set_iCoord(iC);
 		peak.set_jCoord(jC);
 		peak.set_isValid(valid);
+
+		/* Set preMax to the current peak max, funture peaks will have to be
+		 * smaller than this. Also set maxVal back to something silly neg */
 		preMax = maxVal;
-		maxVal = -99999999.9;
+		maxVal = -BIG_DOUBLE;
 		
 		/* Once valid peaks have stopped turning up we really should not bother
 		 * to continue, so we will break out of the peak vector loop */
@@ -71,7 +98,6 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	
 		// std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.get_val() << ",\t" << peak.get_isValid() << ")" << std::endl;
 	}
-
 	// pv[0].set_val(maxVal);
 	// pv[0].set_jCoord(jC); pv[0].set_iCoord(iC);
 }

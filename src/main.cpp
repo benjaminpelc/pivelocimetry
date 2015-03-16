@@ -39,11 +39,6 @@ int main(int argc, char** argv)
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, i1, i2, g);
 
-	// Peak pk = {15, 18, 0.943};
-	// std::cout << pk.get_iCoord() << std::endl;
-	// std::cout << pk.get_jCoord() << std::endl;
-	// std::cout << pk.get_val() << std::endl;
-
 	/* ToDo:
 	 * 4) Find peaks in correlation function
 	 * 5) Calculate sub-pixel displacements for peaks

@@ -26,7 +26,7 @@ void SubPixlel::gauss(std::shared_ptr<CCF>& ccf, Peak::PeaksVec& peaks, Displace
 	/* Calculate displacements for each peak */
 	auto p = peaks.begin();
 	auto d = displacements.begin();
-	while ( p->get_isValid() && p != peaks.end() ){
+	while ( p->get_isValid() && p != peaks.end() && d != displacements.end() ){
 		// std::cout << "In Gauss, peak locs: " << p->get_iCoord() << std::endl;
 		i = p->get_iCoord();
 		j = p->get_jCoord();
@@ -47,13 +47,9 @@ void SubPixlel::gauss(std::shared_ptr<CCF>& ccf, Peak::PeaksVec& peaks, Displace
 			d->set_isValid(true);
 			d->set_displacementX(dx);
 			d->set_displacementY(dy);
-			
 		} else {
 			break;
 		}
-		// i + ( log(getMatrix()(j,i-1))-log(getMatrix()(j,i+1)) )
-		// 	/ ( 2*log(getMatrix()(j,i-1)) - 4*log(getMatrix()(j,i)) + 2*log(getMatrix()(j,i+1)) ) - getMatrix().cols()/2;
-
 		p++;
 		d++;
 	}

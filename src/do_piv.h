@@ -71,11 +71,11 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 	// std::cout << *_vp[0].get_ccf() << std::endl;
 	for (auto p : _vp)
 	{
-		std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
-			<< ", " << p.get_displacementsVector()[0].get_displacementX()
-			<< ", " << p.get_displacementsVector()[0].get_displacementY() << std::endl;
+		// std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
+		// 	<< ", " << p.get_displacementsVector()[0].get_displacementX()
+		// 	<< ", " << p.get_displacementsVector()[0].get_displacementY() << std::endl;
 	}
-	std::cout << "Total vectors calculated: " << _vp.size() << std::endl;
+	// std::cout << "Total vectors calculated: " << _vp.size() << std::endl;
 }
 
 DoPiv::~DoPiv() {}
