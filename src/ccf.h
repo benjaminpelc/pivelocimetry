@@ -19,6 +19,7 @@ class CCF : public Matrix2<double>
 		~CCF();
 
 		void findPeaks(Peak::PeaksVec& pv, int maxDisp);
+		bool isLocalPeak(int j, int i);
 
 	private:	
 		const double BIG_DOUBLE = 9999999999.9;
@@ -70,9 +71,9 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( currentElement > maxVal && currentElement < preMax &&
-					 currentElement > _mat[j][i-1] && currentElement > _mat[j][i+1] &&
-					 currentElement > _mat[j-1][i] && currentElement > _mat[j+1][i])
+				if ( currentElement > maxVal && currentElement < preMax && isLocalPeak(j, i) )
+					 // currentElement > _mat[j][i-1] && currentElement > _mat[j][i+1] &&
+					 // currentElement > _mat[j-1][i] && currentElement > _mat[j+1][i])
 				{
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
@@ -104,6 +105,14 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	}
 	// pv[0].set_val(maxVal);
 	// pv[0].set_jCoord(jC); pv[0].set_iCoord(iC);
+}
+
+bool CCF::isLocalPeak(int j, int i)
+{
+    return _mat[j][i] > _mat[j][i-1] &&
+           _mat[j][i] > _mat[j][i+1] &&
+	       _mat[j][i] > _mat[j-1][i] &&
+	       _mat[j][i] > _mat[j+1][i];
 }
 
 #endif

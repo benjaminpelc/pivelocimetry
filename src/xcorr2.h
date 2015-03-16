@@ -27,7 +27,9 @@ class XCorr2
 		// static void xCorr2n(Matrix2<double>& mat, Matrix2<T>& m1, Matrix2<T>& m2, int x0, int y0, int wx, int wy);
 		// static void xCorr2n(CCF::Sptr& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2, int x0, int y0, int wx, int wy);
 		// static void xCorr2n(CCF::Sptr& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2, std::pair<int, int>& coordPair, int wx, int wy);
-		static void xCorr2n(CCF::Sptr& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2,
+		// static void xCorr2n(CCF::Sptr& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2,
+		// 		std::pair<int, int>& coordPair, std::pair<int, int>& window);
+		static void xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imagePair,
 				std::pair<int, int>& coordPair, std::pair<int, int>& window);
 	private:
 };
@@ -154,13 +156,16 @@ void XCorr2::xCorr2m(
 }
 
 // template<typename T>
-void XCorr2::xCorr2n(CCF::Sptr& ccf, std::unique_ptr<IntMap>& m1, std::unique_ptr<IntMap>& m2, std::pair<int, int>& coordPair, std::pair<int, int>& window)
+void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imagePair, std::pair<int, int>& coordPair, std::pair<int, int>& window)
 {
 	int x0 = coordPair.first,
 		y0 = coordPair.second;
 
 	int wx = window.first,
 		wy = window.second;
+
+	IntMap::Uptr& m1 = imagePair.first;
+	IntMap::Uptr& m2 = imagePair.second;
 
 	// Row and column counts of CCF
 	int ccfRows = ccf->get_numRows(),

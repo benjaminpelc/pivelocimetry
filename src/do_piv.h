@@ -18,63 +18,79 @@ class DoPiv
 		typedef std::vector<PIVPoint> PivPointVec;
 
 		DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g);
+		void printPoints();
 
 		~DoPiv();
 
 	private:
+		void theBusiness(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& windowSize);
 		int _noVectorsX,
 			_noVectorsY;
-		PivPointVec _vp;
+		PivPointVec _vectorPointVec;
 };
 
 /* Create a vector of PIVPoints when the object is instantiated, 
  * give constructor to instantiate CCF at correct size, 
- * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done */
-// DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid::Uptr& g) 
-DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) 
-	:   _noVectorsX(g->get_noPointsX()),
+ * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done 
+ *
+ * Once vector points have been initiated loop through each point with 
+ * an individual pair of interrogation region coordinates and do the PIV 
+ * calculation for each point */
+DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) :  
+		_noVectorsX(g->get_noPointsX()),
     	_noVectorsY(g->get_noPointsY()),
-		_vp(g->get_totalGridPoints(), PIVPoint(-1, -1, options))
+		_vectorPointVec(g->get_totalGridPoints(), PIVPoint(-1, -1, options))
 {
-	/* Loop through each grid point:
-	 * 1) Set the correct coordinates
-	 * 2) Do the PIV */
+	/* Put window width and height in an integer pair. 
+	 * Refactor this making it obtainable directly from options object */
 	std::pair<int, int> windowSize{options->get_windowWidth(), options->get_windowHeight()};
 	
-	/* Set an iterator to the start of the piv points vector */
-	auto it = _vp.begin();
-	/* Double looping through each coordinate is ugly and tiresome.
-	 * Rather than individual x and y coordinate vectors modify grid 
-	 * to return a vector of column major coordinates 
-	 */
-	auto p = g->get_coordPairsVector().begin();
-	int xc, yc;
-	while (it != _vp.end() && p != g->get_coordPairsVector().end()) {
-		/* Should probably break these inner contents into s sub-method 
-		 * to increase readability 
-		 * something along the lines of:
-		 *
-		 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
-		 * */
-		it->set_coords(*p);
-		XCorr2::xCorr2n(it->get_ccf(), imPair.first, imPair.second, *p, windowSize);
-
-		/* Find some peaks from the correlation function and fill piv point's
-		 * peaks vector */
-		it->get_ccf()->findPeaks(it->get_peaks(), 7);
-
-		/* Get the subpixel displacements */
-		SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
-		it++, p++;
+	/* Loop through each grid point: */
+	/* The number of points is the same as the number of coordinates. Always */
+	/* Set an iterator to the start of the piv points vector */	
+	auto coordPair = g->get_coordPairsVector().begin();
+	for (auto& vectorPoint : _vectorPointVec) {
+		theBusiness(vectorPoint, *(coordPair++), imPair, windowSize);
 	}
 	
-	// for (auto p : _vp) {
-	// 	std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
-	// 		<< ", " << p.get_displacementsVector()[0].get_displacementX()
-	// 		<< ", " << p.get_displacementsVector()[0].get_displacementY() << std::endl;
-	// }
-	
-	std::cout << "Total vectors calculated: " << _vp.size() << std::endl;
+	// printPoints();
+}
+
+void DoPiv::theBusiness(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& windowSize)
+{
+	/* Steps to do the PIV analysis for the current interrogation window 
+	 * 1) set the pivPoint coordinates
+	 * 2) do the cross-correlation
+	 * 3) find the correlation function peaks
+	 * 4) calculate the total displacements using sub-pixel peak fitting
+	 */
+
+	/* The ccf and peaks are referenced multiple times so create 
+	 * pointers to clean up a little */
+	CCF::Sptr& ccf        = pivPoint.get_ccf();
+	Peak::PeaksVec& peaks = pivPoint.get_peaks();
+
+	/* Store coords and do the cross-correlation */
+	pivPoint.set_coords(coordPair);
+	XCorr2::xCorr2n(ccf, images, coordPair, windowSize);
+
+	/* Here the maximum search value needs replacing with variable */
+	ccf->findPeaks(peaks, 7);
+	SubPixlel::gauss(ccf, peaks, pivPoint.get_displacementsVector());
+}
+
+void DoPiv::printPoints()
+{
+	/* Print the points and the displacements to screen
+	 *
+	 * todo:
+	 * Tidy this up */
+	for (auto p : _vectorPointVec) {
+		std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
+			<< ", " << p.get_displacementsVector()[0].get_displacementX()
+			<< ", " << p.get_displacementsVector()[0].get_displacementY() << std::endl;
+	}
+	std::cout << "Total vectors calculated: " << _vectorPointVec.size() << std::endl;
 }
 
 DoPiv::~DoPiv() {}

@@ -35,7 +35,7 @@ class PIVPoint
 
 		void set_xCoord(int x);
 		void set_yCoord(int y);
-		void set_coords(std::pair<int, int>& coords);
+		void set_coords(Grid::CoordPair& coords);
 
 		int get_xCoord();
 		int get_yCoord();
