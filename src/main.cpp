@@ -24,6 +24,10 @@ int main(int argc, char** argv)
 	IntMap::Uptr i1(new IntMap(rawIm1)),
 	             i2(new IntMap(rawIm2));
 
+	/* Let us try and box the images into a pair
+	 * In effect, a pair of memory addresses to the two images?? */
+	std::pair<IntMap::Uptr&, IntMap::Uptr&> imagePair{i1, i2};
+
 	/* Load options from config file
 	 * Enable select config file from command line, failing that, use
 	 * a default config file 

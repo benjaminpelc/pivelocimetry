@@ -57,12 +57,6 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 		 * something along the lines of:
 		 *
 		 * void doPointPiv(it, i1, i2, xy, yc, wX, wY)
-		 *
-		 * if we put image pairs in a container and make some 
-		 * tuples can reduce it to:
-		 *
-		 * void doPointPiv(it, I, X, W)
-		 *
 		 * */
 		it->set_coords(*p);
 		XCorr2::xCorr2n(it->get_ccf(), i1, i2, *p, windowSize);
@@ -75,15 +69,6 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Uptr& i1, IntMap::Uptr& i2, Grid
 		SubPixlel::gauss(it->get_ccf(), it->get_peaks(), it->get_displacementsVector());
 		it++, p++;
 	}
-	// std::cout << _vp[0].get_peaks()[0].get_val() << std::endl;
-	// std::cout << *_vp[0].get_ccf() << std::endl;
-	// std::cout << _vp[0].get_displacementsVector()[0].get_displacementX() << std::endl;
-	// std::cout << _vp[0].get_displacementsVector()[0].get_displacementY() << std::endl;
-
-	// std::cout << _vp[10].get_xCoord() << std::endl;
-	// std::cout << _vp[10].get_yCoord() << std::endl;
-	// std::cout << "Vectors calculated: " << _vp.size() << std::endl;
-	// std::cout << *_vp[0].get_ccf() << std::endl;
 	
 	// for (auto p : _vp) {
 	// 	std::cout << "x, y, u, v: " << p.get_xCoord() << ", " << p.get_yCoord() 
