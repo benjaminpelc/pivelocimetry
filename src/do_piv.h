@@ -41,19 +41,13 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) :
     	_noVectorsY(g->get_noPointsY()),
 		_vectorPointVec(g->get_totalGridPoints(), PIVPoint(-1, -1, options))
 {
-	/* Put window width and height in an integer pair. 
-	 * Refactor this making it obtainable directly from options object */
-	std::pair<int, int> windowSize{options->get_windowWidth(), options->get_windowHeight()};
-	
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
 	auto coordPair = g->get_coordPairsVector().begin();
 	for (auto& vectorPoint : _vectorPointVec) {
-		theBusiness(vectorPoint, *(coordPair++), imPair, windowSize);
+		theBusiness(vectorPoint, *(coordPair++), imPair, options->get_windowSize());
 	}
-	
-	// printPoints();
 }
 
 void DoPiv::theBusiness(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& windowSize)

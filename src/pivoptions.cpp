@@ -26,7 +26,9 @@ PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 	_noPeaks = !optionMap["num_ccf_peaks"].empty() ?
 		atoi(optionMap["num_ccf_peaks"].c_str()) : 3;
 
-	
+	/* Put window dimensions in a pair */
+	_windowSize.first = _windowWidth;
+	_windowSize.second = _windowHeight;
 }
 
 // Destructor
@@ -56,6 +58,11 @@ int PivOptions::get_overlapVert()
 int PivOptions::get_noPeaks()
 {
 	return _noPeaks;
+}
+
+std::pair<int, int>& PivOptions::get_windowSize()
+{
+	return _windowSize;
 }
 
 // Setters

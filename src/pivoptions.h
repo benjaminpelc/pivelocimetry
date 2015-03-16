@@ -9,6 +9,7 @@ class PivOptions
 {
 	public:
 		typedef std::unique_ptr<PivOptions> Uptr;
+		typedef std::map<int, int> WinSizePair;
 			
 		PivOptions();
 		PivOptions(std::map<std::string, std::string> optionMap);
@@ -20,6 +21,7 @@ class PivOptions
 		int get_overlapHoriz();
 		int get_overlapVert();
 		int get_noPeaks();
+		std::pair<int, int>& get_windowSize();
 
 		// Setters
 		void set_windowWidth(int x);
@@ -38,5 +40,6 @@ class PivOptions
 			_overlapHoriz,
 			_overlapVert,
 			_noPeaks;
+		std::pair<int, int> _windowSize;
 };
 #endif
