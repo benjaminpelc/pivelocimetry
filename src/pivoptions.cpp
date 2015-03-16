@@ -9,26 +9,31 @@ PivOptions::PivOptions() {}
 PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 {
 	/* Check for window size */
-	_windowWidth = !optionMap["interrogation_window_x"].empty() ?
-		atoi(optionMap["interrogation_window_x"].c_str()) : 16;
-
-	_windowHeight = !optionMap["interrogation_window_y"].empty() ?
-		atoi(optionMap["interrogation_window_y"].c_str()) : 16;
+	_windowWidth = keyExistsToInt(optionMap, "interrogation_window_x", 16);
+	_windowHeight = keyExistsToInt(optionMap, "interrogation_window_y", 16);;
 
 	/* Check for overlap */
-	_overlapHoriz = !optionMap["window_overlap_x"].empty() ?
-		atoi(optionMap["window_overlap_x"].c_str()) : 0;
-
-	_overlapVert = !optionMap["window_overlap_y"].empty() ?
-		atoi(optionMap["window_overlap_y"].c_str()) : 0;
+	_overlapHoriz = keyExistsToInt(optionMap, "window_overlap_x", 0);
+	_overlapVert = keyExistsToInt(optionMap, "window_overlap_y", 0);
 
 	/* Check for number of correlation peaks to find */
-	_noPeaks = !optionMap["num_ccf_peaks"].empty() ?
-		atoi(optionMap["num_ccf_peaks"].c_str()) : 3;
+	_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
 
 	/* Put window dimensions in a pair */
 	_windowSize.first = _windowWidth;
 	_windowSize.second = _windowHeight;
+}
+
+int PivOptions::keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal)
+{
+	/* If the value of the map with key key is an empty string then 
+	 * return a default integer otherwise convert the string to an 
+	 * integer.
+	 *
+	 * todo:
+	 * 1) Add some checking, if string conversion is unsuccessful return 
+	 * 	  the default integer. */
+	return !optMap[key].empty() ? atoi(optMap[key].c_str()) : defaultVal;
 }
 
 // Destructor
@@ -94,5 +99,6 @@ void PivOptions::set_noPeaks(int n)
 void PivOptions::print()
 {
 	std::cout << "Ix: " << _windowWidth << "\tIy: " << _windowHeight << 
-		"\nOx: " << _overlapHoriz << "\tOy: " << _overlapVert << std::endl;
+		"\nOx: " << _overlapHoriz << "\tOy: " << _overlapVert << 
+		"\nNo peaks: " << _noPeaks << std::endl;
 }

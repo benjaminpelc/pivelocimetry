@@ -37,6 +37,8 @@ int main(int argc, char** argv)
 				ConfigFile::parse("../config/default.cfg")
 			));	
 
+	// analysisOptions->print();
+
 	/* Create a grid */
 	Grid::Uptr g( new Grid(analysisOptions, i1));
 	
@@ -45,6 +47,7 @@ int main(int argc, char** argv)
 
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, imagePair, g);
+	p.writeToFile("../my_shiny_vectors.txt");
 	// p.printPoints();
 	/* ToDo:
 	 * 4) Find peaks in correlation function

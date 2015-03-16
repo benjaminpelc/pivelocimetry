@@ -41,5 +41,7 @@ class PivOptions
 			_overlapVert,
 			_noPeaks;
 		std::pair<int, int> _windowSize;
+
+		static int keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal);
 };
 #endif

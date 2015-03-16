@@ -15,6 +15,7 @@
 
 #include <memory>
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 #include "pivoptions.h"
@@ -39,18 +40,22 @@ class PIVPoint
 
 		int get_xCoord();
 		int get_yCoord();
+		
+		Displacement& get_primaryDisplacement();
+		void printToOfstream(std::ofstream& file);
+		
 
 	private:
 		CCF::Sptr _ccf;
 		Peak::PeaksVec _peaksVector;
-		Displacement::DispVec _displacementsVector;
+		Displacement::DispVec _dispsVec;
 		int _i, _j;
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options) :
 	_ccf(std::make_shared<CCF>(options->get_windowHeight() + 1, options->get_windowWidth() + 1)),
 	_peaksVector(options->get_noPeaks()),
-	_displacementsVector(options->get_noPeaks()),
+	_dispsVec(options->get_noPeaks()),
 	_i(xCoord),
 	_j(yCoord)
 {}
@@ -67,9 +72,33 @@ Peak::PeaksVec& PIVPoint::get_peaks()
 
 Displacement::DispVec& PIVPoint::get_displacementsVector()
 {
-	return _displacementsVector;
+	return _dispsVec;
 }
 
+
+Displacement& PIVPoint::get_primaryDisplacement()
+{
+	return _dispsVec[0];
+}
+
+void PIVPoint::printToOfstream(std::ofstream& file)
+{
+	/* write the point to file in 
+	 * x y u v 
+	 * tab delimited format 
+	 *
+	 * todo
+	 * 1) Specifiy delim
+	 * 2) Specify precision
+	 * 3) Add things like peak ratios and whatnot */
+	if (_dispsVec[0].get_isValid()) {
+	file << _i << "\t" << _j << "\t"
+		 << _dispsVec[0].get_displacementX() << "\t"
+		 << _dispsVec[0].get_displacementY() << "\t"
+		 << std::endl;
+	}
+}
+		
 
 void PIVPoint::set_xCoord(int x)
 {
