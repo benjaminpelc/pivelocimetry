@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/home/ben/Dropbox/Development/C++/BPPIV/lib/clap.h
+iostream
+-
+algorithm
+-
+
+/home/ben/Dropbox/Development/C++/BPPIV/src/bppiv_clap.h
+../lib/clap.h
+/home/ben/Dropbox/Development/C++/BPPIV/lib/clap.h
+
 /home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
 matrix2.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
@@ -87,6 +97,8 @@ pivoptions.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/pivoptions.h
 peak.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/peak.h
+bppiv_clap.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/bppiv_clap.h
 memory
 -
 

@@ -5,12 +5,14 @@
 #include "ocv_image.h"
 #include "pivoptions.h"
 #include "peak.h"
+#include "bppiv_clap.h"
 #include <memory>
 
 int main(int argc, char** argv)
 {
 	// CLI Args
 	// std::cout << "argc: " << argc << std::endl;
+	PivClap clArgs(argc, argv);
 
 	/* Load a raw images and extract pixel intensity maps
 	 * ToDo:
@@ -48,7 +50,7 @@ int main(int argc, char** argv)
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, imagePair, g);
 	// p.writeToFile("../my_shiny_vectors.txt");
-	p.printPoints();
+	if (clArgs.printResults()) p.printPoints();
 	/* ToDo:
 	 * 4) Find peaks in correlation function
 	 * 5) Calculate sub-pixel displacements for peaks

@@ -86,8 +86,9 @@ void DoPiv::writeToFile(const std::string filename)
 	std::ofstream outfile(filename);
 
 	/* Use for each passing each point to a lambda which calls the 
-	 * point to be printed to the ofstream */ 
-	std::for_each(_pointsVec.begin(), _pointsVec.end(), [&outfile](auto pivPoint){ 
+	 * point to be printed to the ofstream. Be sure to pass by reference as 
+	 * usual. */ 
+	std::for_each(_pointsVec.begin(), _pointsVec.end(), [&outfile](auto &pivPoint){ 
 						pivPoint.printToOfstream(outfile);
 				});
 
