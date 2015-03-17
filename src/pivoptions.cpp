@@ -9,18 +9,18 @@ PivOptions::PivOptions() {}
 PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 {
 	/* Check for window size */
-	_windowWidth = keyExistsToInt(optionMap, "interrogation_window_x", 16);
+	_windowWidth  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
 	_windowHeight = keyExistsToInt(optionMap, "interrogation_window_y", 16);;
 
 	/* Check for overlap */
 	_overlapHoriz = keyExistsToInt(optionMap, "window_overlap_x", 0);
-	_overlapVert = keyExistsToInt(optionMap, "window_overlap_y", 0);
+	_overlapVert  = keyExistsToInt(optionMap, "window_overlap_y", 0);
 
 	/* Check for number of correlation peaks to find */
 	_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
 
 	/* Put window dimensions in a pair */
-	_windowSize.first = _windowWidth;
+	_windowSize.first  = _windowWidth;
 	_windowSize.second = _windowHeight;
 }
 

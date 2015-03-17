@@ -22,6 +22,8 @@ class Matrix2
 		// GETTERS
 		int get_numRows();
 		int get_numCols();
+		int numElems();
+		T getElem(int idx);
 		T get_elementAt(int j, int i);
 		T get_max();
 		T get_min();
@@ -85,6 +87,15 @@ void Matrix2<T>::set_elem(int j, int i, T c)
 }
 
 // GETTER METHODS
+
+template<typename T>
+T Matrix2<T>::getElem(int idx)
+{
+	/* Return the ith element which is equal to 
+	 * */
+	return *_mat[idx];
+}
+
 template<typename T>
 int Matrix2<T>::get_numRows()
 {
@@ -95,6 +106,12 @@ template<typename T>
 int Matrix2<T>::get_numCols()
 {
 	return _n;
+}
+
+template<typename T>
+int Matrix2<T>::numElems()
+{
+	return _n * _m;
 }
 
 // Get element at
