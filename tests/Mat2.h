@@ -13,6 +13,7 @@ template<typename T>
 class Mat2
 {
 	public:
+		Mat2(unsigned int rows, unsigned int cols);
 		Mat2(unsigned int rows, unsigned int cols, T v);
 		~Mat2();
 
@@ -40,6 +41,17 @@ class Mat2
 };
 
 #endif
+
+template<typename T>
+Mat2<T>::Mat2(unsigned int rows, unsigned int cols) :
+	_size(rows * cols),
+	_rows(rows),
+	_cols(cols)
+{
+	/* Constructor, must provide the number of rows, number of 
+	 * columns and an initial value */
+	_mat = new T[_size]{0};
+}
 
 template<typename T>
 Mat2<T>::Mat2(unsigned int rows, unsigned int cols, T v) :

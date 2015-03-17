@@ -9,6 +9,8 @@
 /home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
 matrix2.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
+../tests/Mat2.h
+/home/ben/Dropbox/Development/C++/BPPIV/tests/Mat2.h
 peak.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/peak.h
 
@@ -162,6 +164,12 @@ int_map.h
 matrix2.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
 math.h
+-
+memory
+-
+
+/home/ben/Dropbox/Development/C++/BPPIV/tests/Mat2.h
+iostream
 -
 memory
 -

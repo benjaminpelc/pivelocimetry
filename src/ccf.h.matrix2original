@@ -8,11 +8,9 @@
 #define CCF_H
 
 #include "matrix2.h"
-#include "../tests/Mat2.h"
 #include "peak.h"
 
-// class CCF : public Matrix2<double>
-class CCF : public Mat2<double>
+class CCF : public Matrix2<double>
 {
 	public:
 		typedef std::shared_ptr<CCF> Sptr;
@@ -21,7 +19,7 @@ class CCF : public Mat2<double>
 		~CCF();
 
 		void findPeaks(Peak::PeaksVec& pv, int maxDisp);
-		bool isLocalPeak(int j);
+		bool isLocalPeak(int j, int i);
 
 	private:	
 		const double BIG_DOUBLE = 9999999999.9;
@@ -33,8 +31,7 @@ class CCF : public Mat2<double>
  * Calls default Matrix2<double> constructor.
  * Removed initializing elements to -1.0 for efficiency increase. Be
  * careful though, perhaps add a validity flag. */
-// CCF::CCF(unsigned int rows, unsigned int cols) : Matrix2<double>(rows, cols) {}
-CCF::CCF(unsigned int rows, unsigned int cols) : Mat2<double>(rows, cols) {}
+CCF::CCF(unsigned int rows, unsigned int cols) : Matrix2<double>(rows, cols) {}
 
 /* Destructor:
  * Nothing exciting here, all memory is deallocated inside Matrix2 
@@ -57,30 +54,28 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	maxDisp = floor(_rows / 2) - maxDisp;
 
 	double maxVal = -BIG_DOUBLE, /* Something silly big negative */
-		   // currentElement   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
-		   currentElement   = _mat[_cols * maxDisp + maxDisp], /* Current CCF value, set to initial value */
+		   currentElement   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
 	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
 
 	/* coords of peack value, set to initial coord */
 	int jC = maxDisp,
-		iC = maxDisp,
-		idx;
+		iC = maxDisp; 
 	
 	/* Be cynical, do not believe any peak to be automatically valid */
 	bool valid = false;
 
+	/* iterate through each of the number of peaks specified to search for */
 	/* iterate through each of the number of peaks specified to search for */
 	for (auto& peak : pv) {
 		/* Loop through each point in the CCF matrix.
 		 * Using raw loop as index values as well as element values are required*/
 		for (int j = maxDisp; j < _rows - maxDisp; j++) {
 			for (int i = maxDisp; i < _cols - maxDisp; i++) {
-				idx = _cols * j + i;
-				currentElement = _mat[idx];
+				currentElement = _mat[j][i];
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( inRange(currentElement, maxVal, preMax) && isLocalPeak(idx) ) {
+				if ( inRange(currentElement, maxVal, preMax) && isLocalPeak(j, i) ) {
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
 					maxVal = currentElement;
@@ -104,7 +99,6 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		
 		/* Once valid peaks have stopped turning up we really should not bother
 		 * to continue, so we will break out of the peak vector loop */
-		/** to continue, so we will break out of the peak vector loop */
 		if (!valid) break;
 		valid = false; /* reset validity to false for next round */
 	
@@ -122,21 +116,14 @@ bool CCF::inRange(double subject, double minimum, double maximum)
 	return subject > minimum && subject < maximum;
 }
 
-// bool CCF::isLocalPeak(int j, int i)
-bool CCF::isLocalPeak(int i)
+bool CCF::isLocalPeak(int j, int i)
 {
 	/* Returns true if the point (i,j) has greater 
 	 * value than the four surrounding points */
-    /*
-     * return _mat[_cols * j + i] > _mat[_cols * j + i-1] &&
-     *        _mat[_cols * j + i] > _mat[_cols * j + i+1] &&
-	 *        _mat[_cols * j + i] > _mat[_cols * (j-1) + i] &&
-	 *        _mat[_cols * j + i] > _mat[_cols * (j+1) + i];
-     */
-     return _mat[i] > _mat[i - _cols] &&
-            _mat[i] > _mat[i + _cols] &&
-	        _mat[i] > _mat[i + 1] &&
-	        _mat[i] > _mat[i - 1];
+    return _mat[j][i] > _mat[j][i-1] &&
+           _mat[j][i] > _mat[j][i+1] &&
+	       _mat[j][i] > _mat[j-1][i] &&
+	       _mat[j][i] > _mat[j+1][i];
 }
 
 #endif
