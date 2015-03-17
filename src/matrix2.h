@@ -16,15 +16,15 @@ class Matrix2
 		~Matrix2();
 		
 		// SETTERS
-		void set_all(T a);
-		void set_elem(int j, int i, T a);
+		void all(T a);
+		void setElem(int j, int i, T a);
 
 		// GETTERS
-		int get_numRows();
-		int get_numCols();
-		int numElems();
+		int rows();
+		int cols();
+		int size();
 		T getElem(int idx);
-		T get_elementAt(int j, int i);
+		T getElem(int j, int i);
 		T get_max();
 		T get_min();
 		T get_sum();
@@ -66,12 +66,12 @@ Matrix2<T>::Matrix2(int a, int b, T c) : _m(a), _n(b)
 {
 	// Allocate the memory
 	allocate_array_memory(a, b);
-	set_all(c);
+	all(c);
 }
 
 // SETTER METHODS
 template<typename T>
-void Matrix2<T>::set_all(T a)
+void Matrix2<T>::all(T a)
 {
 	for (int i = 0; i < _m; i++) {
 		for (int j = 0; j < _n; j++) {
@@ -81,7 +81,7 @@ void Matrix2<T>::set_all(T a)
 }
 
 template<typename T>
-void Matrix2<T>::set_elem(int j, int i, T c)
+void Matrix2<T>::setElem(int j, int i, T c)
 {
 	_mat[j][i] = c;
 }
@@ -97,26 +97,26 @@ T Matrix2<T>::getElem(int idx)
 }
 
 template<typename T>
-int Matrix2<T>::get_numRows()
+int Matrix2<T>::rows()
 {
 	return _m;
 }
 
 template<typename T>
-int Matrix2<T>::get_numCols()
+int Matrix2<T>::cols()
 {
 	return _n;
 }
 
 template<typename T>
-int Matrix2<T>::numElems()
+int Matrix2<T>::size()
 {
 	return _n * _m;
 }
 
 // Get element at
 template<typename T>
-T Matrix2<T>::get_elementAt(int j, int i)
+T Matrix2<T>::getElem(int j, int i)
 {
 	return _mat[j][i];
 }

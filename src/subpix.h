@@ -24,8 +24,8 @@ void SubPixlel::gauss(CCF::Sptr& ccf, Peak::PeaksVec& peaks, Displacement::DispV
 	double dx, dy;
 
 	/* Offset value make central row and colum the zero displacent */
-	int offsetX = floor(ccf->get_numCols() / 2),
-		offsetY = floor(ccf->get_numRows() / 2);
+	int offsetX = floor(ccf->cols() / 2),
+		offsetY = floor(ccf->rows() / 2);
 
 	/* Calculate displacements for each peak */
 	auto p = peaks.begin();
@@ -38,18 +38,18 @@ void SubPixlel::gauss(CCF::Sptr& ccf, Peak::PeaksVec& peaks, Displacement::DispV
 		/* Calculate x and y subpixel displacements, this is messy. Consider refactoring into 
 		 * numerator, denominator and offset as:
 		 * dx = i + numer / denom - offset */
-		dx = i + ( log(ccf->get_elementAt(j, i-1)) - log(ccf->get_elementAt(j, i + 1))    ) /
+		dx = i + ( log(ccf->getElem(j, i-1)) - log(ccf->getElem(j, i + 1))    ) /
 			(
-				 2*log(ccf->get_elementAt(j, i-1)) -
-				 4*log(ccf->get_elementAt(j,i)) +
-				 2*log(ccf->get_elementAt(j,i+1))
+				 2*log(ccf->getElem(j, i-1)) -
+				 4*log(ccf->getElem(j,i)) +
+				 2*log(ccf->getElem(j,i+1))
 			) - offsetX; 
 
-		dy = j + ( log(ccf->get_elementAt(j-1, i)) - log(ccf->get_elementAt(j+1, i))    ) /
+		dy = j + ( log(ccf->getElem(j-1, i)) - log(ccf->getElem(j+1, i))    ) /
 			(
-				 2*log(ccf->get_elementAt(j-1, i)) -
-				 4*log(ccf->get_elementAt(j,i)) +
-				 2*log(ccf->get_elementAt(j+1,i))
+				 2*log(ccf->getElem(j-1, i)) -
+				 4*log(ccf->getElem(j,i)) +
+				 2*log(ccf->getElem(j+1,i))
 			) - offsetY;
 
 		/* A number is only not equal to itself iff it is a NaN. If the peak is invalid, 

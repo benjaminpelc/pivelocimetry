@@ -8,7 +8,7 @@ IntMap::IntMap(IntMappable* raw) : Matrix2<unsigned int>(raw->getHeight(), raw->
 
 	for (int j = 0; j < raw->getHeight(); j++) {
 		for (int i = 0; i < wdth; i++) {
-			set_elem(j, i, raw->getPixelIntensity(j, i));
+			setElem(j, i, raw->getPixelIntensity(j, i));
 		}
 	}
 }
@@ -19,7 +19,7 @@ IntMap::IntMap(const std::unique_ptr<IntMappable>& raw) : Matrix2<unsigned int>(
 
 	for (int j = 0; j < raw->getHeight(); j++) {
 		for (int i = 0; i < wdth; i++) {
-			set_elem(j, i, raw->getPixelIntensity(j, i));
+			setElem(j, i, raw->getPixelIntensity(j, i));
 		}
 	}
 }

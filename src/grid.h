@@ -49,8 +49,8 @@ Grid::Grid(
 	_coordsVector()
 {
 	/* Get the image width and height */
-	int imW = image->get_numCols(),
-		imH = image->get_numRows(),
+	int imW = image->cols(),
+		imH = image->rows(),
 		winW = config->get_windowWidth(),
 		winH = config->get_windowHeight(),
 		ovlpX = config->get_overlapHoriz(),

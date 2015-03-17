@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, imagePair, g);
 	// p.writeToFile("../my_shiny_vectors.txt");
-	// p.printPoints();
+	p.printPoints();
 	/* ToDo:
 	 * 4) Find peaks in correlation function
 	 * 5) Calculate sub-pixel displacements for peaks

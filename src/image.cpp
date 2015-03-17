@@ -31,17 +31,17 @@ void Image::readImageFromFile()
 		   *p; //= pixels + 7 * rowstride + 7 * n_channels;
 	
 	// _pixelArray = new Matrix2<int>(height, width, 0);
-	std::cout << _pixelArray.get_numRows() << " x " << _pixelArray.get_numCols() << std::endl;
+	std::cout << _pixelArray.rows() << " x " << _pixelArray.cols() << std::endl;
 
 	for(int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			p = pixels + i * rowstride + j * n_channels;
-				_pixelArray.set_elem(i, j, (int) p[0]);
+				_pixelArray.setElem(i, j, (int) p[0]);
 		}
 	}
 	std::cout << _pixelArray << std::cout;
 }
 
 void Image::get_pixelArray() {
-	std::cout << _pixelArray.get_numRows() << std::endl;
+	std::cout << _pixelArray.rows() << std::endl;
 }
