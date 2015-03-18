@@ -11,6 +11,9 @@
 #include <memory>
 #include <iostream>
 #include <cmath>
+#include <map>
+#include <utility>
+#include <algorithm>
 
 #include "int_map.h"
 #include "pivoptions.h"
@@ -34,19 +37,19 @@ class Grid
 		std::vector<CoordPair>& get_coordPairsVector();
 
 	private:
-		int _noVectorsX, _noVectorsY;
-		std::vector<int> _pointsX,
-						 _pointsY;
-		std::vector<CoordPair> _coordsVector;	
+		int _noX, _noY;
+		std::vector<int> _ptsX,
+						 _ptsY;
+		std::vector<CoordPair> _coords;	
 };
 
 Grid::Grid(
 			const PivOptions::Uptr& config,
 			const std::unique_ptr<IntMap>& image 
 		) :
-	_pointsX(),
-	_pointsY(),
-	_coordsVector()
+	_ptsX(),
+	_ptsY(),
+	_coords()
 {
 	/* Get the image width and height */
 	int imW = image->cols(),
@@ -56,83 +59,86 @@ Grid::Grid(
 		ovlpX = config->get_overlapHoriz(),
 		ovlpY = config->get_overlapVert();
 
-	/* Number of vectors in the x and y directions.
-	 * 
-	 * ToDo:
-	 * 1) Have repetition here, extract out as a lambda. */
-	auto totalPointsInDirection = [](int imageDim, int windowDim, int olp) -> int {
-		return floor ( (imageDim - windowDim) / (windowDim - olp) + 1);
+	/* Number of vectors in the x and y directions.*/
+	auto noPointsInDirn = [](int imDim, int winDim, int olp) -> int {
+		return floor ( (imDim - winDim) / (winDim - olp) + 1);
 	};
-	// _noVectorsX = (int) floor( (imW - winW) / (winW - ovlpX) + 1); 
-	_noVectorsX = totalPointsInDirection(imW, winW, ovlpX);
-	_noVectorsY = totalPointsInDirection(imH, winH, ovlpY); 
+
+	_noX = noPointsInDirn(imW, winW, ovlpX);
+	_noY = noPointsInDirn(imH, winH, ovlpY); 
 
 	/* Initialize vectors of x and y grid points */
-	_pointsX.resize(_noVectorsX);
-	_pointsY.resize(_noVectorsY);
+	_ptsX.resize(_noX);
+	_ptsY.resize(_noY);
 
 	/* Set length of vector to store coordinate points */
-	_coordsVector.resize(_noVectorsX * _noVectorsY);
+	_coords.resize(_noX * _noY);
 
-	for (int i = 0; i < _noVectorsX; i++)
-	{
-		_pointsX[i] = (winW - ovlpX) * i - 1 + winW / 2;
-	}
+	int i = 0, j = 0;
 
-	for (int j = 0; j < _noVectorsY; j++)
-	{
-		_pointsY[j] = (winH - ovlpY) * j - 1 + winH / 2;
-	}
+	/* Have repetition here. Perhaps refactor out */
+	std::for_each(_ptsX.begin(), _ptsX.end(), [&](int& x) {
+				x = (winW - ovlpX) * (i++) -1 + winW / 2; 
+			});
+	
+	std::for_each(_ptsY.begin(), _ptsY.end(), [&](int& y) {
+				y = (winH - ovlpY) * (j++) -1 + winH / 2; 
+			});
 
-	auto cv = _coordsVector.begin();
-	for (auto y : _pointsY) {
-		for (auto x : _pointsX) {
-			cv->first = x;
-			cv->second = y;
-			cv++;
-		}
-	}
+	/* do not need the indy point vectors */
+	
+	// auto cv = _coords.begin();
+	// for (auto y : _ptsY) {
+	// 	for (auto x : _ptsX) {
+	// 		*(cv++) = std::make_pair(x, y);
+	// 	}
+	// }
+	int ctr = 0;
+	std::for_each(_coords.begin(), _coords.end(), [&](auto &c) {
+			c = std::make_pair(_ptsX[ctr % _noX], _ptsY[floor (ctr / _noX)]);
+			ctr++;
+	});
 }
 
 Grid::~Grid() {};
 
 int Grid::get_xCoord(int i)
 {
-	return _pointsX[i];
+	return _ptsX[i];
 }
 
 int Grid::get_yCoord(int i)
 {
-	return _pointsY[i];
+	return _ptsY[i];
 }
 
 int Grid::get_noPointsX()
 {
-	return _pointsX.size();
+	return _ptsX.size();
 }
 
 int Grid::get_noPointsY()
 {
-	return _pointsY.size();
+	return _ptsY.size();
 }
 
 int Grid::get_totalGridPoints()
 {
-	return _pointsX.size() * _pointsY.size();
+	return _ptsX.size() * _ptsY.size();
 }
 
 std::vector<int>& Grid::get_xCoordVector()
 {
-	return _pointsX;
+	return _ptsX;
 }
 
 std::vector<int>& Grid::get_yCoordVector()
 {
-	return _pointsY;
+	return _ptsY;
 }
 
 std::vector<Grid::CoordPair>& Grid::get_coordPairsVector()
 {
-	return _coordsVector;
+	return _coords;
 }
 #endif
