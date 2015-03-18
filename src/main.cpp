@@ -7,7 +7,6 @@
 #include "peak.h"
 #include "bppiv_clap.h"
 #include <memory>
-#include <set>
 
 int main(int argc, char** argv)
 {

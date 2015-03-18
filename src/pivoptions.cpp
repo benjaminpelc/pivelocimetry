@@ -4,8 +4,8 @@
 PivOptions::PivOptions() :
 		_windowWidth(16),
 		_windowHeight(16),
-		_overlapHoriz(0),
-		_overlapVert(0),
+		_overlapHoriz(8),
+		_overlapVert(8),
 		_noPeaks(3),
 		_windowSize(16,16)
 {
