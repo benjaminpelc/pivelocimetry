@@ -67,6 +67,12 @@ iostream
 -
 cmath
 -
+map
+-
+utility
+-
+algorithm
+-
 int_map.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/int_map.h
 pivoptions.h

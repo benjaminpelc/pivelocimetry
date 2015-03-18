@@ -57,6 +57,10 @@ TEST_CASE( "Grid: Square Image"){
 		CHECK(coordsVec[2364].first == 271);
 		CHECK(coordsVec[2364].second == 303);
 	}
+
+	SECTION( "Should be ordered by row then column (x1, y1), (x2, y1)..." ) {
+		CHECK(coordsVec[0].second == coordsVec[1].second);
+	}
 }
 
 TEST_CASE( "Grid: Rectangular Image"){
@@ -101,7 +105,7 @@ TEST_CASE( "Grid: Rectangular Image"){
 	
 	SECTION( "Point 273  should be (7, 7)" ) {
 		CHECK(coordsVec[273].first == 207);
-		CHECK(coordsVec[272].second == 71);
+		CHECK(coordsVec[273].second == 71);
 	}
 	
 
