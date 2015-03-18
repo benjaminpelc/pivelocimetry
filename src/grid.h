@@ -60,8 +60,12 @@ Grid::Grid(
 	 * 
 	 * ToDo:
 	 * 1) Have repetition here, extract out as a lambda. */
-	_noVectorsX = (int) floor( (imW - winW) / (winW - ovlpX) + 1); 
-	_noVectorsY = (int) floor( (imH - winH) / (winH - ovlpY) + 1); 
+	auto totalPointsInDirection = [](int imageDim, int windowDim, int olp) -> int {
+		return floor ( (imageDim - windowDim) / (windowDim - olp) + 1);
+	};
+	// _noVectorsX = (int) floor( (imW - winW) / (winW - ovlpX) + 1); 
+	_noVectorsX = totalPointsInDirection(imW, winW, ovlpX);
+	_noVectorsY = totalPointsInDirection(imH, winH, ovlpY); 
 
 	/* Initialize vectors of x and y grid points */
 	_pointsX.resize(_noVectorsX);
