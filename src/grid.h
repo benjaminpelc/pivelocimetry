@@ -30,7 +30,7 @@ class Grid
 		int get_yCoord(int i);
 		int get_noPointsX();
 		int get_noPointsY();
-		int get_totalGridPoints();
+		int numPoints();
 
 		std::vector<int>& get_xCoordVector();
 		std::vector<int>& get_yCoordVector();
@@ -114,7 +114,7 @@ int Grid::get_noPointsY()
 	return _ptsY.size();
 }
 
-int Grid::get_totalGridPoints()
+int Grid::numPoints()
 {
 	return _ptsX.size() * _ptsY.size();
 }

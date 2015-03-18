@@ -43,7 +43,7 @@ class DoPiv
 DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) :  
 		_noVectorsX(g->get_noPointsX()),
     	_noVectorsY(g->get_noPointsY()),
-		_pointsVec(g->get_totalGridPoints(), PIVPoint(-1, -1, options))
+		_pointsVec(g->numPoints(), PIVPoint(-1, -1, options))
 {
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */

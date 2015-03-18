@@ -39,7 +39,7 @@ TEST_CASE( "Grid: Square Image"){
 	}
 	
 	SECTION( "Total grid points should equal 3969" ) {
-		CHECK(g.get_totalGridPoints() == 3969);
+		CHECK(g.numPoints() == 3969);
 	}
 	
 	auto coordsVec = g.get_coordPairsVector();
@@ -89,7 +89,7 @@ TEST_CASE( "Grid: Rectangular Image"){
 	}
 	
 	SECTION( "Total grid points should equal 1956" ) {
-		CHECK(g.get_totalGridPoints() == 1953);
+		CHECK(g.numPoints() == 1953);
 	}
 	
 	auto coordsVec = g.get_coordPairsVector();
