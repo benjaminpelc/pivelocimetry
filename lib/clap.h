@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <algorithm>
+#include <string>
+#include <set>
 
 class Clap
 {
@@ -27,6 +29,7 @@ class Clap
 		std::vector<std::string> flagArgs(const std::string flag);
 
 		FlagArgsMap& getFlagsWithArgs();
+		std::set<std::string> _flags;
 
 	private:
 		int _argc;
@@ -35,7 +38,6 @@ class Clap
 		void getFlags();
 		static bool isFlag(const std::string a) { return a[0] == '-'; };
 
-		std::set<std::string> _flags;
 		FlagArgsMap _flagArgsMap;
 
 };
@@ -46,14 +48,10 @@ Clap::Clap(int argc, char** argv) :
 	_flags(),
 	_flagArgsMap()
 {
-	// std::cout << "Hello, in Clap" << std::endl;
-	// std::for_each(begin(), end(), [](auto &a){ std::cout << a << std::endl; }  );
 	getFlags();
-
-
-	// _flagArgsMap["-p"] = flagArgs("-o");
-
-	std::for_each(_flags.begin(), _flags.end(), [&](auto &s) { this->_flagArgsMap[s] = this->flagArgs(s);  });	
+	std::for_each(_flags.begin(), _flags.end(), [&](auto &s) {
+				this->_flagArgsMap[s] = this->flagArgs(s);
+			});	
 }
 
 std::set<std::string>& Clap::flagSet()
@@ -70,19 +68,19 @@ std::vector<std::string> Clap::flagArgs(const std::string flag)
 {
 	std::vector<std::string> flagArgsVec;
 	
-	if (hasParam(flag)) {
-		auto ittr = std::find(begin(), end(), flag) + 1;
-		std::find_if(ittr, end(), [&flagArgsVec](auto s) { 
-				if (isFlag(s)) return true; 
-				else flagArgsVec.push_back(s); 
-				return false; 
-			});
-	}
+	auto ittr = std::find(begin(), end(), flag) + 1;
+
+	std::find_if(ittr, end(), [&flagArgsVec](auto s) { 
+			if (isFlag(s)) return true; 
+			else flagArgsVec.push_back(s); 
+			return false; 
+		});
+	
 	return flagArgsVec;
 }
 
 void Clap::getFlags() {
-	std::for_each(begin(), end(), [=](auto &a) {
+	std::for_each(begin(), end(), [&](auto &a) {
 				if (isFlag(a)) _flags.insert(a);
 			});
 }

@@ -1,7 +1,15 @@
 #include "pivoptions.h"
 
 // Constructor
-PivOptions::PivOptions() {}
+PivOptions::PivOptions() :
+		_windowWidth(16),
+		_windowHeight(16),
+		_overlapHoriz(0),
+		_overlapVert(0),
+		_noPeaks(3),
+		_windowSize(16,16)
+{
+}
 
 /*
  * Constructor for when given a map of key value pairs

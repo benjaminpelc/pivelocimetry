@@ -11,6 +11,10 @@ iostream
 -
 algorithm
 -
+string
+-
+set
+-
 
 /home/ben/Dropbox/Development/C++/BPPIV/src/bppiv_clap.h
 ../lib/clap.h
@@ -100,6 +104,8 @@ peak.h
 bppiv_clap.h
 /home/ben/Dropbox/Development/C++/BPPIV/src/bppiv_clap.h
 memory
+-
+set
 -
 
 /home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h

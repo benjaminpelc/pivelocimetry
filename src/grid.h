@@ -56,13 +56,12 @@ Grid::Grid(
 		ovlpX = config->get_overlapHoriz(),
 		ovlpY = config->get_overlapVert();
 
-	/* Number of vectors in the x and y directions */
-	_noVectorsX = (int) floor(
-				(imW - winW) / (winW - ovlpX) + 1
-			); 
-	_noVectorsY = (int) floor(
-				(imH - winH) / (winH - ovlpY) + 1
-			); 
+	/* Number of vectors in the x and y directions.
+	 * 
+	 * ToDo:
+	 * 1) Have repetition here, extract out as a lambda. */
+	_noVectorsX = (int) floor( (imW - winW) / (winW - ovlpX) + 1); 
+	_noVectorsY = (int) floor( (imH - winH) / (winH - ovlpY) + 1); 
 
 	/* Initialize vectors of x and y grid points */
 	_pointsX.resize(_noVectorsX);

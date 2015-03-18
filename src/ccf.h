@@ -133,7 +133,9 @@ bool CCF::isLocalPeak(int i)
 	 *        _mat[_cols * j + i] > _mat[_cols * (j-1) + i] &&
 	 *        _mat[_cols * j + i] > _mat[_cols * (j+1) + i];
      */
-     return _mat[i] > _mat[i - _cols] &&
+
+    /* Dangerous as is, can access elements out of range */
+    return _mat[i] > _mat[i - _cols] &&
             _mat[i] > _mat[i + _cols] &&
 	        _mat[i] > _mat[i + 1] &&
 	        _mat[i] > _mat[i - 1];
