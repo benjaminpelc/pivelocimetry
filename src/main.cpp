@@ -10,14 +10,17 @@
 
 int main(int argc, char** argv)
 {
-	// CLI Args
-	// std::cout << "argc: " << argc << std::endl;
+	/* Arguments 
+	 * Do all parsing up front and raise exceptions if something is wrong
+	 * and end the program.
+	 *
+	 * No point doing any PIV if say write output to file is selected but no
+	 * filename is provided */
 	PivClap clArgs(argc, argv);
 
-	/* Load a raw images and extract pixel intensity maps
-	 * ToDo:
-	 * 1) Create object containing a pair of IntMaps instantiated with a pair of filename
-	 *    arguments. */
+	// return 0;
+
+	/* Load a raw images and extract pixel intensity maps */
 	std::unique_ptr<IntMappable> rawIm1(new OCVImage("../img/1.bmp")),
 								 rawIm2(new OCVImage("../img/2.bmp"));
 
@@ -49,12 +52,14 @@ int main(int argc, char** argv)
 
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, imagePair, g);
+	
+	/* if -o flag is supplied with a filename, write to it */
+	if (clArgs.hasParam("-o")) p.writeToFile(clArgs.getParam("-o"));
 	// p.writeToFile("../my_shiny_vectors.txt");
+
+	/* if -p is passed at command line print vector results to screen when 
+	 * all is done */
 	if (clArgs.printResults()) p.printPoints();
-	/* ToDo:
-	 * 4) Find peaks in correlation function
-	 * 5) Calculate sub-pixel displacements for peaks
-	 * 6) Export results */
 
 	return 0;
 }

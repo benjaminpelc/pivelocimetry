@@ -11,6 +11,10 @@ class PivClap :
 
 		bool printResults() { return hasFlag("-p"); };
 
+		/* Want a method that tells you off if the flag specified 
+		 * requires an option */
+		
+
 	private:
 
 };
