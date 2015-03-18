@@ -23,26 +23,26 @@ TEST_CASE( "Grid: Square Image"){
 	Grid g(opt, im);
 
 	SECTION( "Number of x grid points should equal 63") {
-		CHECK(g.get_noPointsX() == 63);
+		CHECK(g.numX() == 63);
 	}
 
 	SECTION( "Number of y grid points should equal 63") {
-		CHECK(g.get_noPointsY() == 63);
+		CHECK(g.numY() == 63);
 	}
 
 	SECTION( "Length of x coordinate vector should equal 63" ) {
-		CHECK(g.get_xCoordVector().size() == 63);
+		CHECK(g.xVector().size() == 63);
 	}
 	
 	SECTION( "Length of y coordinate vector should equal 63" ) {
-		CHECK(g.get_yCoordVector().size() == 63);
+		CHECK(g.yVector().size() == 63);
 	}
 	
 	SECTION( "Total grid points should equal 3969" ) {
 		CHECK(g.numPoints() == 3969);
 	}
 	
-	auto coordsVec = g.get_coordPairsVector();
+	auto coordsVec = g.coordsVec();
 
 	SECTION( "Coord pair vector should have size 3969" ) {
 		CHECK(coordsVec.size() == 3969);
@@ -73,26 +73,26 @@ TEST_CASE( "Grid: Rectangular Image"){
 	Grid g(opt, im);
 
 	SECTION( "Number of x grid points should equal 31") {
-		CHECK(g.get_noPointsX() == 31);
+		CHECK(g.numX() == 31);
 	}
 
 	SECTION( "Number of y grid points should equal 63") {
-		CHECK(g.get_noPointsY() == 63);
+		CHECK(g.numY() == 63);
 	}
 
 	SECTION( "Length of x coordinate vector should equal 63" ) {
-		CHECK(g.get_xCoordVector().size() == 31);
+		CHECK(g.xVector().size() == 31);
 	}
 	
 	SECTION( "Length of y coordinate vector should equal 63" ) {
-		CHECK(g.get_yCoordVector().size() == 63);
+		CHECK(g.yVector().size() == 63);
 	}
 	
 	SECTION( "Total grid points should equal 1956" ) {
 		CHECK(g.numPoints() == 1953);
 	}
 	
-	auto coordsVec = g.get_coordPairsVector();
+	auto coordsVec = g.coordsVec();
 
 	SECTION( "Coord pair vector should have size 1953" ) {
 		CHECK(coordsVec.size() == 1953);
