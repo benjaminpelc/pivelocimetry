@@ -16,31 +16,31 @@ class PivOptions
 		~PivOptions();
 
 		// Getters
-		int get_windowWidth();
-		int get_windowHeight();
-		int get_overlapHoriz();
-		int get_overlapVert();
-		int get_noPeaks();
-		std::pair<int, int>& get_windowSize();
+		int winWidth();
+		int winHeight();
+		int olvpHoriz();
+		int olvpVert();
+		int numPeaks();
+		std::pair<int, int>& winSize();
 
 		// Setters
-		void set_windowWidth(int x);
-		void set_windowHeight(int x);
-		void set_overlapHoriz(int x);
-		void set_overlapVert(int x);
-		void set_noPeaks(int n);
+		void setWinWidth(int x);
+		void setWinHeight(int x);
+		void setOvlpHoriz(int x);
+		void setOvlpVert(int x);
+		void setNumPeaks(int n);
 
 		// Print in console
 		void print();
 
 	private:
 		// Properties
-		int _windowWidth,
-			_windowHeight,
-			_overlapHoriz,
-			_overlapVert,
+		int _winWidth,
+			_winHeight,
+			_ovlpHoriz,
+			_ovlpVert,
 			_noPeaks;
-		std::pair<int, int> _windowSize;
+		std::pair<int, int> _winSize;
 
 		static int keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal);
 };

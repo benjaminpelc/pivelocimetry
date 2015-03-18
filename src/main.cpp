@@ -47,19 +47,19 @@ int main(int argc, char** argv)
 	/* Create a grid */
 	Grid::Uptr g( new Grid(analysisOptions, i1));
 	
-	// std::cout << g->get_coordPairsVector().begin()->first << std::endl;
-	// std::cout << g->get_coordPairsVector().begin()->second<< std::endl;
+	// std::cout << g->coordsVec().begin()->first << std::endl;
+	// std::cout << g->coordsVec().begin()->second<< std::endl;
 
 	/* We have options, images and a grid, now do some PIV */
 	DoPiv p = DoPiv(analysisOptions, imagePair, g);
 	
 	/* if -o flag is supplied with a filename, write to it */
-	if (clArgs.hasParam("-o")) p.writeToFile(clArgs.getParam("-o"));
-	// p.writeToFile("../my_shiny_vectors.txt");
+	if (clArgs.hasParam("-o")) p.write(clArgs.getParam("-o"));
+	// p.write("../my_shiny_vectors.txt");
 
 	/* if -p is passed at command line print vector results to screen when 
 	 * all is done */
-	if (clArgs.printResults()) p.printPoints();
+	if (clArgs.printResults()) p.print();
 
 	return 0;
 }

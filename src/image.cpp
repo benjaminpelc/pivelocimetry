@@ -18,7 +18,7 @@ std::string Image::get_filename()
 	return _filename;
 }
 
-void Image::readImageFromFile()
+void Image::readFromFile()
 {
 	std::cout << _pixelArray;
 	_pixBuff = Gdk::Pixbuf::create_from_file(get_filename());

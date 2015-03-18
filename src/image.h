@@ -15,7 +15,7 @@ class Image
 
 		// Setters 
 		void set_filename(std::string fn);
-		void readImageFromFile();
+		void readFromFile();
 
 		// Getters
 		std::string get_filename();
