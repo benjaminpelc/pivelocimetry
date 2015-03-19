@@ -7,7 +7,6 @@
 #ifndef CCF_H
 #define CCF_H
 
-#include "matrix2.h"
 #include "../tests/Mat2.h"
 #include "peak.h"
 
@@ -57,8 +56,8 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	maxDisp = floor(_rows / 2) - maxDisp;
 
 	double maxVal = -BIG_DOUBLE, /* Something silly big negative */
-		   // currentElement   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
-		   currentElement   = _mat[_cols * maxDisp + maxDisp], /* Current CCF value, set to initial value */
+		   // currentElem   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
+		   currentElem   = _mat[_cols * maxDisp + maxDisp], /* Current CCF value, set to initial value */
 	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
 
 	/* coords of peack value, set to initial coord */
@@ -76,14 +75,14 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		for (int j = maxDisp; j < _rows - maxDisp; j++) {
 			for (int i = maxDisp; i < _cols - maxDisp; i++) {
 				idx = _cols * j + i;
-				currentElement = _mat[idx];
+				currentElem = _mat[idx];
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( inRange(currentElement, maxVal, preMax) && isLocalPeak(idx) ) {
+				if ( inRange(currentElem, maxVal, preMax) && isLocalPeak(idx) ) {
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
-					maxVal = currentElement;
+					maxVal = currentElem;
 					jC = j;
 					iC = i;
 					valid = true;
@@ -92,10 +91,10 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		}
 
 		/* punch in the values for this peak */
-		peak.set_val(maxVal);
+		peak.setVal(maxVal);
 		peak.set_iCoord(iC);
 		peak.set_jCoord(jC);
-		peak.set_isValid(valid);
+		peak.setValid(valid);
 
 		/* Set preMax to the current peak max, funture peaks will have to be
 		 * smaller than this. Also set maxVal back to something silly neg */
@@ -108,7 +107,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		if (!valid) break;
 		valid = false; /* reset validity to false for next round */
 	
-		// std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.get_val() << ",\t" << peak.get_isValid() << ")" << std::endl;
+		// std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.val() << ",\t" << peak.valid() << ")" << std::endl;
 	}
 }
 

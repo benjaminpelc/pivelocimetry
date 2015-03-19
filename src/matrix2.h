@@ -25,11 +25,11 @@ class Matrix2
 		int size();
 		T getElem(int idx);
 		T getElem(int j, int i);
-		T get_max();
-		T get_min();
-		T get_sum();
-		double get_average();
-		double get_std(bool biased = false);
+		T max();
+		T min();
+		T sum();
+		double mean();
+		double stdev(bool biased = false);
 
 		// SCALE
 		void scale(T scaleFactor);
@@ -123,7 +123,7 @@ T Matrix2<T>::getElem(int j, int i)
 
 // Get maximum value
 template<typename T>
-T Matrix2<T>::get_max()
+T Matrix2<T>::max()
 {
 	// Set max to first value in array
 	T max = _mat[0][0];
@@ -141,7 +141,7 @@ T Matrix2<T>::get_max()
 
 // Get minimum value
 template<typename T>
-T Matrix2<T>::get_min()
+T Matrix2<T>::min()
 {
 	// Set min to first value in array
 	T min = _mat[0][0];
@@ -159,7 +159,7 @@ T Matrix2<T>::get_min()
 
 // Get the matrix sum
 template<typename T>
-T Matrix2<T>::get_sum()
+T Matrix2<T>::sum()
 {
 	T sum = 0;
 	for (int i = 0; i < _rows; i++) {
@@ -172,15 +172,15 @@ T Matrix2<T>::get_sum()
 
 // Return the average value of the array
 template<typename T>
-double Matrix2<T>::get_average()
+double Matrix2<T>::mean()
 {
-	return (double) get_sum() / (double) (_rows * _cols);
+	return (double) sum() / (double) (_rows * _cols);
 }
 
 template<typename T>
-double Matrix2<T>::get_std(bool biased)
+double Matrix2<T>::stdev(bool biased)
 {
-	double avg = get_average();
+	double avg = mean();
 	double std = 0.0;
 	double deviation;
 

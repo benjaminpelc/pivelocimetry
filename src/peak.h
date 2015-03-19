@@ -23,21 +23,21 @@ class Peak
 		/* Setters */
 		void set_iCoord(int i);
 		void set_jCoord(int j);
-		void set_val(double val);
-		void set_isValid(bool torf);
+		void setVal(double val);
+		void setValid(bool torf);
 
 		/* Getters */
 		int get_iCoord();
 		int get_jCoord();
-		double get_val();
-		bool get_isValid();
+		double val();
+		bool valid();
 		
 
 	private:
 		int _i,
 			_j;
 
-		bool _isValid;
+		bool _valid;
 
 		double _val;
 		
@@ -49,7 +49,7 @@ Peak::Peak() :
 	_i(-1),
 	_j(-1),
 	_val(-1.0),
-	_isValid(false)
+	_valid(false)
 {}
 
 /* Constructor with coordinates, peak value and validty */
@@ -57,7 +57,7 @@ Peak::Peak(int i, int j, double v, bool torf) :
 	_i(i),
 	_j(j),
 	_val(v),
-	_isValid(torf)
+	_valid(torf)
 {}
 
 /* Setter methods */
@@ -71,14 +71,14 @@ void Peak::set_jCoord(int j)
 	_j = j;
 }
 
-void Peak::set_val(double v)
+void Peak::setVal(double v)
 {
 	_val = v;
 }
 
-void Peak::set_isValid(bool torf)
+void Peak::setValid(bool torf)
 {
-	_isValid = torf;
+	_valid = torf;
 }
 
 /* Getter methods */
@@ -92,14 +92,14 @@ int Peak::get_jCoord()
 	return _j;
 }
 
-double Peak::get_val()
+double Peak::val()
 {
 	return _val;
 }
 
-bool Peak::get_isValid()
+bool Peak::valid()
 {
-	return _isValid;
+	return _valid;
 }
 
 /* Destructor */
