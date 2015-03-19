@@ -63,7 +63,6 @@ Mat2<T>::Mat2(unsigned int rows, unsigned int cols, T v) :
 	 * columns and an initial value */
 	_mat = new T[_size];
 	std::fill(_mat, _mat + _size, v);
-	// for(int i = 0; i < _size; i++) _mat[i] = v;
 }
 
 template<typename T>

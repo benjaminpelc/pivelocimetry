@@ -25,6 +25,7 @@ class Peak
 		void set_jCoord(int j);
 		void setVal(double val);
 		void setValid(bool torf);
+		void setPeak(int i, int j, double val, bool torf);
 
 		/* Getters */
 		int get_iCoord();
@@ -61,6 +62,14 @@ Peak::Peak(int i, int j, double v, bool torf) :
 {}
 
 /* Setter methods */
+void Peak::setPeak(int i, int j, double val, bool torf)
+{
+	_i = i;
+	_j = j;
+	_val = val;
+	_valid = torf;
+}
+
 void Peak::set_iCoord(int i)
 {
 	_i = i;

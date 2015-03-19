@@ -37,6 +37,11 @@ TEST_CASE( "Peak finder", "Find peaks")
 	Peak::PeaksVec ps(3);
 
 	c.setElem(2, 4, 0.998);
+	c.setElem(2, 3, 0.230);
+	c.setElem(2, 5, 0.136);
+	c.setElem(1, 4, 0.0972);
+	c.setElem(3, 4, 0.082);
+
 	c.setElem(5, 14, 0.810);
 	c.setElem(13, 9, 0.321);
 
@@ -49,6 +54,15 @@ TEST_CASE( "Peak finder", "Find peaks")
 	SECTION( "First peak should be 0.998" ) {
 		CHECK(p1.val() == 0.998 );
 	}
+
+	SECTION( "First peak should be 0.810" ) {
+		CHECK(p2.val() == 0.810 );
+	}
+
+	SECTION( "First peak should be 0.321" ) {
+		CHECK(p3.val() == 0.321 );
+	}
+
 
 	SECTION( "First peak should have coords (i, j) = (4, 2)" ) {
 		CHECK(p1.get_iCoord() == 4);
