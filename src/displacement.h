@@ -15,6 +15,7 @@ class Displacement
 		void setX(double x);
 		void setY(double y);
 		void setValid(bool torf);
+		void setDisp(double x, double y, bool torf);
 
 		double x();
 		double y();
@@ -42,6 +43,13 @@ void Displacement::setY(double y)
 
 void Displacement::setValid(bool torf)
 {
+	_valid = torf;
+}
+
+void Displacement::setDisp(double x, double y, bool torf)
+{
+	_x = x;
+	_y = y;
 	_valid = torf;
 }
 

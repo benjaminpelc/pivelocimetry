@@ -21,22 +21,41 @@ class CCF : public Mat2<double>
 
 		void findPeaks(Peak::PeaksVec& pv, int maxDisp);
 		bool isLocalPeak(int j);
+		int offsetX();
+		int offsetY();
 
 	private:	
 		const double BIG_DOUBLE = 9999999999.9;
 		bool inRange(double subject, double minimum, double maximum);
+		const int _offsetX,
+			  	  _offsetY;
 };
 
 /* Constructor:
  * Must be passed with row and column number specifiers.
  * Calls default Matrix2<double> constructor.
  * Initialize all values to -1.0  */
-CCF::CCF(unsigned int rows, unsigned int cols) : Mat2<double>(rows, cols, -1.0) {}
+CCF::CCF(unsigned int rows, unsigned int cols) : 
+	Mat2<double>(rows, cols, -1.0),
+	_offsetX(floor ((rows - 1) / 2)),
+	_offsetY(floor ((cols - 1) / 2))
+{
+}
 
 /* Destructor:
  * Nothing exciting here, all memory is deallocated inside Matrix2 
  * parent class */
 CCF::~CCF() {}
+
+int CCF::offsetX()
+{
+	return _offsetX;
+}
+
+int CCF::offsetY()
+{
+	return _offsetY;
+}
 
 void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 {
