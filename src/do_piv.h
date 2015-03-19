@@ -1,6 +1,7 @@
 /* Class DoPiv
  *
- * Main engine of the program, do the actual PIV */
+ * Main engine of the program, do the actual PIV 
+ * */
 
 #ifndef DO_PIV_H
 #define DO_PIV_H
