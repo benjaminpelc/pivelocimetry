@@ -65,6 +65,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	
 	/* Be cynical, do not believe any peak to be automatically valid */
 	bool valid = false;
+	auto inValidRange = [&]() -> bool { return currentElem > maxVal && currentElem < preMax; };
 
 	/* iterate through each of the number of peaks specified to search for */
 	for (auto& peak : pv) {
@@ -77,7 +78,8 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( inRange(currentElem, maxVal, preMax) && isLocalPeak(idx) ) {
+				// if ( inRange(currentElem, maxVal, preMax) && isLocalPeak(idx) ) {
+				if ( inValidRange() && isLocalPeak(idx) ) {
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
 					maxVal = currentElem;
@@ -87,6 +89,10 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 				}
 			}
 		}
+		/* Once valid peaks have stopped turning up we really should not bother
+		 * to continue, so we will break out of the peak vector loop */
+		/** to continue, so we will break out of the peak vector loop */
+		if (!valid) break;
 
 		/* punch in the values for this peak */
 		peak.setPeak(iC, jC, maxVal, valid);
@@ -96,10 +102,6 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 		preMax = maxVal;
 		maxVal = -BIG_DOUBLE;
 		
-		/* Once valid peaks have stopped turning up we really should not bother
-		 * to continue, so we will break out of the peak vector loop */
-		/** to continue, so we will break out of the peak vector loop */
-		if (!valid) break;
 		valid = false; /* reset validity to false for next round */
 	
 		// std::cout << "(i, j, val, legit) = (" << peak.get_iCoord() << ",\t" << peak.get_jCoord() << ",\t" << peak.val() << ",\t" << peak.valid() << ")" << std::endl;
