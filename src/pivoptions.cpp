@@ -2,12 +2,12 @@
 
 // Constructor
 PivOptions::PivOptions() :
-		_winWidth(16),
-		_winHeight(16),
-		_ovlpHoriz(8),
-		_ovlpVert(8),
+		_windowWidth(16),
+		_windowHeight(16),
+		_overlapHoriz(8),
+		_overlapVert(8),
 		_noPeaks(3),
-		_winSize(16,16)
+		_windowSize(16,16)
 {
 }
 
@@ -17,19 +17,19 @@ PivOptions::PivOptions() :
 PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 {
 	/* Check for window size */
-	_winWidth  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
-	_winHeight = keyExistsToInt(optionMap, "interrogation_window_y", 16);;
+	_windowWidth  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
+	_windowHeight = keyExistsToInt(optionMap, "interrogation_window_y", 16);;
 
 	/* Check for overlap */
-	_ovlpHoriz = keyExistsToInt(optionMap, "window_overlap_x", 0);
-	_ovlpVert  = keyExistsToInt(optionMap, "window_overlap_y", 0);
+	_overlapHoriz = keyExistsToInt(optionMap, "window_overlap_x", 0);
+	_overlapVert  = keyExistsToInt(optionMap, "window_overlap_y", 0);
 
 	/* Check for number of correlation peaks to find */
 	_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
 
 	/* Put window dimensions in a pair */
-	_winSize.first  = _winWidth;
-	_winSize.second = _winHeight;
+	_windowSize.first  = _windowWidth;
+	_windowSize.second = _windowHeight;
 }
 
 int PivOptions::keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal)
@@ -48,65 +48,65 @@ int PivOptions::keyExistsToInt(std::map<std::string, std::string>& optMap, std::
 PivOptions::~PivOptions() {}
 
 // Getters
-int PivOptions::winWidth()
+int PivOptions::get_windowWidth()
 {
-	return _winWidth;
+	return _windowWidth;
 }
 
-int PivOptions::winHeight()
+int PivOptions::get_windowHeight()
 {
-	return _winHeight;
+	return _windowHeight;
 }
 
-int PivOptions::olvpHoriz()
+int PivOptions::get_overlapHoriz()
 {
-	return _ovlpHoriz;
+	return _overlapHoriz;
 }
 
-int PivOptions::olvpVert()
+int PivOptions::get_overlapVert()
 {
-	return _ovlpVert;
+	return _overlapVert;
 }
 
-int PivOptions::numPeaks()
+int PivOptions::get_noPeaks()
 {
 	return _noPeaks;
 }
 
-std::pair<int, int>& PivOptions::winSize()
+std::pair<int, int>& PivOptions::get_windowSize()
 {
-	return _winSize;
+	return _windowSize;
 }
 
 // Setters
-void PivOptions::setWinWidth(int x)
+void PivOptions::set_windowWidth(int x)
 {
-	_winWidth = x;
+	_windowWidth = x;
 }
 
-void PivOptions::setWinHeight(int x)
+void PivOptions::set_windowHeight(int x)
 {
-	_winHeight = x;
+	_windowHeight = x;
 }
 
-void PivOptions::setOvlpHoriz(int x)
+void PivOptions::set_overlapHoriz(int x)
 {
-	_ovlpHoriz = x;
+	_overlapHoriz = x;
 }
 
-void PivOptions::setOvlpVert(int x)
+void PivOptions::set_overlapVert(int x)
 {
-	_ovlpVert = x;
+	_overlapVert = x;
 }
 
-void PivOptions::setNumPeaks(int n)
+void PivOptions::set_noPeaks(int n)
 {
 	_noPeaks = n;
 }
 
 void PivOptions::print()
 {
-	std::cout << "Ix: " << _winWidth << "\tIy: " << _winHeight << 
-		"\nOx: " << _ovlpHoriz << "\tOy: " << _ovlpVert << 
+	std::cout << "Ix: " << _windowWidth << "\tIy: " << _windowHeight << 
+		"\nOx: " << _overlapHoriz << "\tOy: " << _overlapVert << 
 		"\nNo peaks: " << _noPeaks << std::endl;
 }

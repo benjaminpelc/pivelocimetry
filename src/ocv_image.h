@@ -10,11 +10,11 @@ class OCVImage : public IntMappable
 	public:
 		OCVImage(std::string fn);
 		~OCVImage();
-		unsigned int pixelInt(unsigned int row, unsigned int col);
-		unsigned int height();
-		unsigned int width();
+		unsigned int getPixelIntensity(unsigned int row, unsigned int col);
+		unsigned int getHeight();
+		unsigned int getWidth();
 	private:
-		void read(std::string filename);
+		void readImage(std::string filename);
 
 		cv::Mat _rawImage;
 };

@@ -4,9 +4,9 @@
 class IntMappable
 {
 	public:
-		virtual unsigned int pixelInt(unsigned int row, unsigned int col) = 0;
-		virtual unsigned int height() = 0;
-		virtual unsigned int width() = 0;
+		virtual unsigned int getPixelIntensity(unsigned int row, unsigned int col) = 0;
+		virtual unsigned int getHeight() = 0;
+		virtual unsigned int getWidth() = 0;
 		virtual ~IntMappable() = 0;
 	private:
 		

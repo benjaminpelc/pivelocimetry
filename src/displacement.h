@@ -12,51 +12,51 @@ class Displacement
 		Displacement(double x, double y, bool torf);
 		~Displacement();
 
-		void setX(double x);
-		void setY(double y);
-		void setValid(bool torf);
+		void set_displacementX(double x);
+		void set_displacementY(double y);
+		void set_isValid(bool torf);
 
-		double x();
-		double y();
-		bool valid();
+		double get_displacementX();
+		double get_displacementY();
+		bool get_isValid();
 
 	private:
-		double _x,
-			   _y;
-		bool _valid;
+		double _displacementX,
+			   _displacementY;
+		bool _isValid;
 };
 
-Displacement::Displacement(double x, double y, bool torf) : _x(x), _y(y), _valid(torf) {}
+Displacement::Displacement(double x, double y, bool torf) : _displacementX(x), _displacementY(y), _isValid(torf) {}
 
 Displacement::~Displacement() {}
 
-void Displacement::setX(double x)
+void Displacement::set_displacementX(double x)
 {
-	_x = x;
+	_displacementX = x;
 }
 
-void Displacement::setY(double y)
+void Displacement::set_displacementY(double y)
 {
-	_y = y;
+	_displacementY = y;
 }
 
-void Displacement::setValid(bool torf)
+void Displacement::set_isValid(bool torf)
 {
-	_valid = torf;
+	_isValid = torf;
 }
 
-bool Displacement::valid()
+bool Displacement::get_isValid()
 {
-	return _valid;
+	return _isValid;
 }
 
-double Displacement::x()
+double Displacement::get_displacementX()
 {
-	return _x;
+	return _displacementX;
 }
 
-double Displacement::y()
+double Displacement::get_displacementY()
 {
-	return _y;
+	return _displacementY;
 }
 #endif

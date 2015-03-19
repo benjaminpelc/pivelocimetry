@@ -21,6 +21,8 @@ set
 /home/ben/Dropbox/Development/C++/BPPIV/lib/clap.h
 
 /home/ben/Dropbox/Development/C++/BPPIV/src/ccf.h
+matrix2.h
+/home/ben/Dropbox/Development/C++/BPPIV/src/matrix2.h
 ../tests/Mat2.h
 /home/ben/Dropbox/Development/C++/BPPIV/tests/Mat2.h
 peak.h

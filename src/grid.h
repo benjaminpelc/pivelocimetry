@@ -26,15 +26,15 @@ class Grid
 
 		Grid(const PivOptions::Uptr& config, const std::unique_ptr<IntMap>& image);
 		~Grid();
-		int x(int i);
-		int y(int i);
-		int numX();
-		int numY();
+		int get_xCoord(int i);
+		int get_yCoord(int i);
+		int get_noPointsX();
+		int get_noPointsY();
 		int numPoints();
 
-		std::vector<int>& xVector();
-		std::vector<int>& yVector();
-		std::vector<CoordPair>& coordsVec();
+		std::vector<int>& get_xCoordVector();
+		std::vector<int>& get_yCoordVector();
+		std::vector<CoordPair>& get_coordPairsVector();
 
 	private:
 		int _noX, _noY;
@@ -54,10 +54,10 @@ Grid::Grid(
 	/* Get the image width and height */
 	int imW = image->cols(),
 		imH = image->rows(),
-		winW = config->winWidth(),
-		winH = config->winHeight(),
-		ovlpX = config->olvpHoriz(),
-		ovlpY = config->olvpVert();
+		winW = config->get_windowWidth(),
+		winH = config->get_windowHeight(),
+		ovlpX = config->get_overlapHoriz(),
+		ovlpY = config->get_overlapVert();
 
 	/* Number of vectors in the x and y directions.*/
 	auto noPointsInDirn = [](int imDim, int winDim, int olp) -> int {
@@ -94,22 +94,22 @@ Grid::Grid(
 
 Grid::~Grid() {};
 
-int Grid::x(int i)
+int Grid::get_xCoord(int i)
 {
 	return _ptsX[i];
 }
 
-int Grid::y(int i)
+int Grid::get_yCoord(int i)
 {
 	return _ptsY[i];
 }
 
-int Grid::numX()
+int Grid::get_noPointsX()
 {
 	return _ptsX.size();
 }
 
-int Grid::numY()
+int Grid::get_noPointsY()
 {
 	return _ptsY.size();
 }
@@ -119,17 +119,17 @@ int Grid::numPoints()
 	return _ptsX.size() * _ptsY.size();
 }
 
-std::vector<int>& Grid::xVector()
+std::vector<int>& Grid::get_xCoordVector()
 {
 	return _ptsX;
 }
 
-std::vector<int>& Grid::yVector()
+std::vector<int>& Grid::get_yCoordVector()
 {
 	return _ptsY;
 }
 
-std::vector<Grid::CoordPair>& Grid::coordsVec()
+std::vector<Grid::CoordPair>& Grid::get_coordPairsVector()
 {
 	return _coords;
 }

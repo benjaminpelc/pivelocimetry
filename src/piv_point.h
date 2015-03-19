@@ -38,8 +38,8 @@ class PIVPoint
 		void set_yCoord(int y);
 		void set_coords(Grid::CoordPair& coords);
 
-		int x();
-		int y();
+		int get_xCoord();
+		int get_yCoord();
 		
 		Displacement& get_primaryDisplacement();
 		void printToOfstream(std::ofstream& file);
@@ -53,9 +53,9 @@ class PIVPoint
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options) :
-	_ccf(std::make_shared<CCF>(options->winHeight() + 1, options->winWidth() + 1)),
-	_peaksVector(options->numPeaks()),
-	_dispsVec(options->numPeaks()),
+	_ccf(std::make_shared<CCF>(options->get_windowHeight() + 1, options->get_windowWidth() + 1)),
+	_peaksVector(options->get_noPeaks()),
+	_dispsVec(options->get_noPeaks()),
 	_i(xCoord),
 	_j(yCoord)
 {}
@@ -91,10 +91,10 @@ void PIVPoint::printToOfstream(std::ofstream& file)
 	 * 1) Specifiy delim
 	 * 2) Specify precision
 	 * 3) Add things like peak ratios and whatnot */
-	if (_dispsVec[0].valid()) {
+	if (_dispsVec[0].get_isValid()) {
 	file << _i << "\t" << _j << "\t"
-		 << _dispsVec[0].x() << "\t"
-		 << _dispsVec[0].y() << "\t"
+		 << _dispsVec[0].get_displacementX() << "\t"
+		 << _dispsVec[0].get_displacementY() << "\t"
 		 << std::endl;
 	}
 }
@@ -117,12 +117,12 @@ void PIVPoint::set_coords(std::pair<int, int>& coords)
 }
 
 
-int PIVPoint::x()
+int PIVPoint::get_xCoord()
 {
 	return _i;
 }
 
-int PIVPoint::y()
+int PIVPoint::get_yCoord()
 {
 	return _j;
 }
