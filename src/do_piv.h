@@ -30,7 +30,7 @@ class DoPiv
 		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
 		int _numX,
 			_numY;
-		PivPointVec _pivPoints;
+		PivPointVec _points;
 };
 
 /* Create a vector of PIVPoints when the object is instantiated, 
@@ -43,13 +43,13 @@ class DoPiv
 DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) :  
 		_numX(g->numX()),
     	_numY(g->numY()),
-		_pivPoints(g->numPoints(), PIVPoint(-1, -1, options))
+		_points(g->numPoints(), PIVPoint(-1, -1, options))
 {
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
 	auto coordPair = g->coordsVec().begin();
-	for (auto& vectorPoint : _pivPoints) {
+	for (auto& vectorPoint : _points) {
 		doPivPoint(vectorPoint, *(coordPair++), imPair, options->winSize());
 	}
 }
@@ -74,7 +74,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
-	SubPixlel::gauss(ccf, peaks, pivPoint.get_displacementsVector());
+	SubPixel::gauss(ccf, peaks, pivPoint.get_displacementsVector());
 }
 
 void DoPiv::write(const std::string filename)
@@ -88,8 +88,8 @@ void DoPiv::write(const std::string filename)
 	/* Use for each passing each point to a lambda which calls the 
 	 * point to be printed to the ofstream. Be sure to pass by reference as 
 	 * usual. */ 
-	std::for_each(_pivPoints.begin(), _pivPoints.end(), [&outfile](auto &pivPoint){ 
-						pivPoint.printToOfstream(outfile);
+	std::for_each(_points.begin(), _points.end(), [&outfile](auto &point){ 
+						point.printToOfstream(outfile);
 				});
 
 	outfile.close();
@@ -101,12 +101,12 @@ void DoPiv::print()
 	 *
 	 * todo:
 	 * Tidy this up */
-	for (auto p : _pivPoints) {
-		std::cout << "x, y, u, v: " << p.x() << ", " << p.y() 
-			<< ", " << p.get_displacementsVector()[0].x()
-			<< ", " << p.get_displacementsVector()[0].y() << std::endl;
+	for (auto p : _points) {
+		std::cout << p.x() << "\t" << p.y() 
+			<< "\t" << p.get_displacementsVector()[0].x()
+			<< "\t " << p.get_displacementsVector()[0].y() << std::endl;
 	}
-	std::cout << "Total vectors calculated: " << _pivPoints.size() << std::endl;
+	std::cout << "Total vectors calculated: " << _points.size() << std::endl;
 }
 
 DoPiv::~DoPiv() {}
