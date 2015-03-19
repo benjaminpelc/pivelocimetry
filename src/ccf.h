@@ -7,7 +7,6 @@
 #ifndef CCF_H
 #define CCF_H
 
-#include "matrix2.h"
 #include "../tests/Mat2.h"
 #include "peak.h"
 
