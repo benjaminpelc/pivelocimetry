@@ -1,1 +1,7 @@
-/src/CMakeFiles/
+
+.*.swp
+.*/.*.swp
+
+src/CMakeFiles/
+
+bin/
