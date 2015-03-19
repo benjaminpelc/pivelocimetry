@@ -161,8 +161,8 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 	int x0 = coordPair.first,
 		y0 = coordPair.second;
 
-	int wx = window.first,
-		wy = window.second;
+	// int wx = window.first,
+	// 	wy = window.second;
 
 	IntMap::Uptr& m1 = imPair.first;
 	IntMap::Uptr& m2 = imPair.second;
@@ -170,15 +170,17 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 	// Row and column counts of CCF
 	int ccfRows = ccf->rows(),
 		ccfCols = ccf->cols(),
-		imRows  = wy,
-		imCols  = wx,
+		// imRows  = wy,
+		// imCols  = wx,
+		imRows = window.second,
+		imCols = window.first,
 		mIndex, nIndex,
 		mOffset = imRows + (int) floor((ccfRows/2.0 - imRows)),
 		nOffset = imCols + (int) floor((ccfCols/2.0 - imCols)),
 		mMin, mMax, nMin, nMax,
 		iMin, iMax, jMin, jMax,
-		xOff = x0 - (int) (wx / 2.0) + 1,
-		yOff = y0 - (int) (wy / 2.0) + 1;
+		xOff = x0 - (int) (window.first / 2.0) + 1,
+		yOff = y0 - (int) (window.second / 2.0) + 1;
 
 	// Product bit counter 
 	double  bitProd,
