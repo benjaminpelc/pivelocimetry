@@ -61,10 +61,18 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	/* coords of peack value, set to initial coord */
 	int jC = maxDisp,
 		iC = maxDisp,
-		idx;
+		idx = maxDisp;
 	
 	/* Be cynical, do not believe any peak to be automatically valid */
 	bool valid = false;
+
+	// auto inValidRange = []
+	auto updatePeak = [&](){
+		maxVal = currentElem;
+		jC = floor (idx / _cols) ;
+		iC = idx % _cols;
+		valid = true;
+	};
 
 	/* iterate through each of the number of peaks specified to search for */
 	for (auto& peak : pv) {
@@ -80,10 +88,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 				if ( inRange(currentElem, maxVal, preMax) && isLocalPeak(idx) ) {
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
-					maxVal = currentElem;
-					jC = j;
-					iC = i;
-					valid = true;
+					updatePeak();
 				}
 			}
 		}
