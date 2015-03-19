@@ -5,3 +5,5 @@
 src/CMakeFiles/
 
 bin/
+dump
+dump/

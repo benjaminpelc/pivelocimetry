@@ -50,9 +50,10 @@ DoPiv::DoPiv(PivOptions::Uptr& options, IntMap::Pair& imPair, Grid::Uptr& g) :
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
 	auto coordPair = g->coordsVec().begin();
-	for (auto& vectorPoint : _points) {
-		doPivPoint(vectorPoint, *(coordPair++), imPair, options->winSize());
-	}
+
+	for_each(_points.begin(), _points.end(), [&](auto& p) {
+				this->doPivPoint(p, *(coordPair++), imPair, options->winSize());
+			});
 }
 
 void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize)
