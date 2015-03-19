@@ -30,10 +30,8 @@ class CCF : public Mat2<double>
 /* Constructor:
  * Must be passed with row and column number specifiers.
  * Calls default Matrix2<double> constructor.
- * Removed initializing elements to -1.0 for efficiency increase. Be
- * careful though, perhaps add a validity flag. */
-// CCF::CCF(unsigned int rows, unsigned int cols) : Matrix2<double>(rows, cols) {}
-CCF::CCF(unsigned int rows, unsigned int cols) : Mat2<double>(rows, cols) {}
+ * Initialize all values to -1.0  */
+CCF::CCF(unsigned int rows, unsigned int cols) : Mat2<double>(rows, cols, -1.0) {}
 
 /* Destructor:
  * Nothing exciting here, all memory is deallocated inside Matrix2 
