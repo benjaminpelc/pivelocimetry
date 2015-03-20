@@ -55,7 +55,6 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 
 	// Overlapping regions
 	int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
-	double bp2, d2, d1;
 
 	// Store all the overlapping pixels as we will be using them twice
 	std::vector<std::pair<double, double> > pixels(ccf->size());
