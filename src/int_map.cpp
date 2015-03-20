@@ -16,10 +16,13 @@ IntMap::IntMap(IntMappable* raw) : Mat2<unsigned int>(raw->height(), raw->width(
 IntMap::IntMap(const std::unique_ptr<IntMappable>& raw) : Mat2<unsigned int>(raw->height(), raw->width())
 {
 	unsigned int wdth = raw->width();
+
+	auto fe = begin();
 	
 	for (int j = 0; j < raw->height(); j++) {
 		for (int i = 0; i < wdth; i++) {
-			setElem(j*wdth + i, raw->pixelInt(j, i));
+			// setElem(j*wdth + i, raw->pixelInt(j, i));
+			*(fe++) =  raw->pixelInt(j, i);
 		}
 	}
 }
