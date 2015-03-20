@@ -40,8 +40,6 @@ class Mat2
 		T* _end;
 };
 
-#endif
-
 template<typename T>
 Mat2<T>::Mat2(unsigned int rows, unsigned int cols) :
 	_size(rows * cols),
@@ -113,3 +111,5 @@ int Mat2<T>::getIndex(int j, int i)
 
 template<typename T>
 Mat2<T>::~Mat2() { delete[] _mat; }
+
+#endif

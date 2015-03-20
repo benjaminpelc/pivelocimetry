@@ -7,7 +7,7 @@
 #ifndef CCF_H
 #define CCF_H
 
-#include "../tests/Mat2.h"
+#include "../tests/mat2.h"
 #include "peak.h"
 
 // class CCF : public Matrix2<double>
