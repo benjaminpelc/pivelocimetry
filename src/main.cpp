@@ -21,13 +21,15 @@ int main(int argc, char** argv)
 	// return 0;
 
 	/* Load a raw images and extract pixel intensity maps */
-	std::unique_ptr<IntMappable> rawIm1(new OCVImage("../img/1.bmp")),
-								 rawIm2(new OCVImage("../img/2.bmp"));
+	// std::unique_ptr<IntMappable> rawIm1(new OCVImage("../img/1.bmp")),
+	// 							 rawIm2(new OCVImage("../img/2.bmp"));
+	std::unique_ptr<IntMappable> rawIm1 = std::make_unique<OCVImage>("../img/1.bmp"),
+								 rawIm2 = std::make_unique<OCVImage>("../img/2.bmp");
 
 	// Extract pixel intensity maps
 	// std::unique_ptr<IntMap> i1(new IntMap(rawIm1)),
-	IntMap::Uptr i1(new IntMap(rawIm1)),
-	             i2(new IntMap(rawIm2));
+	IntMap::Uptr i1 = std::make_unique<IntMap>(rawIm1),
+	             i2 = std::make_unique<IntMap>(rawIm2);
 
 	/* Let us try and box the images into a pair
 	 * In effect, a pair of memory addresses to the two images?? */
@@ -38,14 +40,14 @@ int main(int argc, char** argv)
 	 * a default config file 
 	 * ---
 	 *  Clean this up so analysisOptions takes just a filename as argument */
-	PivOptions::Uptr analysisOptions(new PivOptions(
+	PivOptions::Uptr analysisOptions = std::make_unique<PivOptions>(
 				ConfigFile::parse("../config/default.cfg")
-			));	
+			);	
 
 	// analysisOptions->print();
 
 	/* Create a grid */
-	Grid::Uptr g( new Grid(analysisOptions, i1));
+	Grid::Uptr g = std::make_unique<Grid>(*analysisOptions, *i1);
 	
 	// std::cout << g->coordsVec().begin()->first << std::endl;
 	// std::cout << g->coordsVec().begin()->second<< std::endl;

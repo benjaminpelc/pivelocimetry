@@ -6,8 +6,7 @@
 #include "../tests/mat2.h"
 #include "int_mappable_abstract.h"
 
-class IntMap:
-	public Mat2<unsigned int> 
+class IntMap: public Mat2<unsigned int> 
 {
 	public:
 		/* unique pointer typedef call with IntMap::Uptr */

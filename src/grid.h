@@ -24,7 +24,7 @@ class Grid
 		typedef std::unique_ptr<Grid> Uptr;
 		typedef std::pair<int, int> CoordPair;
 
-		Grid(const PivOptions::Uptr& config, const std::unique_ptr<IntMap>& image);
+		Grid(PivOptions& config, IntMap& image);
 		~Grid();
 		int x(int i);
 		int y(int i);
@@ -44,20 +44,20 @@ class Grid
 };
 
 Grid::Grid(
-			const PivOptions::Uptr& config,
-			const std::unique_ptr<IntMap>& image 
+			PivOptions& config,
+			IntMap& image 
 		) :
 	_ptsX(),
 	_ptsY(),
 	_coords()
 {
 	/* Get the image width and height */
-	int imW = image->cols(),
-		imH = image->rows(),
-		winW = config->winWidth(),
-		winH = config->winHeight(),
-		ovlpX = config->olvpHoriz(),
-		ovlpY = config->olvpVert();
+	int imW = image.cols(),
+		imH = image.rows(),
+		winW = config.winWidth(),
+		winH = config.winHeight(),
+		ovlpX = config.olvpHoriz(),
+		ovlpY = config.olvpVert();
 
 	/* Number of vectors in the x and y directions.*/
 	auto noPointsInDirn = [](int imDim, int winDim, int olp) -> int {
