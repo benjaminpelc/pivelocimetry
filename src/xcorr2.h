@@ -3,7 +3,7 @@
 
 /*
  * XCorr2.h
- * Container class for 2D cross-correlation fucntions
+ * Container class for 2D cross-correlation functions
  *
  */
 
@@ -12,6 +12,7 @@
 #include "matrix2.h"
 #include <math.h>
 #include <memory>
+#include <vector>
 
 class XCorr2
 {
@@ -54,6 +55,12 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 
 	// Overlapping regions
 	int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
+	double bp2, d2, d1;
+
+	// Store all the overlapping pixels as we will be using them twice
+	std::vector<std::pair<double, double> > pixels(ccf->size());
+	auto firstPixel = pixels.begin();
+	int idx, idxShift, pixCtr;
 
 	std::for_each(ccf->begin(), ccf->end(), [&](auto& ccfp) {
 			
@@ -71,27 +78,29 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 
 		// Number of pixels in overlapping region 
 		numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);
+		pixCtr = 0;	
 
 		// Calculate the overlapping segment averages
 		for (int j = tOffyMin ; j < tOffyMax; j++) {
 			for (int i = tOffxMin; i < tOffxMax; i++) {
-				m1Avg += (double) *(im1p + j * mw +  i );
-				m2Avg += (double) *(im2p + (j + m) * mw + i + n);
+				idx = j * mw + i;
+				idxShift = m * mw + n;
+				m1Avg += *(im1p + idx );
+				m2Avg += *(im2p + idx + idxShift);
+				pixels[pixCtr++] = (std::make_pair((double) *(im1p + idx),(double) *(im2p + idx + idxShift)));
 			}
 		}
 
 		// Divide by the number of elements in each overlapping region
-		m1Avg /= (double) numPix;
-		m2Avg /= (double) numPix;
+		m1Avg /= numPix;
+		m2Avg /= numPix;
 
-		// For each element in the overlapping regions sum the piecewise products of the elements minus the region average. Also calculate the two denominators
-		for (int j = tOffyMin ; j < tOffyMax; j++) {
-			for (int i = tOffxMin; i < tOffxMax; i++) {
-				bitProd += ((double) *(im1p + j*mw + i) - m1Avg) * ((double) *(im2p + (j + m)*mw + i + n) - m2Avg);
-				denom1 += ((double) *(im1p + j*mw + i) - m1Avg) * ((double) *(im1p + j*mw +  i) - m1Avg);
-				denom2 += ((double) *(im2p + (j +  m)*mw +  i + n) - m2Avg) * ((double) *(im2p + (j + m)*mw +  i + n) - m2Avg);
-			}
-		}
+		/* Calculate the correlation coefficient for this window offset */
+		for_each(firstPixel, firstPixel + numPix, [&](auto& pixpair) {
+			bitProd += (pixpair.first - m1Avg) * (pixpair.second - m2Avg);
+			denom1 += pow(pixpair.first - m1Avg, 2);
+			denom2 += pow(pixpair.second - m2Avg, 2);
+		});
 
 		// Put everything in and do not divide by zero
 		ccfp =  denom1 > 0 && denom2 > 0 ? bitProd / sqrt(denom1 * denom2) : -1.0;
