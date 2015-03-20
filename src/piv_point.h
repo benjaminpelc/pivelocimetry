@@ -27,7 +27,7 @@
 class PIVPoint
 {
 	public:
-		PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options);
+		PIVPoint(int xCoord, int yCoord, PivOptions& options);
 		~PIVPoint();
 
 		CCF::Sptr& get_ccf();
@@ -52,10 +52,10 @@ class PIVPoint
 		int _i, _j;
 };
 
-PIVPoint::PIVPoint(int xCoord, int yCoord, const PivOptions::Uptr& options) :
-	_ccf(std::make_shared<CCF>(options->winHeight() + 1, options->winWidth() + 1)),
-	_peaksVector(options->numPeaks()),
-	_dispsVec(options->numPeaks()),
+PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
+	_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+	_peaksVector(options.numPeaks()),
+	_dispsVec(options.numPeaks()),
 	_i(xCoord),
 	_j(yCoord)
 {}
