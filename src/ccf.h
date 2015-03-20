@@ -74,7 +74,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 
 	double maxVal = -BIG_DOUBLE, /* Something silly big negative */
 		   // currentElem   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
-		   currentElem   = _mat[_cols * maxDisp + maxDisp], /* Current CCF value, set to initial value */
+		   currentElem   = *(_begin + _cols * maxDisp + maxDisp), /* Current CCF value, set to initial value */
 	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
 
 	/* coords of peack value, set to initial coord */

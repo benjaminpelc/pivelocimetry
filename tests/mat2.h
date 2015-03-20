@@ -33,12 +33,12 @@ class Mat2
 
 	protected:
 		T* _mat;
+		T* _begin;
+		T* _end;
 		int _size;
 		int _rows, _cols;
 	
 	private:
-		T* _begin;
-		T* _end;
 };
 
 template<typename T>
@@ -76,14 +76,16 @@ template<typename T>
 T Mat2<T>::getElem(int j, int i)
 {
 	/* Return element with 2D index */
-	return _mat[_cols * j + i];
+	// return _mat[_cols * j + i];
+	return *(_begin + _cols * j + i);
 }
 
 template<typename T>
 void Mat2<T>::setElem(int j, int i, T v)
 {
 	/* Set element with 2D index */
-	_mat[_cols * j + i] = v;
+	// _mat[_cols * j + i] = v;
+	*(_begin + _cols * j + i) = v;
 }
 
 template<typename T>
