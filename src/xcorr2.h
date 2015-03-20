@@ -77,7 +77,7 @@ void XCorr2::xCorr2(
 
 			for (int i = iMin; i < iMax; i++) {
 				for (int j = jMin; j < jMax; j++) {
-					bitProd += m1.getElem(i, j) * m2.getElem(i + m, j + n);
+					bitProd += m1.getElem(j, i) * m2.getElem(j + n, i + m);
 				}
 			}
 			ccf.setElem(mIndex, nIndex, (double) bitProd);
@@ -167,6 +167,9 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 	IntMap::Uptr& m1 = imPair.first;
 	IntMap::Uptr& m2 = imPair.second;
 
+	int mw = m1->cols();
+	int mh = m1->rows();
+
 	// Row and column counts of CCF
 	int ccfRows = ccf->rows(),
 		ccfCols = ccf->cols(),
@@ -181,6 +184,9 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 		iMin, iMax, jMin, jMax,
 		xOff = x0 - (int) (window.first / 2.0) + 1,
 		yOff = y0 - (int) (window.second / 2.0) + 1;
+
+	// int jOff = 0, iOff = 0;
+
 
 	// Product bit counter 
 	double  bitProd,
@@ -210,8 +216,8 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 			// Calculate the overlapping segment averages
 			for (int j = jMin; j < jMax; j++) {
 				for (int i = iMin; i < iMax; i++) {
-					m1Avg += (double) m1->getElem(j + yOff, i + xOff);
-					m2Avg += (double) m2->getElem(j + yOff + m, i + xOff+ n);
+					m1Avg += (double) m1->getElem((j + yOff)*mw +  i + xOff);
+					m2Avg += (double) m2->getElem((j + yOff + m) *mw + i + xOff+ n);
 				}
 			}
 
@@ -220,12 +226,12 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 			m2Avg /= (double) ((iMax - iMin) * (jMax - jMin));
 
 			// For each element in the overlapping regions sum the piecewise products of the elements minus the region average. Also calculate the two denominators
-			for (int j = jMin; j < jMax; j++) {
-				for (int i = iMin; i < iMax; i++) {
+			for (int j = jMin + yOff; j < jMax + yOff; j++) {
+				for (int i = iMin + xOff; i < iMax + xOff; i++) {
 					
-					bitProd += ((double) m1->getElem(j + yOff, i + xOff) - m1Avg) * ((double) m2->getElem( j + yOff + m, i + xOff + n) - m2Avg);
-					denom1 += ((double) m1->getElem(j + yOff, i + xOff) - m1Avg) * ((double) m1->getElem(j + yOff, i + xOff) - m1Avg);
-					denom2 += ((double) m2->getElem(j + yOff +  m, i + xOff + n) - m2Avg) * ((double) m2->getElem(j + yOff + m, i + xOff + n) - m2Avg);
+					bitProd += ((double) m1->getElem(j*mw + i) - m1Avg) * ((double) m2->getElem((j + m)*mw + i + n) - m2Avg);
+					denom1 += ((double) m1->getElem(j*mw + i) - m1Avg) * ((double) m1->getElem(j*mw +  i) - m1Avg);
+					denom2 += ((double) m2->getElem((j +  m)*mw +  i + n) - m2Avg) * ((double) m2->getElem((j + m)*mw +  i + n) - m2Avg);
 				}
 			}
 			// Put everything in and do not divide by zero

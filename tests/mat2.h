@@ -26,6 +26,7 @@ class Mat2
 		int getIndex(int j, int i);
 		
 		void setElem(int j, int i, T v);
+		void setElem(int idx, T v);
 
 		T* begin() { return &_mat[0]; };
 		T* end () { return &_mat[_size]; };
@@ -83,6 +84,12 @@ void Mat2<T>::setElem(int j, int i, T v)
 {
 	/* Set element with 2D index */
 	_mat[_cols * j + i] = v;
+}
+
+template<typename T>
+void Mat2<T>::setElem(int idx, T v)
+{
+	_mat[idx] = v;
 }
 
 template<typename T>
