@@ -21,7 +21,7 @@ class DoPiv
 	public:
 		typedef std::vector<PIVPoint> PivPointVec;
 
-		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid::Uptr& g);
+		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g);
 		void print();
 		void write(const std::string filename);
 
@@ -41,15 +41,15 @@ class DoPiv
  * Once vector points have been initiated loop through each point with 
  * an individual pair of interrogation region coordinates and do the PIV 
  * calculation for each point */
-DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid::Uptr& g) :  
-		_numX(g->numX()),
-    	_numY(g->numY()),
-		_points(g->numPoints(), PIVPoint(-1, -1, options))
+DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
+		_numX(g.numX()),
+    	_numY(g.numY()),
+		_points(g.numPoints(), PIVPoint(-1, -1, options))
 {
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
-	auto coordPair = g->coordsVec().begin();
+	auto coordPair = g.coordsVec().begin();
 
 	for_each(_points.begin(), _points.end(), [&](auto& p) {
 				this->doPivPoint(p, *(coordPair++), imPair, options.winSize());
