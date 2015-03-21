@@ -77,6 +77,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
 	SubPixel::gauss(*ccf, peaks, pivPoint.get_displacementsVector());
+
 }
 
 void DoPiv::write(const std::string filename)

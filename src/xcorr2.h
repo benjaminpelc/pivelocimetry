@@ -44,7 +44,7 @@ void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordP
 	auto im1p = m1->begin(), im2p = m2->begin();
 
 	// Pixel averages and correlation bits
-	double  bitProd, m1Avg, m2Avg, denom1, denom2; 
+	auto  bitProd = 0.0, m1Avg = 0.0, m2Avg =0.0, denom1=0.0, denom2=0.0; 
 
 	// m and n are the row and column of the ccf (respectively)
 	int mMin = mOffset > 0 ? -mOffset : 0;
