@@ -17,13 +17,13 @@
 class XCorr2
 {
 	public:
-		static void xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair,
+		static void xCorr2n(CCF& ccf, IntMap::Pair& imPair,
 				std::pair<int, int>& coordPair, std::pair<int, int>& window);
 	private:
 };
 
 // template<typename T>
-void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair, std::pair<int, int>& window)
+void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair, std::pair<int, int>& window)
 {
 	IntMap::Uptr& m1 = imPair.first;
 	IntMap::Uptr& m2 = imPair.second;
@@ -31,8 +31,8 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 	int mw = m1->cols();
 	int mh = m1->rows();
 
-	int ccfRows = ccf->rows(),
-		ccfCols = ccf->cols(),
+	int ccfRows = ccf.rows(),
+		ccfCols = ccf.cols(),
 		imRows = window.second,
 		imCols = window.first,
 		mOffset = imRows + (int) floor((ccfRows/2.0 - imRows)),
@@ -57,11 +57,11 @@ void XCorr2::xCorr2n(CCF::Sptr& ccf, IntMap::Pair& imPair, std::pair<int, int>& 
 	int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
 
 	// Store all the overlapping pixels as we will be using them twice
-	std::vector<std::pair<double, double> > pixels(ccf->size());
+	std::vector<std::pair<double, double> > pixels(ccf.size());
 	auto firstPixel = pixels.begin();
 	int idx, idxShift, pixCtr;
 
-	std::for_each(ccf->begin(), ccf->end(), [&](auto& ccfp) {
+	std::for_each(ccf.begin(), ccf.end(), [&](auto& ccfp) {
 			
 		m = ctr/ccfCols + mMin;
 		n = (ctr++)%ccfCols + nMin;

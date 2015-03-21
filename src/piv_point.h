@@ -30,7 +30,7 @@ class PIVPoint
 		PIVPoint(int xCoord, int yCoord, PivOptions& options);
 		~PIVPoint();
 
-		CCF::Sptr& get_ccf();
+		CCF* get_ccf();
 		Peak::PeaksVec& get_peaks();
 		Displacement::DispVec& get_displacementsVector();
 
@@ -60,9 +60,9 @@ PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
 	_j(yCoord)
 {}
 
-CCF::Sptr& PIVPoint::get_ccf()
+CCF* PIVPoint::get_ccf()
 {
-	return _ccf;
+	return _ccf.get();
 }
 
 Peak::PeaksVec& PIVPoint::get_peaks()

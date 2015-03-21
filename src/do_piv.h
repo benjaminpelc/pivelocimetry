@@ -67,16 +67,16 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 
 	/* The ccf and peaks are referenced multiple times so create 
 	 * pointers to clean up a little */
-	CCF::Sptr& ccf        = pivPoint.get_ccf();
+	CCF* ccf        = pivPoint.get_ccf();
 	Peak::PeaksVec& peaks = pivPoint.get_peaks();
 
 	/* Store coords and do the cross-correlation */
 	pivPoint.set_coords(coordPair);
-	XCorr2::xCorr2n(ccf, images, coordPair, winSize);
+	XCorr2::xCorr2n(*ccf, images, coordPair, winSize);
 
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
-	SubPixel::gauss(ccf, peaks, pivPoint.get_displacementsVector());
+	SubPixel::gauss(*ccf, peaks, pivPoint.get_displacementsVector());
 }
 
 void DoPiv::write(const std::string filename)

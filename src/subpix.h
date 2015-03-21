@@ -11,25 +11,25 @@
 class SubPixel
 {
 	public:
-		static void gauss(CCF::Sptr& ccf, Peak::PeaksVec& peaks, Displacement::DispVec& displacements);
+		static void gauss(CCF& ccf, Peak::PeaksVec& peaks, Displacement::DispVec& displacements);
 		// static double gauss3(const double a, const double b, const double c);
 		static double gauss3(const double* a, const double* b, const double* c);
 	private:
 		
 };
 
-void SubPixel::gauss(CCF::Sptr& ccf, Peak::PeaksVec& peaks, Displacement::DispVec& displacements)
+void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Displacement::DispVec& displacements)
 {
 	// std::cout << "In Gauss, eww!" << std::endl;
 	int i, j;
 	double dx, dy;
 
 	/* Offset value make central row and column the zero displacement */
-	int cols = ccf->cols(),
-		offsetX = ccf->offsetX(),
-		offsetY = ccf->offsetY();
+	int cols = ccf.cols(),
+		offsetX = ccf.offsetX(),
+		offsetY = ccf.offsetY();
 
-	auto e0  = ccf->begin(),
+	auto e0  = ccf.begin(),
 		 e = e0;
 
 	/* Calculate displacements for each peak */
