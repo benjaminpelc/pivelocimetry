@@ -43,10 +43,7 @@ class Grid
 		std::vector<CoordPair> _coords;	
 };
 
-Grid::Grid(
-			PivOptions& config,
-			IntMap& image 
-		) :
+Grid::Grid( PivOptions& config, IntMap& image ) :
 	_ptsX(),
 	_ptsY(),
 	_coords()
@@ -89,7 +86,7 @@ Grid::Grid(
 	std::for_each(_coords.begin(), _coords.end(), [&](auto &c) {
 			c = std::make_pair(_ptsX[ctr % _noX], _ptsY[floor (ctr / _noX)]);
 			ctr++;
-	});
+		});
 }
 
 Grid::~Grid() {};
