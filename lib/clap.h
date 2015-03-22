@@ -14,14 +14,14 @@ class Clap
 		Clap(int argc, char** argv);
 		~Clap() {};
 
-		char** begin() { return &_argv[0]; };
-		char** end() { return &_argv[_argc]; };
+		char** begin() { return &m_argv[0]; };
+		char** end() { return &m_argv[m_argc]; };
 	
 		bool hasFlag(const std::string flag);
 		bool hasParam(const std::string flag);
 
-		int numArgs() { return _argc; };
-		std::string progName() { return _argv[0]; };
+		int numArgs() { return m_argc; };
+		std::string progName() { return m_argv[0]; };
 
 		std::string getParam(const std::string flag);
 
@@ -29,39 +29,39 @@ class Clap
 		std::vector<std::string> flagArgs(const std::string flag);
 
 		FlagArgsMap& getFlagsWithArgs();
-		std::set<std::string> _flags;
+		std::set<std::string> m_flags;
 
 	private:
-		int _argc;
-		char** _argv;
+		int m_argc;
+		char** m_argv;
 
 		void getFlags();
 		static bool isFlag(const std::string a) { return a[0] == '-'; };
 
-		FlagArgsMap _flagArgsMap;
+		FlagArgsMap m_flagArgsMap;
 
 };
 
 Clap::Clap(int argc, char** argv) :
-	_argc(argc),
-	_argv(argv),
-	_flags(),
-	_flagArgsMap()
+	m_argc(argc),
+	m_argv(argv),
+	m_flags(),
+	m_flagArgsMap()
 {
 	getFlags();
-	std::for_each(_flags.begin(), _flags.end(), [&](auto &s) {
-				this->_flagArgsMap[s] = this->flagArgs(s);
+	std::for_each(m_flags.begin(), m_flags.end(), [&](auto &s) {
+				this->m_flagArgsMap[s] = this->flagArgs(s);
 			});	
 }
 
 std::set<std::string>& Clap::flagSet()
 {
-	return _flags;
+	return m_flags;
 }
 
 Clap::FlagArgsMap& Clap::getFlagsWithArgs()
 {
-	return _flagArgsMap;
+	return m_flagArgsMap;
 }
 
 std::vector<std::string> Clap::flagArgs(const std::string flag)
@@ -81,7 +81,7 @@ std::vector<std::string> Clap::flagArgs(const std::string flag)
 
 void Clap::getFlags() {
 	std::for_each(begin(), end(), [&](auto &a) {
-				if (isFlag(a)) _flags.insert(a);
+				if (isFlag(a)) m_flags.insert(a);
 			});
 }
 

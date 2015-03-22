@@ -28,40 +28,40 @@ class Mat2
 		void setElem(int j, int i, T v);
 		void setElem(int idx, T v);
 
-		T* begin() { return &_mat[0]; };
-		T* end () { return &_mat[_size]; };
+		T* begin() { return &m_mat[0]; };
+		T* end () { return &m_mat[m_size]; };
 
 	protected:
-		T* _mat;
-		T* _begin;
-		T* _end;
-		int _size;
-		int _rows, _cols;
+		T* m_mat;
+		T* m_begin;
+		T* m_end;
+		int m_size;
+		int m_rows, m_cols;
 	
 	private:
 };
 
 template<typename T>
 Mat2<T>::Mat2(unsigned int rows, unsigned int cols) :
-	_size(rows * cols),
-	_rows(rows),
-	_cols(cols)
+	m_size(rows * cols),
+	m_rows(rows),
+	m_cols(cols)
 {
 	/* Constructor, must provide the number of rows, number of 
 	 * columns and an initial value */
-	_mat = new T[_size]{0};
+	m_mat = new T[m_size]{0};
 }
 
 template<typename T>
 Mat2<T>::Mat2(unsigned int rows, unsigned int cols, T v) :
-	_size(rows * cols),
-	_rows(rows),
-	_cols(cols)
+	m_size(rows * cols),
+	m_rows(rows),
+	m_cols(cols)
 {
 	/* Constructor, must provide the number of rows, number of 
 	 * columns and an initial value */
-	_mat = new T[_size];
-	std::fill(_mat, _mat + _size, v);
+	m_mat = new T[m_size];
+	std::fill(m_mat, m_mat + m_size, v);
 }
 
 template<typename T>
@@ -69,56 +69,56 @@ T Mat2<T>::getElem(int idx)
 {
 	/* Return element with linear index, this 
 	 * will be fastest */
-	return _mat[idx];
+	return m_mat[idx];
 }
 
 template<typename T>
 T Mat2<T>::getElem(int j, int i)
 {
 	/* Return element with 2D index */
-	// return _mat[_cols * j + i];
-	return *(_begin + _cols * j + i);
+	// return m_mat[m_cols * j + i];
+	return *(m_begin + m_cols * j + i);
 }
 
 template<typename T>
 void Mat2<T>::setElem(int j, int i, T v)
 {
 	/* Set element with 2D index */
-	// _mat[_cols * j + i] = v;
-	*(_begin + _cols * j + i) = v;
+	// m_mat[m_cols * j + i] = v;
+	*(m_begin + m_cols * j + i) = v;
 }
 
 template<typename T>
 void Mat2<T>::setElem(int idx, T v)
 {
-	_mat[idx] = v;
+	m_mat[idx] = v;
 }
 
 template<typename T>
 int Mat2<T>::size()
 {
-	return _size;
+	return m_size;
 }
 
 template<typename T>
 int Mat2<T>::rows()
 {
-	return _rows;
+	return m_rows;
 }
 
 template<typename T>
 int Mat2<T>::cols()
 {
-	return _cols;
+	return m_cols;
 }
 
 template<typename T>
 int Mat2<T>::getIndex(int j, int i)
 {
-	return _cols * j + i;
+	return m_cols * j + i;
 }
 
 template<typename T>
-Mat2<T>::~Mat2() { delete[] _mat; }
+Mat2<T>::~Mat2() { delete[] m_mat; }
 
 #endif

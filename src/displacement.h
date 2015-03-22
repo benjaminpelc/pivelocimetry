@@ -22,49 +22,49 @@ class Displacement
 		bool valid();
 
 	private:
-		double _x,
-			   _y;
-		bool _valid;
+		double m_x,
+			   m_y;
+		bool m_valid;
 };
 
-Displacement::Displacement(double x, double y, bool torf) : _x(x), _y(y), _valid(torf) {}
+Displacement::Displacement(double x, double y, bool torf) : m_x(x), m_y(y), m_valid(torf) {}
 
 Displacement::~Displacement() {}
 
 void Displacement::setX(double x)
 {
-	_x = x;
+	m_x = x;
 }
 
 void Displacement::setY(double y)
 {
-	_y = y;
+	m_y = y;
 }
 
 void Displacement::setValid(bool torf)
 {
-	_valid = torf;
+	m_valid = torf;
 }
 
 void Displacement::setDisp(double x, double y, bool torf)
 {
-	_x = x;
-	_y = y;
-	_valid = torf;
+	m_x = x;
+	m_y = y;
+	m_valid = torf;
 }
 
 bool Displacement::valid()
 {
-	return _valid;
+	return m_valid;
 }
 
 double Displacement::x()
 {
-	return _x;
+	return m_x;
 }
 
 double Displacement::y()
 {
-	return _y;
+	return m_y;
 }
 #endif

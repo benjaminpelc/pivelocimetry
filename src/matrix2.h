@@ -40,8 +40,8 @@ class Matrix2
 		friend std::ostream& operator<<(std::ostream& os, const Matrix2<sT>&mat);
 
 	protected:
-		T **_mat;
-		int _rows, _cols;
+		T **m_mat;
+		int m_rows, m_cols;
 
 	private:
 		// Matrix dimensions (m x n) = (rows, cols)
@@ -50,11 +50,11 @@ class Matrix2
 
 // Default constructor
 template<typename T>
-Matrix2<T>::Matrix2() {}  //: _rows(0), _cols(0) {}
+Matrix2<T>::Matrix2() {}  //: m_rows(0), m_cols(0) {}
 
 // Double arg constructor
 template<typename T>
-Matrix2<T>::Matrix2(int a, int b) : _rows(a), _cols(b)
+Matrix2<T>::Matrix2(int a, int b) : m_rows(a), m_cols(b)
 {
 	// Allocate the memory
 	allocate_array_memory(a, b);
@@ -62,7 +62,7 @@ Matrix2<T>::Matrix2(int a, int b) : _rows(a), _cols(b)
 
 // Triple  arg constructor
 template<typename T>
-Matrix2<T>::Matrix2(int a, int b, T c) : _rows(a), _cols(b)
+Matrix2<T>::Matrix2(int a, int b, T c) : m_rows(a), m_cols(b)
 {
 	// Allocate the memory
 	allocate_array_memory(a, b);
@@ -73,9 +73,9 @@ Matrix2<T>::Matrix2(int a, int b, T c) : _rows(a), _cols(b)
 template<typename T>
 void Matrix2<T>::all(T a)
 {
-	for (int i = 0; i < _rows; i++) {
-		for (int j = 0; j < _cols; j++) {
-			_mat[i][j] = a;
+	for (int i = 0; i < m_rows; i++) {
+		for (int j = 0; j < m_cols; j++) {
+			m_mat[i][j] = a;
 		}
 	}
 }
@@ -83,7 +83,7 @@ void Matrix2<T>::all(T a)
 template<typename T>
 void Matrix2<T>::setElem(int j, int i, T c)
 {
-	_mat[j][i] = c;
+	m_mat[j][i] = c;
 }
 
 // GETTER METHODS
@@ -93,32 +93,32 @@ T Matrix2<T>::getElem(int idx)
 {
 	/* Return the ith element which is equal to 
 	 * */
-	return *_mat[idx];
+	return *m_mat[idx];
 }
 
 template<typename T>
 int Matrix2<T>::rows()
 {
-	return _rows;
+	return m_rows;
 }
 
 template<typename T>
 int Matrix2<T>::cols()
 {
-	return _cols;
+	return m_cols;
 }
 
 template<typename T>
 int Matrix2<T>::size()
 {
-	return _cols * _rows;
+	return m_cols * m_rows;
 }
 
 // Get element at
 template<typename T>
 T Matrix2<T>::getElem(int j, int i)
 {
-	return _mat[j][i];
+	return m_mat[j][i];
 }
 
 // Get maximum value
@@ -126,13 +126,13 @@ template<typename T>
 T Matrix2<T>::max()
 {
 	// Set max to first value in array
-	T max = _mat[0][0];
+	T max = m_mat[0][0];
 
 	// Loop through all values replacing max if the value is greater
-	for (int i = 0; i < _rows; i++) {
-		for (int j = 0; j < _cols; j++) {
-			if (_mat[i][j] > max) {
-				max = _mat[i][j];
+	for (int i = 0; i < m_rows; i++) {
+		for (int j = 0; j < m_cols; j++) {
+			if (m_mat[i][j] > max) {
+				max = m_mat[i][j];
 			}
 		}
 	}
@@ -144,13 +144,13 @@ template<typename T>
 T Matrix2<T>::min()
 {
 	// Set min to first value in array
-	T min = _mat[0][0];
+	T min = m_mat[0][0];
 
 	// Loop through all values replacing minimum if the value is greater
-	for (int i = 0; i < _rows; i++) {
-		for (int j = 0; j < _cols; j++) {
-			if (_mat[i][j] < min) {
-				min = _mat[i][j];
+	for (int i = 0; i < m_rows; i++) {
+		for (int j = 0; j < m_cols; j++) {
+			if (m_mat[i][j] < min) {
+				min = m_mat[i][j];
 			}
 		}
 	}
@@ -162,9 +162,9 @@ template<typename T>
 T Matrix2<T>::sum()
 {
 	T sum = 0;
-	for (int i = 0; i < _rows; i++) {
-		for (int j = 0; j < _cols; j++) {
-			sum += _mat[i][j];
+	for (int i = 0; i < m_rows; i++) {
+		for (int j = 0; j < m_cols; j++) {
+			sum += m_mat[i][j];
 		}
 	}
 	return sum;
@@ -174,7 +174,7 @@ T Matrix2<T>::sum()
 template<typename T>
 double Matrix2<T>::mean()
 {
-	return (double) sum() / (double) (_rows * _cols);
+	return (double) sum() / (double) (m_rows * m_cols);
 }
 
 template<typename T>
@@ -184,33 +184,33 @@ double Matrix2<T>::stdev(bool biased)
 	double std = 0.0;
 	double deviation;
 
-	for (int i = 0; i < _rows; i++) {
-		for (int j = 0; j < _cols; j++) {
-			deviation = (double) _mat[i][j] - avg;
+	for (int i = 0; i < m_rows; i++) {
+		for (int j = 0; j < m_cols; j++) {
+			deviation = (double) m_mat[i][j] - avg;
 			std += deviation * deviation;
 		}
 	}
-	std /= biased ? (double) (_rows * _cols - 1) : (double) (_rows * _cols);
+	std /= biased ? (double) (m_rows * m_cols - 1) : (double) (m_rows * m_cols);
 	return sqrt(std);
 }
 
 // destructor
 template<typename T>
 Matrix2<T>::~Matrix2() {
-	for (int i = 0; i < _rows; i++)
+	for (int i = 0; i < m_rows; i++)
 	{
-		delete[] _mat[i];
+		delete[] m_mat[i];
 	}
-	delete[] _mat;
+	delete[] m_mat;
 }
 
 // SCALE 
 template<typename T>
 void Matrix2<T>::scale(T scaleFactor)
 {
-	for (int i = 0; i < _rows; i++) {
-		for (int j = 0; j < _cols; j++) {
-			_mat[i][j] = _mat[i][j] * scaleFactor;
+	for (int i = 0; i < m_rows; i++) {
+		for (int j = 0; j < m_cols; j++) {
+			m_mat[i][j] = m_mat[i][j] * scaleFactor;
 		}
 	}
 }
@@ -219,40 +219,40 @@ template<typename T>
 void Matrix2<T>::transpose()
 {
 	// Allocate temporary array	nxm array and transpose original contents over
-	T** tmp = new T*[_cols];
-	for (int i = 0; i < _cols; i++) {
-		tmp[i] = new T[_rows];
-		for (int j = 0; j < _rows; j++) {
-			tmp[i][j] = _mat[j][i];
+	T** tmp = new T*[m_cols];
+	for (int i = 0; i < m_cols; i++) {
+		tmp[i] = new T[m_rows];
+		for (int j = 0; j < m_rows; j++) {
+			tmp[i][j] = m_mat[j][i];
 		}
 	}
 
-	// Delete the original _mat 
-	for (int i = 0; i < _rows; i++) {
-		delete[] _mat[i];
-	} delete[] _mat;
+	// Delete the original m_mat 
+	for (int i = 0; i < m_rows; i++) {
+		delete[] m_mat[i];
+	} delete[] m_mat;
 
 	// Copy the contents over 
-	_mat = new T*[_cols];
-	for (int i = 0; i < _cols; i++) {
-		_mat[i] = new T[_rows];
-		for (int j = 0; j < _rows; j++) {
-			_mat[i][j] = tmp[i][j];
+	m_mat = new T*[m_cols];
+	for (int i = 0; i < m_cols; i++) {
+		m_mat[i] = new T[m_rows];
+		for (int j = 0; j < m_rows; j++) {
+			m_mat[i][j] = tmp[i][j];
 		} delete[] tmp[i];
 	} delete[] tmp;
 
 	// Swap the internal row and column counts 
-	int tmpI = _rows;
-	_rows = _cols;
-	_cols = tmpI;
+	int tmpI = m_rows;
+	m_rows = m_cols;
+	m_cols = tmpI;
 }
 
 template<typename sT>
 std::ostream& operator<<(std::ostream& os, const Matrix2<sT>& mat)
 {
-	for (int i = 0; i < mat._rows; i++) {
-		for (int j = 0; j < mat._cols; j++) {
-			os << mat._mat[i][j] << "\t";
+	for (int i = 0; i < mat.m_rows; i++) {
+		for (int j = 0; j < mat.m_cols; j++) {
+			os << mat.m_mat[i][j] << "\t";
 		}
 		os << "\n";
 	}
@@ -262,10 +262,10 @@ std::ostream& operator<<(std::ostream& os, const Matrix2<sT>& mat)
 template<typename T>
 void Matrix2<T>::allocate_array_memory(int a, int b)
 {
-	_mat = new T*[a];
+	m_mat = new T*[a];
 	for (int i = 0; i < a; i++)
 	{
-		_mat[i] = new T[b];
+		m_mat[i] = new T[b];
 	}
 
 }

@@ -38,10 +38,10 @@ class PivOptions
 
 	private:
 		// Properties
-		int _noPeaks;
-		std::pair<int, int> _overlap;
-		std::pair<int, int> _winSize;
-		std::pair<int, int> _maxDisp;
+		int m_noPeaks;
+		std::pair<int, int> m_overlap;
+		std::pair<int, int> m_winSize;
+		std::pair<int, int> m_maxDisp;
 
 		static int keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal);
 };

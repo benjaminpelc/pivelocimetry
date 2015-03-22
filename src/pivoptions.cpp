@@ -2,10 +2,10 @@
 
 // Constructor
 PivOptions::PivOptions() :
-		_overlap(0,0),
-		_noPeaks(3),
-		_winSize(16,16),
-		_maxDisp(7,7)
+		m_overlap(0,0),
+		m_noPeaks(3),
+		m_winSize(16,16),
+		m_maxDisp(7,7)
 {
 }
 
@@ -15,19 +15,19 @@ PivOptions::PivOptions() :
 PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 {
 	/* Check for window size */
-	_winSize.first  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
-	_winSize.second = keyExistsToInt(optionMap, "interrogation_window_y", 16);
+	m_winSize.first  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
+	m_winSize.second = keyExistsToInt(optionMap, "interrogation_window_y", 16);
 
 	/* Check for overlap */
-	_overlap.first   = keyExistsToInt(optionMap, "window_overlap_x", 0);
-	_overlap.second  = keyExistsToInt(optionMap, "window_overlap_y", 0);
+	m_overlap.first   = keyExistsToInt(optionMap, "window_overlap_x", 0);
+	m_overlap.second  = keyExistsToInt(optionMap, "window_overlap_y", 0);
 
 	/* Check for number of correlation peaks to find */
-	_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
+	m_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
 
 	/* Max displacements */
-	_maxDisp.first  = keyExistsToInt(optionMap, "max_displacement_x", floor(_winSize.first / 2) - 1);
-	_maxDisp.second = keyExistsToInt(optionMap, "max_displacement_y", floor(_winSize.second / 2) - 1);
+	m_maxDisp.first  = keyExistsToInt(optionMap, "max_displacement_x", floor(m_winSize.first / 2) - 1);
+	m_maxDisp.second = keyExistsToInt(optionMap, "max_displacement_y", floor(m_winSize.second / 2) - 1);
 }
 
 
@@ -49,68 +49,68 @@ PivOptions::~PivOptions() {}
 // Getters
 int PivOptions::winWidth()
 {
-	return _winSize.first;
+	return m_winSize.first;
 }
 
 int PivOptions::winHeight()
 {
-	return _winSize.second;
+	return m_winSize.second;
 }
 
 int PivOptions::olvpHoriz()
 {
-	return _overlap.first;
+	return m_overlap.first;
 }
 
 int PivOptions::olvpVert()
 {
-	return _overlap.second;
+	return m_overlap.second;
 }
 
 int PivOptions::numPeaks()
 {
-	return _noPeaks;
+	return m_noPeaks;
 }
 
 int PivOptions::maxDispX()
 {
-	return _maxDisp.first;
+	return m_maxDisp.first;
 }
 
 int PivOptions::maxDispY()
 {
-	return _maxDisp.second;
+	return m_maxDisp.second;
 }
 
 std::pair<int, int>& PivOptions::winSize()
 {
-	return _winSize;
+	return m_winSize;
 }
 
 // Setters
 void PivOptions::setWinWidth(int x)
 {
-	_winSize.first = x;
+	m_winSize.first = x;
 }
 
 void PivOptions::setWinHeight(int x)
 {
-	_winSize.second = x;
+	m_winSize.second = x;
 }
 
 void PivOptions::setOvlpHoriz(int x)
 {
-	_overlap.first = x;
+	m_overlap.first = x;
 }
 
 void PivOptions::setOvlpVert(int x)
 {
-	_overlap.second = x;
+	m_overlap.second = x;
 }
 
 void PivOptions::setNumPeaks(int n)
 {
-	_noPeaks = n;
+	m_noPeaks = n;
 }
 
 void PivOptions::print()
@@ -118,5 +118,5 @@ void PivOptions::print()
 	std::cout << "Ix: " << winWidth() << "\tIy: " << winHeight() << 
 		"\nOx: " << olvpHoriz()<< "\tOy: " << olvpVert() << 
 		"\nxMax: " << maxDispX() << "\tyMax: " << maxDispY() <<
-		"\nNo peaks: " << _noPeaks << std::endl;
+		"\nNo peaks: " << m_noPeaks << std::endl;
 }

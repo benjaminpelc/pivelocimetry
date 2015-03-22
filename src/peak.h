@@ -35,80 +35,80 @@ class Peak
 		
 
 	private:
-		int _i,
-			_j;
+		int m_i,
+			m_j;
 
-		bool _valid;
+		bool m_valid;
 
-		double _val;
+		double m_val;
 		
 };
 
 /* Default constructor
  * set all values to -1(.0) and validity to false*/
 Peak::Peak() :
-	_i(-1),
-	_j(-1),
-	_val(-1.0),
-	_valid(false)
+	m_i(-1),
+	m_j(-1),
+	m_val(-1.0),
+	m_valid(false)
 {}
 
 /* Constructor with coordinates, peak value and validty */
 Peak::Peak(int i, int j, double v, bool torf) :
-	_i(i),
-	_j(j),
-	_val(v),
-	_valid(torf)
+	m_i(i),
+	m_j(j),
+	m_val(v),
+	m_valid(torf)
 {}
 
 /* Setter methods */
 void Peak::setPeak(int i, int j, double val, bool torf)
 {
-	_i = i;
-	_j = j;
-	_val = val;
-	_valid = torf;
+	m_i = i;
+	m_j = j;
+	m_val = val;
+	m_valid = torf;
 }
 
 void Peak::set_iCoord(int i)
 {
-	_i = i;
+	m_i = i;
 }
 
 void Peak::set_jCoord(int j)
 {
-	_j = j;
+	m_j = j;
 }
 
 void Peak::setVal(double v)
 {
-	_val = v;
+	m_val = v;
 }
 
 void Peak::setValid(bool torf)
 {
-	_valid = torf;
+	m_valid = torf;
 }
 
 /* Getter methods */
 int Peak::get_iCoord()
 {
-	return _i;
+	return m_i;
 }
 
 int Peak::get_jCoord()
 {
-	return _j;
+	return m_j;
 }
 
 double Peak::val()
 {
-	return _val;
+	return m_val;
 }
 
 bool Peak::valid()
 {
-	return _valid;
+	return m_valid;
 }
 
 /* Destructor */

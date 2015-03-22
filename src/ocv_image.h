@@ -16,7 +16,7 @@ class OCVImage : public IntMappable
 	private:
 		void read(std::string filename);
 
-		cv::Mat _rawImage;
+		cv::Mat m_rawImage;
 };
 
 #endif

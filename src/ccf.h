@@ -27,8 +27,8 @@ class CCF : public Mat2<double>
 	private:	
 		const double BIG_DOUBLE = 9999999999.9;
 		bool inRange(double subject, double minimum, double maximum);
-		const int _offsetX,
-			  	  _offsetY;
+		const int m_offsetX,
+			  	  m_offsetY;
 };
 
 /* Constructor:
@@ -37,8 +37,8 @@ class CCF : public Mat2<double>
  * Initialize all values to -1.0  */
 CCF::CCF(unsigned int rows, unsigned int cols) : 
 	Mat2<double>(rows, cols, -1.0),
-	_offsetX(floor ((cols - 1) / 2)),
-	_offsetY(floor ((rows - 1) / 2))
+	m_offsetX(floor ((cols - 1) / 2)),
+	m_offsetY(floor ((rows - 1) / 2))
 {
 }
 
@@ -49,12 +49,12 @@ CCF::~CCF() {}
 
 int CCF::offsetX()
 {
-	return _offsetX;
+	return m_offsetX;
 }
 
 int CCF::offsetY()
 {
-	return _offsetY;
+	return m_offsetY;
 }
 
 void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
@@ -70,11 +70,11 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	/* Define the boundary of the correlation function search region
 	 * 1) pretty sure this needs 1 subtracting
 	 * 2) Add check to make sure maxDisp does not exceed CCF boundaries */
-	maxDisp = floor(_rows / 2) - maxDisp;
+	maxDisp = floor(m_rows / 2) - maxDisp;
 
 	double maxVal = -BIG_DOUBLE, /* Something silly big negative */
-		   // currentElem   = _mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
-		   currentElem   = *(_begin + _cols * maxDisp + maxDisp), /* Current CCF value, set to initial value */
+		   // currentElem   = m_mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
+		   currentElem   = *(m_begin + m_cols * maxDisp + maxDisp), /* Current CCF value, set to initial value */
 	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
 
 	/* coords of peack value, set to initial coord */
@@ -90,10 +90,10 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	for (auto& peak : pv) {
 		/* Loop through each point in the CCF matrix.
 		 * Using raw loop as index values as well as element values are required*/
-		for (int j = maxDisp; j < _rows - maxDisp; j++) {
-			for (int i = maxDisp; i < _cols - maxDisp; i++) {
-				idx = _cols * j + i;
-				currentElem = _mat[idx];
+		for (int j = maxDisp; j < m_rows - maxDisp; j++) {
+			for (int i = maxDisp; i < m_cols - maxDisp; i++) {
+				idx = m_cols * j + i;
+				currentElem = m_mat[idx];
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
@@ -143,17 +143,17 @@ bool CCF::isLocalPeak(int i)
 	/* Returns true if the point (i,j) has greater 
 	 * value than the four surrounding points */
     /*
-     * return _mat[_cols * j + i] > _mat[_cols * j + i-1] &&
-     *        _mat[_cols * j + i] > _mat[_cols * j + i+1] &&
-	 *        _mat[_cols * j + i] > _mat[_cols * (j-1) + i] &&
-	 *        _mat[_cols * j + i] > _mat[_cols * (j+1) + i];
+     * return m_mat[m_cols * j + i] > m_mat[m_cols * j + i-1] &&
+     *        m_mat[m_cols * j + i] > m_mat[m_cols * j + i+1] &&
+	 *        m_mat[m_cols * j + i] > m_mat[m_cols * (j-1) + i] &&
+	 *        m_mat[m_cols * j + i] > m_mat[m_cols * (j+1) + i];
      */
 
     /* Dangerous as is, can access elements out of range */
-    return _mat[i] > _mat[i - _cols] &&
-            _mat[i] > _mat[i + _cols] &&
-	        _mat[i] > _mat[i + 1] &&
-	        _mat[i] > _mat[i - 1];
+    return m_mat[i] > m_mat[i - m_cols] &&
+            m_mat[i] > m_mat[i + m_cols] &&
+	        m_mat[i] > m_mat[i + 1] &&
+	        m_mat[i] > m_mat[i - 1];
 }
 
 #endif

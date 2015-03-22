@@ -30,15 +30,15 @@ class DoPiv
 
 	private:
 		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
-		int _numX,
-			_numY;
-		PivPointVec _points;
+		int m_numX,
+			m_numY;
+		PivPointVec m_points;
 };
 
 DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
-		_numX(g.numX()),
-    	_numY(g.numY()),
-		_points(g.numPoints(), PIVPoint(-1, -1, options))
+		m_numX(g.numX()),
+    	m_numY(g.numY()),
+		m_points(g.numPoints(), PIVPoint(-1, -1, options))
 {
 	/* Create a vector of PIVPoints when the object is instantiated, 
  	 * give constructor to instantiate CCF at correct size, 
@@ -53,7 +53,7 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :
 	/* Set an iterator to the start of the piv points vector */	
 	auto coordPair = g.coordsVec().begin();
 
-	for_each(_points.begin(), _points.end(), [&](auto& p) {
+	for_each(m_points.begin(), m_points.end(), [&](auto& p) {
 				this->doPivPoint(p, *(coordPair++), imPair, options.winSize());
 			});
 }
@@ -92,7 +92,7 @@ void DoPiv::write(const std::string filename)
 	/* Use for each passing each point to a lambda which calls the 
 	 * point to be printed to the ofstream. Be sure to pass by reference as 
 	 * usual. */ 
-	std::for_each(_points.begin(), _points.end(), [&outfile](auto &point){ 
+	std::for_each(m_points.begin(), m_points.end(), [&outfile](auto &point){ 
 						point.printToOfstream(outfile);
 				});
 
@@ -105,7 +105,7 @@ void DoPiv::print()
 	 *
 	 * todo:
 	 * Tidy this up */
-	for (auto p : _points) {
+	for (auto p : m_points) {
 		std::cout << std::setw(6) << std::left 
 			<< p.x() << "\t" << p.y() 
 			<< std::setprecision(4) << std::fixed
@@ -114,7 +114,7 @@ void DoPiv::print()
 			<< "\t " << p.get_displacementsVector()[0].y() 
 			<< "\t " << sqrt(pow(p.get_displacementsVector()[0].x(), 2) + pow(p.get_displacementsVector()[0].y(), 2)) << std::endl;
 	}
-	std::cout << "Total vectors calculated: " << _points.size() << std::endl;
+	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;
 }
 
 DoPiv::~DoPiv() {}

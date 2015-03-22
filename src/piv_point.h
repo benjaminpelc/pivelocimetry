@@ -46,39 +46,39 @@ class PIVPoint
 		
 
 	private:
-		CCF::Sptr _ccf;
-		Peak::PeaksVec _peaksVector;
-		Displacement::DispVec _dispsVec;
-		int _i, _j;
+		CCF::Sptr m_ccf;
+		Peak::PeaksVec m_peaksVector;
+		Displacement::DispVec m_dispsVec;
+		int m_i, m_j;
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
-	_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
-	_peaksVector(options.numPeaks()),
-	_dispsVec(options.numPeaks()),
-	_i(xCoord),
-	_j(yCoord)
+	m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+	m_peaksVector(options.numPeaks()),
+	m_dispsVec(options.numPeaks()),
+	m_i(xCoord),
+	m_j(yCoord)
 {}
 
 CCF* PIVPoint::get_ccf()
 {
-	return _ccf.get();
+	return m_ccf.get();
 }
 
 Peak::PeaksVec& PIVPoint::get_peaks()
 {
-	return _peaksVector;
+	return m_peaksVector;
 }
 
 Displacement::DispVec& PIVPoint::get_displacementsVector()
 {
-	return _dispsVec;
+	return m_dispsVec;
 }
 
 
 Displacement& PIVPoint::get_primaryDisplacement()
 {
-	return _dispsVec[0];
+	return m_dispsVec[0];
 }
 
 void PIVPoint::printToOfstream(std::ofstream& file)
@@ -91,10 +91,10 @@ void PIVPoint::printToOfstream(std::ofstream& file)
 	 * 1) Specifiy delim
 	 * 2) Specify precision
 	 * 3) Add things like peak ratios and whatnot */
-	if (_dispsVec[0].valid()) {
-	file << _i << "\t" << _j << "\t"
-		 << _dispsVec[0].x() << "\t"
-		 << _dispsVec[0].y() << "\t"
+	if (m_dispsVec[0].valid()) {
+	file << m_i << "\t" << m_j << "\t"
+		 << m_dispsVec[0].x() << "\t"
+		 << m_dispsVec[0].y() << "\t"
 		 << std::endl;
 	}
 }
@@ -102,29 +102,29 @@ void PIVPoint::printToOfstream(std::ofstream& file)
 
 void PIVPoint::set_xCoord(int x)
 {
-	_i = x;
+	m_i = x;
 }
 
 void PIVPoint::set_yCoord(int y)
 {
-	_j = y;
+	m_j = y;
 }
 
 void PIVPoint::set_coords(std::pair<int, int>& coords)
 {
-	_i = coords.first;
-	_j = coords.second;
+	m_i = coords.first;
+	m_j = coords.second;
 }
 
 
 int PIVPoint::x()
 {
-	return _i;
+	return m_i;
 }
 
 int PIVPoint::y()
 {
-	return _j;
+	return m_j;
 }
 
 PIVPoint::~PIVPoint() {};

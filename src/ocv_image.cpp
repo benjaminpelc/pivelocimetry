@@ -7,25 +7,25 @@ OCVImage::OCVImage(std::string fn)
 
 OCVImage::~OCVImage()
 {
-	// _rawImage.~Mat();
+	// m_rawImage.~Mat();
 }
 
 void OCVImage::read(std::string fn)
 {
-	_rawImage = cv::imread(fn, 0);
+	m_rawImage = cv::imread(fn, 0);
 }
 
 unsigned int OCVImage::pixelInt(unsigned int row, unsigned int col)
 {
-	return ((cv::Scalar) _rawImage.at<uchar>(row, col)).val[0];
+	return ((cv::Scalar) m_rawImage.at<uchar>(row, col)).val[0];
 }
 
 unsigned int OCVImage::height()
 {
-	return (unsigned int) _rawImage.rows;
+	return (unsigned int) m_rawImage.rows;
 }
 
 unsigned int OCVImage::width()
 {
-	return (unsigned int) _rawImage.cols;
+	return (unsigned int) m_rawImage.cols;
 }
