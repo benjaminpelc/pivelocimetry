@@ -38,11 +38,8 @@ class PivOptions
 
 	private:
 		// Properties
-		int _winWidth,
-			_winHeight,
-			_ovlpHoriz,
-			_ovlpVert,
-			_noPeaks;
+		int _noPeaks;
+		std::pair<int, int> _overlap;
 		std::pair<int, int> _winSize;
 		std::pair<int, int> _maxDisp;
 

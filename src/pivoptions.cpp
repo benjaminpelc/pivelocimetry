@@ -2,13 +2,10 @@
 
 // Constructor
 PivOptions::PivOptions() :
-		// _winWidth(16),
-		// _winHeight(16),
-		_ovlpHoriz(8),
-		_ovlpVert(8),
+		_overlap(0,0),
 		_noPeaks(3),
 		_winSize(16,16),
-		_maxDisp(0,0)
+		_maxDisp(7,7)
 {
 }
 
@@ -22,15 +19,15 @@ PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 	_winSize.second = keyExistsToInt(optionMap, "interrogation_window_y", 16);
 
 	/* Check for overlap */
-	_ovlpHoriz = keyExistsToInt(optionMap, "window_overlap_x", 0);
-	_ovlpVert  = keyExistsToInt(optionMap, "window_overlap_y", 0);
+	_overlap.first   = keyExistsToInt(optionMap, "window_overlap_x", 0);
+	_overlap.second  = keyExistsToInt(optionMap, "window_overlap_y", 0);
 
 	/* Check for number of correlation peaks to find */
 	_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
 
 	/* Max displacements */
-	_maxDisp.first = keyExistsToInt(optionMap, "max_displacement_x", floor(_winHeight / 2) - 1);
-	_maxDisp.second = keyExistsToInt(optionMap, "max_displacement_y", floor(_winWidth / 2) - 1);
+	_maxDisp.first  = keyExistsToInt(optionMap, "max_displacement_x", floor(_winSize.first / 2) - 1);
+	_maxDisp.second = keyExistsToInt(optionMap, "max_displacement_y", floor(_winSize.second / 2) - 1);
 }
 
 
@@ -62,12 +59,12 @@ int PivOptions::winHeight()
 
 int PivOptions::olvpHoriz()
 {
-	return _ovlpHoriz;
+	return _overlap.first;
 }
 
 int PivOptions::olvpVert()
 {
-	return _ovlpVert;
+	return _overlap.second;
 }
 
 int PivOptions::numPeaks()
@@ -103,12 +100,12 @@ void PivOptions::setWinHeight(int x)
 
 void PivOptions::setOvlpHoriz(int x)
 {
-	_ovlpHoriz = x;
+	_overlap.first = x;
 }
 
 void PivOptions::setOvlpVert(int x)
 {
-	_ovlpVert = x;
+	_overlap.second = x;
 }
 
 void PivOptions::setNumPeaks(int n)
@@ -119,7 +116,7 @@ void PivOptions::setNumPeaks(int n)
 void PivOptions::print()
 {
 	std::cout << "Ix: " << winWidth() << "\tIy: " << winHeight() << 
-		"\nOx: " << _ovlpHoriz << "\tOy: " << _ovlpVert << 
+		"\nOx: " << olvpHoriz()<< "\tOy: " << olvpVert() << 
 		"\nxMax: " << maxDispX() << "\tyMax: " << maxDispY() <<
 		"\nNo peaks: " << _noPeaks << std::endl;
 }

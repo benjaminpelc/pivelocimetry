@@ -44,8 +44,8 @@ int main(int argc, char** argv)
 				ConfigFile::parse("../config/default.cfg")
 			);	
 
-	// analysisOptions->print();
-	// return 0;
+	analysisOptions->print();
+	return 0;
 
 	/* Create a grid */
 	Grid::Uptr g = std::make_unique<Grid>(*analysisOptions, *i1);
