@@ -5,7 +5,7 @@
  * and getters rather than any functionality of its own
  *
  * Currently, each point has:
- * 1) A PivEng::CCF 
+ * 1) A CCF 
  * 2) A vector of peak objects 
  * 3) A vector of displacement objects 
  * 4) A pair of pixel coordinates */
@@ -24,59 +24,61 @@
 #include "peak.h"
 #include "displacement.h"
 
+namespace PivEng {
+
 class PIVPoint
 {
 	public:
 		PIVPoint(int xCoord, int yCoord, PivOptions& options);
 		~PIVPoint();
 
-		PivEng::CCF* get_ccf();
-		PivEng::Peak::PeaksVec& get_peaks();
-		PivEng::Displacement::DispVec& get_displacementsVector();
+		CCF* get_ccf();
+		Peak::PeaksVec& get_peaks();
+		Displacement::DispVec& get_displacementsVector();
 
 		void set_xCoord(int x);
 		void set_yCoord(int y);
-		void set_coords(PivEng::Grid::CoordPair& coords);
+		void set_coords(Grid::CoordPair& coords);
 
 		int x();
 		int y();
 		
-		PivEng::Displacement& get_primaryDisplacement();
+		Displacement& get_primaryDisplacement();
 		void printToOfstream(std::ofstream& file);
 		
 
 	private:
-		PivEng::CCF::Sptr m_ccf;
-		PivEng::Peak::PeaksVec m_peaksVector;
-		PivEng::Displacement::DispVec m_dispsVec;
+		CCF::Sptr m_ccf;
+		Peak::PeaksVec m_peaksVector;
+		Displacement::DispVec m_dispsVec;
 		int m_i, m_j;
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
-	m_ccf(std::make_shared<PivEng::CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+	m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
 	m_peaksVector(options.numPeaks()),
 	m_dispsVec(options.numPeaks()),
 	m_i(xCoord),
 	m_j(yCoord)
 {}
 
-PivEng::CCF* PIVPoint::get_ccf()
+CCF* PIVPoint::get_ccf()
 {
 	return m_ccf.get();
 }
 
-PivEng::Peak::PeaksVec& PIVPoint::get_peaks()
+Peak::PeaksVec& PIVPoint::get_peaks()
 {
 	return m_peaksVector;
 }
 
-PivEng::Displacement::DispVec& PIVPoint::get_displacementsVector()
+Displacement::DispVec& PIVPoint::get_displacementsVector()
 {
 	return m_dispsVec;
 }
 
 
-PivEng::Displacement& PIVPoint::get_primaryDisplacement()
+Displacement& PIVPoint::get_primaryDisplacement()
 {
 	return m_dispsVec[0];
 }
@@ -129,4 +131,5 @@ int PIVPoint::y()
 
 PIVPoint::~PIVPoint() {};
 
+}
 #endif

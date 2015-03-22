@@ -24,26 +24,26 @@ class DoPiv
 	public:
 		typedef std::vector<PIVPoint> PivPointVec;
 
-		DoPiv(PivOptions& options, IntMap::Pair& imPair, PivEng::Grid& g);
+		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g);
 		void print();
 		void write(const std::string filename);
 
 		~DoPiv();
 
 	private:
-		void doPivPoint(PIVPoint& pivPoint, PivEng::Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
+		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
 		int m_numX,
 			m_numY;
 		PivPointVec m_points;
 };
 
-DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, PivEng::Grid& g) :  
+DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
 		m_numX(g.numX()),
     	m_numY(g.numY()),
 		m_points(g.numPoints(), PIVPoint(-1, -1, options))
 {
 	/* Create a vector of PIVPoints when the object is instantiated, 
- 	 * give constructor to instantiate PivEng::CCF at correct size, 
+ 	 * give constructor to instantiate CCF at correct size, 
  	 * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done 
  	 *
  	 * Once vector points have been initiated loop through each point with 
@@ -60,7 +60,7 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, PivEng::Grid& g) :
 			});
 }
 
-void DoPiv::doPivPoint(PIVPoint& pivPoint, PivEng::Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize)
+void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize)
 {
 	/* Steps to do the PIV analysis for the current interrogation window 
 	 * 1) set the pivPoint coordinates
@@ -71,12 +71,12 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, PivEng::Grid::CoordPair& coordPair, I
 
 	/* The ccf and peaks are referenced multiple times so create 
 	 * pointers to clean up a little */
-	PivEng::CCF* ccf        = pivPoint.get_ccf();
-	PivEng::Peak::PeaksVec& peaks = pivPoint.get_peaks();
+	CCF* ccf        = pivPoint.get_ccf();
+	Peak::PeaksVec& peaks = pivPoint.get_peaks();
 
 	/* Store coords and do the cross-correlation */
 	pivPoint.set_coords(coordPair);
-	PivEng::XCorr2::xCorr2n(*ccf, images, coordPair);
+	XCorr2::xCorr2n(*ccf, images, coordPair);
 
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);

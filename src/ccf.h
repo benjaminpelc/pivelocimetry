@@ -20,7 +20,7 @@ namespace PivEng {
 			CCF(unsigned int rows, unsigned int cols);
 			~CCF();
 
-			void findPeaks(PivEng::Peak::PeaksVec& pv, int maxDisp);
+			void findPeaks(Peak::PeaksVec& pv, int maxDisp);
 			bool isLocalPeak(int j);
 			int offsetX();
 			int offsetY();
@@ -58,7 +58,7 @@ namespace PivEng {
 		return m_offsetY;
 	}
 
-	void CCF::findPeaks(PivEng::Peak::PeaksVec& pv, int maxDisp)
+	void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 	{
 		/* FindPeaks
  	 	 * Find peaks in the correlation function. Pass a vector of peak objects to store

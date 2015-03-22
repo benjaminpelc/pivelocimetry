@@ -34,7 +34,7 @@ TEST_CASE( "Set elements", "Use setElem to set correlation values")
 TEST_CASE( "Peak finder", "Find peaks")	
 {
 	CCF c(17, 17);	
-	PivEng::Peak::PeaksVec ps(3);
+	Peak::PeaksVec ps(3);
 
 	c.setElem(2, 4, 0.998);
 	c.setElem(2, 3, 0.230);
@@ -47,9 +47,9 @@ TEST_CASE( "Peak finder", "Find peaks")
 
 	c.findPeaks(ps, 7);
 
-	PivEng::Peak p1 = ps[0];
-	PivEng::Peak p2 = ps[1];
-	PivEng::Peak p3 = ps[2];
+	Peak p1 = ps[0];
+	Peak p2 = ps[1];
+	Peak p3 = ps[2];
 
 	SECTION( "First peak should be 0.998" ) {
 		CHECK(p1.val() == 0.998 );

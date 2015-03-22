@@ -11,17 +11,17 @@ Peaks::Peaks(Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> inputMatrix) 
 	setMatrix(inputMatrix);
 }
 
-void PivEng::Peaks::setMatrix(Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> inputMatrix) {
+void Peaks::setMatrix(Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> inputMatrix) {
 	mat = inputMatrix;
 }
 
-Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> PivEng::Peaks::getMatrix() {
+Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Peaks::getMatrix() {
 	return mat;
 }
 
-void PivEng::Peaks::findPeaks() {
+void Peaks::findPeaks() {
 
-	// temporary PivEng::Peak vector to store unsorted peaks
+	// temporary Peak vector to store unsorted peaks
 	std::vector<Peak> tempVec;
 	double maxPeak = 0;
 
@@ -38,7 +38,7 @@ void PivEng::Peaks::findPeaks() {
 				) {
 				
 				// Create a new peak structure and chuck the relevant bits in
-				PivEng::Peak newPeak;
+				Peak newPeak;
 				newPeak.x_i = i;
 				newPeak.y_j = j;
 				newPeak.peakValue = getMatrix()(j,i);
@@ -63,13 +63,13 @@ void PivEng::Peaks::findPeaks() {
 	}
 }
 
-void PivEng::Peaks::printPeaks() {
+void Peaks::printPeaks() {
 	for (Peak i : peaks) {
 		std::cout << "i: " << i.x_i << ", j: " << i.y_j << ", value: " << i.peakValue << std::endl;
 	}
 }
 
-double PivEng::Peaks::maxPeakValue(std::vector<Peak> peakVec) {
+double Peaks::maxPeakValue(std::vector<Peak> peakVec) {
 	double mp = 0;
 	for (Peak i : peakVec) {
 		if (i.peakValue > mp)
@@ -79,7 +79,7 @@ double PivEng::Peaks::maxPeakValue(std::vector<Peak> peakVec) {
 	return mp;
 }
 
-void PivEng::Peaks::gaussFit() {
+void Peaks::gaussFit() {
 
 	for (int it = 0; it < peaks.size(); it++) {
 
@@ -89,7 +89,7 @@ void PivEng::Peaks::gaussFit() {
 		double x0 = i + ( log(getMatrix()(j,i-1))-log(getMatrix()(j,i+1)) ) / ( 2*log(getMatrix()(j,i-1)) - 4*log(getMatrix()(j,i)) + 2*log(getMatrix()(j,i+1)) ) - getMatrix().cols()/2;
 	    double y0 = j + ( log(getMatrix()(j-1,i))-log(getMatrix()(j+1,i)) ) / ( 2*log(getMatrix()(j-1,i)) - 4*log(getMatrix()(j,i)) + 2*log(getMatrix()(j+1,i)) ) - getMatrix().rows()/2;
 
-	    PivEng::Displacement newDisp;
+	    Displacement newDisp;
 	    newDisp.u = x0;
 	    newDisp.v = y0;
 
@@ -99,9 +99,9 @@ void PivEng::Peaks::gaussFit() {
 	}
 }
 
-double PivEng::Peaks::getU() {
+double Peaks::getU() {
 	return displacements[0].u;
 }
-double PivEng::Peaks::getV() {
+double Peaks::getV() {
 	return displacements[0].v;
 }
