@@ -1,10 +1,10 @@
-/* Class: Displacement
+/* Class: Disp
  * Namespace: PivEng
  *
  * Author: B. Pelc
  * Date: 22/03/2015
  *
- * Displacement class, seems a little surplus. Perhaps include as a struct in PivPoint. *
+ * Disp class, seems a little surplus. Perhaps include as a struct in PivPoint. *
  */
 
 #ifndef BPPIV_PIV_ENGINE_DISPLACEMENT_H
@@ -14,14 +14,14 @@
 
 namespace PivEng {
 
-	class Displacement
+	class Disp
 	{
 		public:
-			typedef std::vector<Displacement> DispVec;
+			typedef std::vector<Disp> DispVec;
 
-			Displacement() {};
-			Displacement(double x, double y, bool torf);
-			~Displacement();
+			Disp() {};
+			Disp(double x, double y, bool torf);
+			~Disp();
 
 			void setX(double x);
 			void setY(double y);
@@ -38,43 +38,43 @@ namespace PivEng {
 			bool m_valid;
 	};
 
-	Displacement::Displacement(double x, double y, bool torf) : m_x(x), m_y(y), m_valid(torf) {}
+	Disp::Disp(double x, double y, bool torf) : m_x(x), m_y(y), m_valid(torf) {}
 
-	Displacement::~Displacement() {}
+	Disp::~Disp() {}
 
-	void Displacement::setX(double x)
+	void Disp::setX(double x)
 	{
 		m_x = x;
 	}
 
-	void Displacement::setY(double y)
+	void Disp::setY(double y)
 	{
 		m_y = y;
 	}
 
-	void Displacement::setValid(bool torf)
+	void Disp::setValid(bool torf)
 	{
 		m_valid = torf;
 	}
 
-	void Displacement::setDisp(double x, double y, bool torf)
+	void Disp::setDisp(double x, double y, bool torf)
 	{
 		m_x = x;
 		m_y = y;
 		m_valid = torf;
 	}
 
-	bool Displacement::valid()
+	bool Disp::valid()
 	{
 		return m_valid;
 	}
 
-	double Displacement::x()
+	double Disp::x()
 	{
 		return m_x;
 	}
 
-	double Displacement::y()
+	double Disp::y()
 	{
 		return m_y;
 	}

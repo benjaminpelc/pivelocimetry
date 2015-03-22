@@ -72,7 +72,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	/* The ccf and peaks are referenced multiple times so create 
 	 * pointers to clean up a little */
 	CCF* ccf        = pivPoint.get_ccf();
-	Peak::PeaksVec& peaks = pivPoint.get_peaks();
+	Peak::PeaksVec& peaks = pivPoint.peaks();
 
 	/* Store coords and do the cross-correlation */
 	pivPoint.set_coords(coordPair);
@@ -80,7 +80,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
-	SubPixel::gauss(*ccf, peaks, pivPoint.get_displacementsVector());
+	SubPixel::gauss(*ccf, peaks, pivPoint.dispsVec());
 
 }
 
@@ -112,9 +112,9 @@ void DoPiv::print()
 			<< p.x() << "\t" << p.y() 
 			<< std::setprecision(4) << std::fixed
 			<< std::setw(8) 
-			<< "\t" << p.get_displacementsVector()[0].x()
-			<< "\t " << p.get_displacementsVector()[0].y() 
-			<< "\t " << sqrt(pow(p.get_displacementsVector()[0].x(), 2) + pow(p.get_displacementsVector()[0].y(), 2)) << std::endl;
+			<< "\t" << p.dispsVec()[0].x()
+			<< "\t " << p.dispsVec()[0].y() 
+			<< "\t " << sqrt(pow(p.dispsVec()[0].x(), 2) + pow(p.dispsVec()[0].y(), 2)) << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;
 }
