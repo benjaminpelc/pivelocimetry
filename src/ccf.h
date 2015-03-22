@@ -37,8 +37,8 @@ class CCF : public Mat2<double>
  * Initialize all values to -1.0  */
 CCF::CCF(unsigned int rows, unsigned int cols) : 
 	Mat2<double>(rows, cols, -1.0),
-	_offsetX(floor ((rows - 1) / 2)),
-	_offsetY(floor ((cols - 1) / 2))
+	_offsetX(floor ((cols - 1) / 2)),
+	_offsetY(floor ((rows - 1) / 2))
 {
 }
 

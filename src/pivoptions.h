@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <cmath>
 
 class PivOptions
 {
@@ -21,6 +22,8 @@ class PivOptions
 		int olvpHoriz();
 		int olvpVert();
 		int numPeaks();
+		int maxDispX();
+		int maxDispY();
 		std::pair<int, int>& winSize();
 
 		// Setters
@@ -41,6 +44,7 @@ class PivOptions
 			_ovlpVert,
 			_noPeaks;
 		std::pair<int, int> _winSize;
+		std::pair<int, int> _maxDisp;
 
 		static int keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal);
 };
