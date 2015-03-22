@@ -20,12 +20,12 @@ namespace PivEng {
 	{
 		public:
 			static void xCorr2n(CCF& ccf, IntMap::Pair& imPair,
-					std::pair<int, int>& coordPair, std::pair<int, int>& window);
+					std::pair<int, int>& coordPair);
 		private:
 	};
 
 	// template<typename T>
-	void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair, std::pair<int, int>& window)
+	void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair)
 	{
 		IntMap::Uptr& m1 = imPair.first;
 		IntMap::Uptr& m2 = imPair.second;
@@ -35,12 +35,12 @@ namespace PivEng {
 
 		int ccfRows = ccf.rows(),
 			ccfCols = ccf.cols(),
-			imRows = window.second,
-			imCols = window.first,
-			mOffset = imRows + (int) floor((ccfRows/2.0 - imRows)),
-			nOffset = imCols + (int) floor((ccfCols/2.0 - imCols)),
-			xOff = coordPair.first - (int) (window.first / 2.0) + 1,
-			yOff = coordPair.second - (int) (window.second / 2.0) + 1;
+			winRows = ccfRows - 1,
+			winCols = ccfCols - 1,
+			mOffset = winRows + (int) floor(ccfRows/2.0 - winRows),
+			nOffset = winCols + (int) floor(ccfCols/2.0 - winCols),
+			xOff = coordPair.first - (int) (winCols / 2.0) + 1,
+			yOff = coordPair.second - (int) (winRows / 2.0) + 1;
 
 		// Pointers to image first pixels
 		auto im1p = m1->begin(), im2p = m2->begin();
@@ -73,9 +73,9 @@ namespace PivEng {
 
 			// Overlapping window limits plus window offset in image plane
 			tOffyMin = (m < 0 ? -m : 0) + yOff;
-			tOffyMax = (m + imRows > imRows ? imRows - m : imRows) + yOff;
+			tOffyMax = (m + winRows > winRows ? winRows - m : winRows) + yOff;
 			tOffxMin = (n < 0 ? -n : 0) + xOff;
-			tOffxMax = (n + imCols > imCols ? imCols - n : imCols) + xOff;
+			tOffxMax = (n + winCols > winCols ? winCols - n : winCols) + xOff;
 
 			// Number of pixels in overlapping region 
 			numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);

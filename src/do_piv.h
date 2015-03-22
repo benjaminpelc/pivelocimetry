@@ -74,7 +74,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 
 	/* Store coords and do the cross-correlation */
 	pivPoint.set_coords(coordPair);
-	PivEng::XCorr2::xCorr2n(*ccf, images, coordPair, winSize);
+	PivEng::XCorr2::xCorr2n(*ccf, images, coordPair);
 
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
