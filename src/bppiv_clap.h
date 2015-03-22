@@ -19,8 +19,7 @@ class PivClap :
 
 };
 
-PivClap::PivClap(int argc, char** argv) : 
-	Clap(argc, argv)
+PivClap::PivClap(int argc, char** argv) : Clap(argc, argv)
 {
 }
 

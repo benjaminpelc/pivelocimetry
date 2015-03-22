@@ -2,8 +2,8 @@
 
 // Constructor
 PivOptions::PivOptions() :
-		m_overlap(0,0),
 		m_noPeaks(3),
+		m_overlap(0,0),
 		m_winSize(16,16),
 		m_maxDisp(7,7)
 {
