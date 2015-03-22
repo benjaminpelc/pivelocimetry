@@ -10,7 +10,7 @@
 #include "ccf.h"
 #include "int_map.h"
 
-#include <math.h>
+#include <cmath>
 #include <memory>
 #include <vector>
 
@@ -122,7 +122,6 @@ namespace PivEng {
 			ccfp =  (denom1 > 0) && (denom2 > 0) ? bitProd / sqrt(denom1 * denom2) : -1.0;
 		});
 	}
-
 }
 
 #endif
