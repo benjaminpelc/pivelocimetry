@@ -12,5 +12,10 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
 find_package(OpenCV REQUIRED)
-add_executable(bppiv main.cpp ocv_image.cpp int_map.cpp pivoptions.cpp)
+add_executable(bppiv 
+		main.cpp
+		ocv_image.cpp
+		int_map.cpp
+		pivoptions.cpp
+	)
 target_link_libraries(bppiv ${OpenCV_LIBS})

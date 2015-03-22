@@ -8,6 +8,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
 
 #include "pivoptions.h"
 #include "int_map.h"
@@ -34,18 +35,19 @@ class DoPiv
 		PivPointVec _points;
 };
 
-/* Create a vector of PIVPoints when the object is instantiated, 
- * give constructor to instantiate CCF at correct size, 
- * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done 
- *
- * Once vector points have been initiated loop through each point with 
- * an individual pair of interrogation region coordinates and do the PIV 
- * calculation for each point */
 DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
 		_numX(g.numX()),
     	_numY(g.numY()),
 		_points(g.numPoints(), PIVPoint(-1, -1, options))
 {
+	/* Create a vector of PIVPoints when the object is instantiated, 
+ 	 * give constructor to instantiate CCF at correct size, 
+ 	 * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done 
+ 	 *
+ 	 * Once vector points have been initiated loop through each point with 
+ 	 * an individual pair of interrogation region coordinates and do the PIV 
+ 	 * calculation for each point */
+
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
@@ -84,7 +86,6 @@ void DoPiv::write(const std::string filename)
 {
 	/* Write out the PIV vectors in the format 
 	 * x	y	u	v	
-	 * 
 	 * Use tab delimiter. Modify this to use specified delimeter */
 	std::ofstream outfile(filename);
 
@@ -105,9 +106,13 @@ void DoPiv::print()
 	 * todo:
 	 * Tidy this up */
 	for (auto p : _points) {
-		std::cout << p.x() << "\t" << p.y() 
+		std::cout << std::setw(6) << std::left 
+			<< p.x() << "\t" << p.y() 
+			<< std::setprecision(4) << std::fixed
+			<< std::setw(8) 
 			<< "\t" << p.get_displacementsVector()[0].x()
-			<< "\t " << p.get_displacementsVector()[0].y() << std::endl;
+			<< "\t " << p.get_displacementsVector()[0].y() 
+			<< "\t " << sqrt(pow(p.get_displacementsVector()[0].x(), 2) + pow(p.get_displacementsVector()[0].y(), 2)) << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << _points.size() << std::endl;
 }
