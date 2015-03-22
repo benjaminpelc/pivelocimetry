@@ -31,7 +31,7 @@ class PIVPoint
 		~PIVPoint();
 
 		CCF* get_ccf();
-		Peak::PeaksVec& get_peaks();
+		PivEng::Peak::PeaksVec& get_peaks();
 		Displacement::DispVec& get_displacementsVector();
 
 		void set_xCoord(int x);
@@ -47,7 +47,7 @@ class PIVPoint
 
 	private:
 		CCF::Sptr m_ccf;
-		Peak::PeaksVec m_peaksVector;
+		PivEng::Peak::PeaksVec m_peaksVector;
 		Displacement::DispVec m_dispsVec;
 		int m_i, m_j;
 };
@@ -65,7 +65,7 @@ CCF* PIVPoint::get_ccf()
 	return m_ccf.get();
 }
 
-Peak::PeaksVec& PIVPoint::get_peaks()
+PivEng::Peak::PeaksVec& PIVPoint::get_peaks()
 {
 	return m_peaksVector;
 }

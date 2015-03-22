@@ -70,7 +70,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	/* The ccf and peaks are referenced multiple times so create 
 	 * pointers to clean up a little */
 	CCF* ccf        = pivPoint.get_ccf();
-	Peak::PeaksVec& peaks = pivPoint.get_peaks();
+	PivEng::Peak::PeaksVec& peaks = pivPoint.get_peaks();
 
 	/* Store coords and do the cross-correlation */
 	pivPoint.set_coords(coordPair);

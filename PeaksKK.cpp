@@ -11,17 +11,17 @@ Peaks::Peaks(Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> inputMatrix) 
 	setMatrix(inputMatrix);
 }
 
-void Peaks::setMatrix(Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> inputMatrix) {
+void PivEng::Peaks::setMatrix(Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> inputMatrix) {
 	mat = inputMatrix;
 }
 
-Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Peaks::getMatrix() {
+Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> PivEng::Peaks::getMatrix() {
 	return mat;
 }
 
-void Peaks::findPeaks() {
+void PivEng::Peaks::findPeaks() {
 
-	// temporary Peak vector to store unsorted peaks
+	// temporary PivEng::Peak vector to store unsorted peaks
 	std::vector<Peak> tempVec;
 	double maxPeak = 0;
 
@@ -38,7 +38,7 @@ void Peaks::findPeaks() {
 				) {
 				
 				// Create a new peak structure and chuck the relevant bits in
-				Peak newPeak;
+				PivEng::Peak newPeak;
 				newPeak.x_i = i;
 				newPeak.y_j = j;
 				newPeak.peakValue = getMatrix()(j,i);
@@ -63,13 +63,13 @@ void Peaks::findPeaks() {
 	}
 }
 
-void Peaks::printPeaks() {
+void PivEng::Peaks::printPeaks() {
 	for (Peak i : peaks) {
 		std::cout << "i: " << i.x_i << ", j: " << i.y_j << ", value: " << i.peakValue << std::endl;
 	}
 }
 
-double Peaks::maxPeakValue(std::vector<Peak> peakVec) {
+double PivEng::Peaks::maxPeakValue(std::vector<Peak> peakVec) {
 	double mp = 0;
 	for (Peak i : peakVec) {
 		if (i.peakValue > mp)
@@ -79,7 +79,7 @@ double Peaks::maxPeakValue(std::vector<Peak> peakVec) {
 	return mp;
 }
 
-void Peaks::gaussFit() {
+void PivEng::Peaks::gaussFit() {
 
 	for (int it = 0; it < peaks.size(); it++) {
 
@@ -99,9 +99,9 @@ void Peaks::gaussFit() {
 	}
 }
 
-double Peaks::getU() {
+double PivEng::Peaks::getU() {
 	return displacements[0].u;
 }
-double Peaks::getV() {
+double PivEng::Peaks::getV() {
 	return displacements[0].v;
 }

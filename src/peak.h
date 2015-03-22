@@ -11,6 +11,8 @@
 
 #include <vector>
 
+namespace PivEng {
+
 class Peak
 {
 	public:
@@ -113,5 +115,5 @@ bool Peak::valid()
 
 /* Destructor */
 Peak::~Peak() {}
-
+}
 #endif
