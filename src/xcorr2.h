@@ -14,95 +14,100 @@
 #include <memory>
 #include <vector>
 
-class XCorr2
-{
-	public:
-		static void xCorr2n(CCF& ccf, IntMap::Pair& imPair,
-				std::pair<int, int>& coordPair, std::pair<int, int>& window);
-	private:
-};
+namespace PivEng {
 
-// template<typename T>
-void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair, std::pair<int, int>& window)
-{
-	IntMap::Uptr& m1 = imPair.first;
-	IntMap::Uptr& m2 = imPair.second;
+	class XCorr2
+	{
+		public:
+			static void xCorr2n(CCF& ccf, IntMap::Pair& imPair,
+					std::pair<int, int>& coordPair, std::pair<int, int>& window);
+		private:
+	};
 
-	int mw = m1->cols();
-	int mh = m1->rows();
+	// template<typename T>
+	void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair, std::pair<int, int>& window)
+	{
+		IntMap::Uptr& m1 = imPair.first;
+		IntMap::Uptr& m2 = imPair.second;
 
-	int ccfRows = ccf.rows(),
-		ccfCols = ccf.cols(),
-		imRows = window.second,
-		imCols = window.first,
-		mOffset = imRows + (int) floor((ccfRows/2.0 - imRows)),
-		nOffset = imCols + (int) floor((ccfCols/2.0 - imCols)),
-		xOff = coordPair.first - (int) (window.first / 2.0) + 1,
-		yOff = coordPair.second - (int) (window.second / 2.0) + 1;
+		int mw = m1->cols();
+		int mh = m1->rows();
 
-	// Pointers to image first pixels
-	auto im1p = m1->begin(), im2p = m2->begin();
+		int ccfRows = ccf.rows(),
+			ccfCols = ccf.cols(),
+			imRows = window.second,
+			imCols = window.first,
+			mOffset = imRows + (int) floor((ccfRows/2.0 - imRows)),
+			nOffset = imCols + (int) floor((ccfCols/2.0 - imCols)),
+			xOff = coordPair.first - (int) (window.first / 2.0) + 1,
+			yOff = coordPair.second - (int) (window.second / 2.0) + 1;
 
-	// Pixel averages and correlation bits
-	auto  bitProd = 0.0, m1Avg = 0.0, m2Avg =0.0, denom1=0.0, denom2=0.0; 
+		// Pointers to image first pixels
+		auto im1p = m1->begin(), im2p = m2->begin();
 
-	// m and n are the row and column of the ccf (respectively)
-	int mMin = mOffset > 0 ? -mOffset : 0;
-	int nMin = nOffset > 0 ? -nOffset : 0;
-	
-	// Correlation function coordinates and iterator. 
-	int ctr = 0, m, n;
+		// Pixel averages and correlation bits
+		auto  bitProd = 0.0, m1Avg = 0.0, m2Avg =0.0, denom1=0.0, denom2=0.0; 
 
-	// Overlapping regions
-	int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
+		// m and n are the row and column of the ccf (respectively)
+		int mMin = mOffset > 0 ? -mOffset : 0;
+		int nMin = nOffset > 0 ? -nOffset : 0;
+		
+		// Correlation function coordinates and iterator. 
+		int ctr = 0, m, n;
 
-	// Store all the overlapping pixels as we will be using them twice
-	std::vector<std::pair<double, double> > pixels(ccf.size());
-	auto firstPixel = pixels.begin();
-	int idx, idxShift, pixCtr;
+		// Overlapping regions
+		int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
 
-	std::for_each(ccf.begin(), ccf.end(), [&](auto& ccfp) {
-			
-		m = ctr/ccfCols + mMin;
-		n = (ctr++)%ccfCols + nMin;
+		// Store all the overlapping pixels as we will be using them twice
+		std::vector<std::pair<double, double> > pixels(ccf.size());
+		auto firstPixel = pixels.begin();
+		int idx, idxShift, pixCtr;
 
-		// Reset all counters
-		m1Avg = m2Avg = bitProd = denom1 = denom2 = 0.0;
+		std::for_each(ccf.begin(), ccf.end(), [&](auto& ccfp) {
+				
+			m = ctr/ccfCols + mMin;
+			n = (ctr++)%ccfCols + nMin;
 
-		// Overlapping window limits plus window offset in image plane
-		tOffyMin = (m < 0 ? -m : 0) + yOff;
-		tOffyMax = (m + imRows > imRows ? imRows - m : imRows) + yOff;
-		tOffxMin = (n < 0 ? -n : 0) + xOff;
-		tOffxMax = (n + imCols > imCols ? imCols - n : imCols) + xOff;
+			// Reset all counters
+			m1Avg = m2Avg = bitProd = denom1 = denom2 = 0.0;
 
-		// Number of pixels in overlapping region 
-		numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);
-		pixCtr = 0;	
+			// Overlapping window limits plus window offset in image plane
+			tOffyMin = (m < 0 ? -m : 0) + yOff;
+			tOffyMax = (m + imRows > imRows ? imRows - m : imRows) + yOff;
+			tOffxMin = (n < 0 ? -n : 0) + xOff;
+			tOffxMax = (n + imCols > imCols ? imCols - n : imCols) + xOff;
 
-		// Calculate the overlapping segment averages
-		for (int j = tOffyMin ; j < tOffyMax; j++) {
-			for (int i = tOffxMin; i < tOffxMax; i++) {
-				idx = j * mw + i;
-				idxShift = m * mw + n;
-				m1Avg += *(im1p + idx );
-				m2Avg += *(im2p + idx + idxShift);
-				pixels[pixCtr++] = (std::make_pair((double) *(im1p + idx),(double) *(im2p + idx + idxShift)));
+			// Number of pixels in overlapping region 
+			numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);
+			pixCtr = 0;	
+
+			// Calculate the overlapping segment averages
+			for (int j = tOffyMin ; j < tOffyMax; j++) {
+				for (int i = tOffxMin; i < tOffxMax; i++) {
+					idx = j * mw + i;
+					idxShift = m * mw + n;
+					m1Avg += *(im1p + idx );
+					m2Avg += *(im2p + idx + idxShift);
+					pixels[pixCtr++] = (std::make_pair((double) *(im1p + idx),(double) *(im2p + idx + idxShift)));
+				}
 			}
-		}
 
-		// Divide by the number of elements in each overlapping region
-		m1Avg /= numPix;
-		m2Avg /= numPix;
+			// Divide by the number of elements in each overlapping region
+			m1Avg /= numPix;
+			m2Avg /= numPix;
 
-		/* Calculate the correlation coefficient for this window offset */
-		for_each(firstPixel, firstPixel + numPix, [&](auto& pixpair) {
-			bitProd += (pixpair.first - m1Avg) * (pixpair.second - m2Avg);
-			denom1 += pow(pixpair.first - m1Avg, 2);
-			denom2 += pow(pixpair.second - m2Avg, 2);
+			/* Calculate the correlation coefficient for this window offset */
+			for_each(firstPixel, firstPixel + numPix, [&](auto& pixpair) {
+				bitProd += (pixpair.first - m1Avg) * (pixpair.second - m2Avg);
+				denom1 += pow(pixpair.first - m1Avg, 2);
+				denom2 += pow(pixpair.second - m2Avg, 2);
+			});
+
+			// Put everything in and do not divide by zero
+			ccfp =  denom1 > 0 && denom2 > 0 ? bitProd / sqrt(denom1 * denom2) : -1.0;
 		});
+	}
 
-		// Put everything in and do not divide by zero
-		ccfp =  denom1 > 0 && denom2 > 0 ? bitProd / sqrt(denom1 * denom2) : -1.0;
-	});
 }
+
 #endif
