@@ -3,13 +3,13 @@
 
 /*
  * XCorr2.h
- * Container class for 2D cross-correlation functions
+ * 2D cross-correlation functions
  *
  */
 
 #include "ccf.h"
 #include "int_map.h"
-#include "matrix2.h"
+
 #include <math.h>
 #include <memory>
 #include <vector>
@@ -19,19 +19,21 @@ namespace PivEng {
 	class XCorr2
 	{
 		public:
-			static void xCorr2n(CCF& ccf, IntMap::Pair& imPair,
-					std::pair<int, int>& coordPair);
+			typedef std::pair<int, int> IntPair;
+			typedef std::pair<double, double> DoublePair;
+
+			static void xCorr2n(CCF& ccf, IntMap::Pair& imPair, IntPair& coordPair);
 		private:
 	};
 
-	// template<typename T>
-	void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, std::pair<int, int>& coordPair)
+	void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, IntPair& coordPair)
 	{
-		IntMap::Uptr& m1 = imPair.first;
-		IntMap::Uptr& m2 = imPair.second;
+		/* Image intensity matrices */
+		IntMap::Uptr& image1 = imPair.first;
+		IntMap::Uptr& image2 = imPair.second;
 
-		int mw = m1->cols();
-		int mh = m1->rows();
+		int imageCols = image1->cols();
+		int imageRows = image1->rows();
 
 		int ccfRows = ccf.rows(),
 			ccfCols = ccf.cols(),
@@ -39,14 +41,16 @@ namespace PivEng {
 			winCols = ccfCols - 1,
 			mOffset = winRows + (int) floor(ccfRows/2.0 - winRows),
 			nOffset = winCols + (int) floor(ccfCols/2.0 - winCols),
-			xOff = coordPair.first - (int) (winCols / 2.0) + 1,
+
+			/* Upper left corner WRT interrogation window centre */
+			xOff = coordPair.first  - (int) (winCols / 2.0) + 1,
 			yOff = coordPair.second - (int) (winRows / 2.0) + 1;
 
 		// Pointers to image first pixels
-		auto im1p = m1->begin(), im2p = m2->begin();
+		auto im1pixel = image1->begin(), im2pixel = image2->begin();
 
 		// Pixel averages and correlation bits
-		auto  bitProd = 0.0, m1Avg = 0.0, m2Avg =0.0, denom1=0.0, denom2=0.0; 
+		auto  bitProd = 0.0, win1Avg = 0.0, win2Avg =0.0, denom1=0.0, denom2=0.0; 
 
 		// m and n are the row and column of the ccf (respectively)
 		int mMin = mOffset > 0 ? -mOffset : 0;
@@ -59,17 +63,19 @@ namespace PivEng {
 		int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
 
 		// Store all the overlapping pixels as we will be using them twice
-		std::vector<std::pair<double, double> > pixels(ccf.size());
+		std::vector<DoublePair> pixels(ccf.size());
 		auto firstPixel = pixels.begin();
 		int idx, idxShift, pixCtr;
 
+		/* Do for each point in the correlation function */
 		std::for_each(ccf.begin(), ccf.end(), [&](auto& ccfp) {
 				
-			m = ctr/ccfCols + mMin;
-			n = (ctr++)%ccfCols + nMin;
+			/* Correlation function coefficient index to correlation function plane coords */
+			m = ctr     / ccfCols + mMin;
+			n = (ctr++) % ccfCols + nMin;
 
 			// Reset all counters
-			m1Avg = m2Avg = bitProd = denom1 = denom2 = 0.0;
+			win1Avg = win2Avg = bitProd = denom1 = denom2 = 0.0;
 
 			// Overlapping window limits plus window offset in image plane
 			tOffyMin = (m < 0 ? -m : 0) + yOff;
@@ -84,27 +90,36 @@ namespace PivEng {
 			// Calculate the overlapping segment averages
 			for (int j = tOffyMin ; j < tOffyMax; j++) {
 				for (int i = tOffxMin; i < tOffxMax; i++) {
-					idx = j * mw + i;
-					idxShift = m * mw + n;
-					m1Avg += *(im1p + idx );
-					m2Avg += *(im2p + idx + idxShift);
-					pixels[pixCtr++] = (std::make_pair((double) *(im1p + idx),(double) *(im2p + idx + idxShift)));
+					/* Pixel index */
+					idx = j * imageCols + i;
+
+					/* Pixel offset for second image */
+					idxShift = m * imageCols + n;
+
+					/* Sum the pixel intensities */
+					win1Avg += *(im1pixel + idx );
+					win2Avg += *(im2pixel + idx + idxShift);
+
+					/* Store the pixels for later so we do not have to 
+					 * lookup again */
+					pixels[pixCtr++] = (std::make_pair((double) *(im1pixel + idx),(double) *(im2pixel + idx + idxShift)));
 				}
 			}
 
 			// Divide by the number of elements in each overlapping region
-			m1Avg /= numPix;
-			m2Avg /= numPix;
+			win1Avg /= numPix;
+			win2Avg /= numPix;
 
-			/* Calculate the correlation coefficient for this window offset */
-			for_each(firstPixel, firstPixel + numPix, [&](auto& pixpair) {
-				bitProd += (pixpair.first - m1Avg) * (pixpair.second - m2Avg);
-				denom1 += pow(pixpair.first - m1Avg, 2);
-				denom2 += pow(pixpair.second - m2Avg, 2);
+			/* Calculate the correlation coefficients for this window offset */
+			for_each(firstPixel, firstPixel + numPix, [&](auto& pixPair) {
+				bitProd += (pixPair.first - win1Avg) * (pixPair.second - win2Avg);
+				denom1 += pow(pixPair.first - win1Avg, 2);
+				denom2 += pow(pixPair.second - win2Avg, 2);
 			});
 
-			// Put everything in and do not divide by zero
-			ccfp =  denom1 > 0 && denom2 > 0 ? bitProd / sqrt(denom1 * denom2) : -1.0;
+			/* Put everything in and do not divide by zero. If denominator is <= 0, use CCF
+			 * value of -1.0. */
+			ccfp =  (denom1 > 0) && (denom2 > 0) ? bitProd / sqrt(denom1 * denom2) : -1.0;
 		});
 	}
 
