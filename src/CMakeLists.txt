@@ -15,7 +15,7 @@ endif()
 # Define sources and executable name
 set(EXECUTABLE_NAME "bppiv")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
 find_package(OpenCV REQUIRED)
 add_executable(${EXECUTABLE_NAME} 
 		main.cpp
