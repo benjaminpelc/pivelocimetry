@@ -37,13 +37,9 @@ namespace PivEng {
 			
 
 		private:
-			int m_i,
-				m_j;
-
-			bool m_valid;
-
+			int m_i, m_j; 
 			double m_val;
-			
+			bool m_valid; 
 	};
 
 	/* Default constructor

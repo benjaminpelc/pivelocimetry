@@ -43,9 +43,9 @@ class Clap
 };
 
 Clap::Clap(int argc, char** argv) :
+	m_flags(),
 	m_argc(argc),
 	m_argv(argv),
-	m_flags(),
 	m_flagArgsMap()
 {
 	getFlags();

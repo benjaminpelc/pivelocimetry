@@ -33,7 +33,7 @@ namespace PivEng {
 		IntMap::Uptr& image2 = imPair.second;
 
 		int imageCols = image1->cols();
-		int imageRows = image1->rows();
+		// int imageRows = image1->rows();
 
 		int ccfRows = ccf.rows(),
 			ccfCols = ccf.cols(),

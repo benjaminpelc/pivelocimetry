@@ -31,7 +31,7 @@ class DoPiv
 		~DoPiv();
 
 	private:
-		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
+		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images);
 		int m_numX,
 			m_numY;
 		PivPointVec m_points;
@@ -56,11 +56,11 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :
 	auto coordPair = g.coordsVec().begin();
 
 	for_each(m_points.begin(), m_points.end(), [&](auto& p) {
-				this->doPivPoint(p, *(coordPair++), imPair, options.winSize());
+				this->doPivPoint(p, *(coordPair++), imPair);
 			});
 }
 
-void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize)
+void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images)
 {
 	/* Steps to do the PIV analysis for the current interrogation window 
 	 * 1) set the pivPoint coordinates
