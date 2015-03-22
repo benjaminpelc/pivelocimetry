@@ -39,12 +39,12 @@ namespace PivEng {
 			ccfCols = ccf.cols(),
 			winRows = ccfRows - 1,
 			winCols = ccfCols - 1,
-			mOffset = winRows + (int) floor(ccfRows/2.0 - winRows),
-			nOffset = winCols + (int) floor(ccfCols/2.0 - winCols),
+			mOffset = winRows + static_cast<int>(floor(ccfRows/2.0 - winRows) ),
+			nOffset = winCols + static_cast<int>(floor(ccfCols/2.0 - winCols) ),
 
 			/* Upper left corner WRT interrogation window centre */
-			xOff = coordPair.first  - (int) (winCols / 2.0) + 1,
-			yOff = coordPair.second - (int) (winRows / 2.0) + 1;
+			xOff = coordPair.first  - static_cast<int>( (winCols / 2.0)) + 1,
+			yOff = coordPair.second - static_cast<int>( (winRows / 2.0)) + 1;
 
 		// Pointers to image first pixels
 		auto im1pixel = image1->begin(), im2pixel = image2->begin();
@@ -102,7 +102,7 @@ namespace PivEng {
 
 					/* Store the pixels for later so we do not have to 
 					 * lookup again */
-					pixels[pixCtr++] = (std::make_pair((double) *(im1pixel + idx),(double) *(im2pixel + idx + idxShift)));
+					pixels[pixCtr++] = (std::make_pair(static_cast<double>(*(im1pixel + idx)), static_cast<double>( *(im2pixel + idx + idxShift)) ));
 				}
 			}
 
