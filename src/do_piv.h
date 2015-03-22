@@ -22,20 +22,20 @@ class DoPiv
 	public:
 		typedef std::vector<PIVPoint> PivPointVec;
 
-		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g);
+		DoPiv(PivOptions& options, IntMap::Pair& imPair, PivEng::Grid& g);
 		void print();
 		void write(const std::string filename);
 
 		~DoPiv();
 
 	private:
-		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
+		void doPivPoint(PIVPoint& pivPoint, PivEng::Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize);
 		int m_numX,
 			m_numY;
 		PivPointVec m_points;
 };
 
-DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
+DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, PivEng::Grid& g) :  
 		m_numX(g.numX()),
     	m_numY(g.numY()),
 		m_points(g.numPoints(), PIVPoint(-1, -1, options))
@@ -58,7 +58,7 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :
 			});
 }
 
-void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize)
+void DoPiv::doPivPoint(PIVPoint& pivPoint, PivEng::Grid::CoordPair& coordPair, IntMap::Pair& images, std::pair<int, int>& winSize)
 {
 	/* Steps to do the PIV analysis for the current interrogation window 
 	 * 1) set the pivPoint coordinates

@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 	// return 0;
 
 	/* Create a grid */
-	Grid::Uptr g = std::make_unique<Grid>(*analysisOptions, *i1);
+	PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, *i1);
 	
 	// std::cout << g->coordsVec().begin()->first << std::endl;
 	// std::cout << g->coordsVec().begin()->second<< std::endl;
