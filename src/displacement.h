@@ -1,74 +1,83 @@
-#ifndef DISPLACEMENT_H
-#define DISPLACEMENT_H
+/* Class: Displacement
+ * Namespace: PivEng
+ *
+ * Author: B. Pelc
+ * Date: 22/03/2015
+ *
+ * Displacement class, seems a little surplus. Perhaps include as a struct in PivPoint. *
+ */
+
+#ifndef BPPIV_PIV_ENGINE_DISPLACEMENT_H
+#define BPPIV_PIV_ENGINE_DISPLACEMENT_H
 
 #include <vector>
 
 namespace PivEng {
 
-class Displacement
-{
-	public:
-		typedef std::vector<Displacement> DispVec;
+	class Displacement
+	{
+		public:
+			typedef std::vector<Displacement> DispVec;
 
-		Displacement() {};
-		Displacement(double x, double y, bool torf);
-		~Displacement();
+			Displacement() {};
+			Displacement(double x, double y, bool torf);
+			~Displacement();
 
-		void setX(double x);
-		void setY(double y);
-		void setValid(bool torf);
-		void setDisp(double x, double y, bool torf);
+			void setX(double x);
+			void setY(double y);
+			void setValid(bool torf);
+			void setDisp(double x, double y, bool torf);
 
-		double x();
-		double y();
-		bool valid();
+			double x();
+			double y();
+			bool valid();
 
-	private:
-		double m_x,
-			   m_y;
-		bool m_valid;
-};
+		private:
+			double m_x,
+			   	   m_y;
+			bool m_valid;
+	};
 
-Displacement::Displacement(double x, double y, bool torf) : m_x(x), m_y(y), m_valid(torf) {}
+	Displacement::Displacement(double x, double y, bool torf) : m_x(x), m_y(y), m_valid(torf) {}
 
-Displacement::~Displacement() {}
+	Displacement::~Displacement() {}
 
-void Displacement::setX(double x)
-{
-	m_x = x;
-}
+	void Displacement::setX(double x)
+	{
+		m_x = x;
+	}
 
-void Displacement::setY(double y)
-{
-	m_y = y;
-}
+	void Displacement::setY(double y)
+	{
+		m_y = y;
+	}
 
-void Displacement::setValid(bool torf)
-{
-	m_valid = torf;
-}
+	void Displacement::setValid(bool torf)
+	{
+		m_valid = torf;
+	}
 
-void Displacement::setDisp(double x, double y, bool torf)
-{
-	m_x = x;
-	m_y = y;
-	m_valid = torf;
-}
+	void Displacement::setDisp(double x, double y, bool torf)
+	{
+		m_x = x;
+		m_y = y;
+		m_valid = torf;
+	}
 
-bool Displacement::valid()
-{
-	return m_valid;
-}
+	bool Displacement::valid()
+	{
+		return m_valid;
+	}
 
-double Displacement::x()
-{
-	return m_x;
-}
+	double Displacement::x()
+	{
+		return m_x;
+	}
 
-double Displacement::y()
-{
-	return m_y;
-}
+	double Displacement::y()
+	{
+		return m_y;
+	}
 
 }
 
