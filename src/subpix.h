@@ -8,6 +8,8 @@
 #include <vector>
 #include <memory>
 
+namespace PivEng {
+
 class SubPixel
 {
 	public:
@@ -70,4 +72,7 @@ double SubPixel::gauss3(const double* a, const double* b, const double* c)
 {
 	return  (log(*a) - log(*c)) / ( 2*log(*a) - 4*log(*b) + 2*log(*c)); 
 }
+
+}
+
 #endif

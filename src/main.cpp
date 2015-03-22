@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 	// std::cout << g->coordsVec().begin()->second<< std::endl;
 
 	/* We have options, images and a grid, now do some PIV */
-	DoPiv p = DoPiv(*analysisOptions, imPair, *g);
+	PivEng::DoPiv p = PivEng::DoPiv(*analysisOptions, imPair, *g);
 	
 	/* if -o flag is supplied with a filename, write to it */
 	if (clArgs.hasParam("-o")) p.write(clArgs.getParam("-o"));

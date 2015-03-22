@@ -17,6 +17,8 @@
 #include "piv_point.h"
 #include "subpix.h"
 
+namespace PivEng {
+
 class DoPiv
 {
 	public:
@@ -41,7 +43,7 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, PivEng::Grid& g) :
 		m_points(g.numPoints(), PIVPoint(-1, -1, options))
 {
 	/* Create a vector of PIVPoints when the object is instantiated, 
- 	 * give constructor to instantiate CCF at correct size, 
+ 	 * give constructor to instantiate PivEng::CCF at correct size, 
  	 * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done 
  	 *
  	 * Once vector points have been initiated loop through each point with 
@@ -69,7 +71,7 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, PivEng::Grid::CoordPair& coordPair, I
 
 	/* The ccf and peaks are referenced multiple times so create 
 	 * pointers to clean up a little */
-	CCF* ccf        = pivPoint.get_ccf();
+	PivEng::CCF* ccf        = pivPoint.get_ccf();
 	PivEng::Peak::PeaksVec& peaks = pivPoint.get_peaks();
 
 	/* Store coords and do the cross-correlation */
@@ -118,5 +120,7 @@ void DoPiv::print()
 }
 
 DoPiv::~DoPiv() {}
+
+}
 
 #endif

@@ -5,7 +5,7 @@
  * and getters rather than any functionality of its own
  *
  * Currently, each point has:
- * 1) A CCF 
+ * 1) A PivEng::CCF 
  * 2) A vector of peak objects 
  * 3) A vector of displacement objects 
  * 4) A pair of pixel coordinates */
@@ -30,7 +30,7 @@ class PIVPoint
 		PIVPoint(int xCoord, int yCoord, PivOptions& options);
 		~PIVPoint();
 
-		CCF* get_ccf();
+		PivEng::CCF* get_ccf();
 		PivEng::Peak::PeaksVec& get_peaks();
 		PivEng::Displacement::DispVec& get_displacementsVector();
 
@@ -46,21 +46,21 @@ class PIVPoint
 		
 
 	private:
-		CCF::Sptr m_ccf;
+		PivEng::CCF::Sptr m_ccf;
 		PivEng::Peak::PeaksVec m_peaksVector;
 		PivEng::Displacement::DispVec m_dispsVec;
 		int m_i, m_j;
 };
 
 PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
-	m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+	m_ccf(std::make_shared<PivEng::CCF>(options.winHeight() + 1, options.winWidth() + 1)),
 	m_peaksVector(options.numPeaks()),
 	m_dispsVec(options.numPeaks()),
 	m_i(xCoord),
 	m_j(yCoord)
 {}
 
-CCF* PIVPoint::get_ccf()
+PivEng::CCF* PIVPoint::get_ccf()
 {
 	return m_ccf.get();
 }
