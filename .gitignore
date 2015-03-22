@@ -4,6 +4,6 @@
 
 src/CMakeFiles/
 
-bin/
+bin/*
 dump
 dump/
