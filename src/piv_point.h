@@ -26,110 +26,110 @@
 
 namespace PivEng {
 
-class PIVPoint
-{
-	public:
-		PIVPoint(int xCoord, int yCoord, PivOptions& options);
-		~PIVPoint();
+	class PIVPoint
+	{
+		public:
+			PIVPoint(int xCoord, int yCoord, PivOptions& options);
+			~PIVPoint();
 
-		CCF* get_ccf();
-		Peak::PeaksVec& get_peaks();
-		Displacement::DispVec& get_displacementsVector();
+			CCF* get_ccf();
+			Peak::PeaksVec& get_peaks();
+			Displacement::DispVec& get_displacementsVector();
 
-		void set_xCoord(int x);
-		void set_yCoord(int y);
-		void set_coords(Grid::CoordPair& coords);
+			void set_xCoord(int x);
+			void set_yCoord(int y);
+			void set_coords(Grid::CoordPair& coords);
 
-		int x();
-		int y();
-		
-		Displacement& get_primaryDisplacement();
-		void printToOfstream(std::ofstream& file);
-		
+			int x();
+			int y();
+			
+			Displacement& get_primaryDisplacement();
+			void printToOfstream(std::ofstream& file);
+			
 
-	private:
-		CCF::Sptr m_ccf;
-		Peak::PeaksVec m_peaksVector;
-		Displacement::DispVec m_dispsVec;
-		int m_i, m_j;
-};
+		private:
+			CCF::Sptr m_ccf;
+			Peak::PeaksVec m_peaksVector;
+			Displacement::DispVec m_dispsVec;
+			int m_i, m_j;
+	};
 
-PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
-	m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
-	m_peaksVector(options.numPeaks()),
-	m_dispsVec(options.numPeaks()),
-	m_i(xCoord),
-	m_j(yCoord)
-{}
+	PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
+		m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+		m_peaksVector(options.numPeaks()),
+		m_dispsVec(options.numPeaks()),
+		m_i(xCoord),
+		m_j(yCoord)
+	{}
 
-CCF* PIVPoint::get_ccf()
-{
-	return m_ccf.get();
-}
-
-Peak::PeaksVec& PIVPoint::get_peaks()
-{
-	return m_peaksVector;
-}
-
-Displacement::DispVec& PIVPoint::get_displacementsVector()
-{
-	return m_dispsVec;
-}
-
-
-Displacement& PIVPoint::get_primaryDisplacement()
-{
-	return m_dispsVec[0];
-}
-
-void PIVPoint::printToOfstream(std::ofstream& file)
-{
-	/* write the point to file in 
-	 * x y u v 
-	 * tab delimited format 
-	 *
-	 * todo
-	 * 1) Specifiy delim
-	 * 2) Specify precision
-	 * 3) Add things like peak ratios and whatnot */
-	if (m_dispsVec[0].valid()) {
-	file << m_i << "\t" << m_j << "\t"
-		 << m_dispsVec[0].x() << "\t"
-		 << m_dispsVec[0].y() << "\t"
-		 << std::endl;
+	CCF* PIVPoint::get_ccf()
+	{
+		return m_ccf.get();
 	}
-}
-		
 
-void PIVPoint::set_xCoord(int x)
-{
-	m_i = x;
-}
+	Peak::PeaksVec& PIVPoint::get_peaks()
+	{
+		return m_peaksVector;
+	}
 
-void PIVPoint::set_yCoord(int y)
-{
-	m_j = y;
-}
-
-void PIVPoint::set_coords(std::pair<int, int>& coords)
-{
-	m_i = coords.first;
-	m_j = coords.second;
-}
+	Displacement::DispVec& PIVPoint::get_displacementsVector()
+	{
+		return m_dispsVec;
+	}
 
 
-int PIVPoint::x()
-{
-	return m_i;
-}
+	Displacement& PIVPoint::get_primaryDisplacement()
+	{
+		return m_dispsVec[0];
+	}
 
-int PIVPoint::y()
-{
-	return m_j;
-}
+	void PIVPoint::printToOfstream(std::ofstream& file)
+	{
+		/* write the point to file in 
+	 	 * x y u v 
+	 	 * tab delimited format 
+	 	 *
+	 	 * todo
+	 	 * 1) Specifiy delim
+	 	 * 2) Specify precision
+	 	 * 3) Add things like peak ratios and whatnot */
+		if (m_dispsVec[0].valid()) {
+		file << m_i << "\t" << m_j << "\t"
+		 	 << m_dispsVec[0].x() << "\t"
+		 	 << m_dispsVec[0].y() << "\t"
+		 	 << std::endl;
+		}
+	}
+			
 
-PIVPoint::~PIVPoint() {};
+	void PIVPoint::set_xCoord(int x)
+	{
+		m_i = x;
+	}
+
+	void PIVPoint::set_yCoord(int y)
+	{
+		m_j = y;
+	}
+
+	void PIVPoint::set_coords(std::pair<int, int>& coords)
+	{
+		m_i = coords.first;
+		m_j = coords.second;
+	}
+
+
+	int PIVPoint::x()
+	{
+		return m_i;
+	}
+
+	int PIVPoint::y()
+	{
+		return m_j;
+	}
+
+	PIVPoint::~PIVPoint() {};
 
 }
 #endif
