@@ -32,7 +32,7 @@ class PIVPoint
 
 		CCF* get_ccf();
 		PivEng::Peak::PeaksVec& get_peaks();
-		Displacement::DispVec& get_displacementsVector();
+		PivEng::Displacement::DispVec& get_displacementsVector();
 
 		void set_xCoord(int x);
 		void set_yCoord(int y);
@@ -41,14 +41,14 @@ class PIVPoint
 		int x();
 		int y();
 		
-		Displacement& get_primaryDisplacement();
+		PivEng::Displacement& get_primaryDisplacement();
 		void printToOfstream(std::ofstream& file);
 		
 
 	private:
 		CCF::Sptr m_ccf;
 		PivEng::Peak::PeaksVec m_peaksVector;
-		Displacement::DispVec m_dispsVec;
+		PivEng::Displacement::DispVec m_dispsVec;
 		int m_i, m_j;
 };
 
@@ -70,13 +70,13 @@ PivEng::Peak::PeaksVec& PIVPoint::get_peaks()
 	return m_peaksVector;
 }
 
-Displacement::DispVec& PIVPoint::get_displacementsVector()
+PivEng::Displacement::DispVec& PIVPoint::get_displacementsVector()
 {
 	return m_dispsVec;
 }
 
 
-Displacement& PIVPoint::get_primaryDisplacement()
+PivEng::Displacement& PIVPoint::get_primaryDisplacement()
 {
 	return m_dispsVec[0];
 }

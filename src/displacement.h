@@ -3,6 +3,8 @@
 
 #include <vector>
 
+namespace PivEng {
+
 class Displacement
 {
 	public:
@@ -67,4 +69,7 @@ double Displacement::y()
 {
 	return m_y;
 }
+
+}
+
 #endif

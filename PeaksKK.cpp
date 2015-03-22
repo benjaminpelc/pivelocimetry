@@ -89,7 +89,7 @@ void PivEng::Peaks::gaussFit() {
 		double x0 = i + ( log(getMatrix()(j,i-1))-log(getMatrix()(j,i+1)) ) / ( 2*log(getMatrix()(j,i-1)) - 4*log(getMatrix()(j,i)) + 2*log(getMatrix()(j,i+1)) ) - getMatrix().cols()/2;
 	    double y0 = j + ( log(getMatrix()(j-1,i))-log(getMatrix()(j+1,i)) ) / ( 2*log(getMatrix()(j-1,i)) - 4*log(getMatrix()(j,i)) + 2*log(getMatrix()(j+1,i)) ) - getMatrix().rows()/2;
 
-	    Displacement newDisp;
+	    PivEng::Displacement newDisp;
 	    newDisp.u = x0;
 	    newDisp.v = y0;
 

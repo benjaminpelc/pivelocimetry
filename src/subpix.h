@@ -11,14 +11,14 @@
 class SubPixel
 {
 	public:
-		static void gauss(CCF& ccf, PivEng::Peak::PeaksVec& peaks, Displacement::DispVec& displacements);
+		static void gauss(CCF& ccf, PivEng::Peak::PeaksVec& peaks, PivEng::Displacement::DispVec& displacements);
 		// static double gauss3(const double a, const double b, const double c);
 		static double gauss3(const double* a, const double* b, const double* c);
 	private:
 		
 };
 
-void SubPixel::gauss(CCF& ccf, PivEng::Peak::PeaksVec& peaks, Displacement::DispVec& displacements)
+void SubPixel::gauss(CCF& ccf, PivEng::Peak::PeaksVec& peaks, PivEng::Displacement::DispVec& displacements)
 {
 	// std::cout << "In Gauss, eww!" << std::endl;
 	int i, j;
