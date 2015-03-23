@@ -24,6 +24,7 @@ add_executable(${EXECUTABLE_NAME}
 		XCorr2.cpp
 		Grid.cpp
 		IntMap.cpp
+		../lib/Clap.cpp
 		PivOptions.cpp
 	)
 target_link_libraries(${EXECUTABLE_NAME} ${OpenCV_LIBS})
