@@ -21,6 +21,7 @@ add_executable(${EXECUTABLE_NAME}
 		main.cpp
 		OcvImage.cpp
 		Ccf.cpp
+		XCorr2.cpp
 		Grid.cpp
 		IntMap.cpp
 		PivOptions.cpp
