@@ -9,7 +9,7 @@ namespace PivEng {
 		IntMap::Uptr& image2 = imPair.second;
 
 		int imageCols = image1->cols();
-		// int imageRows = image1->rows();
+		/* int imageRows = image1->rows(); */
 
 		int ccfRows = ccf.rows(),
 			ccfCols = ccf.cols(),
@@ -22,48 +22,48 @@ namespace PivEng {
 			xOff = coordPair.first  - static_cast<int>( (winCols / 2.0)) + 1,
 			yOff = coordPair.second - static_cast<int>( (winRows / 2.0)) + 1;
 
-		// Pointers to image first pixels
+		/* Pointers to image first pixels */
 		auto im1pixel = image1->begin(), im2pixel = image2->begin();
 
-		// Pixel averages and correlation bits
-		auto  bitProd = 0.0, win1Avg = 0.0, win2Avg =0.0, denom1=0.0, denom2=0.0; 
+		/* Pixel averages and correlation bits */
+		auto  bitProd = 0.0, win1Avg = 0.0, win2Avg =0.0, denom1=0.0, denom2=0.0;
 
-		// m and n are the row and column of the ccf (respectively)
+		/* m and n are the row and column of the ccf (respectively) */
 		int mMin = mOffset > 0 ? -mOffset : 0;
 		int nMin = nOffset > 0 ? -nOffset : 0;
-		
-		// Correlation function coordinates and iterator. 
+
+		/* Correlation function coordinates and iterator.  */
 		int ctr = 0, m, n;
 
-		// Overlapping regions
+		/* Overlapping regions */
 		int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
 
-		// Store all the overlapping pixels as we will be using them twice
+		/* Store all the overlapping pixels as we will be using them twice */
 		std::vector<DoublePair> pixels(ccf.size());
 		auto firstPixel = pixels.begin();
 		int idx, idxShift, pixCtr;
 
 		/* Do for each point in the correlation function */
 		std::for_each(ccf.begin(), ccf.end(), [&](auto& ccfp) {
-				
+
 			/* Correlation function coefficient index to correlation function plane coords */
 			m = ctr     / ccfCols + mMin;
 			n = (ctr++) % ccfCols + nMin;
 
-			// Reset all counters
+			/* Reset all counters */
 			win1Avg = win2Avg = bitProd = denom1 = denom2 = 0.0;
 
-			// Overlapping window limits plus window offset in image plane
+			/* Overlapping window limits plus window offset in image plane */
 			tOffyMin = (m < 0 ? -m : 0) + yOff;
 			tOffyMax = (m + winRows > winRows ? winRows - m : winRows) + yOff;
 			tOffxMin = (n < 0 ? -n : 0) + xOff;
 			tOffxMax = (n + winCols > winCols ? winCols - n : winCols) + xOff;
 
-			// Number of pixels in overlapping region 
+			/* Number of pixels in overlapping region  */
 			numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);
-			pixCtr = 0;	
+			pixCtr = 0;
 
-			// Calculate the overlapping segment averages
+			/* Calculate the overlapping segment averages */
 			for (int j = tOffyMin ; j < tOffyMax; j++) {
 				for (int i = tOffxMin; i < tOffxMax; i++) {
 					/* Pixel index */
@@ -76,13 +76,13 @@ namespace PivEng {
 					win1Avg += *(im1pixel + idx );
 					win2Avg += *(im2pixel + idx + idxShift);
 
-					/* Store the pixels for later so we do not have to 
+					/* Store the pixels for later so we do not have to
 					 * lookup again */
 					pixels[pixCtr++] = (std::make_pair(static_cast<double>(*(im1pixel + idx)), static_cast<double>( *(im2pixel + idx + idxShift)) ));
 				}
 			}
 
-			// Divide by the number of elements in each overlapping region
+			/* Divide by the number of elements in each overlapping region */
 			win1Avg /= numPix;
 			win2Avg /= numPix;
 
