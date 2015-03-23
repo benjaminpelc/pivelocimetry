@@ -4,7 +4,6 @@
 #include "int_map.h"
 #include "ocv_image.h"
 #include "pivoptions.h"
-#include "peak.h"
 #include "bppiv_clap.h"
 #include <memory>
 #include <cmath>
@@ -19,16 +18,11 @@ int main(int argc, char** argv)
 	 * filename is provided */
 	PivClap clArgs(argc, argv);
 
-	// return 0;
-
 	/* Load a raw images and extract pixel intensity maps */
-	// std::unique_ptr<IntMappable> rawIm1(new OCVImage("../img/1.bmp")),
-	// 							 rawIm2(new OCVImage("../img/2.bmp"));
 	std::unique_ptr<IntMappable> rawIm1 = std::make_unique<OCVImage>("../img/1.bmp"),
 								 rawIm2 = std::make_unique<OCVImage>("../img/2.bmp");
 
-	// Extract pixel intensity maps
-	// std::unique_ptr<IntMap> i1(new IntMap(rawIm1)),
+	/* Extract pixel intensity maps */
 	IntMap::Uptr i1 = std::make_unique<IntMap>(rawIm1),
 	             i2 = std::make_unique<IntMap>(rawIm2);
 
@@ -37,32 +31,18 @@ int main(int argc, char** argv)
 	IntMap::Pair imPair{i1, i2};
 
 	/* Load options from config file
-	 * Enable select config file from command line, failing that, use
-	 * a default config file 
-	 * ---
 	 *  Clean this up so analysisOptions takes just a filename as argument */
 	PivOptions::Uptr analysisOptions = std::make_unique<PivOptions>(
 				ConfigFile::parse("../config/default.cfg")
 			);	
 
-	// analysisOptions->print();
-	// return 0;
-
 	/* Create a grid */
 	PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, *i1);
-	
-	// std::cout << g->coordsVec().begin()->first << std::endl;
-	// std::cout << g->coordsVec().begin()->second<< std::endl;
-
 	/* We have options, images and a grid, now do some PIV */
 	PivEng::DoPiv p = PivEng::DoPiv(*analysisOptions, imPair, *g);
 	
 	/* if -o flag is supplied with a filename, write to it */
 	if (clArgs.hasParam("-o")) p.write(clArgs.getParam("-o"));
-	// p.write("../my_shiny_vectors.txt");
-
-	/* if -p is passed at command line print vector results to screen when 
-	 * all is done */
 	if (clArgs.printResults()) p.print();
 
 	return 0;
