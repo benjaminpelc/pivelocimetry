@@ -2,7 +2,7 @@
 #include "../tests/catch.hpp"
 
 #include <string>
-#include "clap.h"
+#include "Clap.hpp"
 
 TEST_CASE( "Clap test", "Check constructor"){
 	
@@ -34,7 +34,7 @@ TEST_CASE( "Clap test", "Check constructor"){
 		}	
 
 		SECTION( "Has flag '-p' should equal true" ) {
-			CHECK(test_clap.hasFlag("-p") == true);
+			CHECK(test_Clap.hppasFlag("-p") == true);
 		}
 
 		SECTION( "Flags set should have length 1" ) {
@@ -57,7 +57,7 @@ TEST_CASE( "Clap test", "Check constructor"){
 		}	
 
 		SECTION( "Has flag '-o' should equal true" ) {
-			CHECK(test_clap.hasFlag("-o") == true);
+			CHECK(test_Clap.hppasFlag("-o") == true);
 		}
 
 		SECTION( "Flags set should have length 2" ) {
@@ -80,7 +80,7 @@ TEST_CASE( "Clap test", "Check constructor"){
 		}	
 
 		SECTION( "Has flag '-o' should equal true" ) {
-			CHECK(test_clap.hasFlag("-o") == true);
+			CHECK(test_Clap.hppasFlag("-o") == true);
 		}
 
 		SECTION( "Flags set should have length 2" ) {
@@ -96,7 +96,7 @@ TEST_CASE( "Clap test", "Check constructor"){
 		}
 
 		SECTION( "Flag options should have size 1" ) {
-			CHECK(test_clap.hasParam("-o"));
+			CHECK(test_Clap.hppasParam("-o"));
 		}
 
 		SECTION( "Options should have length 3" ) {
@@ -124,7 +124,7 @@ TEST_CASE( "Clap test", "Check constructor"){
 		}
 
 		SECTION( "-f should have parms" ) {
-			CHECK(test_clap.hasParam("-f"));
+			CHECK(test_Clap.hppasParam("-f"));
 		}
 
 		SECTION( "First -o option should be 'file2.dat'" ) {
