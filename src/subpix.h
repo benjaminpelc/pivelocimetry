@@ -38,9 +38,9 @@ void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacemen
 	auto p = peaks.begin();
 	auto d = displacements.begin();
 
-	while ( p->valid() && p != peaks.end() ){
-		i = p->get_iCoord();
-		j = p->get_jCoord();
+	while ( p->valid && p != peaks.end() ){
+		i = p->i;
+		j = p->j;
 
 		/* Pointer to correlation peak value */
 		e  = e0 + j * cols + i;
