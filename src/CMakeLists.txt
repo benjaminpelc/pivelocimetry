@@ -19,8 +19,8 @@ set(EXECUTABLE_NAME "bppiv")
 find_package(OpenCV REQUIRED)
 add_executable(${EXECUTABLE_NAME} 
 		main.cpp
-		ocv_image.cpp
-		int_map.cpp
-		pivoptions.cpp
+		OcvImage.cpp
+		IntMap.cpp
+		PivOptions.cpp
 	)
 target_link_libraries(${EXECUTABLE_NAME} ${OpenCV_LIBS})

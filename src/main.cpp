@@ -1,10 +1,10 @@
-#include "config_file.h"
-#include "do_piv.h"
-#include "grid.h"
-#include "int_map.h"
-#include "ocv_image.h"
-#include "pivoptions.h"
-#include "bppiv_clap.h"
+#include "ConfigFile.hpp"
+#include "DoPiv.hpp"
+#include "Grid.hpp"
+#include "IntMap.hpp"
+#include "OcvImage.hpp"
+#include "PivOptions.hpp"
+#include "PivClap.hpp"
 #include <memory>
 #include <cmath>
 
