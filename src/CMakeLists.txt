@@ -20,6 +20,7 @@ find_package(OpenCV REQUIRED)
 add_executable(${EXECUTABLE_NAME} 
 		main.cpp
 		OcvImage.cpp
+		Grid.cpp
 		IntMap.cpp
 		PivOptions.cpp
 	)
