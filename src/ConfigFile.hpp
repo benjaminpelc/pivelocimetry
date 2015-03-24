@@ -8,14 +8,14 @@
 
 #include <fstream>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 
 class ConfigFile
 {
 	public:
 		// ConfigFile();
 		// ~ConfigFile();
-		static std::map<std::string, std::string> parse(const std::string fn);
+		static std::unordered_map<std::string, std::string> parse(const std::string fn);
 
 	private:
 		static int findColon(const std::string& str);
@@ -29,13 +29,13 @@ int ConfigFile::findColon(const std::string& str)
 	return colon > 0 ? colon : 0;
 }
 
-std::map<std::string, std::string> ConfigFile::parse(const std::string fn)
+std::unordered_map<std::string, std::string> ConfigFile::parse(const std::string fn)
 {
 	/* Load the config file, ignore blank lines and comment lines 
 	 * and return a map of key:value string pairs */
 	std::ifstream configFile(fn);
 	std::string line, k, v;
-	std::map<std::string, std::string> keyValues;
+	std::unordered_map<std::string, std::string> keyValues;
 
 	while (std::getline(configFile, line)) {
 		// Ignore blank lines and comments, make sure there is a colon in the string

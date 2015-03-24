@@ -12,7 +12,7 @@ PivOptions::PivOptions() :
 /*
  * Constructor for when given a map of key value pairs
  */
-PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
+PivOptions::PivOptions(std::unordered_map<std::string, std::string> optionMap)
 {
 	/* Check for window size */
 	m_winSize.first  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
@@ -31,7 +31,7 @@ PivOptions::PivOptions(std::map<std::string, std::string> optionMap)
 }
 
 
-int PivOptions::keyExistsToInt(std::map<std::string, std::string>& optMap, std::string key, int defaultVal)
+int PivOptions::keyExistsToInt(std::unordered_map<std::string, std::string>& optMap, std::string key, int defaultVal)
 {
 	/* If the value of the map with key key is an empty string then 
 	 * return a default integer otherwise convert the string to an 

@@ -3,14 +3,14 @@
 
 #include <algorithm>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <string>
 
 class Clap
 {
 	public:
-		typedef std::map<std::string, std::vector<std::string> > FlagArgsMap;
+		typedef std::unordered_map<std::string, std::vector<std::string> > FlagArgsMap;
 		
 		Clap(int argc, char** argv);
 		~Clap() {};
