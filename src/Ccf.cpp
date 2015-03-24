@@ -42,7 +42,7 @@ namespace PivEng {
 		/* Define the boundary of the correlation function search region
 	 	 * 1) pretty sure this needs 1 subtracting
 	 	 * 2) Add check to make sure maxDisp does not exceed CCF boundaries */
-		maxDisp = floor(m_rows / 2) - maxDisp;
+		maxDisp = floor(m_rows / 2) - maxDisp - 1;
 
 		double maxVal = -BIG_DOUBLE, /* Something silly big negative */
 		   	   // currentElem   = m_mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
@@ -52,6 +52,8 @@ namespace PivEng {
 		/* coords of peack value, set to initial coord */
 		int jC = maxDisp,
 			iC = maxDisp,
+			jMax = m_rows - maxDisp,
+			iMax = m_cols - maxDisp,
 			idx;
 		
 		/* Be cynical, do not believe any peak to be automatically valid */
@@ -62,8 +64,8 @@ namespace PivEng {
 		for (auto& peak : pv) {
 			/* Loop through each point in the CCF matrix.
 		 	 * Using raw loop as index values as well as element values are required*/
-			for (int j = maxDisp; j < m_rows - maxDisp; j++) {
-				for (int i = maxDisp; i < m_cols - maxDisp; i++) {
+			for (int j = maxDisp; j < jMax; j++) {
+				for (int i = maxDisp; i < iMax; i++) {
 					idx = m_cols * j + i;
 					currentElem = m_mat[idx];
 					/* Check to see if point is larger than current max but smaller than 

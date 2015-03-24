@@ -27,7 +27,7 @@
 namespace PivEng {
 
 	struct dv {
-		typedef std::vector<dv> PivVecVec;
+		using PivVec = std::vector<dv>;
 		dv() {};
 		dv(double x0, double y0, double u0, double v0) : x(x0), y(y0), u(u0), v(v0) {};
 		~dv() {};
@@ -45,6 +45,7 @@ namespace PivEng {
 			CCF* get_ccf();
 			Peak::PeaksVec& peaks();
 			Disp::DispVec& dispsVec();
+
 
 			void set_xCoord(int x);
 			void set_yCoord(int y);
@@ -102,14 +103,6 @@ namespace PivEng {
 
 	void PIVPoint::printToOfstream(std::ofstream& file)
 	{
-		/* write the point to file in 
-	 	 * x y u v 
-	 	 * tab delimited format 
-	 	 *
-	 	 * todo
-	 	 * 1) Specifiy delim
-	 	 * 2) Specify precision
-	 	 * 3) Add things like peak ratios and whatnot */
 		if (m_dispsVec[0].valid) {
 		file << m_i << "\t" << m_j << "\t"
 		 	 << m_dispsVec[0].u << "\t"

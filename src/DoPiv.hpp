@@ -69,11 +69,10 @@ DoPiv::PivPointVec& DoPiv::pointsVector()
 void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images)
 {
 	/* Steps to do the PIV analysis for the current interrogation window 
-	 * 1) set the pivPoint coordinates
+	 * 1) set the PivPoint coordinates
 	 * 2) do the cross-correlation
 	 * 3) find the correlation function peaks
-	 * 4) calculate the total displacements using sub-pixel peak fitting
-	 */
+	 * 4) calculate the total displacements using sub-pixel peak fitting */
 
 	/* The ccf and peaks are referenced multiple times so create 
 	 * pointers to clean up a little */
@@ -87,7 +86,6 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
 	SubPixel::gauss(*ccf, peaks, pivPoint.dispsVec());
-
 }
 
 void DoPiv::write(const std::string filename)
