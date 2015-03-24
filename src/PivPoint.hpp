@@ -27,6 +27,8 @@
 namespace PivEng {
 
 	struct dv {
+		typedef std::vector<dv> PivVecVec;
+		dv() {};
 		dv(double x0, double y0, double u0, double v0) : x(x0), y(y0), u(u0), v(v0) {};
 		~dv() {};
 		double x;
