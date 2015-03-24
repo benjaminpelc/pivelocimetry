@@ -8,10 +8,10 @@ namespace PivEng {
 		IntMap::Uptr& image1 = imPair.first;
 		IntMap::Uptr& image2 = imPair.second;
 
-		int imageCols = image1->cols();
+		auto imageCols = image1->cols();
 		/* int imageRows = image1->rows(); */
 
-		int ccfRows = ccf.rows(),
+		auto ccfRows = ccf.rows(),
 			ccfCols = ccf.cols(),
 			winRows = ccfRows - 1,
 			winCols = ccfCols - 1,

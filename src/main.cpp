@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
 
 	/* Parse command line arguments */ 
-	PivClap clArgs(argc, argv);
+	auto clArgs = PivClap(argc, argv);
 
 	/* Load a raw images and extract pixel intensity maps */
 	std::unique_ptr<IntMappable> rawIm1 = std::make_unique<OCVImage>("../img/1.bmp"),
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 	/* Create a grid */
 	PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, *i1);
 	/* We have options, images and a grid, now do some PIV */
-	PivEng::DoPiv p = PivEng::DoPiv(*analysisOptions, imPair, *g);
+	auto p = PivEng::DoPiv(*analysisOptions, imPair, *g);
 
 	/* PivView pv(p.pointsVector()); */
 	

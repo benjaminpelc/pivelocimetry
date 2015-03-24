@@ -8,12 +8,12 @@ namespace PivEng {
 		m_coords()
 	{
 		/* Get the image width and height */
-		int imW = image.cols(),
-			imH = image.rows(),
-			winW = config.winWidth(),
-			winH = config.winHeight(),
-			ovlpX = config.olvpHoriz(),
-			ovlpY = config.olvpVert();
+		auto imW = image.cols(),
+			 imH = image.rows(),
+			 winW = config.winWidth(),
+			 winH = config.winHeight(),
+			 ovlpX = config.olvpHoriz(),
+			 ovlpY = config.olvpVert();
 
 		/* Number of vectors in the x and y directions.*/
 		auto noPointsInDirn = [](int imDim, int winDim, int olp) -> int {
@@ -30,7 +30,7 @@ namespace PivEng {
 		/* Set length of vector to store coordinate points */
 		m_coords.resize(m_noX * m_noY);
 
-		int i = 0, j = 0;
+		size_t i = 0, j = 0;
 
 		/* Have repetition here. Perhaps refactor out */
 		std::for_each(m_ptsX.begin(), m_ptsX.end(), [&](int& x) {
@@ -41,7 +41,7 @@ namespace PivEng {
 					y = (winH - ovlpY) * (j++) -1 + winH / 2; 
 				});
 
-		int ctr = 0;
+		size_t ctr = 0;
 		std::for_each(m_coords.begin(), m_coords.end(), [&](auto &c) {
 				c = std::make_pair(m_ptsX[ctr % m_noX], m_ptsY[floor (ctr / m_noX)]);
 				ctr++;
