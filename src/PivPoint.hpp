@@ -26,9 +26,20 @@
 
 namespace PivEng {
 
+	struct dv {
+		dv(double x0, double y0, double u0, double v0) : x(x0), y(y0), u(u0), v(v0) {};
+		~dv() {};
+		double x;
+		double y;
+		double u;
+		double v;
+	};
+
 	class PIVPoint
 	{
 		public:
+			typedef std::vector<PIVPoint> PivPointVec;
+
 			PIVPoint(int xCoord, int yCoord, PivOptions& options);
 			~PIVPoint();
 
@@ -42,6 +53,8 @@ namespace PivEng {
 
 			int x();
 			int y();
+			
+			dv getDv();
 			
 			Disp& primaryDisp();
 			void printToOfstream(std::ofstream& file);
@@ -65,6 +78,11 @@ namespace PivEng {
 	CCF* PIVPoint::get_ccf()
 	{
 		return m_ccf.get();
+	}
+
+	dv PIVPoint::getDv()
+	{
+		return dv((double) m_i, (double) m_j, primaryDisp().x(), primaryDisp().y());
 	}
 
 	Peak::PeaksVec& PIVPoint::peaks()
@@ -130,6 +148,6 @@ namespace PivEng {
 	}
 
 	PIVPoint::~PIVPoint() {};
-
 }
+
 #endif

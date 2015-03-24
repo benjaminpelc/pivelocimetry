@@ -27,6 +27,7 @@ class DoPiv
 		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g);
 		void print();
 		void write(const std::string filename);
+		PivPointVec& pointsVector();
 
 		~DoPiv();
 
@@ -58,6 +59,11 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :
 	for_each(m_points.begin(), m_points.end(), [&](auto& p) {
 				this->doPivPoint(p, *(coordPair++), imPair);
 			});
+}
+
+DoPiv::PivPointVec& DoPiv::pointsVector()
+{
+	return m_points;
 }
 
 void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images)

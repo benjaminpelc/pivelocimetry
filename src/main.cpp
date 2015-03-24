@@ -5,6 +5,7 @@
 #include "OcvImage.hpp"
 #include "PivClap.hpp"
 #include "PivOptions.hpp"
+#include "PivView.hpp"
 #include <cmath>
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -12,23 +13,7 @@
 int main(int argc, char** argv)
 {
 
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML Lives!");
 
-	sf::CircleShape shape{100.f};
-	shape.setFillColor(sf::Color::Green);
-
-	while (window.isOpen()) {
-		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
-
-	return 0;
 	/* Parse command line arguments */ 
 	PivClap clArgs(argc, argv);
 
@@ -53,6 +38,8 @@ int main(int argc, char** argv)
 	PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, *i1);
 	/* We have options, images and a grid, now do some PIV */
 	PivEng::DoPiv p = PivEng::DoPiv(*analysisOptions, imPair, *g);
+
+	PivView pv(p.pointsVector());
 	
 	/* Check command line args and print to screen/write to file as necessary */
 	if (clArgs.hasParam("-o")) p.write(clArgs.getParam("-o"));
