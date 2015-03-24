@@ -42,6 +42,7 @@ void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacemen
 		i = p->i;
 		j = p->j;
 
+
 		/* Pointer to correlation peak value */
 		e  = e0 + j * cols + i;
 		// std::cout << e << "\t" << *e << std::endl;

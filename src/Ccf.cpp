@@ -42,9 +42,9 @@ namespace PivEng {
 		/* Define the boundary of the correlation function search region
 	 	 * 1) pretty sure this needs 1 subtracting
 	 	 * 2) Add check to make sure maxDisp does not exceed CCF boundaries */
-		maxDisp = floor(m_rows / 2) - maxDisp - 1;
+		maxDisp = floor(m_rows / 2) - maxDisp + 1;
 
-		double maxVal = -BIG_DOUBLE, /* Something silly big negative */
+		double maxVal = 0.0, /* Something silly big negative */
 		   	   // currentElem   = m_mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
 		   	   currentElem   = *(m_begin + m_cols * maxDisp + maxDisp), /* Current CCF value, set to initial value */
 	       	   preMax = BIG_DOUBLE; /* something silly big for first iteration */
@@ -93,7 +93,7 @@ namespace PivEng {
 			/* Set preMax to the current peak max, funture peaks will have to be
 		 	 * smaller than this. Also set maxVal back to something silly neg */
 			preMax = maxVal;
-			maxVal = -BIG_DOUBLE;
+			maxVal = 0.0;
 			
 			valid = false; /* reset validity to false for next round */
 		

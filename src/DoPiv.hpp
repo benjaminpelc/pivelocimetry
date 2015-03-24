@@ -86,6 +86,12 @@ void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
 	SubPixel::gauss(*ccf, peaks, pivPoint.dispsVec());
+
+// 	if (coordPair.first == 311 && coordPair.second == 503 ) {
+// 		pivPoint.printPeaks();
+// 		pivPoint.printDisps();
+// 	}
+
 }
 
 void DoPiv::write(const std::string filename)
@@ -116,8 +122,8 @@ void DoPiv::print()
 			<< p.x() << "\t" << p.y() 
 			<< std::setprecision(4) << std::fixed
 			<< std::setw(8) 
-			<< "\t" << p.dispsVec()[0].u
-			<< "\t " << p.dispsVec()[0].v 
+			<< "\t" << p.primaryDisp().u
+			<< "\t " << p.primaryDisp().v 
 			<< "\t " << sqrt(pow(p.dispsVec()[0].u, 2) + pow(p.dispsVec()[0].v, 2)) << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;

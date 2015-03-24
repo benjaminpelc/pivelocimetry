@@ -58,6 +58,8 @@ namespace PivEng {
 			
 			Disp& primaryDisp();
 			void printToOfstream(std::ofstream& file);
+			void printPeaks();
+			void printDisps();
 			
 
 		private:
@@ -82,7 +84,11 @@ namespace PivEng {
 
 	dv PIVPoint::getDv()
 	{
-		return dv((double) m_i, (double) m_j, primaryDisp().u, primaryDisp().v);
+		// auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
+
+
+		return dv();
+		// return dv((double) m_i, (double) m_j, d.u, d.v);
 	}
 
 	Peak::PeaksVec& PIVPoint::peaks()
@@ -98,7 +104,38 @@ namespace PivEng {
 
 	Disp& PIVPoint::primaryDisp()
 	{
+		// auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
+        //
+		// if ( d != m_dispsVec.end() ) {
+		// 	std::cout << "Valid found" << std::endl;
+		// 	return *d;
+		// } else {
+		// 	std::cout << "No valid" << std::endl;
+		// 	return *d;
+		// }
 		return m_dispsVec[0];
+	}
+
+	void PIVPoint::printPeaks() 
+	{
+		auto i(0);
+		std::cout << "Peak#\ti\tj\tValue\tValid" << std::endl;
+		for(auto& p : m_peaksVector)
+			std::cout << (i++) << "\t" << p.i - m_ccf->offsetX() << "\t" << p.j - m_ccf->offsetY()
+				<< "\t" 
+				<< std::setprecision(4) << std::fixed
+				<<  p.val << "\t" << p.valid << std::endl;
+
+	}
+
+	void PIVPoint::printDisps() 
+	{
+		auto i(0);
+		std::cout << "Disp\tu\tv\tValid" << std::endl;
+		for(auto& d : m_dispsVec)
+			std::cout << (i++) << "\t" << std::setprecision(4) << std::fixed << d.u << "\t" << d.v
+				<< "\t" << d.valid << std::endl;
+
 	}
 
 	void PIVPoint::printToOfstream(std::ofstream& file)
