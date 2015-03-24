@@ -31,16 +31,13 @@ namespace PivEng {
 		dv() {};
 		dv(double x0, double y0, double u0, double v0) : x(x0), y(y0), u(u0), v(v0) {};
 		~dv() {};
-		double x;
-		double y;
-		double u;
-		double v;
+		double x, y, u, v;
 	};
 
 	class PIVPoint
 	{
 		public:
-			typedef std::vector<PIVPoint> PivPointVec;
+			using PivPointVec = std::vector<PIVPoint>;
 
 			PIVPoint(int xCoord, int yCoord, PivOptions& options);
 			~PIVPoint();
@@ -84,7 +81,7 @@ namespace PivEng {
 
 	dv PIVPoint::getDv()
 	{
-		return dv((double) m_i, (double) m_j, primaryDisp().x(), primaryDisp().y());
+		return dv((double) m_i, (double) m_j, primaryDisp().u, primaryDisp().v);
 	}
 
 	Peak::PeaksVec& PIVPoint::peaks()
@@ -113,10 +110,10 @@ namespace PivEng {
 	 	 * 1) Specifiy delim
 	 	 * 2) Specify precision
 	 	 * 3) Add things like peak ratios and whatnot */
-		if (m_dispsVec[0].valid()) {
+		if (m_dispsVec[0].valid) {
 		file << m_i << "\t" << m_j << "\t"
-		 	 << m_dispsVec[0].x() << "\t"
-		 	 << m_dispsVec[0].y() << "\t"
+		 	 << m_dispsVec[0].u << "\t"
+		 	 << m_dispsVec[0].v << "\t"
 		 	 << std::endl;
 		}
 	}

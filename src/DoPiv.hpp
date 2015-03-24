@@ -118,9 +118,9 @@ void DoPiv::print()
 			<< p.x() << "\t" << p.y() 
 			<< std::setprecision(4) << std::fixed
 			<< std::setw(8) 
-			<< "\t" << p.dispsVec()[0].x()
-			<< "\t " << p.dispsVec()[0].y() 
-			<< "\t " << sqrt(pow(p.dispsVec()[0].x(), 2) + pow(p.dispsVec()[0].y(), 2)) << std::endl;
+			<< "\t" << p.dispsVec()[0].u
+			<< "\t " << p.dispsVec()[0].v 
+			<< "\t " << sqrt(pow(p.dispsVec()[0].u, 2) + pow(p.dispsVec()[0].v, 2)) << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;
 }

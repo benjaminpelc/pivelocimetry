@@ -3,8 +3,6 @@
  *
  * Author: B. Pelc
  * Date: 22/03/2015
- *
- * Disp class, seems a little surplus. Perhaps include as a struct in PivPoint. *
  */
 
 #ifndef BPPIV_PIV_ENGINE_DISPLACEMENT_H
@@ -14,70 +12,19 @@
 
 namespace PivEng {
 
-	class Disp
+	struct Disp
 	{
-		public:
-			typedef std::vector<Disp> DispVec;
+		using DispVec = std::vector<Disp>;
 
-			Disp() {};
-			Disp(double x, double y, bool torf);
-			~Disp();
+		Disp() {};
+		Disp(double x0, double y0, bool torf) : u(x0), v(y0), valid(torf) {};
+		~Disp() {};
 
-			void setX(double x);
-			void setY(double y);
-			void setValid(bool torf);
-			void setDisp(double x, double y, bool torf);
+		void setDisp(double x0, double y0, bool torf) { u = x0; v = y0; valid = torf; };
 
-			double x();
-			double y();
-			bool valid();
-
-		private:
-			double m_x,
-			   	   m_y;
-			bool m_valid;
+		double u, v;
+		bool valid;
 	};
-
-	Disp::Disp(double x, double y, bool torf) : m_x(x), m_y(y), m_valid(torf) {}
-
-	Disp::~Disp() {}
-
-	void Disp::setX(double x)
-	{
-		m_x = x;
-	}
-
-	void Disp::setY(double y)
-	{
-		m_y = y;
-	}
-
-	void Disp::setValid(bool torf)
-	{
-		m_valid = torf;
-	}
-
-	void Disp::setDisp(double x, double y, bool torf)
-	{
-		m_x = x;
-		m_y = y;
-		m_valid = torf;
-	}
-
-	bool Disp::valid()
-	{
-		return m_valid;
-	}
-
-	double Disp::x()
-	{
-		return m_x;
-	}
-
-	double Disp::y()
-	{
-		return m_y;
-	}
 
 }
 
