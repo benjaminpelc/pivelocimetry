@@ -5,7 +5,7 @@
 #include "OcvImage.hpp"
 #include "PivClap.hpp"
 #include "PivOptions.hpp"
-#include "PivView.hpp"
+// #include "PivView.hpp"
 #include <cmath>
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	/* We have options, images and a grid, now do some PIV */
 	PivEng::DoPiv p = PivEng::DoPiv(*analysisOptions, imPair, *g);
 
-	PivView pv(p.pointsVector());
+	/* PivView pv(p.pointsVector()); */
 	
 	/* Check command line args and print to screen/write to file as necessary */
 	if (clArgs.hasParam("-o")) p.write(clArgs.getParam("-o"));
