@@ -22,7 +22,7 @@ namespace PivEng {
 			~CCF();
 
 			void findPeaks(Peak::PeaksVec& pv, int maxDisp);
-			bool isLocalPeak(int j);
+			bool isLocalPeak(double *  j);
 			int offsetX();
 			int offsetY();
 

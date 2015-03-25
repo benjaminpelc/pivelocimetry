@@ -45,20 +45,19 @@ namespace PivEng {
 		maxDisp = floor(m_rows / 2) - maxDisp + 1;
 
 		double maxVal = 0.0, /* Something silly big negative */
-		   	   // currentElem   = m_mat[maxDisp][maxDisp], /* Current CCF value, set to initial value */
-		   	   currentElem   = *(m_begin + m_cols * maxDisp + maxDisp), /* Current CCF value, set to initial value */
 	       	   preMax = BIG_DOUBLE; /* something silly big for first iteration */
+	    double* currentElemPtr = nullptr;
 
 		/* coords of peack value, set to initial coord */
 		int jC = maxDisp,
 			iC = maxDisp,
 			jMax = m_rows - maxDisp,
-			iMax = m_cols - maxDisp,
-			idx;
+			iMax = m_cols - maxDisp;
 		
 		/* Be cynical, do not believe any peak to be automatically valid */
 		bool valid = false;
-		auto inValidRange = [&]() -> bool { return currentElem > maxVal && currentElem < preMax; };
+		auto * cp = &m_mat[0];
+		auto inValidRange = [&]() -> bool { return *currentElemPtr > maxVal && *currentElemPtr < preMax; };
 
 		/* iterate through each of the number of peaks specified to search for */
 		for (auto& peak : pv) {
@@ -66,16 +65,15 @@ namespace PivEng {
 		 	 * Using raw loop as index values as well as element values are required*/
 			for (int j = maxDisp; j < jMax; j++) {
 				for (int i = maxDisp; i < iMax; i++) {
-					idx = m_cols * j + i;
-					currentElem = m_mat[idx];
+					currentElemPtr = cp + m_cols * j + i;
+					
 					/* Check to see if point is larger than current max but smaller than 
 				 	 * the previous peak. Check surrounding values to make sure it is in 
 				 	 * fact a peak value */
-					// if ( inRange(currentElem, maxVal, preMax) && isLocalPeak(idx) ) {
-					if ( inValidRange() && isLocalPeak(idx) ) {
+					if ( inValidRange() && isLocalPeak(currentElemPtr) ) {
 						/* All things being good, update the current peak value, coords
 					 	 * and validity. These will be used if no other peak is found */
-						maxVal = currentElem;
+						maxVal = *currentElemPtr;
 						jC = j;
 						iC = i;
 						valid = true;
@@ -101,22 +99,22 @@ namespace PivEng {
 		}
 	}
 
-	bool CCF::inRange(double subject, double minimum, double maximum)
-	{
-		/* Returns true if the subject is greater than minimum and 
-	 	 * less than maximum 
-	 	 *
-	 	 * todo 
-	 	 * Template this into a general function */
-		return subject > minimum && subject < maximum;
-	}
+	// bool CCF::inRange(double subject, double minimum, double maximum)
+	// {
+	// 	/* Returns true if the subject is greater than minimum and 
+	//  	 * less than maximum 
+	//  	 *
+	//  	 * todo 
+	//  	 * Template this into a general function */
+	// 	return subject > minimum && subject < maximum;
+	// }
 
 	// bool CCF::isLocalPeak(int j, int i)
-	bool CCF::isLocalPeak(int i)
+	bool CCF::isLocalPeak(double* p)
 	{
 		/* Returns true if the point (i,j) has greater 
 	 	 * value than the four surrounding points */
-	    auto * p = &m_mat[i];
+	    // auto * p = &m_mat[i];
     	return *(p) > *(p - m_cols) &&
             	*(p) > *(p + m_cols) &&
 	        	*(p) > *(p + 1) &&

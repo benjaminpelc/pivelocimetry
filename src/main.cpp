@@ -1,11 +1,9 @@
-// #include "ConfigFile.hpp"
 #include "DoPiv.hpp"
 #include "Grid.hpp"
 #include "IntMap.hpp"
 #include "OcvImage.hpp"
 #include "PivClap.hpp"
 #include "PivOptions.hpp"
-// #include "PivView.hpp"
 #include <cmath>
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -33,6 +31,7 @@ int main(int argc, char** argv)
 
 	/* Create a grid */
 	PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, *i1);
+
 	/* We have options, images and a grid, now do some PIV */
 	auto piv = PivEng::DoPiv(*analysisOptions, imPair, *g);
 
