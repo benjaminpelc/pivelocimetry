@@ -124,10 +124,16 @@ namespace PivEng {
      	 */
 
     	/* Dangerous as is, can access elements out of range */
-    	return m_mat[i] > m_mat[i - m_cols] &&
-            	m_mat[i] > m_mat[i + m_cols] &&
-	        	m_mat[i] > m_mat[i + 1] &&
-	        	m_mat[i] > m_mat[i - 1];
+    	// return m_mat[i] > m_mat[i - m_cols] &&
+        //     	m_mat[i] > m_mat[i + m_cols] &&
+	    //     	m_mat[i] > m_mat[i + 1] &&
+	    //     	m_mat[i] > m_mat[i - 1];
+
+	    auto * p = &m_mat[i];
+    	return *(p) > *(p - m_cols) &&
+            	*(p) > *(p + m_cols) &&
+	        	*(p) > *(p + 1) &&
+	        	*(p) > *(p - 1);
 	}
 
 }
