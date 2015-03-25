@@ -2,6 +2,7 @@
 #define PIV_OPTIONS_H
 
 #include <iostream>
+#include <fstream>
 #include <unordered_map>
 #include <memory>
 #include <cmath>
@@ -13,6 +14,7 @@ class PivOptions
 		typedef std::unordered_map<int, int> WinSizePair;
 			
 		PivOptions();
+		PivOptions(std::string fn);
 		PivOptions(std::unordered_map<std::string, std::string> optionMap);
 		~PivOptions();
 
@@ -42,6 +44,7 @@ class PivOptions
 		std::pair<int, int> m_overlap;
 		std::pair<int, int> m_winSize;
 		std::pair<int, int> m_maxDisp;
+		int findColon(const std::string& str);
 
 		static int keyExistsToInt(std::unordered_map<std::string, std::string>& optMap, std::string key, int defaultVal);
 };

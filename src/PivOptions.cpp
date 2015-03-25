@@ -31,6 +31,47 @@ PivOptions::PivOptions(std::unordered_map<std::string, std::string> optionMap)
 }
 
 
+PivOptions::PivOptions(std::string fn)
+{
+	std::ifstream configFile(fn);
+	std::string line, k, v;
+	std::unordered_map<std::string, std::string> optionMap;
+
+	while (std::getline(configFile, line)) {
+		// Ignore blank lines and comments, make sure there is a colon in the string
+		int splitPoint = findColon(line);
+		if ( !line.empty() && line[0] != '#' && splitPoint) {
+			// Now place the key:values in the map
+			k = line.substr(0, splitPoint);
+			v = line.substr(splitPoint + 1, line.length());
+			optionMap[k] = v;
+		}
+	}
+	configFile.close();
+	/* Check for window size */
+	m_winSize.first  = keyExistsToInt(optionMap, "interrogation_window_x", 16);
+	m_winSize.second = keyExistsToInt(optionMap, "interrogation_window_y", 16);
+
+	/* Check for overlap */
+	m_overlap.first   = keyExistsToInt(optionMap, "window_overlap_x", 0);
+	m_overlap.second  = keyExistsToInt(optionMap, "window_overlap_y", 0);
+
+	/* Check for number of correlation peaks to find */
+	m_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
+
+	/* Max displacements */
+	m_maxDisp.first  = keyExistsToInt(optionMap, "max_displacement_x", floor(m_winSize.first / 2) - 1);
+	m_maxDisp.second = keyExistsToInt(optionMap, "max_displacement_y", floor(m_winSize.second / 2) - 1);
+}
+
+int PivOptions::findColon(const std::string& str)
+{
+	/* 	findColon
+ 	 *	returns the location of the first colon in the string */
+	int colon = str.find_first_of(":");
+	return colon > 0 ? colon : 0;
+}
+
 int PivOptions::keyExistsToInt(std::unordered_map<std::string, std::string>& optMap, std::string key, int defaultVal)
 {
 	/* If the value of the map with key key is an empty string then 
