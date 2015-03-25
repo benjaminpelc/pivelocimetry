@@ -2,8 +2,9 @@
 .*.swp
 .*/.*.swp
 
-src/CMakeFiles/
+bin/CMakeFiles/
 
 bin/*
+bin/bppiv
 dump
 dump/
