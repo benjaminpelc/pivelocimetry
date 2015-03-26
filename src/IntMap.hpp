@@ -6,7 +6,7 @@
 #include "../lib/Mat2.hpp"
 #include "IntMappable.hpp"
 
-class IntMap: public Mat2<unsigned int> 
+class IntMap: public Mat2<uint16_t> 
 {
 	public:
 		/* unique pointer typedef call with IntMap::Uptr */

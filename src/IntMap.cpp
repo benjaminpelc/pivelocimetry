@@ -1,8 +1,8 @@
 #include "IntMap.hpp"
 
-IntMap::IntMap(unsigned int rows, unsigned int cols) : Mat2<unsigned int>(rows, cols) {}
+IntMap::IntMap(unsigned int rows, unsigned int cols) : Mat2<uint16_t>(rows, cols) {}
 
-IntMap::IntMap(IntMappable* raw) : Mat2<unsigned int>(raw->height(), raw->width())
+IntMap::IntMap(IntMappable* raw) : Mat2<uint16_t>(raw->height(), raw->width())
 {
 	unsigned int wdth = raw->width();
 
@@ -13,7 +13,7 @@ IntMap::IntMap(IntMappable* raw) : Mat2<unsigned int>(raw->height(), raw->width(
 	}
 }
 
-IntMap::IntMap(const std::unique_ptr<IntMappable>& raw) : Mat2<unsigned int>(raw->height(), raw->width())
+IntMap::IntMap(const std::unique_ptr<IntMappable>& raw) : Mat2<uint16_t>(raw->height(), raw->width())
 {
 	unsigned int wdth = raw->width();
 
