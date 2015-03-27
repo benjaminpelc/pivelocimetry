@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 	/* PivView pv(piv.pointsVector()); */
 	
 	/* Check command line args and print to screen/write to file as necessary */
-	if (clArgs.hasParam("-o")) piv.write(clArgs.getParam("-o"));
+	if (clArgs.writeResults()) piv.write(clArgs.writeFile());
 	if (clArgs.printResults()) piv.print();
 
 	return 0;

@@ -10,6 +10,9 @@ class PivClap :
 		PivClap(int argc, char** argv);
 
 		bool printResults() { return hasFlag("-p"); };
+		bool writeResults() { return hasFlag("-o"); };
+
+		std::string writeFile() { return getParam("-o"); };
 
 		/* Want a method that tells you off if the flag specified 
 		 * requires an option */
