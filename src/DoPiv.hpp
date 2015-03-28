@@ -3,7 +3,7 @@
  * Main engine of the program, do the actual PIV 
  * */
 
-#ifndef BBPIV_DO_PIV_H
+#ifndef BPPIV_DO_PIV_H
 #define BPPIV_DO_PIV_H
 
 #include <fstream>
