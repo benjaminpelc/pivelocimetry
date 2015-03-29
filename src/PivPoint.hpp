@@ -17,12 +17,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <iomanip>
 
 #include "PivOptions.hpp"
 #include "Ccf.hpp"
 #include "IntMap.hpp"
 #include "Peak.hpp"
 #include "Disp.hpp"
+#include "Grid.hpp"
 
 namespace PivEng {
 

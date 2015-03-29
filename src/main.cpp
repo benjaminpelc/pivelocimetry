@@ -4,6 +4,7 @@
 #include "OcvImage.hpp"
 #include "PivClap.hpp"
 #include "PivOptions.hpp"
+#include "DoPost.hpp"
 #include <cmath>
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -42,6 +43,9 @@ int main(int argc, char **argv) {
 
   /* We have options, images and a grid, now do some PIV */
   auto piv = PivEng::DoPiv(*analysisOptions, imPair, *g);
+
+  /* Do some post processing */
+  auto pp = PivPost::DoPost(piv.pointsVector(), g->numX());
 
   /* PivView pv(piv.pointsVector()); */
 

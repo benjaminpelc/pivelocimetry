@@ -25,5 +25,7 @@ add_executable(${EXECUTABLE_NAME}
 		IntMap.cpp
 		../lib/Clap.cpp
 		PivOptions.cpp
+
+		DoPost.cpp
 	)
 target_link_libraries(${EXECUTABLE_NAME} ${OpenCV_LIBS} ${SFML_LIBRARIES})
