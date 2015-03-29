@@ -26,6 +26,7 @@ add_executable(${EXECUTABLE_NAME}
 		../lib/Clap.cpp
 		PivOptions.cpp
 		SubPix.cpp
+		PivPoint.cpp
 
 		DoPost.cpp
 	)
