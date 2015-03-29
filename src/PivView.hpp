@@ -24,10 +24,10 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	std::vector<sf::VertexArray> dvs;
 
 	sf::ContextSettings settings;
-	settings.antialiasingLevel = 8;
+	// settings.antialiasingLevel = 8;
 
 	sf::RenderWindow window(sf::VideoMode(612, 612), "BPPIV Vector Viewer", sf::Style::Default, settings);
-	window.setFramerateLimit(5);
+	window.setFramerateLimit(10);
 
 	sf::VertexArray ln(sf::Lines, 2);
 
@@ -42,23 +42,16 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 
 	std::for_each(m_pivPointVec.begin(), m_pivPointVec.end(), [&](auto& pointf) {
 		auto point = pointf.getDv();
-		if (point.u < 6.0 && point.v < 6.0) {
 			ln[0].position = sf::Vector2f(50 + point.x, 50 + point.y);
 			ln[1].position = sf::Vector2f(50 + point.x + factor * point.u, 50 + point.y + factor * point.v);
 			ln[0].color = sf::Color::Blue;
 			ln[1].color = sf::Color::Blue;
 			dvs.push_back(ln);
-		}
 	});
 
 	// sf::CircleShape shape{100.f};
 	// shape.setFillColor(sf::Color::Red);
 
-		window.clear(sf::Color::Black);
-		window.draw(xAxis);
-		window.draw(yAxis);
-		std::for_each(dvs.begin(), dvs.end(), [&](auto& dv) { window.draw(dv); });
-		window.display();
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -66,6 +59,11 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 				std::cout << "Closing window" << std::endl;
 				window.close();
 			}
+			window.clear(sf::Color::Black);
+			window.draw(xAxis);
+			window.draw(yAxis);
+			std::for_each(dvs.begin(), dvs.end(), [&](auto& dv) { window.draw(dv); });
+			window.display();
 		}
 
 	}

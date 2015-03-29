@@ -83,11 +83,12 @@ void DoPiv::print()
 	for (auto p : m_points) {
 		std::cout << std::setw(6) << std::left 
 			<< p.x() << "\t" << p.y() 
-			<< std::setprecision(4) << std::fixed
+			<< std::setprecision(3) << std::fixed
 			<< std::setw(8) 
 			<< "\t" << p.primaryDisp().u
-			<< "\t " << p.primaryDisp().v 
-			<< "\t " << sqrt(pow(p.dispsVec()[0].u, 2) + pow(p.dispsVec()[0].v, 2)) << std::endl;
+			<< "\t" << p.primaryDisp().v 
+			<< "\t" << sqrt(pow(p.dispsVec()[0].u, 2) + pow(p.dispsVec()[0].v, 2)) 
+			<< "\t" << p.primaryDisp().valid << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;
 }

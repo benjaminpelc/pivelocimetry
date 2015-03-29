@@ -22,7 +22,7 @@ namespace PivEng {
 
 		void setDisp(double x0, double y0, bool torf) { u = x0; v = y0; valid = torf; };
 
-		double u, v;
+		double u = 0.0, v = 0.0;
 		bool valid = false;
 	};
 

@@ -11,8 +11,10 @@ class DoPost
 		 * Input: Vector of PivPoints by reference 
 		 * 		  Number of columns
 		 */
-		DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols) { std::cout << pointsVector.size(); std::cout <<  gridCols << std::endl; };
-		~DoPost() {};
+		DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols);
+		
+		/* Destructor */
+		~DoPost();
 
 	private:
 

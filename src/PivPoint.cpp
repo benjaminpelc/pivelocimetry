@@ -17,11 +17,10 @@ CCF* PivPoint::get_ccf()
 
 dv PivPoint::getDv()
 {
-	// auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
+	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
 
 
-	return dv();
-	// return dv((double) m_i, (double) m_j, d.u, d.v);
+	return dv((double) m_i, (double) m_j, d->u, d->v);
 }
 
 Peak::PeaksVec& PivPoint::peaks()
