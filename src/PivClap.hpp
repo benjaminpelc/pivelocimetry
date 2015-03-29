@@ -9,22 +9,21 @@ class PivClap :
 	public:
 		PivClap(int argc, char** argv);
 
+		bool userConfig()   { return hasParam("-c"); };
 		bool printResults() { return hasFlag("-p"); };
-		bool writeResults() { return hasFlag("-o"); };
+		bool writeResults() { return hasParam("-o"); };
 
-		std::string writeFile() { return getParam("-o"); };
+		std::string writeFile()  { return getParam("-o"); }
+		std::string configFile() { return getParam("-c"); }
 
-		/* Want a method that tells you off if the flag specified 
+		/* Add method that tells you off if the flag specified 
 		 * requires an option */
-		
 
 	private:
 
 };
 
-PivClap::PivClap(int argc, char** argv) : Clap(argc, argv)
-{
-}
+PivClap::PivClap(int argc, char** argv) : Clap(argc, argv) {}
 
 #endif
 
