@@ -2,7 +2,7 @@
 
 namespace PivEng {
 
-PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
+PivPoint::PivPoint(int xCoord, int yCoord, PivOptions& options) :
 	m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
 	m_peaksVector(options.numPeaks()),
 	m_dispsVec(options.numPeaks()),
@@ -10,12 +10,12 @@ PIVPoint::PIVPoint(int xCoord, int yCoord, PivOptions& options) :
 	m_j(yCoord)
 {}
 
-CCF* PIVPoint::get_ccf()
+CCF* PivPoint::get_ccf()
 {
 	return m_ccf.get();
 }
 
-dv PIVPoint::getDv()
+dv PivPoint::getDv()
 {
 	// auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
 
@@ -24,18 +24,18 @@ dv PIVPoint::getDv()
 	// return dv((double) m_i, (double) m_j, d.u, d.v);
 }
 
-Peak::PeaksVec& PIVPoint::peaks()
+Peak::PeaksVec& PivPoint::peaks()
 {
 	return m_peaksVector;
 }
 
-Disp::DispVec& PIVPoint::dispsVec()
+Disp::DispVec& PivPoint::dispsVec()
 {
 	return m_dispsVec;
 }
 
 
-Disp& PIVPoint::primaryDisp()
+Disp& PivPoint::primaryDisp()
 {
 	// auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
     //
@@ -49,7 +49,7 @@ Disp& PIVPoint::primaryDisp()
 	return m_dispsVec[0];
 }
 
-void PIVPoint::printPeaks() 
+void PivPoint::printPeaks() 
 {
 	auto i(0);
 	std::cout << "Peak#\ti\tj\tValue\tValid" << std::endl;
@@ -61,7 +61,7 @@ void PIVPoint::printPeaks()
 
 }
 
-void PIVPoint::printDisps() 
+void PivPoint::printDisps() 
 {
 	auto i(0);
 	std::cout << "Disp\tu\tv\tValid" << std::endl;
@@ -71,7 +71,7 @@ void PIVPoint::printDisps()
 
 }
 
-void PIVPoint::printToOfstream(std::ofstream& file)
+void PivPoint::printToOfstream(std::ofstream& file)
 {
 	if (m_dispsVec[0].valid) {
 	file << m_i << "\t" << m_j << "\t"
@@ -82,32 +82,32 @@ void PIVPoint::printToOfstream(std::ofstream& file)
 }
 		
 
-void PIVPoint::set_xCoord(int x)
+void PivPoint::set_xCoord(int x)
 {
 	m_i = x;
 }
 
-void PIVPoint::set_yCoord(int y)
+void PivPoint::set_yCoord(int y)
 {
 	m_j = y;
 }
 
-void PIVPoint::set_coords(std::pair<int, int>& coords)
+void PivPoint::set_coords(std::pair<int, int>& coords)
 {
 	m_i = coords.first;
 	m_j = coords.second;
 }
 
 
-int PIVPoint::x()
+int PivPoint::x()
 {
 	return m_i;
 }
 
-int PIVPoint::y()
+int PivPoint::y()
 {
 	return m_j;
 }
 
-PIVPoint::~PIVPoint() {};
+PivPoint::~PivPoint() {};
 }

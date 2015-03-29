@@ -8,15 +8,15 @@
 class PivView
 {
 	public:
-		PivView(PivEng::PIVPoint::PivPointVec& vs);
+		PivView(PivEng::PivPoint::PivPointVec& vs);
 		~PivView();
 
 	private:
-		PivEng::PIVPoint::PivPointVec& m_pivPointVec;
+		PivEng::PivPoint::PivPointVec& m_pivPointVec;
 		
 };
 
-PivView::PivView(PivEng::PIVPoint::PivPointVec& vs) :
+PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	m_pivPointVec(vs)
 {
 

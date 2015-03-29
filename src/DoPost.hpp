@@ -8,10 +8,10 @@ class DoPost
 {
 	public:
 		/* Constructor 
-		 * Input: Vector of PIVPoints by reference 
+		 * Input: Vector of PivPoints by reference 
 		 * 		  Number of columns
 		 */
-		DoPost(std::vector<PivEng::PIVPoint>& pointsVector, int gridCols) { std::cout << pointsVector.size(); std::cout <<  gridCols << std::endl; };
+		DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols) { std::cout << pointsVector.size(); std::cout <<  gridCols << std::endl; };
 		~DoPost() {};
 
 	private:

@@ -22,7 +22,7 @@ namespace PivEng {
 class DoPiv
 {
 	public:
-		typedef std::vector<PIVPoint> PivPointVec;
+		typedef std::vector<PivPoint> PivPointVec;
 
 		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g);
 		void print();
@@ -33,7 +33,7 @@ class DoPiv
 		~DoPiv();
 
 	private:
-		void doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images);
+		void doPivPoint(PivPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images);
 		int m_numX,
 			m_numY;
 		PivPointVec m_points;
@@ -42,9 +42,9 @@ class DoPiv
 DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
 		m_numX(g.numX()),
     	m_numY(g.numY()),
-		m_points(g.numPoints(), PIVPoint(-1, -1, options))
+		m_points(g.numPoints(), PivPoint(-1, -1, options))
 {
-	/* Create a vector of PIVPoints when the object is instantiated, 
+	/* Create a vector of PivPoints when the object is instantiated, 
  	 * give constructor to instantiate CCF at correct size, 
  	 * for now set coordinate to (-1, -1) to indicate that the piv has not yet been done 
  	 *
@@ -67,7 +67,7 @@ DoPiv::PivPointVec& DoPiv::pointsVector()
 	return m_points;
 }
 
-void DoPiv::doPivPoint(PIVPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images)
+void DoPiv::doPivPoint(PivPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images)
 {
 	/* Steps to do the PIV analysis for the current interrogation window 
 	 * 1) set the PivPoint coordinates

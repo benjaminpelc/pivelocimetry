@@ -1,4 +1,4 @@
-/* Class PIVPoint
+/* Class PivPoint
  * 
  * Here we will store all the wonderful things that each PIV 
  * point must have. This is more a container class with setters 
@@ -36,13 +36,13 @@ namespace PivEng {
 		double x, y, u, v;
 	};
 
-	class PIVPoint
+	class PivPoint
 	{
 		public:
-			using PivPointVec = std::vector<PIVPoint>;
+			using PivPointVec = std::vector<PivPoint>;
 
-			PIVPoint(int xCoord, int yCoord, PivOptions& options);
-			~PIVPoint();
+			PivPoint(int xCoord, int yCoord, PivOptions& options);
+			~PivPoint();
 
 			CCF* get_ccf();
 			Peak::PeaksVec& peaks();
