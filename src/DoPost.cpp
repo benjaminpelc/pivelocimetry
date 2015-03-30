@@ -21,22 +21,13 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 			});
 
 	/* Do with radius of just one for now */
-	int rad = 1;
-	valid[11 * gridCols + 3] = false;
+	int rad = 2;
 
 	auto ctr = 0;
-	for(bool v : valid) {
-		if(!v) {
-			std::cout << "Invalid at (" << ctr % gridCols << ", " << ctr / gridCols << ")" << std::endl;
-		}
-		ctr++;
-	}
-
-
 	int gridRows = pointsVector.size() / gridCols;
 	int idx = 0;
 
-	auto neighs = [gridCols, gridRows, rad, &us, &valid](int j, int i) {
+	auto neighs = [gridCols, gridRows, rad, &us, &valid, &pointsVector, &ctr](int j, int i) {
 
 		int iMin = std::max(0, i- rad);//i - rad < 0 ? 0 : i - rad;
 		int iMax = std::min(i + rad, gridCols - 1);// ? gridCols - 1 : i + rad; 
@@ -51,30 +42,55 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 		for (int jj = jMin; jj <= jMax; jj++) {
 			for (int ii = iMin; ii <= iMax; ii++) {
-				std::cout << std::fixed << std::setprecision(3) << us[jj * gridCols + ii] << "\t";
+				// std::cout << std::fixed << std::setprecision(3) << us[jj * gridCols + ii] << "\t";
 				if ((ii != i || jj != j) && valid[jj * gridCols + ii] ) {
 					*(neighsPtr++) = us[jj * gridCols + ii];
 					nNeighs++;
 				}
 			}
-			std::cout << std::endl;
+			// std::cout << std::endl;
 		}
 		neighs.resize(nNeighs);
 
-		std::cout << nNeighs << std::endl;
-		for (auto n : neighs)
-			std::cout << n << ", ";
-		std::cout << std::endl;
+		auto median = bpu::median(neighs);
+		auto fluct0 = (us[j * gridCols + i] - median);
+
+		for (auto& n : neighs) {
+			n = std::abs(n - median);
+		}
+
+		auto medianRes = bpu::median(neighs);
+
+		double normFluct = std::abs(fluct0 / (medianRes + 0.1));
+
+		if (normFluct > 2.0) {
+			valid[j * gridCols + i] = false;
+			pointsVector[ctr].dispsVec()[0].valid = false;
+			for_each(pointsVector[ctr].dispsVec().begin() + 1, pointsVector[ctr].dispsVec().end(),[&](auto& d) {
+						if (std::abs(std::abs(d.u - median ) / (medianRes + 0.1 )) > 2)
+							d.valid = false;
+					});
+		}
+
+		// std::cout << "Normalised fluct: " << normFluct << std::endl;
+
 	};
 
 	for(int j = 0; j < gridRows; j++) {
 		for(int i = 0; i < gridCols; i++) {
 			idx = j * gridCols + i;
-			if (!valid[idx])
-				neighs(j, i);
-			if (idx == 0)
-				neighs(j, i);
+			neighs(j, i);
+			// if (idx == 0)
+				// neighs(j, i);
+			ctr++;
 		}
+	}
+	ctr = 0;
+	for(bool v : valid) {
+		if(!v) {
+			std::cout << "Invalid at (" << ctr % gridCols + 1 << ", " << ctr / gridCols + 1<< ")" << std::endl;
+		}
+		ctr++;
 	}
 
 

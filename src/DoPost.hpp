@@ -2,6 +2,7 @@
 #define BPPIV_DO_POST_PROCESSING_H
 
 #include "PivPoint.hpp"
+#include "../lib/bpu.hpp"
 #include <algorithm>
 
 namespace PivPost {
