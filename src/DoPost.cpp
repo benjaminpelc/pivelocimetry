@@ -86,13 +86,13 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 		}
 	}
 
-	ctr = 0;
-	for(bool v : valid) {
-		if(!v) {
-			std::cout << "Invalid at (" << ctr % gridCols + 1 << ", " << ctr / gridCols + 1<< ")" << std::endl;
-		}
-		ctr++;
-	}
+	// ctr = 0;
+	// for(bool v : valid) {
+	// 	if(!v) {
+	// 		std::cout << "Invalid at (" << ctr % gridCols + 1 << ", " << ctr / gridCols + 1<< ")" << std::endl;
+	// 	}
+	// 	ctr++;
+	// }
 
 
 	
