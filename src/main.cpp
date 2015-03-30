@@ -48,7 +48,8 @@ int main(int argc, char **argv) {
   auto piv = PivEng::DoPiv(*analysisOptions, imPair, *g);
 
   /* Do some post processing */
-  // auto pp = PivPost::DoPost(piv.pointsVector(), g->numX());
+  if (clArgs.doPostProc())
+  	  auto pp = PivPost::DoPost(piv.pointsVector(), g->numX());
 
   /* Check command line args and print to screen/write to file as necessary */
   if (clArgs.viewVectors())

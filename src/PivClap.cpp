@@ -15,6 +15,11 @@ bool PivClap::printResults()
 	return hasFlag("-p");
 }
 
+bool PivClap::doPostProc()
+{
+	return hasFlag("-s");
+}
+
 bool PivClap::writeResults()
 {
 	return hasParam("-o");

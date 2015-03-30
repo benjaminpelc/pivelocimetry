@@ -14,6 +14,7 @@ class PivClap :
 		bool printResults();
 		bool writeResults();
 		bool viewVectors();
+		bool doPostProc();
 
 		std::string writeFile();
 		std::string configFile();

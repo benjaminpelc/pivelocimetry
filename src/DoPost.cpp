@@ -26,8 +26,11 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 	auto ctr = 0;
 	int gridRows = pointsVector.size() / gridCols;
 	// int idx = 0;
+	auto normalisedFluct = [](double u0, double medianRes) -> double {
+		return std::abs(u0 / (medianRes + 0.1));
+	};
 
-	auto neighs = [gridCols, gridRows, rad, &us, &valid, &pointsVector, &ctr](int j, int i) {
+	auto neighs = [&](int j, int i) {
 
 		int iMin = std::max(0, i- rad);//i - rad < 0 ? 0 : i - rad;
 		int iMax = std::min(i + rad, gridCols - 1);// ? gridCols - 1 : i + rad; 
@@ -61,13 +64,19 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 		auto medianRes = bpu::median(neighs);
 
-		double normFluct = std::abs(fluct0 / (medianRes + 0.1));
 
-		if (normFluct > 2.0) {
+		double normFluct = std::abs(fluct0 / (medianRes + 0.1));
+		std::cout << "normFluct:\t" << normFluct << std::endl;
+		std::cout << "normalisedFluct:\t" << normalisedFluct(fluct0, medianRes) << std::endl;
+
+		if (normalisedFluct(fluct0, medianRes) > 2.0) {
+
 			valid[j * gridCols + i] = false;
-			pointsVector[ctr].dispsVec()[0].valid = false;
-			for_each(pointsVector[ctr].dispsVec().begin() + 1, pointsVector[ctr].dispsVec().end(),[&](auto& d) {
-						if (std::abs(std::abs(d.u - median ) / (medianRes + 0.1 )) > 2)
+			auto& dvs = pointsVector[ctr].dispsVec();
+			dvs[0].valid = false;
+
+			for_each(dvs.begin() + 1, dvs.end(),[&](auto& d) {
+						if (normalisedFluct(d.u - median, medianRes) > 2)
 							d.valid = false;
 					});
 		}
