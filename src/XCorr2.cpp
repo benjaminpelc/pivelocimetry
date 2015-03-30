@@ -26,7 +26,7 @@ namespace PivEng {
 		auto im1pixel = imPair.first->begin(), im2pixel = imPair.second->begin();
 
 		/* Pixel averages and correlation bits */
-		auto  bitProd = 0.0, win1Avg = 0.0, win2Avg =0.0, denom1=0.0, denom2=0.0;
+		auto  bitProd = 0.0, win1Avg = 0.0, win2Avg = 0.0, denom1 = 0.0, denom2 = 0.0;
 
 		/* m and n are the row and column of the ccf (respectively) */
 		int mMin = mOffset > 0 ? -mOffset : 0;
@@ -42,6 +42,8 @@ namespace PivEng {
 		std::vector<DoublePair> pixels(ccf.size());
 		auto firstPixel = pixels.begin();
 		int idx, idxShift, pixCtr;
+		/* Some image pixel coords */
+		int i(0), j(0);
 
 		/* Do for each point in the correlation function */
 		std::for_each(ccf.begin(), ccf.end(), [&](auto& ccfp) {
@@ -64,8 +66,8 @@ namespace PivEng {
 			pixCtr = 0;
 
 			/* Calculate the overlapping segment averages */
-			for (int j = tOffyMin ; j < tOffyMax; j++) {
-				for (int i = tOffxMin; i < tOffxMax; i++) {
+			for (j = tOffyMin ; j < tOffyMax; j++) {
+				for (i = tOffxMin; i < tOffxMax; i++) {
 					/* Pixel index */
 					idx = j * imageCols + i;
 

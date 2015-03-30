@@ -4,11 +4,11 @@ namespace PivEng {
 void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacements)
 {
 	// std::cout << "In Gauss, eww!" << std::endl;
-	int i, j;
+	uint_fast16_t i, j;
 	double dx, dy;
 
 	/* Offset value make central row and column the zero displacement */
-	int cols = ccf.cols(),
+	uint_fast16_t cols = ccf.cols(),
 		offsetX = ccf.offsetX(),
 		offsetY = ccf.offsetY();
 
@@ -36,12 +36,15 @@ void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacemen
 		 * logarithm of a negative correlation function element. Is it logical to think
 		 * if a peak is invalid then all subsequent peaks will be invalid? 
 		 */
-		if ( dx != dx || dy != dy ) break;
-		/* put the necessary bits in */
-		d->setDisp(dx, dy, true);
+		if ( dx != dx || dy != dy ) {
+			break;
+		} else {
+			/* put the necessary bits in */
+			d->setDisp(dx, dy, true);
 
-		/* Advance the peak and displacement vector iterators */
-		p++, d++;
+			/* Advance the peak and displacement vector iterators */
+			p++, d++;
+		}
 	}
 }
 
