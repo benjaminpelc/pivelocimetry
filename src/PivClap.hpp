@@ -13,6 +13,7 @@ class PivClap :
 		bool userConfig();
 		bool printResults();
 		bool writeResults();
+		bool viewVectors();
 
 		std::string writeFile();
 		std::string configFile();

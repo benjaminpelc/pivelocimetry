@@ -20,6 +20,11 @@ bool PivClap::writeResults()
 	return hasParam("-o");
 }
 
+bool PivClap::viewVectors()
+{
+	return hasFlag("-v");
+}
+
 std::string PivClap::writeFile()
 {
 	return getParam("-o");
