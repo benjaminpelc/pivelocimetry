@@ -4,7 +4,7 @@ namespace PivPost {
 
 DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 {
-	std::cout << gridCols << std::endl;
+	// std::cout << gridCols << std::endl;
 
 	auto us = std::vector<double>(pointsVector.size(), 0.0);
 	auto valid = std::vector<bool>(pointsVector.size(), false);
@@ -25,7 +25,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 	auto ctr = 0;
 	int gridRows = pointsVector.size() / gridCols;
-	int idx = 0;
+	// int idx = 0;
 
 	auto neighs = [gridCols, gridRows, rad, &us, &valid, &pointsVector, &ctr](int j, int i) {
 
@@ -78,13 +78,14 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 	for(int j = 0; j < gridRows; j++) {
 		for(int i = 0; i < gridCols; i++) {
-			idx = j * gridCols + i;
+			// idx = j * gridCols + i;
 			neighs(j, i);
 			// if (idx == 0)
 				// neighs(j, i);
 			ctr++;
 		}
 	}
+
 	ctr = 0;
 	for(bool v : valid) {
 		if(!v) {
