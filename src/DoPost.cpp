@@ -14,7 +14,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 	auto validBeginPtr = valid.begin();
 
-	/* For each grid point do something */
+	/* For each grid point get the first displacement values and validity */
 	std::for_each(pointsVector.begin(), pointsVector.end(), [&uPtr, &validBeginPtr](auto& pivPoint){
 				*(uPtr++) = pivPoint.dispsVec()[0].u;
 				*(validBeginPtr++) = pivPoint.dispsVec()[0].valid;
@@ -57,9 +57,6 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 	double* neighsPtr = nullptr;
 	double medianRes{0.0}, median{0.0}, fluct0{0.0};
-
-	// auto neighs = [&](int j, int i) {
-	// };
 
 	for(j = 0; j < gridRows; j++) {
 		for(i = 0; i < gridCols; i++) {
