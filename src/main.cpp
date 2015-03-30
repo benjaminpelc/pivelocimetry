@@ -23,6 +23,8 @@ int main(int argc, char **argv) {
   /* Load options from config file */
   auto analysisOptions = std::make_unique<PivOptions>(cfgFilePath);
 
+  // analysisOptions->print();
+
   auto im1FilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/1.bmp"),
   	   im2FilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/2.bmp");
   

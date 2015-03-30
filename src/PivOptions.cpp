@@ -81,7 +81,8 @@ int PivOptions::keyExistsToInt(std::unordered_map<std::string, std::string>& opt
 	 * todo:
 	 * 1) Add some checking, if string conversion is unsuccessful return 
 	 * 	  the default integer. */
-	return !optMap[key].empty() ? atoi(optMap[key].c_str()) : defaultVal;
+	std::string &entry = optMap[key];
+	return !entry.empty() ? std::stoi(entry) : defaultVal;
 }
 
 // Destructor
