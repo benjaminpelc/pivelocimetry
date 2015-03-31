@@ -19,10 +19,9 @@ void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacemen
 	auto p = peaks.begin();
 	auto d = displacements.begin();
 
-	while ( p->valid && p != peaks.end() ){
+	while ( p != peaks.end() && p->valid ){
 		i = p->i;
 		j = p->j;
-
 
 		/* Pointer to correlation peak value */
 		e  = e0 + j * cols + i;
@@ -34,24 +33,15 @@ void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacemen
 		/* A number is only not equal to itself iff it is a NaN. If the peak is invalid, 
 		 * assume subsequent peaks are also invalid. Invalidity is caused by taking the 
 		 * logarithm of a negative correlation function element. Is it logical to think
-		 * if a peak is invalid then all subsequent peaks will be invalid? 
-		 */
+		 * if a peak is invalid then all subsequent peaks will be invalid?  */
 		if ( dx != dx || dy != dy ) {
 			break;
 		} else {
-			/* put the necessary bits in */
 			d->setDisp(dx, dy, true);
-
-			/* Advance the peak and displacement vector iterators */
 			p++, d++;
 		}
 	}
 }
-
-// double SubPixel::gauss3(const double a, const double b, const double c)
-// {
-// 	return  (log(a) - log(c)) / ( 2*log(a) - 4*log(b) + 2*log(c)); 
-// }
 
 double SubPixel::gauss3(const double* a, const double* b, const double* c)
 {

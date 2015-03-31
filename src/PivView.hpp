@@ -48,13 +48,9 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 				ln[1].position = sf::Vector2f(50 + point->x + factor * point->u, 50 + point->y + factor * point->v);
 				ln[0].color = sf::Color::Blue;
 				ln[1].color = sf::Color::Blue;
-				// dvs.push_back(ln);
 				*(dvsPtr++) = ln;
 			}
 	});
-
-	// sf::CircleShape shape{100.f};
-	// shape.setFillColor(sf::Color::Red);
 
 	while (window.isOpen()) {
 
