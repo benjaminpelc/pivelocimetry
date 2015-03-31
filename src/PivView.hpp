@@ -21,13 +21,14 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 {
 
 	auto factor(2.5);
-	std::vector<sf::VertexArray> dvs;
+	std::vector<sf::VertexArray> dvs(vs.size());
+	auto dvsPtr = &dvs[0];
 
 	sf::ContextSettings settings;
 	// settings.antialiasingLevel = 8;
 
 	sf::RenderWindow window(sf::VideoMode(612, 612), "BPPIV Vector Viewer", sf::Style::Default, settings);
-	window.setFramerateLimit(10);
+	window.setFramerateLimit(60);
 
 	sf::VertexArray ln(sf::Lines, 2);
 
@@ -42,11 +43,14 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 
 	std::for_each(m_pivPointVec.begin(), m_pivPointVec.end(), [&](auto& pointf) {
 		auto point = pointf.getDv();
-			ln[0].position = sf::Vector2f(50 + point.x, 50 + point.y);
-			ln[1].position = sf::Vector2f(50 + point.x + factor * point.u, 50 + point.y + factor * point.v);
-			ln[0].color = sf::Color::Blue;
-			ln[1].color = sf::Color::Blue;
-			dvs.push_back(ln);
+		if (point) {
+				ln[0].position = sf::Vector2f(50 + point->x, 50 + point->y);
+				ln[1].position = sf::Vector2f(50 + point->x + factor * point->u, 50 + point->y + factor * point->v);
+				ln[0].color = sf::Color::Blue;
+				ln[1].color = sf::Color::Blue;
+				// dvs.push_back(ln);
+				*(dvsPtr++) = ln;
+			}
 	});
 
 	// sf::CircleShape shape{100.f};
@@ -59,11 +63,13 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 				std::cout << "Closing window" << std::endl;
 				window.close();
 			}
-			window.clear(sf::Color::Black);
-			window.draw(xAxis);
-			window.draw(yAxis);
-			std::for_each(dvs.begin(), dvs.end(), [&](auto& dv) { window.draw(dv); });
-			window.display();
+			if (event.type == sf::Event::Resized) {
+				window.clear(sf::Color::Black);
+				window.draw(xAxis);
+				window.draw(yAxis);
+				std::for_each(dvs.begin(), dvs.end(), [&](auto& dv) { window.draw(dv); });
+				window.display();
+			}
 		}
 
 	}

@@ -15,12 +15,18 @@ CCF* PivPoint::get_ccf()
 	return m_ccf.get();
 }
 
-dv PivPoint::getDv()
+dv* PivPoint::getDv()
 {
+	/* Search through the calculated displacements for the first valid one.
+	 * If a valid displacement is found, return a pointer to a new displacement 
+	 * vector object. If no valid displacements are found return a null pointer */
 	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
 
-
-	return dv((double) m_i, (double) m_j, d->u, d->v);
+	if (d != m_dispsVec.end()) {
+		return new dv((double) m_i, (double) m_j, d->u, d->v);
+	} else {
+		return nullptr;
+	}
 }
 
 Peak::PeaksVec& PivPoint::peaks()
