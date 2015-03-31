@@ -57,7 +57,9 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	// shape.setFillColor(sf::Color::Red);
 
 	while (window.isOpen()) {
+
 		sf::Event event;
+
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				std::cout << "Closing window" << std::endl;
@@ -71,7 +73,11 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 				window.display();
 			}
 		}
-
+				window.clear(sf::Color::Black);
+				window.draw(xAxis);
+				window.draw(yAxis);
+				std::for_each(dvs.begin(), dvs.end(), [&](auto& dv) { window.draw(dv); });
+				window.display();
 	}
 }
 
