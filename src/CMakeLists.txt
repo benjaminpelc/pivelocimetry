@@ -29,6 +29,7 @@ add_executable(${EXECUTABLE_NAME}
 		PivPoint.cpp
 		DoPiv.cpp
 		PivClap.cpp
+		PivView.cpp
 
 		DoPost.cpp
 	)
