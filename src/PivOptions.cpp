@@ -86,7 +86,9 @@ int PivOptions::keyExistsToInt(std::unordered_map<std::string, std::string>& opt
 }
 
 // Destructor
-PivOptions::~PivOptions() {}
+PivOptions::~PivOptions()
+{
+}
 
 // Getters
 int PivOptions::winWidth()

@@ -7,7 +7,6 @@ OCVImage::OCVImage(std::string fn)
 
 OCVImage::~OCVImage()
 {
-	// m_rawImage.~Mat();
 }
 
 void OCVImage::read(std::string fn)
