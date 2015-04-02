@@ -1,5 +1,17 @@
 #include "PivView.hpp"
 
+class AxisBox : public sf::VertexArray
+{
+	public:
+		AxisBox(int x0, int x1, int y0, int y1);
+};
+
+AxisBox::AxisBox(int x0, int x1, int y0, int y1) : sf::VertexArray(sf::LinesStrip, 5)
+{
+	std::cout << x0 << y0 << x1 << y1 << std::endl;
+	std::cout << getVertexCount() << std::endl;
+}
+
 PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	m_pivPointVec(vs)
 {
@@ -7,6 +19,8 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	auto factor(3);
 	std::vector<sf::VertexArray> dvs(vs.size());
 	auto dvsPtr = &dvs[0];
+
+	auto me = AxisBox(1,2,3,4);
 
 	sf::ContextSettings settings;
 	sf::RenderWindow window(sf::VideoMode(612, 612), "BPPIV Vector Viewer", sf::Style::Default, settings);
