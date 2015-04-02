@@ -15,7 +15,7 @@ CCF* PivPoint::get_ccf()
 	return m_ccf.get();
 }
 
-dv* PivPoint::getDv()
+std::unique_ptr<dv> PivPoint::getDv()
 {
 	/* Search through the calculated displacements for the first valid one.
 	 * If a valid displacement is found, return a pointer to a new displacement 
@@ -23,7 +23,7 @@ dv* PivPoint::getDv()
 	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
 
 	if (d != m_dispsVec.end()) {
-		return new dv((double) m_i, (double) m_j, d->u, d->v);
+		return std::make_unique<dv>(static_cast<double>(m_i), static_cast<double>(m_j), d->u, d->v);
 	} else {
 		return nullptr;
 	}

@@ -56,7 +56,7 @@ namespace PivEng {
 			int x();
 			int y();
 			
-			dv* getDv();
+			std::unique_ptr<dv> getDv();
 			
 			Disp& primaryDisp();
 			void printToOfstream(std::ofstream& file);
