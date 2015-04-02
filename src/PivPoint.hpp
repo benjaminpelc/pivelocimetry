@@ -25,16 +25,10 @@
 #include "Peak.hpp"
 #include "Disp.hpp"
 #include "Grid.hpp"
+#include "Vec2D2C.hpp"
 
 namespace PivEng {
 
-	struct dv {
-		using PivVec = std::vector<dv>;
-		dv() {};
-		dv(double x0, double y0, double u0, double v0) : x(x0), y(y0), u(u0), v(v0) {};
-		~dv() {};
-		double x, y, u, v;
-	};
 
 	class PivPoint
 	{

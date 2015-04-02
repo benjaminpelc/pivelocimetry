@@ -52,28 +52,28 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	for(auto& pointf : m_pivPointVec) {
 		auto point = pointf.getDv();
 		if (point) {
-				mag = sqrt(pow(point->u, 2) + pow(point->v, 2));
-				if (mag > maxV)
-					maxV = mag;
-			}
+			mag = point->mag();
+			if (mag > maxV)
+				maxV = mag;
+		}
 	}
 
 	std::for_each(m_pivPointVec.begin(), m_pivPointVec.end(), [&](auto& pointf) {
 		auto point = pointf.getDv();
 		if (point) {
-				ln[0].position = sf::Vector2f(50 + point->x, 50 + point->y);
-				ln[1].position = sf::Vector2f(50 + point->x + factor * point->u, 50 + point->y + factor * point->v);
+			ln[0].position = sf::Vector2f(50 + point->x, 50 + point->y);
+			ln[1].position = sf::Vector2f(50 + point->x + factor * point->u, 50 + point->y + factor * point->v);
 
-				mag = sqrt(pow(point->u, 2) + pow(point->v, 2));
+			mag = point->mag();
 
-				red = 255 - static_cast<int>(mag / maxV * 255);
-				blue = static_cast<int>(mag / maxV * 255);
+			red = 255 - static_cast<int>(mag / maxV * 255);
+			blue = static_cast<int>(mag / maxV * 255);
 
-				ln[0].color = sf::Color(red, 0, blue);
-				ln[1].color = sf::Color(red, 0, blue);
+			ln[0].color = sf::Color(red, 0, blue);
+			ln[1].color = sf::Color(red, 0, blue);
 
-				*(dvsPtr++) = ln;
-			}
+			*(dvsPtr++) = ln;
+		}
 	});
 
 	/* Clear, draw, display frame rendering routine */
@@ -102,7 +102,6 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 				case sf::Event::MouseMoved:
 					mouse = sf::Mouse::getPosition(window);
 					if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
-						std::cout << "(" << mouse.x - 50 << ", " << mouse.y - 50 << ")" << std::endl;
 						xCross[0].position.y = mouse.y;
 						xCross[1].position.y = mouse.y;
 						yCross[0].position.x = mouse.x;

@@ -17,20 +17,20 @@ set(EXECUTABLE_NAME "bppiv")
 find_package(OpenCV REQUIRED)
 find_package(SFML 2 REQUIRED system window graphics)
 add_executable(${EXECUTABLE_NAME} 
-		main.cpp
-		OcvImage.cpp
+		../lib/Clap.cpp
 		Ccf.cpp
-		XCorr2.cpp
+		DoPiv.cpp
+		DoPost.cpp
 		Grid.cpp
 		IntMap.cpp
-		../lib/Clap.cpp
-		PivOptions.cpp
-		SubPix.cpp
-		PivPoint.cpp
-		DoPiv.cpp
+		OcvImage.cpp
 		PivClap.cpp
+		PivOptions.cpp
+		PivPoint.cpp
 		PivView.cpp
-
-		DoPost.cpp
+		SubPix.cpp
+		Vec2D2C.cpp
+		XCorr2.cpp
+		main.cpp
 	)
 target_link_libraries(${EXECUTABLE_NAME} ${OpenCV_LIBS} ${SFML_LIBRARIES})
