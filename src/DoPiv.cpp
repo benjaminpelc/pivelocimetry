@@ -43,9 +43,8 @@ void DoPiv::doPivPoint(PivPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	Peak::PeaksVec& peaks = pivPoint.peaks();
 
 	/* Store coords and do the cross-correlation */
-	pivPoint.set_coords(coordPair);
 	XCorr2::xCorr2n(*ccf, images, coordPair);
-
+	pivPoint.set_coords(coordPair);
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
 	SubPixel::gauss(*ccf, peaks, pivPoint.dispsVec());
