@@ -38,7 +38,7 @@ namespace PivEng {
 			PivPoint(int xCoord, int yCoord, PivOptions& options);
 			~PivPoint();
 
-			CCF* get_ccf();
+			// CCF* get_ccf();
 			Peak::PeaksVec& peaks();
 			Disp::DispVec& dispsVec();
 
@@ -59,7 +59,7 @@ namespace PivEng {
 			
 
 		private:
-			CCF::Sptr m_ccf;
+			// CCF::Sptr m_ccf;
 			Peak::PeaksVec m_peaksVector;
 			Disp::DispVec m_dispsVec;
 			int m_i, m_j;

@@ -3,17 +3,17 @@
 namespace PivEng {
 
 PivPoint::PivPoint(int xCoord, int yCoord, PivOptions& options) :
-	m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+	// m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
 	m_peaksVector(options.numPeaks()),
 	m_dispsVec(options.numPeaks()),
 	m_i(xCoord),
 	m_j(yCoord)
 {}
 
-CCF* PivPoint::get_ccf()
-{
-	return m_ccf.get();
-}
+// CCF* PivPoint::get_ccf()
+// {
+// 	return m_ccf.get();
+// }
 
 std::unique_ptr<dv> PivPoint::getDv()
 {
@@ -59,7 +59,7 @@ void PivPoint::printPeaks()
 	auto i(0);
 	std::cout << "Peak#\ti\tj\tValue\tValid" << std::endl;
 	for(auto& p : m_peaksVector)
-		std::cout << (i++) << "\t" << p.i - m_ccf->offsetX() << "\t" << p.j - m_ccf->offsetY()
+		std::cout << (i++) << "\t" << p.i << "\t" << p.j 
 			<< "\t" 
 			<< std::setprecision(4) << std::fixed
 			<<  p.val << "\t" << p.valid << std::endl;
