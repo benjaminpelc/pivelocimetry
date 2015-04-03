@@ -34,6 +34,8 @@ namespace PivEng {
 			int numY();
 			int numPoints();
 
+			CoordPair& operator[](const int i) { return m_coords[i]; };
+
 			std::vector<int>& xVector();
 			std::vector<int>& yVector();
 			std::vector<CoordPair>& coordsVec();

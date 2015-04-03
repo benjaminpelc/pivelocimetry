@@ -17,12 +17,14 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
-	auto coordPairPtr = g.coordsVec().begin();
+	// auto coordPairPtr = g.coordsVec().begin();
 	auto im1firstPix = imPair.first->begin();
 	auto im2firstPix = imPair.second->begin();
+	auto ctr = 0;
 
 	for(auto& p : m_points)
-		p.set_coords(*(coordPairPtr++));
+		p.set_coords(g[ctr++]);
+		// p.set_coords(*(coordPairPtr++));
 
 	for (auto& p : m_points)
 		doPivPoint(p, im1firstPix, im2firstPix);

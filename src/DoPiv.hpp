@@ -33,6 +33,7 @@ class DoPiv
 		~DoPiv();
 
 	private:
+		// void doPivPoint(PivPoint& pivPoint);
 		void doPivPoint(PivPoint& pivPoint, uint16_t* im1firstPix, uint16_t* im2firstPix);
 		int m_numX,
 			m_numY;
