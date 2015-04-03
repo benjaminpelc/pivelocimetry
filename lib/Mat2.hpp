@@ -20,20 +20,23 @@ class Mat2
 		/* Copy constructor */
 		Mat2(const Mat2<T>& m);
 
-		/* Index axxess */
+		/* Access elements */
 		T& operator[](const int i) const { return m_mat[i]; };
+		T getElem(const int idx) { return m_mat[idx]; };
+		T getElem(const int j, const int i) { return *(m_begin + m_cols * j + i); };
 
-		T getElem(const int idx);
-		T getElem(const int j, const int i);
-
-		constexpr int size() { return m_size; };
-		constexpr int rows() { return m_rows; };
-		constexpr int cols() { return m_cols; };
+		/* Return the linear index from 2D matrix coordinates */
 		int getIndex(const int j, const int i);
+
+		/* Access matrix dimension information */
+		int size() const { return m_size; };
+		int rows() const { return m_rows; };
+		int cols() const { return m_cols; };
 		
 		void setElem(const int j, const int i, const T v);
 		void setElem(const int idx, const T v);
 
+		/* Pointers to first and one past last elements */
 		constexpr T* begin() { return &m_mat[0]; };
 		constexpr T* end () { return &m_mat[m_size]; };
 
@@ -78,26 +81,10 @@ Mat2<T>::Mat2(const Mat2<T>& m) :
 	m_cols(m.cols())
 {
 	// m_mat = new T[m_size];
-	for(size_t i = 0; i != m_size; i ++) {
+	for(int i = 0; i != m_size; i ++) {
 		m_mat[i] = m[i];
 	}
 };
-
-template<typename T>
-T Mat2<T>::getElem(const int idx)
-{
-	/* Return element with linear index, this 
-	 * will be fastest */
-	return m_mat[idx];
-}
-
-template<typename T>
-T Mat2<T>::getElem(const int j, const int i)
-{
-	/* Return element with 2D index */
-	// return m_mat[m_cols * j + i];
-	return *(m_begin + m_cols * j + i);
-}
 
 template<typename T>
 void Mat2<T>::setElem(const int j, const int i, const T v)
