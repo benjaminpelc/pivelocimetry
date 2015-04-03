@@ -1,7 +1,7 @@
 #include "DoPiv.hpp"
 
 namespace PivEng {
-DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :  
+DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :  
 		m_numX(g.numX()),
     	m_numY(g.numY()),
 		m_points(g.numPoints(), PivPoint(-1, -1, options))
@@ -17,11 +17,15 @@ DoPiv::DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g) :
 	/* Loop through each grid point: */
 	/* The number of points is the same as the number of coordinates. Always */
 	/* Set an iterator to the start of the piv points vector */	
-	auto coordPair = g.coordsVec().begin();
+	auto coordPairPtr = g.coordsVec().begin();
+	auto im1firstPix = imPair.first->begin();
+	auto im2firstPix = imPair.second->begin();
 
-	for_each(m_points.begin(), m_points.end(), [&](auto& p) {
-				this->doPivPoint(p, *(coordPair++), imPair);
-			});
+	for(auto& p : m_points)
+		p.set_coords(*(coordPairPtr++));
+
+	for (auto& p : m_points)
+		doPivPoint(p, im1firstPix, im2firstPix);
 }
 
 DoPiv::PivPointVec& DoPiv::pointsVector()
@@ -29,7 +33,7 @@ DoPiv::PivPointVec& DoPiv::pointsVector()
 	return m_points;
 }
 
-void DoPiv::doPivPoint(PivPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images)
+void DoPiv::doPivPoint(PivPoint& pivPoint, uint16_t* im1firstPix, uint16_t* im2firstPix)
 {
 	/* Steps to do the PIV analysis for the current interrogation window 
 	 * 1) set the PivPoint coordinates
@@ -43,17 +47,11 @@ void DoPiv::doPivPoint(PivPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::P
 	Peak::PeaksVec& peaks = pivPoint.peaks();
 
 	/* Store coords and do the cross-correlation */
-	XCorr2::xCorr2n(*ccf, images, coordPair);
-	pivPoint.set_coords(coordPair);
+	XCorr2::xCorr2n(*ccf, 512, im1firstPix, im2firstPix, pivPoint.x(), pivPoint.y());
+
 	/* Here the maximum search value needs replacing with variable */
 	ccf->findPeaks(peaks, 7);
 	SubPixel::gauss(*ccf, peaks, pivPoint.dispsVec());
-
-// 	if (coordPair.first == 311 && coordPair.second == 503 ) {
-// 		pivPoint.printPeaks();
-// 		pivPoint.printDisps();
-// 	}
-
 }
 
 void DoPiv::write(const std::string filename)

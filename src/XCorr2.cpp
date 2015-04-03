@@ -2,13 +2,18 @@
 
 namespace PivEng {
 
-	void XCorr2::xCorr2n(CCF& ccf, IntMap::Pair& imPair, IntPair& coordPair)
+	void XCorr2::xCorr2n(CCF& ccf,
+			const int imageCols,
+			const uint16_t* im1pixel,
+			const uint16_t* im2pixel,
+			const int col,
+			const int row)
 	{
 		/* Image intensity matrices */
 		// IntMap::Uptr& image1 = imPair.first;
 		// IntMap::Uptr& image2 = imPair.second;
 
-		auto imageCols = imPair.first->cols();
+		// auto imageCols = imPair.first->cols();
 		/* int imageRows = image1->rows(); */
 
 		auto ccfRows = ccf.rows(),
@@ -19,11 +24,11 @@ namespace PivEng {
 			nOffset = winCols + static_cast<int>(floor(ccfCols/2.0 - winCols) ),
 
 			/* Upper left corner WRT interrogation window centre */
-			xOff = coordPair.first  - static_cast<int>( (winCols / 2.0)) + 1,
-			yOff = coordPair.second - static_cast<int>( (winRows / 2.0)) + 1;
+			xOff = col - static_cast<int>( (winCols / 2.0)) + 1,
+			yOff = row - static_cast<int>( (winRows / 2.0)) + 1;
 
 		/* Pointers to image first pixels */
-		auto im1pixel = imPair.first->begin(), im2pixel = imPair.second->begin();
+		// auto im1pixel = imPair.first->begin(), im2pixel = imPair.second->begin();
 
 		/* Pixel averages and correlation bits */
 		auto  bitProd = 0.0, win1Avg = 0.0, win2Avg = 0.0, denom1 = 0.0, denom2 = 0.0;

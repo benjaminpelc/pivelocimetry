@@ -24,7 +24,7 @@ class DoPiv
 	public:
 		typedef std::vector<PivPoint> PivPointVec;
 
-		DoPiv(PivOptions& options, IntMap::Pair& imPair, Grid& g);
+		DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g);
 		void print();
 		void write(const std::string filename);
 		PivPointVec& pointsVector();
@@ -33,7 +33,7 @@ class DoPiv
 		~DoPiv();
 
 	private:
-		void doPivPoint(PivPoint& pivPoint, Grid::CoordPair& coordPair, IntMap::Pair& images);
+		void doPivPoint(PivPoint& pivPoint, uint16_t* im1firstPix, uint16_t* im2firstPix);
 		int m_numX,
 			m_numY;
 		PivPointVec m_points;

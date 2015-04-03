@@ -21,7 +21,12 @@ namespace PivEng {
 			typedef std::pair<int, int> IntPair;
 			typedef std::pair<double, double> DoublePair;
 
-			static void xCorr2n(CCF& ccf, IntMap::Pair& imPair, IntPair& coordPair);
+			static void xCorr2n(CCF& ccf,
+				const int imageCols,
+				const uint16_t* im1pixel,
+				const uint16_t* im2pixel,
+				const int col,
+				const int row);
 		private:
 	};
 
