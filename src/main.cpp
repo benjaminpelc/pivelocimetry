@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
   IntMap::Pair imPair{&i1, &i2};
 
   /* Create a grid */
-  PivEng::Grid g = PivEng::Grid(analysisOptions, i1);
+  auto g = PivEng::Grid(analysisOptions, i1);
 
   /* We have options, images and a grid, now do some PIV */
   auto piv = PivEng::DoPiv(analysisOptions, imPair, g);
