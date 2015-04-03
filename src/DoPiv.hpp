@@ -18,6 +18,7 @@
 #include "XCorr2.hpp"
 #include "PivPoint.hpp"
 #include "SubPix.hpp"
+#include "../lib/alias.hpp"
 
 namespace PivEng {
 

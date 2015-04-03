@@ -44,6 +44,9 @@ int main(int argc, char** argv)
 
 	auto z = Mat2<double>(3,3,0.1);
 
+	std::cout << "z != m: " << (z != m) << std::endl;
+	std::cout << "mCopy != m: " << (mCopy != m) << std::endl;
+
 	z = std::move(m);
 
 	// std::cout << "m[4] should not be a thing: " << m[4] << std::endl;

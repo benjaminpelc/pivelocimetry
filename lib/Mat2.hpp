@@ -28,6 +28,7 @@ class Mat2
 
 		/* Equality */
 		bool operator==(const Mat2<T>& other );
+		bool operator!=(const Mat2<T>& other );
 
 
 		/* Access elements */
@@ -151,6 +152,13 @@ bool Mat2<T>::operator==(const Mat2<T>& other )
 	};
 	return other.m_size == m_size && other.m_rows == m_rows && other.m_cols == m_cols && elementComp();
 }
+
+template<typename T>
+bool Mat2<T>::operator!=(const Mat2<T>& other )
+{
+	return !(*this == other);
+}
+
 template<typename T>
 void Mat2<T>::setElem(const int j, const int i, const T v)
 {

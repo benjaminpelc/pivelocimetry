@@ -25,21 +25,15 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 	auto ccfBatch = [&](int beg, int end) {
 		for (auto ctr = 0 + beg; ctr != 0 + end; ctr++) {
 			XCorr2::xCorr2n(m_ccfs[ctr], 512, im1firstPix, im2firstPix, g[ctr].first, g[ctr].second);
+			m_points[ctr].set_coords(g[ctr]);
+			doPivPoint(m_points[ctr], m_ccfs[ctr]);
 		}
 	};
 
 	// ccfBatch(0, g.numPoints());
 	std::thread t1{ccfBatch, 0, g.numPoints()/2};
 	ccfBatch(g.numPoints()/2, g.numPoints());
-
 	t1.join();
-	
-	auto ctr = 0;
-	for (auto& p : m_points) {
-		p.set_coords(g[ctr]);
-		doPivPoint(p, m_ccfs[ctr]);
-		ctr++;
-	}
 }
 
 DoPiv::PivPointVec& DoPiv::pointsVector()
