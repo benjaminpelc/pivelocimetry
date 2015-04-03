@@ -25,10 +25,15 @@ int main(int argc, char** argv)
 
 
 	auto mCopy = Mat2<double>(m);
+	auto zz = Mat2<double>(12,33,1.10);
+
+	std::cout << "mCopy == m: " << (mCopy == m) << std::endl;
+	std::cout << "mCopy == zz: " << (mCopy == zz) << std::endl;
 
 	std::cout << "mCopy[3] should equal 1.01: " << mCopy[3]  << std::endl;
 
 	m[4] = 9.99;
+	std::cout << "mCopy should not == m: " << (mCopy == m) << std::endl;
 
 	std::cout << "m[4] should = 9.99: " << m[4] << std::endl;
 	std::cout << "mCopy[4] should = 3.1415: " << mCopy[4] << std::endl;

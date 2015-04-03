@@ -26,6 +26,9 @@ class Mat2
 		Mat2(Mat2<T>&& m);
 		Mat2<T>& operator=(Mat2<T>&& other);
 
+		/* Equality */
+		bool operator==(const Mat2<T>& other );
+
 
 		/* Access elements */
 		T& operator[](const int i) const { return m_mat[i]; };
@@ -135,6 +138,19 @@ Mat2<T>::Mat2(Mat2<T>&& m) :
 	*this = std::move(m);
 }
 
+/* Equality */
+template<typename T>
+bool Mat2<T>::operator==(const Mat2<T>& other )
+{
+	auto elementComp = [&](){
+		for (size_t i = 0; i != m_size; i++) {
+			if (m_mat[i] != other.m_mat[i])
+				return false;
+		}
+		return true;
+	};
+	return other.m_size == m_size && other.m_rows == m_rows && other.m_cols == m_cols && elementComp();
+}
 template<typename T>
 void Mat2<T>::setElem(const int j, const int i, const T v)
 {
