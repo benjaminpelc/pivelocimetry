@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "Mat2.h"
+#include "../lib/Mat2.hpp"
 
 TEST_CASE( "Matrix2 Double Init", "Initiate Matrix2<double>(3,5,3.2)"){
 	

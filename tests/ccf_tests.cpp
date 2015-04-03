@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "../src/ccf.h"
+#include "../src/Ccf.hpp"
 // #include <algorithm>
 
 TEST_CASE( "Test CCF", "Initialisation"){

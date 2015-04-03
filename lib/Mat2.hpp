@@ -17,6 +17,8 @@ class Mat2
 		Mat2(unsigned int rows, unsigned int cols, T v);
 		~Mat2();
 
+		Mat2(const Mat2& obj) {};
+
 		T getElem(int idx);
 		T getElem(int j, int i);
 
