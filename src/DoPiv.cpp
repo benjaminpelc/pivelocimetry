@@ -13,18 +13,16 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
  	 *
  	 * Once vector points have been initiated loop through each point with 
  	 * an individual pair of interrogation region coordinates and do the PIV 
- 	 * calculation for each point */
+ 	 * calculations for each point */
 
 	/* Loop through each grid point: */
-	/* The number of points is the same as the number of coordinates. Always */
-	/* Set an iterator to the start of the piv points vector */	
-	// auto coordPairPtr = g.coordsVec().begin();
 	auto im1firstPix = imPair.first->begin();
 	auto im2firstPix = imPair.second->begin();
+	auto imCols = imPair.first->cols();
 
 	auto ccfBatch = [&](int beg, int end) {
-		for (auto ctr = 0 + beg; ctr != 0 + end; ctr++) {
-			XCorr2::xCorr2n(m_ccfs[ctr], 512, im1firstPix, im2firstPix, g[ctr].first, g[ctr].second);
+		for (auto ctr = beg; ctr != end; ctr++) {
+			XCorr2::xCorr2n(m_ccfs[ctr], imCols, im1firstPix, im2firstPix, g[ctr].first, g[ctr].second);
 			m_points[ctr].set_coords(g[ctr]);
 			doPivPoint(m_points[ctr], m_ccfs[ctr]);
 		}

@@ -27,8 +27,8 @@ class Mat2
 		Mat2<T>& operator=(Mat2<T>&& other);
 
 		/* Equality */
-		bool operator==(const Mat2<T>& other );
-		bool operator!=(const Mat2<T>& other );
+		bool operator==(const Mat2<T>& other ) const;
+		bool operator!=(const Mat2<T>& other ) const;
 
 
 		/* Access elements */
@@ -114,7 +114,6 @@ template<typename T>
 Mat2<T>& Mat2<T>::operator=(Mat2<T>&& other)
 {
 	// if (this != other ) {
-	std::cout << "In move assisgn" << std::endl;
 		delete[] m_mat;
 
 		m_mat = other.m_mat;
@@ -141,7 +140,7 @@ Mat2<T>::Mat2(Mat2<T>&& m) :
 
 /* Equality */
 template<typename T>
-bool Mat2<T>::operator==(const Mat2<T>& other )
+bool Mat2<T>::operator==(const Mat2<T>& other ) const
 {
 	auto elementComp = [&](){
 		for (size_t i = 0; i != m_size; i++) {
@@ -154,7 +153,7 @@ bool Mat2<T>::operator==(const Mat2<T>& other )
 }
 
 template<typename T>
-bool Mat2<T>::operator!=(const Mat2<T>& other )
+bool Mat2<T>::operator!=(const Mat2<T>& other ) const
 {
 	return !(*this == other);
 }

@@ -46,6 +46,7 @@ int main(int argc, char** argv)
 
 	std::cout << "z != m: " << (z != m) << std::endl;
 	std::cout << "mCopy != m: " << (mCopy != m) << std::endl;
+	std::cout << "m != mCopy: " << (m != mCopy) << std::endl;
 
 	z = std::move(m);
 
