@@ -19,11 +19,18 @@ class Mat2
 
 		/* Copy constructor */
 		Mat2(const Mat2<T>& m);
+		/* Copy assign */
+		Mat2<T>& operator=(const Mat2<T>& a);
+
+		/* Move constructor */
+		Mat2(Mat2<T>&& m);
+		Mat2<T>& operator=(Mat2<T>&& other);
+
 
 		/* Access elements */
 		T& operator[](const int i) const { return m_mat[i]; };
 		T getElem(const int idx) { return m_mat[idx]; };
-		T getElem(const int j, const int i) { return *(m_begin + m_cols * j + i); };
+		T getElem(const int j, const int i) { return m_mat[m_cols * j + i]; };
 
 		/* Return the linear index from 2D matrix coordinates */
 		int getIndex(const int j, const int i);
@@ -42,8 +49,6 @@ class Mat2
 
 	protected:
 		T* m_mat;
-		T* m_begin;
-		T* m_end;
 		int m_size;
 		int m_rows, m_cols;
 	
@@ -87,11 +92,55 @@ Mat2<T>::Mat2(const Mat2<T>& m) :
 };
 
 template<typename T>
+Mat2<T>& Mat2<T>::operator=(const Mat2<T>& a)
+{
+	T* p = new T[a.size()];
+	for(int i = 0; i != a.size(); ++i)
+		p[i] = a[i];
+	delete[] m_mat;
+	m_mat = p;
+	m_size = a.size();
+	m_rows = a.rows();
+	m_cols = a.cols();
+
+	return *this;
+}
+
+template<typename T>
+Mat2<T>& Mat2<T>::operator=(Mat2<T>&& other)
+{
+	// if (this != other ) {
+	std::cout << "In move assisgn" << std::endl;
+		delete[] m_mat;
+
+		m_mat = other.m_mat;
+		m_rows = other.m_rows;
+		m_cols = other.m_cols;
+		m_size = other.m_size;
+
+		other.m_mat = nullptr;
+		other.m_cols = other.m_rows = other.m_size = 0;
+	// }
+
+	return *this;
+}
+
+template<typename T>
+Mat2<T>::Mat2(Mat2<T>&& m) :
+	m_mat(nullptr),
+	m_size(0),
+	m_rows(0),
+	m_cols(0)
+{
+	*this = std::move(m);
+}
+
+template<typename T>
 void Mat2<T>::setElem(const int j, const int i, const T v)
 {
 	/* Set element with 2D index */
-	// m_mat[m_cols * j + i] = v;
-	*(m_begin + m_cols * j + i) = v;
+	m_mat[m_cols * j + i] = v;
+	// *(m_begin + m_cols * j + i) = v;
 }
 
 template<typename T>

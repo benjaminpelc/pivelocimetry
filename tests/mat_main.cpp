@@ -1,6 +1,12 @@
 #include <iostream>
 #include "../lib/Mat2.hpp"
 
+Mat2<double> foo()
+{
+	auto xz = Mat2<double>(2678,2776,2.13);
+	return xz;
+}
+
 int main(int argc, char** argv)
 {
 	auto m = Mat2<double>(3, 5, 3.1415);
@@ -21,6 +27,25 @@ int main(int argc, char** argv)
 	auto mCopy = Mat2<double>(m);
 
 	std::cout << "mCopy[3] should equal 1.01: " << mCopy[3]  << std::endl;
+
+	m[4] = 9.99;
+
+	std::cout << "m[4] should = 9.99: " << m[4] << std::endl;
+	std::cout << "mCopy[4] should = 3.1415: " << mCopy[4] << std::endl;
+
+	mCopy = m;
+
+	std::cout << "mCopy[4] should equal 9.99: " << mCopy[4]  << std::endl;
+
+	auto z = Mat2<double>(3,3,0.1);
+
+	z = std::move(m);
+
+	// std::cout << "m[4] should not be a thing: " << m[4] << std::endl;
+	std::cout << "z[4] should equal 9.99: " << z[4] << std::endl;
+
+	auto cv = std::move(z);
+	std::cout << cv[4] << std::endl;
 
 	return 0;
 }
