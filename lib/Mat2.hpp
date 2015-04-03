@@ -13,28 +13,29 @@ template<typename T>
 class Mat2
 {
 	public:
-		Mat2(unsigned int rows, unsigned int cols);
-		Mat2(unsigned int rows, unsigned int cols, T v);
+		Mat2(const unsigned int rows, const unsigned int cols);
+		Mat2(const unsigned int rows, const unsigned int cols, const T v);
 		~Mat2();
 
-		Mat2(const Mat2& obj) {};
+		/* Copy constructor */
+		Mat2(const Mat2<T>& m);
 
 		/* Index axxess */
-		T& operator[](int i) { return m_mat[i]; }
+		T& operator[](const int i) const { return m_mat[i]; };
 
-		T getElem(int idx);
-		T getElem(int j, int i);
+		T getElem(const int idx);
+		T getElem(const int j, const int i);
 
-		int size();
-		int rows();
-		int cols();
-		int getIndex(int j, int i);
+		constexpr int size() { return m_size; };
+		constexpr int rows() { return m_rows; };
+		constexpr int cols() { return m_cols; };
+		int getIndex(const int j, const int i);
 		
-		void setElem(int j, int i, T v);
-		void setElem(int idx, T v);
+		void setElem(const int j, const int i, const T v);
+		void setElem(const int idx, const T v);
 
-		T* begin() { return &m_mat[0]; };
-		T* end () { return &m_mat[m_size]; };
+		constexpr T* begin() { return &m_mat[0]; };
+		constexpr T* end () { return &m_mat[m_size]; };
 
 	protected:
 		T* m_mat;
@@ -47,7 +48,7 @@ class Mat2
 };
 
 template<typename T>
-Mat2<T>::Mat2(unsigned int rows, unsigned int cols) :
+Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols) :
 	m_size(rows * cols),
 	m_rows(rows),
 	m_cols(cols)
@@ -58,7 +59,7 @@ Mat2<T>::Mat2(unsigned int rows, unsigned int cols) :
 }
 
 template<typename T>
-Mat2<T>::Mat2(unsigned int rows, unsigned int cols, T v) :
+Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols, const T v) :
 	m_size(rows * cols),
 	m_rows(rows),
 	m_cols(cols)
@@ -70,7 +71,20 @@ Mat2<T>::Mat2(unsigned int rows, unsigned int cols, T v) :
 }
 
 template<typename T>
-T Mat2<T>::getElem(int idx)
+Mat2<T>::Mat2(const Mat2<T>& m) :
+	m_mat(new T[m.size()]),
+	m_size(m.size()),
+	m_rows(m.rows()),
+	m_cols(m.cols())
+{
+	// m_mat = new T[m_size];
+	for(size_t i = 0; i != m_size; i ++) {
+		m_mat[i] = m[i];
+	}
+};
+
+template<typename T>
+T Mat2<T>::getElem(const int idx)
 {
 	/* Return element with linear index, this 
 	 * will be fastest */
@@ -78,7 +92,7 @@ T Mat2<T>::getElem(int idx)
 }
 
 template<typename T>
-T Mat2<T>::getElem(int j, int i)
+T Mat2<T>::getElem(const int j, const int i)
 {
 	/* Return element with 2D index */
 	// return m_mat[m_cols * j + i];
@@ -86,7 +100,7 @@ T Mat2<T>::getElem(int j, int i)
 }
 
 template<typename T>
-void Mat2<T>::setElem(int j, int i, T v)
+void Mat2<T>::setElem(const int j, const int i, const T v)
 {
 	/* Set element with 2D index */
 	// m_mat[m_cols * j + i] = v;
@@ -94,31 +108,13 @@ void Mat2<T>::setElem(int j, int i, T v)
 }
 
 template<typename T>
-void Mat2<T>::setElem(int idx, T v)
+void Mat2<T>::setElem(const int idx, const T v)
 {
 	m_mat[idx] = v;
 }
 
 template<typename T>
-int Mat2<T>::size()
-{
-	return m_size;
-}
-
-template<typename T>
-int Mat2<T>::rows()
-{
-	return m_rows;
-}
-
-template<typename T>
-int Mat2<T>::cols()
-{
-	return m_cols;
-}
-
-template<typename T>
-int Mat2<T>::getIndex(int j, int i)
+int Mat2<T>::getIndex(const int j, const int i)
 {
 	return m_cols * j + i;
 }
