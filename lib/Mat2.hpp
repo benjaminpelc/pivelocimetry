@@ -19,6 +19,9 @@ class Mat2
 
 		Mat2(const Mat2& obj) {};
 
+		/* Index axxess */
+		T& operator[](int i) { return m_mat[i]; }
+
 		T getElem(int idx);
 		T getElem(int j, int i);
 
