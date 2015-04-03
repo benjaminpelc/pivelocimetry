@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     cfgFilePath = clArgs.configFile();
 
   /* Load options from config file */
-  auto analysisOptions = std::make_unique<PivOptions>(cfgFilePath);
+  auto analysisOptions = PivOptions(cfgFilePath);
 
   // analysisOptions->print();
 
@@ -42,10 +42,10 @@ int main(int argc, char **argv) {
   IntMap::Pair imPair{&i1, &i2};
 
   /* Create a grid */
-  PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, i1);
+  PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(analysisOptions, i1);
 
   /* We have options, images and a grid, now do some PIV */
-  auto piv = PivEng::DoPiv(*analysisOptions, imPair, *g);
+  auto piv = PivEng::DoPiv(analysisOptions, imPair, *g);
 
   /* Do some post processing */
   if (clArgs.doPostProc())
