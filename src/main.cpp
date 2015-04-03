@@ -35,14 +35,14 @@ int main(int argc, char **argv) {
                                    std::make_unique<OCVImage>(im2FilePath);
 
   /* Extract pixel intensity maps */
-  IntMap::Uptr i1 = std::make_unique<IntMap>(rawIm1),
-               i2 = std::make_unique<IntMap>(rawIm2);
+  auto i1 = IntMap(rawIm1);
+  auto i2 = IntMap(rawIm2);
 
   /* Box images in a pair for easy handling */
-  IntMap::Pair imPair{i1, i2};
+  IntMap::Pair imPair{&i1, &i2};
 
   /* Create a grid */
-  PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, *i1);
+  PivEng::Grid::Uptr g = std::make_unique<PivEng::Grid>(*analysisOptions, i1);
 
   /* We have options, images and a grid, now do some PIV */
   auto piv = PivEng::DoPiv(*analysisOptions, imPair, *g);
