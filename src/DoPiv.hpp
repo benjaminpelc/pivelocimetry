@@ -9,6 +9,8 @@
 #include <fstream>
 #include <algorithm>
 #include <iomanip>
+#include <thread>
+
 
 #include "PivOptions.hpp"
 #include "IntMap.hpp"

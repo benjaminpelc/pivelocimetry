@@ -22,16 +22,18 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 	auto im1firstPix = imPair.first->begin();
 	auto im2firstPix = imPair.second->begin();
 
-	// for(auto& p : m_points)
-	// 	p.set_coords(g[ctr++]);
-	// 	// p.set_coords(*(coordPairPtr++));
+	auto ccfBatch = [&](int beg, int end) {
+		for (auto ctr = 0 + beg; ctr != 0 + end; ctr++) {
+			XCorr2::xCorr2n(m_ccfs[ctr], 512, im1firstPix, im2firstPix, g[ctr].first, g[ctr].second);
+		}
+	};
+
+	// ccfBatch(0, g.numPoints());
+	std::thread t1{ccfBatch, 0, g.numPoints()/2};
+	ccfBatch(g.numPoints()/2, g.numPoints());
+
+	t1.join();
 	
-	// std::vector<CCF> c(g.numPoints(), CCF(options.winHeight() + 1, options.winWidth() + 1));
-
-	for (auto ctr = 0; ctr != g.numPoints(); ctr++) {
-		XCorr2::xCorr2n(m_ccfs[ctr], 512, im1firstPix, im2firstPix, g[ctr].first, g[ctr].second);
-	}
-
 	auto ctr = 0;
 	for (auto& p : m_points) {
 		p.set_coords(g[ctr]);
