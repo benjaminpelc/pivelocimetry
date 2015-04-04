@@ -17,10 +17,32 @@ To median_modify_container(Container&& c);
 template<typename To, typename Container>
 To mean(Container&& c);
 
+/* Mean of pairs. First is the mean of firsts, second is mean 
+ * of seconds */
+template<typename TFirst, typename TSecond, typename Container>
+std::pair<TFirst, TSecond> mean_pairs(Container&& c);
+
 /* Static cast but rounding to nearest integer value 
  * for integral trypes */
 template<typename To, typename From>
 To cast_round_if_integral(const From f);
+
+template<typename TFirst, typename TSecond, typename Container>
+std::pair<TFirst, TSecond> mean_pairs(Container&& c)
+{
+	size_t cSize = c.size();
+	auto result = std::make_pair<TFirst, TSecond>(TFirst(), TSecond());
+
+	auto add = [](std::pair<TFirst, TSecond> a, std::pair<TFirst, TSecond> b) {
+		return std::make_pair<TFirst, TSecond>(a.first + b.first, a.second + b.second);
+	};
+
+	result =  std::accumulate(c.begin(), c.end(), result, add);
+	result.first /= cSize;
+	result.second /= cSize;
+
+	return result;
+}
 
 template<typename To, typename Container>
 To mean(Container&& c)
