@@ -7,22 +7,18 @@ namespace PivEng {
  * Calls default Matrix2<double> constructor.
  * Initialize all values to -1.0  */
 CCF::CCF(unsigned int rows, unsigned int cols) : 
-	Mat2<double>(rows, cols, -1.0),
-	m_offsetX(floor ((cols - 1) / 2)),
-	m_offsetY(floor ((rows - 1) / 2))
-{
-}
+	Mat2<double>(rows, cols, -1.0) {}
 
 /* Destructor:
  * Nothing exciting here, all memory is deallocated inside Matrix2 
  * parent class */
 CCF::~CCF() {}
 
-int CCF::offsetX() { return m_offsetX; }
+int CCF::offsetX() const { return (m_cols - 1) / 2; }
 
-int CCF::offsetY() { return m_offsetY; }
+int CCF::offsetY() const { return (m_rows - 1) / 2; }
 
-void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
+void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp) const
 {
 	/* FindPeaks
  	 * Find peaks in the correlation function. Pass a vector of peak objects to store
@@ -94,7 +90,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp)
 }
 
 /* bool CCF::isLocalPeak(int j, int i) */
-bool CCF::isLocalPeak(double* p)
+bool CCF::isLocalPeak(double* p) const
 {
 	/* Returns true if the point (i,j) has greater 
 	 * value than the four surrounding points */
