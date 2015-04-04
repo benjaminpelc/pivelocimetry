@@ -36,6 +36,7 @@ class Mat2
 		bool operator==(const Mat2<T>& other ) const;
 		bool operator!=(const Mat2<T>& other ) const;
 
+		// bool operator< (const Mat2<T>& rhs) const;
 		/* Access elements
 		 * 1) subscript index access
 		 * 2) method call with subscript access 
@@ -164,6 +165,19 @@ bool Mat2<T>::operator!=(const Mat2<T>& other ) const
 {
 	return !(*this == other);
 }
+
+// template<typename T>
+// bool Mat2<T>::operator< (const Mat2<T>& rhs) const
+// {
+// 	if (m_size != rhs.m_size || m_cols != m_cols || m_rows != rhs.m_rows)
+// 		return false;
+//
+// 	return std::lexicographical_compare(this->begin(), this->end(), rhs.begin(), rhs.end(), [](auto l, auto r) {
+// 			return l < r;
+// 			} );
+//
+// 	
+// }
 
 template<typename T>
 void Mat2<T>::setElem(const int j, const int i, const T v)

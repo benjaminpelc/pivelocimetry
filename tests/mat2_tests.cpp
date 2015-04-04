@@ -70,6 +70,18 @@ TEST_CASE ( "Mat2::sum") {
 	SECTION( "sum should equal 18.849" ) {
 		CHECK(m_b.sum() == 18.849f);
 	}
-	
-	
 }
+
+
+// TEST_CASE ( "Mat2:: < ") {
+// 	auto m_a = Mat2<int>(2,2,3);
+// 	auto m_b = Mat2<int>(2,2,4);
+// 		m_b[2] = 1;
+// 	SECTION( "m_a should be less than m_b" ) {
+// 		CHECK(m_a < m_b);
+// 	}
+// 	SECTION( "m_a should not be less than m_b" ) {
+// 		m_b.setElem(1,1, 1);
+// 		CHECK((m_a < m_b));
+// 	}
+// }
