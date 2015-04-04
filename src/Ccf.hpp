@@ -16,7 +16,7 @@ namespace PivEng {
 	class CCF : public Mat2<double>
 	{
 		public:
-			typedef std::shared_ptr<CCF> Sptr;
+			using Sptr =  std::shared_ptr<CCF>;
 
 			CCF(unsigned int rows, unsigned int cols);
 			~CCF();
@@ -27,7 +27,7 @@ namespace PivEng {
 			int offsetY();
 
 		private:	
-			const double BIG_DOUBLE = 9999999999.9;
+			const double BIG_DOUBLE = 9999999999999.9;
 			bool inRange(double subject, double minimum, double maximum);
 			const int m_offsetX,
 			  	  	  m_offsetY;

@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <memory>
+#include <numeric>
 
 template<typename T>
 class Mat2
@@ -40,8 +41,8 @@ class Mat2
 		 * 2) method call with subscript access 
 		 * 3) method call with coordinate access */
 		T& operator[](const int i) const { return m_mat[i]; };
-		T getElem(const int idx) { return m_mat[idx]; };
-		T getElem(const int j, const int i) { return m_mat[m_cols * j + i]; };
+		T getElem(const int idx) const { return m_mat[idx]; };
+		T getElem(const int j, const int i) const { return m_mat[m_cols * j + i]; };
 
 		/* Return the linear index from 2D matrix coordinates */
 		int getIndex(const int j, const int i);
@@ -58,6 +59,9 @@ class Mat2
 		/* Pointers to first and one past last elements */
 		constexpr T* begin() { return &m_mat[0]; };
 		constexpr T* end () { return &m_mat[m_size]; };
+
+		/* Sum */
+		T sum() const;
 
 	protected:
 		T* m_mat;
@@ -78,13 +82,10 @@ Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols) :
 
 template<typename T>
 Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols, const T v) :
-	m_size(rows * cols),
-	m_rows(rows),
-	m_cols(cols)
+	Mat2(rows, cols)
 {
 	/* Constructor, must provide the number of rows, number of 
 	 * columns and an initial value */
-	m_mat = new T[m_size];
 	std::fill(m_mat, m_mat + m_size, v);
 }
 
@@ -181,6 +182,12 @@ template<typename T>
 int Mat2<T>::getIndex(const int j, const int i)
 {
 	return m_cols * j + i;
+}
+
+template<typename T>
+T Mat2<T>::sum() const
+{
+	return std::accumulate(begin(), end(), T());
 }
 
 template<typename T>

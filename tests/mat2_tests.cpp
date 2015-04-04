@@ -43,3 +43,33 @@ TEST_CASE( "Matrix2 Double Init", "Initiate Matrix2<double>(3,5,3.2)"){
 	}
 	
 }
+
+TEST_CASE ( "Mat2: Equality") {
+	auto m_a = Mat2<int>(2, 3, 4);
+	auto m_b = Mat2<int>(2, 3, 4);
+	auto m_c = m_a;
+
+	SECTION( "m_a should equal m_b" ) {
+		CHECK(m_a == m_b);
+	}
+	
+	SECTION( "m_a should equal m_c" ) {
+		m_c[0] = 9;
+		CHECK(m_a != m_c);
+	}
+	
+}
+
+TEST_CASE ( "Mat2::sum") {
+	auto m_a = Mat2<int>(2,2,3);
+	SECTION( "sum should equal 12" ) {
+		CHECK(m_a.sum() == 12);
+	}
+
+	auto m_b = Mat2<float>(3, 2, 3.1415);
+	SECTION( "sum should equal 18.849" ) {
+		CHECK(m_b.sum() == 18.849f);
+	}
+	
+	
+}
