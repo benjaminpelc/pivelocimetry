@@ -3,11 +3,40 @@
 
 namespace bpu {
 
+/* Calculate the median value of a container with specified
+ * return type. Original container is not modified */
 template<typename To, typename Container>
 To median(Container&& c);
 
+/* Same as median but container is modified by partially 
+ * sorting contents */
 template<typename To, typename Container>
 To median_modify_container(Container&& c);
+
+/* Arithmetic mean of a container with specified return type */
+template<typename To, typename Container>
+To mean(Container&& c);
+
+/* Static cast but rounding to nearest integer value 
+ * for integral trypes */
+template<typename To, typename From>
+To cast_round_if_integral(const From f);
+
+template<typename To, typename Container>
+To mean(Container&& c)
+{
+	return cast_round_if_integral<To>(std::accumulate(c.begin(),c.end(), static_cast<To>(0)) / c.size());
+}
+
+template<typename To, typename From>
+To cast_round_if_integral(const From f)
+{
+	if (std::is_integral<To>::value) {
+		return static_cast<To>(f + 0.5);
+	} else {
+		return static_cast<To>(f);
+	}
+}
 
 template<typename To, typename Container>
 To median(Container&& c)
@@ -24,45 +53,19 @@ To median_modify_container(Container&& c)
 		return static_cast<To>(0);
 
 	/* Single element returns the element */
-	size_t sz = c.size();
-	if (sz == 1)
-		return c[0];
+	size_t cSize = c.size();
+	if (cSize == 1)
+		return cast_round_if_integral<To>(c[0]);
 
 	/* Find the middle index */
-	size_t mark = floor(sz / 2);
+	size_t mark = floor(cSize / 2);
 	std::nth_element(c.begin(), c.begin() + mark, c.end());
 
-	/* Value at floor size/2 */
-	auto cMark = c[mark];
-
-	if (sz % 2 != 0) {
-		if (std::is_integral<To>::value) {
-			return static_cast<To>(cMark + 0.5);
-		} else {
-			return static_cast<To>(cMark);
-		}
+	if (cSize % 2 != 0) {
+		return cast_round_if_integral<To>(c[mark]);
 	} else {
-		auto cMarkPrev = c[mark - 1];
-		if (std::is_integral<To>::value) {
-			return static_cast<To>(0.5 * (cMarkPrev + cMark) + 0.5);
-		} else {
-			return static_cast<To>(0.5 * (cMarkPrev + cMark));
-		}
+		auto median = 0.5 * (c[mark] + c[mark - 1]);
+		return cast_round_if_integral<To>(median);
 	}
 }
-/*
- * template<typename T>
- * T median(std::vector<T>& vec)
- * {
- * 	size_t sz = vec.size();
- * 	if (sz % 2 != 0) {
- * 		size_t mark = floor(sz / 2);
- * 		std::nth_element(vec.begin(), vec.begin() + mark, vec.end());
- * 		return vec[mark];
- * 	} else {
- * 		std::sort(vec.begin(), vec.end());
- * 		return 0.5 * (vec[sz / 2 - 1] + vec[sz / 2]);
- * 	}
- * };
- */
 }

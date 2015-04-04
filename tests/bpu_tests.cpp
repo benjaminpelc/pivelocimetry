@@ -63,9 +63,10 @@ TEST_CASE( "BPU::Median - Vectors", "Test median template function"){
 		}
 	}
 
-	SECTION( "Should take r-value" ) {
+	SECTION( "Should take rvalue" ) {
 		SECTION( "Median should be 4" ) {
-			CHECK(median<int>(std::vector<int>{1,4,6,2,5}));
+			auto med = median<int>(std::vector<int>{1,4,6,2,5});
+			CHECK(med == 4);
 		}
 	}
 
