@@ -13,8 +13,12 @@ template<typename T>
 class Mat2
 {
 	public:
+		/* Constructors:
+		 * Provide dimensions and an initial value or just dimenstions */
 		Mat2(const unsigned int rows, const unsigned int cols);
 		Mat2(const unsigned int rows, const unsigned int cols, const T v);
+
+		/* Destructor */
 		~Mat2();
 
 		/* Copy constructor */
@@ -24,14 +28,17 @@ class Mat2
 
 		/* Move constructor */
 		Mat2(Mat2<T>&& m);
+		/* Move assign */
 		Mat2<T>& operator=(Mat2<T>&& other);
 
 		/* Equality */
 		bool operator==(const Mat2<T>& other ) const;
 		bool operator!=(const Mat2<T>& other ) const;
 
-
-		/* Access elements */
+		/* Access elements
+		 * 1) subscript index access
+		 * 2) method call with subscript access 
+		 * 3) method call with coordinate access */
 		T& operator[](const int i) const { return m_mat[i]; };
 		T getElem(const int idx) { return m_mat[idx]; };
 		T getElem(const int j, const int i) { return m_mat[m_cols * j + i]; };
@@ -44,6 +51,7 @@ class Mat2
 		int rows() const { return m_rows; };
 		int cols() const { return m_cols; };
 		
+		/* Set element method, use if can't use index notation [] */
 		void setElem(const int j, const int i, const T v);
 		void setElem(const int idx, const T v);
 
@@ -55,8 +63,6 @@ class Mat2
 		T* m_mat;
 		int m_size;
 		int m_rows, m_cols;
-	
-	private:
 };
 
 template<typename T>
@@ -163,7 +169,6 @@ void Mat2<T>::setElem(const int j, const int i, const T v)
 {
 	/* Set element with 2D index */
 	m_mat[m_cols * j + i] = v;
-	// *(m_begin + m_cols * j + i) = v;
 }
 
 template<typename T>

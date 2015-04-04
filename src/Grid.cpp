@@ -70,7 +70,7 @@ namespace PivEng {
 		return m_ptsY.size();
 	}
 
-	int Grid::numPoints()
+	int Grid::size()
 	{
 		return m_ptsX.size() * m_ptsY.size();
 	}

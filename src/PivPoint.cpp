@@ -97,7 +97,7 @@ void PivPoint::set_yCoord(int y)
 	m_j = y;
 }
 
-void PivPoint::set_coords(std::pair<int, int>& coords)
+void PivPoint::set_coords(std::pair<int, int> coords)
 {
 	m_i = coords.first;
 	m_j = coords.second;

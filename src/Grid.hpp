@@ -32,7 +32,7 @@ namespace PivEng {
 			int y(int i);
 			int numX();
 			int numY();
-			int numPoints();
+			int size();
 
 			CoordPair& operator[](const int i) { return m_coords[i]; };
 

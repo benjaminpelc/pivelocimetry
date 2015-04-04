@@ -2,8 +2,8 @@
 
 namespace PivEng {
 DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :  
-		m_ccfs(g.numPoints(), CCF(options.winHeight() + 1, options.winWidth() + 1)),
-		m_points(g.numPoints(), PivPoint(-1, -1, options)),
+		m_ccfs(g.size(), CCF(options.winHeight() + 1, options.winWidth() + 1)),
+		m_points(g.size(), PivPoint(-1, -1, options)),
 		m_numX(g.numX()),
     	m_numY(g.numY())
 {
@@ -16,21 +16,29 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
  	 * calculations for each point */
 
 	/* Loop through each grid point: */
-	auto im1firstPix = imPair.first->begin();
-	auto im2firstPix = imPair.second->begin();
+	auto im1Beg = imPair.first->begin();
+	auto im2Beg = imPair.second->begin();
 	auto imCols = imPair.first->cols();
 
 	auto ccfBatch = [&](int beg, int end) {
-		for (auto ctr = beg; ctr != end; ctr++) {
-			XCorr2::xCorr2n(m_ccfs[ctr], imCols, im1firstPix, im2firstPix, g[ctr].first, g[ctr].second);
-			m_points[ctr].set_coords(g[ctr]);
-			doPivPoint(m_points[ctr], m_ccfs[ctr]);
+		PairII x;
+		CCF* ccf = nullptr;
+		PivPoint* p = nullptr;
+
+		for (auto idx = beg; idx != end; idx++) {
+			x = g[idx];
+			ccf = &m_ccfs[idx];
+			p = &m_points[idx];
+
+			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, x.first, x.second);
+			p->set_coords(x);
+			doPivPoint(*p, *ccf);
 		}
 	};
 
-	// ccfBatch(0, g.numPoints());
-	std::thread t1{ccfBatch, 0, g.numPoints()/2};
-	ccfBatch(g.numPoints()/2, g.numPoints());
+	// ccfBatch(0, g.size());
+	std::thread t1{ccfBatch, 0, g.size()/2};
+	ccfBatch(g.size()/2, g.size());
 	t1.join();
 }
 
@@ -83,15 +91,18 @@ void DoPiv::print()
 	 *
 	 * todo:
 	 * Tidy this up */
-	for (auto p : m_points) {
-		std::cout << std::setw(6) << std::left 
+
+	Disp* pv = nullptr;
+
+	for (auto& p : m_points) {
+		pv = &p.primaryDisp();
+		std::cout
 			<< p.x() << "\t" << p.y() 
 			<< std::setprecision(3) << std::fixed
-			<< std::setw(8) 
-			<< "\t" << p.primaryDisp().u
-			<< "\t" << p.primaryDisp().v 
-			<< "\t" << sqrt(pow(p.dispsVec()[0].u, 2) + pow(p.dispsVec()[0].v, 2)) 
-			<< "\t" << p.primaryDisp().valid << std::endl;
+			<< "\t" << pv->u
+			<< "\t" << pv->v 
+			<< "\t" << sqrt(pow(pv->u, 2) + pow(pv->v, 2)) 
+			<< "\t" << pv->valid << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;
 }

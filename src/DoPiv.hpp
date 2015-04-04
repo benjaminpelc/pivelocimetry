@@ -32,7 +32,6 @@ class DoPiv
 		void write(const std::string filename);
 		PivPointVec& pointsVector();
 
-
 		~DoPiv();
 
 	private:
