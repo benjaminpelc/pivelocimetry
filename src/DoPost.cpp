@@ -81,14 +81,14 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 			}
 			neighs.resize(nNeighs);
 
-			median = bpu::median(neighs);
+			median = bpu::median<double>(neighs);
 			fluct0 = (us[idx_i] - median);
 
 			for (auto& n : neighs) {
 				n = std::abs(n - median);
 			}
 
-			medianRes = bpu::median(neighs);
+			medianRes = bpu::median<double>(neighs);
 
 			// double normFluct = std::abs(fluct0 / (medianRes + 0.1));
 			// std::cout << "normFluct:\t" << normFluct << std::endl;
