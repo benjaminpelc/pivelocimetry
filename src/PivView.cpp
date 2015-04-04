@@ -20,8 +20,6 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	std::vector<sf::VertexArray> dvs(vs.size());
 	auto dvsPtr = &dvs[0];
 
-	auto me = AxisBox(1,2,3,4);
-
 	sf::ContextSettings settings;
 	sf::RenderWindow window(sf::VideoMode(612, 612), "BPPIV Vector Viewer", sf::Style::Default, settings);
 	window.setFramerateLimit(60);
