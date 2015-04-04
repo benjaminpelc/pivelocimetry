@@ -25,7 +25,7 @@ To cast_round_if_integral(const From f);
 template<typename To, typename Container>
 To mean(Container&& c)
 {
-	return cast_round_if_integral<To>(std::accumulate(c.begin(),c.end(), static_cast<To>(0)) / c.size());
+	return cast_round_if_integral<To>(std::accumulate(c.begin(),c.end(), To()) / c.size());
 }
 
 template<typename To, typename From>

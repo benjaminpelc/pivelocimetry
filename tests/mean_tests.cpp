@@ -2,6 +2,7 @@
 #include <iostream>
 #include "catch.hpp"
 #include "../lib/bpu.hpp"
+#include <utility>
 
 using namespace bpu;
 
@@ -34,5 +35,4 @@ TEST_CASE( "BPU::mean single element container", "Single element" ){
 	SECTION( "mean should equal 3.141" ) {
 		CHECK(mean<double>(v) == expectedDouble);
 	}
-	
 }
