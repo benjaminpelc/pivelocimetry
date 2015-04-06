@@ -35,20 +35,17 @@ void XCorr2::xCorr2n(CCF& ccf,
 
 	/* Store all the overlapping pixels as we will be using them twice */
 	std::vector<DoublePair> pixels(ccf.size());
-	// auto firstPixel = pixels.begin();
 	int idx, idxShift, pixCtr, win1sum, win2sum;
 	/* Some image pixel coords */
 	int i(0), j(0);
 	auto p1subAvg = 0.0,
 		 p2subAvg = 0.0;
 
-	/* Do for each point in the correlation function */
 	for (auto& ccfp : ccf) {
 		/* Correlation function coefficient index to correlation function plane coords */
 		m = ctr     / ccfCols + mMin;
 		n = (ctr++) % ccfCols + nMin;
 
-		/* Reset all counters */
 		win1Avg = win2Avg = bitProd = denom1 = denom2 = 0.0;
 
 		/* Overlapping window limits plus window offset in image plane */
@@ -64,23 +61,16 @@ void XCorr2::xCorr2n(CCF& ccf,
 		/* Calculate the overlapping segment averages */
 		for (j = tOffyMin ; j < tOffyMax; j++) {
 			for (i = tOffxMin; i < tOffxMax; i++) {
-				/* Pixel index */
 				idx = j * imageCols + i;
-
-				/* Pixel offset for second image */
 				idxShift = m * imageCols + n;
 
-				/* Sum the pixel intensities */
 				win1sum += *(im1pixel + idx );
 				win2sum += *(im2pixel + idx + idxShift);
 
-				/* Store the pixels for later so we do not have to
-				 * lookup again */
 				pixels[pixCtr++] = (std::make_pair(static_cast<double>(*(im1pixel + idx)), static_cast<double>( *(im2pixel + idx + idxShift)) ));
 			}
 		}
 
-		/* Divide by the number of elements in each overlapping region */
 		win1Avg = static_cast<double>(win1sum) / numPix;
 		win2Avg = static_cast<double>(win2sum) / numPix;
 
