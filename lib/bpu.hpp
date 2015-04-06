@@ -23,18 +23,28 @@ template<typename TFirst, typename TSecond, typename Container>
 std::pair<TFirst, TSecond> mean_pairs(Container&& c);
 
 /* Static cast but rounding to nearest integer value 
- * for integral trypes */
+ * for integral types */
 template<typename To, typename From>
 To cast_round_if_integral(const From f);
+
+/* Subtract a value from a container and take the absolute 
+ * values */
+template<typename T, typename Container>
+void subtract_and_abs(Container& c, const T v)
+{
+	std::transform(c.begin(), c.end(), c.begin(), [&v](auto& cval){
+				return std::abs(cval - v);
+			});
+}
 
 template<typename TFirst, typename TSecond, typename Container>
 std::pair<TFirst, TSecond> mean_pairs(Container&& c)
 {
 	size_t cSize = c.size();
-	auto result = std::make_pair<TFirst, TSecond>(TFirst(), TSecond());
+	auto result = std::make_pair(TFirst(), TSecond());
 
 	auto add = [](std::pair<TFirst, TSecond> a, std::pair<TFirst, TSecond> b) {
-		return std::make_pair<TFirst, TSecond>(a.first + b.first, a.second + b.second);
+		return std::make_pair(a.first + b.first, a.second + b.second);
 	};
 
 	result =  std::accumulate(c.begin(), c.end(), result, add);
@@ -80,10 +90,10 @@ To median_modify_container(Container&& c)
 		return cast_round_if_integral<To>(c[0]);
 
 	/* Find the middle index */
-	size_t mark = floor(cSize / 2);
+	size_t mark = cSize >> 1;
 	std::nth_element(c.begin(), c.begin() + mark, c.end());
 
-	if (cSize % 2 != 0) {
+	if (cSize & 1) {
 		return cast_round_if_integral<To>(c[mark]);
 	} else {
 		auto median = 0.5 * (c[mark] + c[mark - 1]);

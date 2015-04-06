@@ -20,12 +20,12 @@ namespace PivEng {
 			ccfCols = ccf.cols(),
 			winRows = ccfRows - 1,
 			winCols = ccfCols - 1,
-			mOffset = winRows + static_cast<int>(floor(ccfRows/2.0 - winRows) ),
-			nOffset = winCols + static_cast<int>(floor(ccfCols/2.0 - winCols) ),
+			mOffset = winRows + ccfRows/2 - winRows,
+			nOffset = winCols + ccfCols/2 - winCols,
 
 			/* Upper left corner WRT interrogation window centre */
-			xOff = col - static_cast<int>( (winCols / 2.0)) + 1,
-			yOff = row - static_cast<int>( (winRows / 2.0)) + 1;
+			xOff = col - winCols / 2 + 1,
+			yOff = row - winRows / 2 + 1;
 
 		/* Pointers to image first pixels */
 		// auto im1pixel = imPair.first->begin(), im2pixel = imPair.second->begin();
@@ -46,7 +46,7 @@ namespace PivEng {
 		/* Store all the overlapping pixels as we will be using them twice */
 		std::vector<DoublePair> pixels(ccf.size());
 		auto firstPixel = pixels.begin();
-		int idx, idxShift, pixCtr;
+		int idx, idxShift, pixCtr, win1sum, win2sum;
 		/* Some image pixel coords */
 		int i(0), j(0);
 
@@ -68,7 +68,7 @@ namespace PivEng {
 
 			/* Number of pixels in overlapping region  */
 			numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);
-			pixCtr = 0;
+			pixCtr = win1sum = win2sum = 0;
 
 			/* Calculate the overlapping segment averages */
 			for (j = tOffyMin ; j < tOffyMax; j++) {
@@ -80,8 +80,8 @@ namespace PivEng {
 					idxShift = m * imageCols + n;
 
 					/* Sum the pixel intensities */
-					win1Avg += *(im1pixel + idx );
-					win2Avg += *(im2pixel + idx + idxShift);
+					win1sum += *(im1pixel + idx );
+					win2sum += *(im2pixel + idx + idxShift);
 
 					/* Store the pixels for later so we do not have to
 					 * lookup again */
@@ -90,8 +90,8 @@ namespace PivEng {
 			}
 
 			/* Divide by the number of elements in each overlapping region */
-			win1Avg /= numPix;
-			win2Avg /= numPix;
+			win1Avg = static_cast<double>(win1sum) / numPix;
+			win2Avg = static_cast<double>(win2sum) / numPix;
 
 			/* Calculate the correlation coefficients for this window offset */
 			for_each(firstPixel, firstPixel + numPix, [&](auto& pixPair) {
