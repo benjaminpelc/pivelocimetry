@@ -23,18 +23,18 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 		m_points[idx].set_coords(g[idx]);
 
 	auto ccfBatch = [&](int beg, int end) {
-		// PairII x;
 		CCF* ccf = nullptr;
 		PivPoint* p = nullptr;
+		Peak::PeaksVec* pks= nullptr;
 
 		for (auto idx = beg; idx != end; idx++) {
-			// x = g[idx];
 			ccf = &m_ccfs[idx];
 			p = &m_points[idx];
+			pks = &p->peaks();
 
-			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, p->x(), p->y());
-			// p->set_coords(x);
-			doPivPoint(*p, *ccf);
+			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, p->i, p->j);
+			ccf->findPeaks(*pks, 7);
+			SubPixel::gauss(*ccf, *pks, p->dispsVec());
 		}
 	};
 
@@ -49,26 +49,26 @@ DoPiv::PivPointVec& DoPiv::pointsVector()
 	return m_points;
 }
 
-void DoPiv::doPivPoint(PivPoint& pivPoint, CCF& ccf)
-{
-	/* Steps to do the PIV analysis for the current interrogation window 
-	 * 1) set the PivPoint coordinates
-	 * 2) do the cross-correlation
-	 * 3) find the correlation function peaks
-	 * 4) calculate the total displacements using sub-pixel peak fitting */
-
-	/* The ccf and peaks are referenced multiple times so create 
-	 * pointers to clean up a little */
-	// CCF* ccf        = pivPoint.get_ccf();
-	Peak::PeaksVec& peaks = pivPoint.peaks();
-
-	/* Store coords and do the cross-correlation */
-	// XCorr2::xCorr2n(*ccf, 512, im1firstPix, im2firstPix, pivPoint.x(), pivPoint.y());
-
-	/* Here the maximum search value needs replacing with variable */
-	ccf.findPeaks(peaks, 7);
-	SubPixel::gauss(ccf, peaks, pivPoint.dispsVec());
-}
+// void DoPiv::doPivPoint(PivPoint& pivPoint, CCF& ccf)
+// {
+// 	/* Steps to do the PIV analysis for the current interrogation window 
+// 	 * 1) set the PivPoint coordinates
+// 	 * 2) do the cross-correlation
+// 	 * 3) find the correlation function peaks
+// 	 * 4) calculate the total displacements using sub-pixel peak fitting */
+//
+// 	/* The ccf and peaks are referenced multiple times so create 
+// 	 * pointers to clean up a little */
+// 	// CCF* ccf        = pivPoint.get_ccf();
+// 	Peak::PeaksVec& peaks = pivPoint.peaks();
+//
+// 	/* Store coords and do the cross-correlation */
+// 	// XCorr2::xCorr2n(*ccf, 512, im1firstPix, im2firstPix, pivPoint.x(), pivPoint.y());
+//
+// 	/* Here the maximum search value needs replacing with variable */
+// 	ccf.findPeaks(peaks, 7);
+// 	SubPixel::gauss(ccf, peaks, pivPoint.dispsVec());
+// }
 
 void DoPiv::write(const std::string filename)
 {

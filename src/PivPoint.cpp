@@ -4,10 +4,10 @@ namespace PivEng {
 
 PivPoint::PivPoint(int xCoord, int yCoord, PivOptions& options) :
 	// m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth() + 1)),
+	i(xCoord),
+	j(yCoord),
 	m_peaksVector(options.numPeaks()),
-	m_dispsVec(options.numPeaks()),
-	m_i(xCoord),
-	m_j(yCoord)
+	m_dispsVec(options.numPeaks())
 {}
 
 // CCF* PivPoint::get_ccf()
@@ -23,7 +23,7 @@ std::unique_ptr<dv> PivPoint::getDv()
 	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
 
 	if (d != m_dispsVec.end()) {
-		return std::make_unique<dv>(static_cast<double>(m_i), static_cast<double>(m_j), d->u, d->v);
+		return std::make_unique<dv>(static_cast<double>(i), static_cast<double>(j), d->u, d->v);
 	} else {
 		return nullptr;
 	}
@@ -79,7 +79,7 @@ void PivPoint::printDisps()
 void PivPoint::printToOfstream(std::ofstream& file)
 {
 	if (m_dispsVec[0].valid) {
-	file << m_i << "\t" << m_j << "\t"
+	file << i << "\t" << j << "\t"
 		 << m_dispsVec[0].u << "\t"
 		 << m_dispsVec[0].v << "\t"
 		 << std::endl;
@@ -89,29 +89,29 @@ void PivPoint::printToOfstream(std::ofstream& file)
 
 void PivPoint::set_xCoord(int x)
 {
-	m_i = x;
+	i = x;
 }
 
 void PivPoint::set_yCoord(int y)
 {
-	m_j = y;
+	j = y;
 }
 
 void PivPoint::set_coords(std::pair<int, int>& coords)
 {
-	m_i = coords.first;
-	m_j = coords.second;
+	i = coords.first;
+	j = coords.second;
 }
 
 
 int PivPoint::x()
 {
-	return m_i;
+	return i;
 }
 
 int PivPoint::y()
 {
-	return m_j;
+	return j;
 }
 
 PivPoint::~PivPoint() {};

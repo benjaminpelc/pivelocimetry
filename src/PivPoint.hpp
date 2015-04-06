@@ -57,12 +57,13 @@ namespace PivEng {
 			void printPeaks();
 			void printDisps();
 			
+			int i, j;
+			
 
 		private:
 			// CCF::Sptr m_ccf;
 			Peak::PeaksVec m_peaksVector;
 			Disp::DispVec m_dispsVec;
-			int m_i, m_j;
 	};
 
 }
