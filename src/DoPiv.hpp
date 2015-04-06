@@ -35,12 +35,12 @@ class DoPiv
 		~DoPiv();
 
 	private:
+		int m_num_points;
 		void doPivPoint(PivPoint& pivPoint, CCF& c);
 		// void doPivPoint(PivPoint& pivPoint, uint16_t* im1firstPix, uint16_t* im2firstPix);
 		std::vector<CCF> m_ccfs;
 		PivPointVec m_points;
-		int m_numX,
-			m_numY;
+		// int m_numX, m_numY;
 };
 
 }

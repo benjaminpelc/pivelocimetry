@@ -2,10 +2,9 @@
 
 namespace PivEng {
 DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :  
-		m_ccfs(g.size(), CCF(options.winHeight() + 1, options.winWidth() + 1)),
-		m_points(g.size(), PivPoint(-1, -1, options)),
-		m_numX(g.numX()),
-    	m_numY(g.numY())
+		m_num_points(g.size()),
+		m_ccfs(m_num_points, CCF(options.winHeight() + 1, options.winWidth() + 1)),
+		m_points(m_num_points, PivPoint(-1, -1, options))
 {
 	/* Create a vector of PivPoints when the object is instantiated, 
  	 * give constructor to instantiate CCF at correct size, 
@@ -20,6 +19,9 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 	auto im2Beg = imPair.second->begin();
 	auto imCols = imPair.first->cols();
 
+	// for (auto& p : m_points)
+
+
 	auto ccfBatch = [&](int beg, int end) {
 		PairII x;
 		CCF* ccf = nullptr;
@@ -31,14 +33,13 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 			p = &m_points[idx];
 
 			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, x.first, x.second);
-			p->set_coords(x);
 			doPivPoint(*p, *ccf);
 		}
 	};
 
 	// ccfBatch(0, g.size());
-	std::thread t1{ccfBatch, 0, g.size()/2};
-	ccfBatch(g.size()/2, g.size());
+	std::thread t1{ccfBatch, 0, m_num_points/2};
+	ccfBatch(m_num_points/2, m_num_points);
 	t1.join();
 }
 
