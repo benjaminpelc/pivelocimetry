@@ -13,8 +13,8 @@ TEST_CASE( "Matrix2 Double Init", "Initiate Matrix2<double>(3,5,3.2)"){
 		CHECK(m.cols() == 5);
 	}
 
-	CHECK( m.getElem(7) ==3.2); 
-	CHECK( m.getElem(1, 2) ==3.2); 
+	CHECK( m.at(7) ==3.2); 
+	CHECK( m.at(1, 2) ==3.2); 
 	
 	int counter = 0;
 	for (int j = 0; j < 3; j++) {
@@ -32,7 +32,7 @@ TEST_CASE( "Matrix2 Double Init", "Initiate Matrix2<double>(3,5,3.2)"){
 		counter = 0;
 		for (int j = 0; j < 3; j++) {
 			for (int i = 0; i < 5; i++) {
-				REQUIRE(m.getElem(j,i) == counter++);
+				REQUIRE(m.at(j,i) == counter++);
 			}
 		}
 	}

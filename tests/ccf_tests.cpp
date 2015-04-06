@@ -24,9 +24,9 @@ TEST_CASE( "Set elements", "Use setElem to set correlation values")	{
 	c.setElem(13, 9, 0.321);
 
 	SECTION( "Set some peaks and check values" ) {
-		REQUIRE(c.getElem(2, 4) == 0.998);
-		REQUIRE(c.getElem(5, 14) == 0.810);
-		REQUIRE(c.getElem(13, 9) == 0.321);
+		REQUIRE(c.at(2, 4) == 0.998);
+		REQUIRE(c.at(5, 14) == 0.810);
+		REQUIRE(c.at(13, 9) == 0.321);
 	}
 }
 

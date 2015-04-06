@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	if (m.size() != 15)
 		std::cout << "m.size() should equal 15" << std::endl;
 
-	std::cout << m.getElem(1) << std::endl;
+	std::cout << m.at(1) << std::endl;
 
 
 	auto mCopy = Mat2<double>(m);
