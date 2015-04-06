@@ -19,20 +19,21 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 	auto im2Beg = imPair.second->begin();
 	auto imCols = imPair.first->cols();
 
-	// for (auto& p : m_points)
-
+	for (auto idx = 0; idx < m_num_points; idx++)
+		m_points[idx].set_coords(g[idx]);
 
 	auto ccfBatch = [&](int beg, int end) {
-		PairII x;
+		// PairII x;
 		CCF* ccf = nullptr;
 		PivPoint* p = nullptr;
 
 		for (auto idx = beg; idx != end; idx++) {
-			x = g[idx];
+			// x = g[idx];
 			ccf = &m_ccfs[idx];
 			p = &m_points[idx];
 
-			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, x.first, x.second);
+			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, p->x(), p->y());
+			// p->set_coords(x);
 			doPivPoint(*p, *ccf);
 		}
 	};
