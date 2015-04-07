@@ -27,6 +27,19 @@ std::pair<TFirst, TSecond> mean_pairs(Container&& c);
 template<typename To, typename From>
 To cast_round_if_integral(const From f);
 
+/* Cout helpers for containers */
+template<typename Container>
+void print_each(const Container& c, const std::string delimeter);
+
+template<typename It>
+void print_each(const It beg, const It end, const std::string delimeter);
+
+template<typename Container>
+void print_front(const Container& c);
+
+template<typename Container>
+void print_back(const Container& c);
+
 /* Subtract a value from a container and take the absolute 
  * values */
 template<typename T, typename Container>
@@ -99,5 +112,32 @@ To median_modify_container(Container&& c)
 		auto median = 0.5 * (c[mark] + c[mark - 1]);
 		return cast_round_if_integral<To>(median);
 	}
+}
+
+template<typename Container>
+void print_each(const Container& c, const std::string delimeter)
+{
+	print_each(c.begin(), c.end(), delimeter);
+}
+
+template<typename It>
+void print_each(const It beg, const It end, const std::string delimeter)
+{
+	std::for_each(beg, end - 1, [delimeter](auto& val) {
+		std::cout << val << delimeter;
+	});
+	std::cout << *(end - 1) << std::endl;
+}
+
+template<typename Container>
+void print_front(const Container& c)
+{
+	std::cout << c.front() << std::endl;
+}
+
+template<typename Container>
+void print_back(const Container& c)
+{
+	std::cout << c.back() << std::endl;
 }
 }
