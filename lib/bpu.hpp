@@ -56,11 +56,11 @@ std::pair<TFirst, TSecond> mean_pairs(Container&& c)
 	size_t cSize = c.size();
 	auto result = std::make_pair(TFirst(), TSecond());
 
-	auto add = [](std::pair<TFirst, TSecond> a, std::pair<TFirst, TSecond> b) {
+	auto add_pair = [](std::pair<TFirst, TSecond> a, std::pair<TFirst, TSecond> b) {
 		return std::make_pair(a.first + b.first, a.second + b.second);
 	};
 
-	result =  std::accumulate(c.begin(), c.end(), result, add);
+	result =  std::accumulate(c.begin(), c.end(), result, add_pair);
 	result.first /= cSize;
 	result.second /= cSize;
 
