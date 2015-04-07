@@ -30,41 +30,41 @@
 namespace PivEng {
 
 
-	class PivPoint
-	{
-		public:
-			using PivPointVec = std::vector<PivPoint>;
+class PivPoint
+{
+	public:
+		using PivPointVec = std::vector<PivPoint>;
 
-			PivPoint(int xCoord, int yCoord, PivOptions& options);
-			~PivPoint();
+		PivPoint(int xCoord, int yCoord, PivOptions& options);
+		~PivPoint();
 
-			// CCF* get_ccf();
-			Peak::PeaksVec& peaks();
-			Disp::DispVec& dispsVec();
+		// CCF* get_ccf();
+		Peak::PeaksVec& peaks();
+		Disp::DispVec& dispsVec();
 
 
-			void set_xCoord(int x);
-			void set_yCoord(int y);
-			void set_coords(Grid::CoordPair& coords);
+		void set_xCoord(int x);
+		void set_yCoord(int y);
+		void set_coords(Grid::CoordPair& coords);
 
-			int x();
-			int y();
-			
-			std::unique_ptr<PivVector> getDv();
-			
-			Disp& primaryDisp();
-			void printToOfstream(std::ofstream& file);
-			void printPeaks();
-			void printDisps();
-			
-			int i, j;
-			
+		int x();
+		int y();
+		
+		std::unique_ptr<PivVector> getDv();
+		
+		Disp& primaryDisp();
+		void printToOfstream(std::ofstream& file);
+		void printPeaks();
+		void printDisps();
+		
+		int i, j;
+		
 
-		private:
-			// CCF::Sptr m_ccf;
-			Peak::PeaksVec m_peaksVector;
-			Disp::DispVec m_dispsVec;
-	};
+	private:
+		// CCF::Sptr m_ccf;
+		Peak::PeaksVec m_peaksVector;
+		Disp::DispVec m_dispsVec;
+};
 
 }
 

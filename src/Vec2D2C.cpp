@@ -1,12 +1,18 @@
 #include "Vec2D2C.hpp"
 
+namespace PivEng {
 PivVector::PivVector() :
-	x(0.0), y(0.0), u(0.0), v(0.0)
+	x(0.0), y(0.0), velocities()
 {
 }
 
 PivVector::PivVector(const double x0, const double y0, const double u0, const double v0) :
-	x(x0), y(y0), u(u0), v(v0) 
+	x(x0), y(y0), velocities(u0, v0, true)
+{
+}
+
+PivVector::PivVector(const double x0, const double y0, const Disp& disp_in) :
+	x(x0), y(y0), velocities(disp_in)
 {
 }
 
@@ -22,17 +28,18 @@ double PivVector::get_y() const
 
 double PivVector::get_u() const
 {
-	return u;	
+	return velocities.get_u();	
 }
 
 double PivVector::get_v() const
 {
-	return v;
+	return velocities.get_v();
 }
 
 double PivVector::get_magnitude()
 {
-	return sqrt(pow(u, 2) + pow(v, 2));
+	return velocities.get_magnitude();
 }
 
 PivVector::~PivVector() {}
+}
