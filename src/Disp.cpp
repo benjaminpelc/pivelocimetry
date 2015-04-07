@@ -5,7 +5,7 @@ Disp::Disp()
 {
 }
 
-Disp::Disp(double u_in, double v_in, bool valid_in) : 
+Disp::Disp(const double u_in, const double v_in, const bool valid_in) : 
 	u(u_in),
 	v(v_in),
 	valid(valid_in)
@@ -14,7 +14,7 @@ Disp::Disp(double u_in, double v_in, bool valid_in) :
 
 Disp::~Disp() {}
 
-void Disp::set_displacement(double u_in, double v_in, bool valid_in)
+void Disp::set_displacement(const double u_in, const double v_in, const bool valid_in)
 { 
 	u = u_in;
 	v = v_in;

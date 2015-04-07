@@ -20,10 +20,10 @@ class Disp
 		using DispVec = std::vector<Disp>;
 
 		Disp();
-		Disp(double u_in, double v_in, bool valid_in);
+		Disp(const double u_in, const double v_in, const bool valid_in);
 		~Disp();
 
-		void set_displacement(double u_in, double v_in, bool valid_in);
+		void set_displacement(const double u_in, const double v_in, const bool valid_in);
 		void set_valid(bool valid_in);
 
 		double get_u() const;
