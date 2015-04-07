@@ -20,6 +20,12 @@ void Disp::set_displacement(double u_in, double v_in, bool valid_in)
 	v = v_in;
 	valid = valid_in;
 }
+
+void Disp::set_valid(bool valid_in)
+{
+	valid = valid_in;
+}
+
 double Disp::get_u() const
 {
 	return u;

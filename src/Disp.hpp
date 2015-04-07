@@ -22,12 +22,13 @@ class Disp
 		~Disp();
 
 		void set_displacement(double u_in, double v_in, bool valid_in);
+		void set_valid(bool valid_in);
 
 		double get_u() const;
 		double get_v() const;
 		bool is_valid() const;
 
-	// private:
+	private:
 		double u = 0.0, v = 0.0;
 		bool valid = false;
 };

@@ -20,10 +20,10 @@ std::unique_ptr<dv> PivPoint::getDv()
 	/* Search through the calculated displacements for the first valid one.
 	 * If a valid displacement is found, return a pointer to a new displacement 
 	 * vector object. If no valid displacements are found return a null pointer */
-	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.valid; });
+	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.is_valid(); });
 
 	if (d != m_dispsVec.end()) {
-		return std::make_unique<dv>(static_cast<double>(i), static_cast<double>(j), d->u, d->v);
+		return std::make_unique<dv>(static_cast<double>(i), static_cast<double>(j), d->get_u(), d->get_v());
 	} else {
 		return nullptr;
 	}
@@ -71,17 +71,17 @@ void PivPoint::printDisps()
 	auto i(0);
 	std::cout << "Disp\tu\tv\tValid" << std::endl;
 	for(auto& d : m_dispsVec)
-		std::cout << (i++) << "\t" << std::setprecision(4) << std::fixed << d.u << "\t" << d.v
-			<< "\t" << d.valid << std::endl;
+		std::cout << (i++) << "\t" << std::setprecision(4) << std::fixed << d.get_u() << "\t" << d.get_v()
+			<< "\t" << d.is_valid() << std::endl;
 
 }
 
 void PivPoint::printToOfstream(std::ofstream& file)
 {
-	if (m_dispsVec[0].valid) {
+	if (m_dispsVec[0].is_valid()) {
 	file << i << "\t" << j << "\t"
-		 << m_dispsVec[0].u << "\t"
-		 << m_dispsVec[0].v << "\t"
+		 << m_dispsVec[0].get_u() << "\t"
+		 << m_dispsVec[0].get_v() << "\t"
 		 << std::endl;
 	}
 }

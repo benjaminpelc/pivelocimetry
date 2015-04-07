@@ -101,10 +101,10 @@ void DoPiv::print()
 		std::cout
 			<< p.x() << "\t" << p.y() 
 			<< std::setprecision(3) << std::fixed
-			<< "\t" << pv->u
-			<< "\t" << pv->v 
-			<< "\t" << sqrt(pow(pv->u, 2) + pow(pv->v, 2)) 
-			<< "\t" << pv->valid << std::endl;
+			<< "\t" << pv->get_u()
+			<< "\t" << pv->get_v()
+			<< "\t" << sqrt(pow(pv->get_u(), 2) + pow(pv->get_v(), 2)) 
+			<< "\t" << pv->is_valid() << std::endl;
 	}
 	std::cout << "Total vectors calculated: " << m_points.size() << std::endl;
 }

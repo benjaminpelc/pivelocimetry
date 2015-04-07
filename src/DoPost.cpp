@@ -16,8 +16,8 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 	/* For each grid point get the first displacement values and validity */
 	std::for_each(pointsVector.begin(), pointsVector.end(), [&uPtr, &validBeginPtr](auto& pivPoint){
-				*(uPtr++) = pivPoint.dispsVec()[0].u;
-				*(validBeginPtr++) = pivPoint.dispsVec()[0].valid;
+				*(uPtr++) = pivPoint.dispsVec()[0].get_u();
+				*(validBeginPtr++) = pivPoint.dispsVec()[0].is_valid();
 			});
 
 	/* Do with radius of just one for now */
@@ -102,11 +102,11 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 				valid[idx_i] = false;
 				auto& dvs = pointsVector[ctr].dispsVec();
-				dvs[0].valid = false;
+				dvs[0].set_valid(false);
 
 				for_each(dvs.begin() + 1, dvs.end(),[&](auto& d) {
-							if (normalisedFluct(d.u - median, medianRes) > 2)
-								d.valid = false;
+							if (normalisedFluct(d.get_u() - median, medianRes) > 2)
+								d.set_valid(false);
 						});
 			}
 			// std::cout << "Normalised fluct: " << normFluct << std::endl;
