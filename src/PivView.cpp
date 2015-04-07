@@ -1,24 +1,25 @@
 #include "PivView.hpp"
 
-class AxisBox : public sf::VertexArray
-{
-	public:
-		AxisBox(int x0, int x1, int y0, int y1);
-};
-
-AxisBox::AxisBox(int x0, int x1, int y0, int y1) : sf::VertexArray(sf::LinesStrip, 5)
-{
-	std::cout << x0 << y0 << x1 << y1 << std::endl;
-	std::cout << getVertexCount() << std::endl;
-}
+// class AxisBox : public sf::VertexArray
+// {
+// 	public:
+// 		AxisBox(int x0, int x1, int y0, int y1);
+// };
+//
+// AxisBox::AxisBox(int x0, int x1, int y0, int y1) : sf::VertexArray(sf::LinesStrip, 5)
+// {
+// 	std::cout << x0 << y0 << x1 << y1 << std::endl;
+// 	std::cout << getVertexCount() << std::endl;
+// }
 
 PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
-	m_pivPointVec(vs)
+	m_pivPointVec(vs),
+	piv_vectors(vs.size())
 {
+	get_piv_vectors_and_maximum_velocity();
 
-	auto factor(3);
-	std::vector<sf::VertexArray> dvs(vs.size());
-	auto dvsPtr = &dvs[0];
+	std::vector<sf::VertexArray> vel_vector_graphics(num_vectors);
+	auto vel_vector_graphicsPtr = &vel_vector_graphics[0];
 
 	sf::ContextSettings settings;
 	sf::RenderWindow window(sf::VideoMode(612, 612), "BPPIV Vector Viewer", sf::Style::Default, settings);
@@ -27,12 +28,7 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	/* Set up the axis */
 	sf::VertexArray ln(sf::Lines, 2);
 
-	auto axisBox = sf::VertexArray(sf::LinesStrip, 5);
-	axisBox[0] = sf::Vector2f(50, 562);
-	axisBox[1] = sf::Vector2f(562, 562);
-	axisBox[2] = sf::Vector2f(562, 50);
-	axisBox[3] = sf::Vector2f(50, 50);
-	axisBox[4] = sf::Vector2f(50, 562);
+	auto axisBox = make_axis_box(50, 50, 562, 562);
 
 	auto xCross = sf::VertexArray(sf::Lines, 2);
 	auto yCross = sf::VertexArray(sf::Lines, 2);
@@ -41,36 +37,10 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	yCross[0].position.y = 50;
 	yCross[1].position.y = 562;
 
-	auto maxV = 0.0;
-	auto mag = 0.0;
-	auto red = 0;
-	auto blue = 0;
-
-	/* Loop through and find maximum velocity magnitude */
-	for(auto& pointf : m_pivPointVec) {
-		auto point = pointf.get_piv_vector();
-		if (point) {
-			mag = point->get_magnitude();
-			if (mag > maxV)
-				maxV = mag;
-		}
-	}
-
 	std::for_each(m_pivPointVec.begin(), m_pivPointVec.end(), [&](auto& pointf) {
 		auto point = pointf.get_piv_vector();
 		if (point) {
-			ln[0].position = sf::Vector2f(50 + point->get_x(), 50 + point->get_y());
-			ln[1].position = sf::Vector2f(50 + point->get_x() + factor * point->get_u(), 50 + point->get_y() + factor * point->get_v());
-
-			mag = point->get_magnitude();
-
-			red = 255 - static_cast<int>(mag / maxV * 255);
-			blue = static_cast<int>(mag / maxV * 255);
-
-			ln[0].color = sf::Color(red, 0, blue);
-			ln[1].color = sf::Color(red, 0, blue);
-
-			*(dvsPtr++) = ln;
+			*(vel_vector_graphicsPtr++) = make_vector_graphic(*point);	
 		}
 	});
 
@@ -80,7 +50,7 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 		window.draw(axisBox);
 		window.draw(xCross);
 		window.draw(yCross);
-		std::for_each(dvs.begin(), dvs.end(), [&](auto& dv) { window.draw(dv); });
+		std::for_each(vel_vector_graphics.begin(), vel_vector_graphics.end(), [&](auto& dv) { window.draw(dv); });
 		window.display();
 	};
 
@@ -117,4 +87,62 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 
 PivView::~PivView()
 {
+}
+
+void PivView::get_piv_vectors_and_maximum_velocity()
+{
+	auto vector_magnitude = 0.0;
+	auto counter = 0;
+	for(auto& piv_point : m_pivPointVec) {
+		auto piv_vector = piv_point.get_piv_vector();
+		if (piv_vector) {
+			vector_magnitude = piv_vector->get_magnitude();
+			piv_vectors[counter++] = *piv_vector;
+			if (vector_magnitude > max_velocity_magnitude)
+				max_velocity_magnitude = vector_magnitude;
+		}
+	}
+	piv_vectors.resize(counter);
+	num_vectors = counter;
+}
+		
+sf::Color PivView::vector_color(const double vel_magnitude, const double max_vel_magnitude) const
+{
+			auto red = 255 - static_cast<uint8_t>(vel_magnitude / max_vel_magnitude * 255);
+			auto green = static_cast<uint8_t>(0);
+			auto blue = static_cast<uint8_t>(vel_magnitude / max_vel_magnitude * 255);
+			return sf::Color(red, green, blue);
+}
+
+sf::VertexArray PivView::make_vector_graphic(PivEng::PivVector& piv_vector)
+{
+	auto factor = 3;
+	auto x = piv_vector.get_x(),
+		 y = piv_vector.get_y(),
+		 u = piv_vector.get_u(),
+		 v = piv_vector.get_v();
+
+	sf::VertexArray vector_lines(sf::Lines, 2);
+
+	vector_lines[0].position = sf::Vector2f(50 + x, 50 + y);
+	vector_lines[1].position = sf::Vector2f(50 + x + factor * u, 50 + y + factor * v);
+
+	auto mag = piv_vector.get_magnitude();
+	sf::Color magnitude_color = vector_color(mag, max_velocity_magnitude);
+
+	vector_lines[0].color = magnitude_color; 
+	vector_lines[1].color = magnitude_color;
+
+	return vector_lines;
+}
+
+sf::VertexArray PivView::make_axis_box(const int i_min, const int j_min, const int i_max, const int j_max) const
+{
+	auto axis_box = sf::VertexArray(sf::LinesStrip, 5);
+	axis_box[0] = sf::Vector2f(i_min, j_max);
+	axis_box[1] = sf::Vector2f(i_max, j_max);
+	axis_box[2] = sf::Vector2f(i_max, j_min);
+	axis_box[3] = sf::Vector2f(i_min, j_min);
+	axis_box[4] = axis_box[0];
+	return axis_box;
 }
