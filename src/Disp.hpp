@@ -12,19 +12,25 @@
 
 namespace PivEng {
 
-	struct Disp
-	{
+class Disp
+{
+	public:
 		using DispVec = std::vector<Disp>;
 
-		Disp() {};
-		Disp(double x0, double y0, bool torf) : u(x0), v(y0), valid(torf) {};
-		~Disp() {};
+		Disp();
+		Disp(double u_in, double v_in, bool valid_in);
+		~Disp();
 
-		void setDisp(double x0, double y0, bool torf) { u = x0; v = y0; valid = torf; };
+		void set_displacement(double u_in, double v_in, bool valid_in);
 
+		double get_u() const;
+		double get_v() const;
+		bool is_valid() const;
+
+	// private:
 		double u = 0.0, v = 0.0;
 		bool valid = false;
-	};
+};
 
 }
 

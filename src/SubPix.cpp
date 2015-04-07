@@ -37,7 +37,7 @@ void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacemen
 		if ( dx != dx || dy != dy ) {
 			break;
 		} else {
-			d->setDisp(dx, dy, true);
+			d->set_displacement(dx, dy, true);
 			p++, d++;
 		}
 	}
