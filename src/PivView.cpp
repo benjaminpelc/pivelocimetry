@@ -7,42 +7,20 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	get_piv_vectors_and_maximum_velocity();
 
 	// std::vector<sf::VertexArray> vel_vector_graphics(num_vectors);
-	vel_vector_graphics.resize(num_vectors);
-	auto vel_vector_graphic = vel_vector_graphics.begin();
 
 	sf::ContextSettings settings;
 	sf::RenderWindow window(sf::VideoMode(612, 612), "BPPIV Vector Viewer", sf::Style::Default, settings);
 	window.setFramerateLimit(60);
 
-	axis_box = make_axis_box(50, 50, 562, 562);
-	crosshairs = make_crosshairs(50, 50, 562, 562);
+	axis_bottom_left = sf::Vector2i(50, 562);
+	axis_top_right = sf::Vector2i(562, 50);
 
-	for (auto& piv_vector : piv_vectors) {
-		*(vel_vector_graphic++) = make_vector_graphic(piv_vector);
-	}
+	create_graphics();
 
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			event_handler(window, event);
-
-			// switch (event.type) {
-			// 	case sf::Event::Closed:
-			// 		window.close();
-            //
-			// 	case sf::Event::Resized:
-			// 		render_frame(window);
-            //
-			// 	case sf::Event::MouseMoved:
-			// 		mouse = sf::Mouse::getPosition(window);
-			// 		if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
-			// 			update_crosshairs(mouse);
-			// 			render_frame(window);
-			// 		}
-            //
-			// 	default:
-			// 		;
-			// }
 		}
 		render_frame(window);
 	}
@@ -67,6 +45,19 @@ void PivView::get_piv_vectors_and_maximum_velocity()
 	}
 	piv_vectors.resize(counter);
 	num_vectors = counter;
+}
+
+void PivView::create_graphics()
+{
+	axis_box = make_axis_box(50, 50, 562, 562);
+	crosshairs = make_crosshairs(50, 50, 562, 562);
+
+	vel_vector_graphics.resize(num_vectors);
+	auto vel_vector_graphic = vel_vector_graphics.begin();
+	for (auto& piv_vector : piv_vectors) {
+		*(vel_vector_graphic++) = make_vector_graphic(piv_vector);
+	}
+
 }
 		
 sf::Color PivView::vector_color(const double vel_magnitude, const double max_vel_magnitude) const
@@ -134,12 +125,14 @@ sf::VertexArray PivView::make_crosshairs(const int i_min, const int j_min, const
 
 }
 
-void PivView::update_crosshairs(const sf::Vector2i& mouse)
+void PivView::update_crosshairs(const sf::Vector2f& mouse_converted)
 {
-	crosshairs[0].position.y = mouse.y;
-	crosshairs[1].position.y = mouse.y;
-	crosshairs[2].position.x = mouse.x;
-	crosshairs[3].position.x = mouse.x;
+	// auto mouse_converted = window.mapPixelToCoords(mouse);
+	// std::cout << mouse_converted.x << std::endl;
+	crosshairs[0].position.y = mouse_converted.y;
+	crosshairs[1].position.y = mouse_converted.y;
+	crosshairs[2].position.x = mouse_converted.x;
+	crosshairs[3].position.x = mouse_converted.x;
 }
 
 void PivView::render_frame(sf::RenderWindow& window) const
@@ -161,7 +154,8 @@ void PivView::event_handler(sf::RenderWindow& window, const sf::Event& event)
 			render_frame(window);
 
 		case sf::Event::MouseMoved:
-			mouse = sf::Mouse::getPosition(window);
+			mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
 			if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
 				update_crosshairs(mouse);
 				render_frame(window);

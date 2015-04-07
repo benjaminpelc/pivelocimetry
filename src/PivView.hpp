@@ -21,10 +21,12 @@ class PivView
 		std::vector<sf::VertexArray> vel_vector_graphics;
 		sf::VertexArray crosshairs;
 		sf::VertexArray axis_box;
-		sf::Vector2i  mouse;
+		sf::Vector2f  mouse;
+		sf::Vector2i axis_bottom_left, axis_top_right;
 		
 		void get_piv_vectors_and_maximum_velocity();
-		void update_crosshairs(const sf::Vector2i& mouse);
+		void create_graphics();
+		void update_crosshairs(const sf::Vector2f& mouse);
 		void render_frame(sf::RenderWindow& window) const;
 		void event_handler(sf::RenderWindow& window, const sf::Event& event);
 		sf::Color vector_color(const double vel_magnitude, const double max_vel_magnitude) const;
