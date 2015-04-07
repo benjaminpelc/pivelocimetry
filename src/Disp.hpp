@@ -9,6 +9,8 @@
 #define BPPIV_PIV_ENGINE_DISPLACEMENT_H
 
 #include <vector>
+#include <cmath>
+
 
 namespace PivEng {
 
@@ -26,11 +28,14 @@ class Disp
 
 		double get_u() const;
 		double get_v() const;
+		double get_magnitude();
 		bool is_valid() const;
 
 	private:
-		double u = 0.0, v = 0.0;
-		bool valid = false;
+		double u{0.0}, v{0.0};
+		double magnitude;
+		bool valid{false};
+		bool magnitude_available{false};
 };
 
 }

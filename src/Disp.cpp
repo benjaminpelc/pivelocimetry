@@ -34,6 +34,18 @@ double Disp::get_v() const
 {
 	return v;
 }
+
+double Disp::get_magnitude()
+{
+	if (magnitude_available) {
+		return magnitude;
+	} else {
+		magnitude = sqrt(u * u + v * v);
+		magnitude_available = true;
+		return magnitude;
+	}
+}
+
 bool Disp::is_valid() const
 {
 	return valid;

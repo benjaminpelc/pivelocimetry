@@ -37,3 +37,12 @@ TEST_CASE( "Disp::Disp with args", "With args" ) {
 		CHECK(d.is_valid() == true);
 	}
 }
+
+TEST_CASE( "Disp::get_magnitude()") {
+	auto d = Disp(3.1, -0.02, true);
+	auto expected = sqrt(3.1 * 3.1 + (-0.02 * -0.02));
+	SECTION( "Magnitude should equal " ) {
+		CHECK(d.get_magnitude() == expected);
+	}
+	
+}
