@@ -21,38 +21,28 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 		*(vel_vector_graphic++) = make_vector_graphic(piv_vector);
 	}
 
-	/* Clear, draw, display frame rendering routine */
-	// auto renderFrame = [&]() {
-	// 	window.clear(sf::Color::Black);
-	// 	window.draw(axis_box);
-	// 	window.draw(crosshairs);
-	// 	std::for_each(vel_vector_graphics.begin(), vel_vector_graphics.end(), [&](auto& dv) { window.draw(dv); });
-	// 	window.display();
-	// };
-
-	auto mouse = sf::Vector2i();
-
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
+			event_handler(window, event);
 
-			switch (event.type) {
-				case sf::Event::Closed:
-					window.close();
-
-				case sf::Event::Resized:
-					render_frame(window);
-
-				case sf::Event::MouseMoved:
-					mouse = sf::Mouse::getPosition(window);
-					if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
-						update_crosshairs(mouse);
-						render_frame(window);
-					}
-
-				default:
-					;
-			}
+			// switch (event.type) {
+			// 	case sf::Event::Closed:
+			// 		window.close();
+            //
+			// 	case sf::Event::Resized:
+			// 		render_frame(window);
+            //
+			// 	case sf::Event::MouseMoved:
+			// 		mouse = sf::Mouse::getPosition(window);
+			// 		if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
+			// 			update_crosshairs(mouse);
+			// 			render_frame(window);
+			// 		}
+            //
+			// 	default:
+			// 		;
+			// }
 		}
 		render_frame(window);
 	}
@@ -87,16 +77,6 @@ sf::Color PivView::vector_color(const double vel_magnitude, const double max_vel
 			red   = 255 - static_cast<uint8_t>(magnitude_ratio * 255);
 			green = static_cast<uint8_t>(0);
 			blue  = static_cast<uint8_t>(magnitude_ratio * 255);
-
-			// if (magnitude_ratio < 0.5) {
-			// 	red = 255 - static_cast<uint8_t>(2 * magnitude_ratio * 255);
-			// 	green = static_cast<uint8_t>(2 * magnitude_ratio * 255);
-			// 	blue = static_cast<uint8_t>(0);
-			// } else {
-			// 	red = 255 - static_cast<uint8_t>(magnitude_ratio * 255);
-			// 	green = static_cast<uint8_t>(0);
-			// 	blue = static_cast<uint8_t>(magnitude_ratio * 255);
-			// }
 
 			return sf::Color(red, green, blue);
 }
@@ -171,3 +151,24 @@ void PivView::render_frame(sf::RenderWindow& window) const
 	window.display();
 }
 
+void PivView::event_handler(sf::RenderWindow& window, const sf::Event& event)
+{
+	switch (event.type) {
+		case sf::Event::Closed:
+			window.close();
+
+		case sf::Event::Resized:
+			render_frame(window);
+
+		case sf::Event::MouseMoved:
+			mouse = sf::Mouse::getPosition(window);
+			if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
+				update_crosshairs(mouse);
+				render_frame(window);
+			}
+
+		default:
+			;
+	}
+
+}
