@@ -3,14 +3,21 @@
 
 #include <cmath>
 
-class dv {
+class PivVector {
 	public: 
-		dv();
-		dv(double x0, double y0, double u0, double v0);
-		~dv();
+		PivVector();
+		PivVector(const double x0, const double y0, const double u0, const double v0);
+		~PivVector();
 
-		double mag();
 
+		double get_x() const;
+		double get_y() const;
+		double get_u() const;
+		double get_v() const;
+
+		double get_magnitude();
+
+	private:
 		double x, y, u, v;
 };
 

@@ -50,7 +50,7 @@ namespace PivEng {
 			int x();
 			int y();
 			
-			std::unique_ptr<dv> getDv();
+			std::unique_ptr<PivVector> getDv();
 			
 			Disp& primaryDisp();
 			void printToOfstream(std::ofstream& file);

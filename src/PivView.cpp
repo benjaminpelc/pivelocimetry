@@ -50,7 +50,7 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	for(auto& pointf : m_pivPointVec) {
 		auto point = pointf.getDv();
 		if (point) {
-			mag = point->mag();
+			mag = point->get_magnitude();
 			if (mag > maxV)
 				maxV = mag;
 		}
@@ -59,10 +59,10 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	std::for_each(m_pivPointVec.begin(), m_pivPointVec.end(), [&](auto& pointf) {
 		auto point = pointf.getDv();
 		if (point) {
-			ln[0].position = sf::Vector2f(50 + point->x, 50 + point->y);
-			ln[1].position = sf::Vector2f(50 + point->x + factor * point->u, 50 + point->y + factor * point->v);
+			ln[0].position = sf::Vector2f(50 + point->get_x(), 50 + point->get_y());
+			ln[1].position = sf::Vector2f(50 + point->get_x() + factor * point->get_u(), 50 + point->get_y() + factor * point->get_v());
 
-			mag = point->mag();
+			mag = point->get_magnitude();
 
 			red = 255 - static_cast<int>(mag / maxV * 255);
 			blue = static_cast<int>(mag / maxV * 255);
