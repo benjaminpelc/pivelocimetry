@@ -23,6 +23,9 @@ class PivView
 		sf::VertexArray axis_box;
 		sf::Vector2f  mouse;
 		sf::Vector2i axis_bottom_left, axis_top_right;
+		sf::Font font;
+		sf::Text header_text;
+		std::vector<sf::Text> status_bar_texts;
 		
 		void get_piv_vectors_and_maximum_velocity();
 		void create_graphics();

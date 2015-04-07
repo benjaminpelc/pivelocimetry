@@ -16,6 +16,48 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	axis_top_right = sf::Vector2i(562, 50);
 
 	create_graphics();
+	font.loadFromFile("../fonts/cour.ttf");
+	header_text.setFont(font);
+	header_text.setString("BPPIV v0.1");
+	header_text.setCharacterSize(24);
+	header_text.setColor(sf::Color::White);
+	header_text.setPosition(10, 5);
+
+	sf::Text status_bar_x_label;
+	status_bar_x_label.setFont(font);
+	status_bar_x_label.setString("x:");
+	status_bar_x_label.setCharacterSize(18);
+	status_bar_x_label.setColor(sf::Color::White);
+	status_bar_x_label.setPosition(10, 580);
+	
+	status_bar_texts.push_back(status_bar_x_label);
+
+	sf::Text status_bar_x_coordinate;
+	status_bar_x_coordinate.setFont(font);
+	status_bar_x_coordinate.setString("");
+	status_bar_x_coordinate.setCharacterSize(18);
+	status_bar_x_coordinate.setColor(sf::Color::White);
+	status_bar_x_coordinate.setPosition(35, 580);
+	
+	status_bar_texts.push_back(status_bar_x_coordinate);
+
+	sf::Text status_bar_y_label;
+	status_bar_y_label.setFont(font);
+	status_bar_y_label.setString("y:");
+	status_bar_y_label.setCharacterSize(18);
+	status_bar_y_label.setColor(sf::Color::White);
+	status_bar_y_label.setPosition(90, 580);
+	
+	status_bar_texts.push_back(status_bar_y_label);
+
+	sf::Text status_bar_y_coordinate;
+	status_bar_y_coordinate.setFont(font);
+	status_bar_y_coordinate.setString("");
+	status_bar_y_coordinate.setCharacterSize(18);
+	status_bar_y_coordinate.setColor(sf::Color::White);
+	status_bar_y_coordinate.setPosition(115, 580);
+	
+	status_bar_texts.push_back(status_bar_y_coordinate);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -127,8 +169,6 @@ sf::VertexArray PivView::make_crosshairs(const int i_min, const int j_min, const
 
 void PivView::update_crosshairs(const sf::Vector2f& mouse_converted)
 {
-	// auto mouse_converted = window.mapPixelToCoords(mouse);
-	// std::cout << mouse_converted.x << std::endl;
 	crosshairs[0].position.y = mouse_converted.y;
 	crosshairs[1].position.y = mouse_converted.y;
 	crosshairs[2].position.x = mouse_converted.x;
@@ -138,9 +178,13 @@ void PivView::update_crosshairs(const sf::Vector2f& mouse_converted)
 void PivView::render_frame(sf::RenderWindow& window) const
 {
 	window.clear(sf::Color::Black);
+	window.draw(header_text);
 	window.draw(axis_box);
 	window.draw(crosshairs);
 	std::for_each(vel_vector_graphics.begin(), vel_vector_graphics.end(), [&](auto& dv) { window.draw(dv); });
+	for (auto& label : status_bar_texts) {
+		window.draw(label);
+	}
 	window.display();
 }
 
@@ -155,8 +199,9 @@ void PivView::event_handler(sf::RenderWindow& window, const sf::Event& event)
 
 		case sf::Event::MouseMoved:
 			mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-
 			if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
+				status_bar_texts[1].setString(std::to_string(static_cast<int>(mouse.x - 50)));
+				status_bar_texts[3].setString(std::to_string(static_cast<int>(mouse.y - 50)));
 				update_crosshairs(mouse);
 				render_frame(window);
 			}
@@ -164,5 +209,4 @@ void PivView::event_handler(sf::RenderWindow& window, const sf::Event& event)
 		default:
 			;
 	}
-
 }
