@@ -25,7 +25,7 @@
 #include "Peak.hpp"
 #include "Disp.hpp"
 #include "Grid.hpp"
-#include "Vec2D2C.hpp"
+#include "PivVector.hpp"
 
 namespace PivEng {
 
@@ -50,7 +50,7 @@ class PivPoint
 		int x();
 		int y();
 		
-		std::unique_ptr<PivVector> getDv();
+		std::unique_ptr<PivVector> get_piv_vector();
 		
 		Disp& primaryDisp();
 		void printToOfstream(std::ofstream& file);

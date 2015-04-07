@@ -48,7 +48,7 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 
 	/* Loop through and find maximum velocity magnitude */
 	for(auto& pointf : m_pivPointVec) {
-		auto point = pointf.getDv();
+		auto point = pointf.get_piv_vector();
 		if (point) {
 			mag = point->get_magnitude();
 			if (mag > maxV)
@@ -57,7 +57,7 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	}
 
 	std::for_each(m_pivPointVec.begin(), m_pivPointVec.end(), [&](auto& pointf) {
-		auto point = pointf.getDv();
+		auto point = pointf.get_piv_vector();
 		if (point) {
 			ln[0].position = sf::Vector2f(50 + point->get_x(), 50 + point->get_y());
 			ln[1].position = sf::Vector2f(50 + point->get_x() + factor * point->get_u(), 50 + point->get_y() + factor * point->get_v());

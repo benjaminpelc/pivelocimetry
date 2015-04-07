@@ -30,7 +30,7 @@ add_executable(${EXECUTABLE_NAME}
 		PivPoint.cpp
 		PivView.cpp
 		SubPix.cpp
-		Vec2D2C.cpp
+		PivVector.cpp
 		XCorr2.cpp
 		main.cpp
 	)

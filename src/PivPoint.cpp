@@ -15,7 +15,7 @@ PivPoint::PivPoint(int xCoord, int yCoord, PivOptions& options) :
 // 	return m_ccf.get();
 // }
 
-std::unique_ptr<PivVector> PivPoint::getDv()
+std::unique_ptr<PivVector> PivPoint::get_piv_vector()
 {
 	/* Search through the calculated displacements for the first valid one.
 	 * If a valid displacement is found, return a pointer to a new displacement 
@@ -23,7 +23,8 @@ std::unique_ptr<PivVector> PivPoint::getDv()
 	auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){ return d.is_valid(); });
 
 	if (d != m_dispsVec.end()) {
-		return std::make_unique<PivVector>(static_cast<double>(i), static_cast<double>(j), d->get_u(), d->get_v());
+		// return std::make_unique<PivVector>(static_cast<double>(i), static_cast<double>(j), d->get_u(), d->get_v());
+		return std::make_unique<PivVector>(static_cast<double>(i), static_cast<double>(j), *d);
 	} else {
 		return nullptr;
 	}
