@@ -6,6 +6,33 @@
 
 namespace bpu {
 
+/* Collect, return vector of iterators meeting the predicate */
+// template<typename C>
+// 	struct value_trait { using type = typename C::value_type; };
+
+// template<typename T>
+// 	struct value_trait<T*>{ using type = T; };
+//
+// template<typename T>
+// 	using Value_type = typename value_trait<T>::type;
+
+template<typename T>
+	using Value_type = typename T::value_type;
+
+template<typename It, typename Pred>
+std::vector<Value_type<It>> collect(It first, It last, Pred pred)
+{
+	std::vector<Value_type<It>> res;
+	for_each(first, last, [&](auto& x) { if(pred(x)) res.push_back(x); });
+	return res;
+};
+
+template<typename Container, typename Pred>
+void for_each(Container&& c, Pred pred)
+{
+	std::for_each(std::begin(c), std::end(c), pred);
+}
+
 /* Calculate the median value of a container with specified
  * return type. Original container is not modified */
 template<typename To, typename Container>
