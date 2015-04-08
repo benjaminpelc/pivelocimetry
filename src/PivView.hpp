@@ -28,14 +28,17 @@ class PivView
 		std::vector<sf::Text> status_bar_texts;
 		
 		void get_piv_vectors_and_maximum_velocity();
-		void create_graphics();
+		void make_graphics();
+		void make_status_bar_texts();
 		void update_crosshairs(const sf::Vector2f& mouse);
+		void update_status_bar(const sf::Vector2f& mouse);
 		void render_frame(sf::RenderWindow& window) const;
 		void event_handler(sf::RenderWindow& window, const sf::Event& event);
 		sf::Color vector_color(const double vel_magnitude, const double max_vel_magnitude) const;
 		sf::VertexArray make_vector_graphic(PivEng::PivVector& piv_vector);
 		sf::VertexArray make_axis_box(const int i_min, const int j_min, const int i_max, const int j_max) const;
 		sf::VertexArray make_crosshairs(const int i_min, const int j_min, const int i_max, const int j_max) const;
+		sf::Text make_status_bar_label(const int x_position, std::string&& words);
 				
 };
 

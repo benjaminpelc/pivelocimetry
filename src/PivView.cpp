@@ -15,7 +15,9 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	axis_bottom_left = sf::Vector2i(50, 562);
 	axis_top_right = sf::Vector2i(562, 50);
 
-	create_graphics();
+	make_graphics();
+	make_status_bar_texts();
+
 	font.loadFromFile("../fonts/cour.ttf");
 	header_text.setFont(font);
 	header_text.setString("BPPIV v0.1");
@@ -23,41 +25,6 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	header_text.setColor(sf::Color::White);
 	header_text.setPosition(10, 5);
 
-	sf::Text status_bar_x_label;
-	status_bar_x_label.setFont(font);
-	status_bar_x_label.setString("x:");
-	status_bar_x_label.setCharacterSize(18);
-	status_bar_x_label.setColor(sf::Color::White);
-	status_bar_x_label.setPosition(10, 580);
-	
-	status_bar_texts.push_back(status_bar_x_label);
-
-	sf::Text status_bar_x_coordinate;
-	status_bar_x_coordinate.setFont(font);
-	status_bar_x_coordinate.setString("");
-	status_bar_x_coordinate.setCharacterSize(18);
-	status_bar_x_coordinate.setColor(sf::Color::White);
-	status_bar_x_coordinate.setPosition(35, 580);
-	
-	status_bar_texts.push_back(status_bar_x_coordinate);
-
-	sf::Text status_bar_y_label;
-	status_bar_y_label.setFont(font);
-	status_bar_y_label.setString("y:");
-	status_bar_y_label.setCharacterSize(18);
-	status_bar_y_label.setColor(sf::Color::White);
-	status_bar_y_label.setPosition(90, 580);
-	
-	status_bar_texts.push_back(status_bar_y_label);
-
-	sf::Text status_bar_y_coordinate;
-	status_bar_y_coordinate.setFont(font);
-	status_bar_y_coordinate.setString("");
-	status_bar_y_coordinate.setCharacterSize(18);
-	status_bar_y_coordinate.setColor(sf::Color::White);
-	status_bar_y_coordinate.setPosition(115, 580);
-	
-	status_bar_texts.push_back(status_bar_y_coordinate);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -89,7 +56,7 @@ void PivView::get_piv_vectors_and_maximum_velocity()
 	num_vectors = counter;
 }
 
-void PivView::create_graphics()
+void PivView::make_graphics()
 {
 	axis_box = make_axis_box(50, 50, 562, 562);
 	crosshairs = make_crosshairs(50, 50, 562, 562);
@@ -104,14 +71,14 @@ void PivView::create_graphics()
 		
 sf::Color PivView::vector_color(const double vel_magnitude, const double max_vel_magnitude) const
 {
-			auto magnitude_ratio = vel_magnitude / max_vel_magnitude;
-			uint8_t red, green, blue;
-			
-			red   = 255 - static_cast<uint8_t>(magnitude_ratio * 255);
-			green = static_cast<uint8_t>(0);
-			blue  = static_cast<uint8_t>(magnitude_ratio * 255);
+	auto magnitude_ratio = vel_magnitude / max_vel_magnitude;
+	uint8_t red, green, blue;
+	
+	red   = 255 - static_cast<uint8_t>(magnitude_ratio * 255);
+	green = static_cast<uint8_t>(0);
+	blue  = static_cast<uint8_t>(magnitude_ratio * 255);
 
-			return sf::Color(red, green, blue);
+	return sf::Color(red, green, blue);
 }
 
 sf::VertexArray PivView::make_vector_graphic(PivEng::PivVector& piv_vector)
@@ -200,8 +167,7 @@ void PivView::event_handler(sf::RenderWindow& window, const sf::Event& event)
 		case sf::Event::MouseMoved:
 			mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 			if (mouse.x > 50 && mouse.x < 562 && mouse.y > 50 && mouse.y < 562) {
-				status_bar_texts[1].setString(std::to_string(static_cast<int>(mouse.x - 50)));
-				status_bar_texts[3].setString(std::to_string(static_cast<int>(mouse.y - 50)));
+				update_status_bar(mouse);
 				update_crosshairs(mouse);
 				render_frame(window);
 			}
@@ -209,4 +175,29 @@ void PivView::event_handler(sf::RenderWindow& window, const sf::Event& event)
 		default:
 			;
 	}
+}
+
+void PivView::update_status_bar(const sf::Vector2f& mouse)
+{
+	status_bar_texts[1].setString(std::to_string(static_cast<int>(mouse.x - 50)));
+	status_bar_texts[3].setString(std::to_string(static_cast<int>(mouse.y - 50)));
+}
+
+sf::Text PivView::make_status_bar_label(const int x_position, std::string&& words)
+{
+	sf::Text label;
+	label.setFont(font);
+	label.setString(words);
+	label.setCharacterSize(18);
+	label.setColor(sf::Color::White);
+	label.setPosition(x_position, 580);
+	return label;
+}
+
+void PivView::make_status_bar_texts()
+{
+	status_bar_texts.push_back(make_status_bar_label(10, "x:"));
+	status_bar_texts.push_back(make_status_bar_label(35, ""));
+	status_bar_texts.push_back(make_status_bar_label(90, "y:"));
+	status_bar_texts.push_back(make_status_bar_label(115, ""));
 }
