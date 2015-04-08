@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include "PivPoint.hpp"
+#include "../lib/bpu.hpp"
 
 class PivView
 {
@@ -30,6 +31,7 @@ class PivView
 		void get_piv_vectors_and_maximum_velocity();
 		void make_graphics();
 		void make_status_bar_texts();
+		void make_header_texts();
 		void update_crosshairs(const sf::Vector2f& mouse);
 		void update_status_bar(const sf::Vector2f& mouse);
 		void render_frame(sf::RenderWindow& window) const;
@@ -39,6 +41,7 @@ class PivView
 		sf::VertexArray make_axis_box(const int i_min, const int j_min, const int i_max, const int j_max) const;
 		sf::VertexArray make_crosshairs(const int i_min, const int j_min, const int i_max, const int j_max) const;
 		sf::Text make_status_bar_label(const int x_position, std::string&& words);
+		std::vector<double> get_unique_grid_values();
 				
 };
 

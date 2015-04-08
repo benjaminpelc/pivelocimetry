@@ -1,3 +1,6 @@
+#ifndef BPU_UTILITY_FUNCTIONS_H
+#define BPU_UTILITY_FUNCTIONS_H
+
 #include <cmath>
 #include <algorithm>
 
@@ -141,3 +144,5 @@ void print_back(const Container& c)
 	std::cout << c.back() << std::endl;
 }
 }
+
+#endif

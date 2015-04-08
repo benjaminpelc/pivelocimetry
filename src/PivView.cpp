@@ -6,6 +6,9 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 {
 	get_piv_vectors_and_maximum_velocity();
 
+	auto unique_x_coords = get_unique_grid_values();
+	bpu::print_each(unique_x_coords, ", ");
+
 	// std::vector<sf::VertexArray> vel_vector_graphics(num_vectors);
 
 	sf::ContextSettings settings;
@@ -15,16 +18,10 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 	axis_bottom_left = sf::Vector2i(50, 562);
 	axis_top_right = sf::Vector2i(562, 50);
 
+	font.loadFromFile("../fonts/cour.ttf");
 	make_graphics();
 	make_status_bar_texts();
-
-	font.loadFromFile("../fonts/cour.ttf");
-	header_text.setFont(font);
-	header_text.setString("BPPIV v0.1");
-	header_text.setCharacterSize(24);
-	header_text.setColor(sf::Color::White);
-	header_text.setPosition(10, 5);
-
+	make_header_texts();
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -200,4 +197,28 @@ void PivView::make_status_bar_texts()
 	status_bar_texts.push_back(make_status_bar_label(35, ""));
 	status_bar_texts.push_back(make_status_bar_label(90, "y:"));
 	status_bar_texts.push_back(make_status_bar_label(115, ""));
+}
+
+void PivView::make_header_texts()
+{
+	header_text.setFont(font);
+	header_text.setString("BPPIV v0.1");
+	header_text.setCharacterSize(24);
+	header_text.setColor(sf::Color::White);
+	header_text.setPosition(10, 5);
+}
+
+std::vector<double> PivView::get_unique_grid_values()
+{
+	std::vector<double> all_values(piv_vectors.size());
+	auto all_values_iter = all_values.begin();
+
+	for (auto& piv_vector : piv_vectors) {
+		*(all_values_iter++) = piv_vector.get_x();
+	}
+
+	std::sort(all_values.begin(), all_values.end());
+	auto last = std::unique(all_values.begin(), all_values.end());
+	all_values.erase(last, all_values.end());
+	return all_values;
 }
