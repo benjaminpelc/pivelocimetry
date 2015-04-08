@@ -81,6 +81,19 @@ void subtract_and_abs(Container& c, const T v)
 			});
 }
 
+// template<typename T>
+// 	using Value_type = typename T::value_type;
+//
+// template<typename F, typename S>
+	
+
+
+template<typename First, typename Second>
+std::pair<First, Second> add_pairs(std::pair<First, Second>& lhs, std::pair<First, Second>& rhs)
+{
+	return std::make_pair(lhs.first + rhs.first, lhs.second + rhs.second);
+}
+
 template<typename TFirst, typename TSecond, typename Container>
 std::pair<TFirst, TSecond> mean_pairs(Container&& c)
 {
@@ -196,6 +209,7 @@ auto collect_unique(It first, It last, Pred p) -> std::vector<decltype(p(*first)
 	std::sort(res_front, res_end);
 	auto last_unique = std::unique(res_front, res_end); 
 	res.erase(last_unique, res_end);
+
 	return res;
 };
 
