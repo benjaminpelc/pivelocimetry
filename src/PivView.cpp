@@ -210,15 +210,6 @@ void PivView::make_header_texts()
 
 std::vector<double> PivView::get_unique_grid_values()
 {
-	std::vector<double> all_values(piv_vectors.size());
-	auto all_values_iter = all_values.begin();
-
-	for (auto& piv_vector : piv_vectors) {
-		*(all_values_iter++) = piv_vector.get_x();
-	}
-
-	std::sort(all_values.begin(), all_values.end());
-	auto last = std::unique(all_values.begin(), all_values.end());
-	all_values.erase(last, all_values.end());
-	return all_values;
+	auto get_x = [](auto& pv) { return pv.get_x(); };
+	return bpu::collect_unique(piv_vectors, get_x);
 }

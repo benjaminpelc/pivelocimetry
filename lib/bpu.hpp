@@ -27,6 +27,7 @@ std::vector<Value_type<It>> collect(It first, It last, Pred pred)
 	return res;
 };
 
+
 template<typename Container, typename Pred>
 void for_each(Container&& c, Pred pred)
 {
@@ -59,10 +60,10 @@ To cast_round_if_integral(const From f);
 
 /* Cout helpers for containers */
 template<typename Container>
-void print_each(const Container& c, const std::string delimeter);
+void print_each(const Container& c, const std::string delimeter = ", ");
 
 template<typename It>
-void print_each(const It beg, const It end, const std::string delimeter);
+void print_each(const It beg, const It end, const std::string delimeter = ", ");
 
 template<typename Container>
 void print_front(const Container& c);
@@ -170,6 +171,39 @@ void print_back(const Container& c)
 {
 	std::cout << c.back() << std::endl;
 }
+template<typename It>
+std::vector<Value_type<It>> collect_unique(It first, It last)
+{
+	std::vector<Value_type<It>> res(last - first);
+	auto res_front = res.begin();
+	std::copy(first, last, res_front);
+	std::sort(res_front, res.end());
+	auto last_unique = std::unique(res_front, res.end()); 
+	res.erase(last_unique, res.end());
+	return res;
+};
+
+template<typename It, typename Pred>
+auto collect_unique(It first, It last, Pred p) -> std::vector<decltype(p(*first))>
+{
+	std::vector<decltype(p(*first))> res(last - first);
+	auto res_itr = res.begin();
+	for_each(first, last, [&](auto v) { *(res_itr++) = p(v); });
+
+	auto res_front = res.begin();
+	auto res_end = res.end();
+
+	std::sort(res_front, res_end);
+	auto last_unique = std::unique(res_front, res_end); 
+	res.erase(last_unique, res_end);
+	return res;
+};
+
+template<typename Container, typename Pred>
+auto collect_unique(Container&& c, Pred p) -> std::vector<decltype(p(c.front()))>
+{
+	return collect_unique(c.begin(), c.end(), p);
+};
 }
 
 #endif
