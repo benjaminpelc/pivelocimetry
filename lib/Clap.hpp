@@ -26,10 +26,10 @@ class Clap
 
 		std::string getParam(const std::string flag) const;
 
-		std::set<std::string>& flagSet();
+		const std::set<std::string>& flagSet() const;
 		std::vector<std::string> flagArgs(const std::string flag) const;
 
-		FlagArgsMap& getFlagsWithArgs();
+		const FlagArgsMap& getFlagsWithArgs() const;
 		std::set<std::string> m_flags;
 
 	private:

@@ -22,12 +22,12 @@ char** Clap::end() const
 	return &m_argv[m_argc];
 };
 
-std::set<std::string>& Clap::flagSet() 
+const std::set<std::string>& Clap::flagSet() const
 {
 	return m_flags;
 }
 
-Clap::FlagArgsMap& Clap::getFlagsWithArgs()
+const Clap::FlagArgsMap& Clap::getFlagsWithArgs() const
 {
 	return m_flagArgsMap;
 }
