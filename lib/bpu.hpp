@@ -3,23 +3,15 @@
 
 #include <cmath>
 #include <algorithm>
-// #include <utility>
 
 namespace bpu {
 
-/* Collect, return vector of iterators meeting the predicate */
-// template<typename C>
-// 	struct value_trait { using type = typename C::value_type; };
-
-// template<typename T>
-// 	struct value_trait<T*>{ using type = T; };
-//
-// template<typename T>
-// 	using Value_type = typename value_trait<T>::type;
-
+/* Extract value type from a pointer/iterator */
 template<typename T>
 	using Value_type = typename T::value_type;
 
+/* Return a vector of elements from a container that all meat the 
+ * predicate pred */
 template<typename It, typename Pred>
 std::vector<Value_type<It>> collect(It beg, It end, Pred pred)
 {
@@ -29,6 +21,7 @@ std::vector<Value_type<It>> collect(It beg, It end, Pred pred)
 };
 
 
+/* Simple for_each implementation for whole container */
 template<typename Container, typename Pred>
 void for_each(Container&& c, Pred pred)
 {
@@ -82,19 +75,14 @@ void subtract_and_abs(Container& c, const T v)
 			});
 }
 
-// template<typename T>
-// 	using Value_type = typename T::value_type;
-//
-// template<typename F, typename S>
-	
-
-
+/* Add a pair of std::pairs returning a new pair of the same type */
 template<typename First, typename Second>
 std::pair<First, Second> add_pairs(std::pair<First, Second>& lhs, std::pair<First, Second>& rhs)
 {
 	return std::make_pair(lhs.first + rhs.first, lhs.second + rhs.second);
 }
 
+/* Calculate the mean pair of a container of pairs */
 template<typename TFirst, typename TSecond, typename Container>
 std::pair<TFirst, TSecond> mean_pairs(Container&& c)
 {
@@ -118,6 +106,8 @@ To mean(Container&& c)
 	return cast_round_if_integral<To>(std::accumulate(c.begin(),c.end(), To()) / c.size());
 }
 
+/* If casting to an integral value, round to the nearest integer value rather 
+ * than discarding the sub-integer component (i.e. floor(x)) */
 template<typename To, typename From>
 To cast_round_if_integral(const From f)
 {
