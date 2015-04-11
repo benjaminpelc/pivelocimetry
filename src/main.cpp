@@ -13,7 +13,7 @@
 int main(int argc, char **argv) {
 
   /* Parse command line arguments */
-  auto clArgs = PivClap(argc, argv);
+  const auto clArgs = PivClap(argc, argv);
 
   /* Check command line args for 'c' flag and a config file path */
   auto cfgFilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/config/default.cfg");

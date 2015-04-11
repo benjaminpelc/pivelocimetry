@@ -5,37 +5,37 @@ PivClap::PivClap(int argc, char** argv) :
 {
 }
 
-bool PivClap::userConfig()
+bool PivClap::userConfig() const
 {
 	return hasParam("-c");
 }
 
-bool PivClap::printResults()
+bool PivClap::printResults() const
 {
 	return hasFlag("-p");
 }
 
-bool PivClap::doPostProc()
+bool PivClap::doPostProc() const
 {
 	return hasFlag("-s");
 }
 
-bool PivClap::writeResults()
+bool PivClap::writeResults() const
 {
 	return hasParam("-o");
 }
 
-bool PivClap::viewVectors()
+bool PivClap::viewVectors() const
 {
 	return hasFlag("-v");
 }
 
-std::string PivClap::writeFile()
+std::string PivClap::writeFile() const
 {
 	return getParam("-o");
 }
 
-std::string PivClap::configFile()
+std::string PivClap::configFile() const
 {
 	return getParam("-c");
 }

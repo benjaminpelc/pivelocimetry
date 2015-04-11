@@ -12,17 +12,17 @@ Clap::Clap(int argc, char** argv) :
 			});	
 }
 
-char** Clap::begin()
+char** Clap::begin() const
 {
 	return &m_argv[0];
 };
 
-char** Clap::end()
+char** Clap::end() const
 {
 	return &m_argv[m_argc];
 };
 
-std::set<std::string>& Clap::flagSet()
+std::set<std::string>& Clap::flagSet() 
 {
 	return m_flags;
 }
@@ -32,17 +32,17 @@ Clap::FlagArgsMap& Clap::getFlagsWithArgs()
 	return m_flagArgsMap;
 }
 
-int Clap::numArgs()
+int Clap::numArgs() const
 {
 	return m_argc;
 };
 
-std::string Clap::progName()
+std::string Clap::progName() const
 {
 	return m_argv[0];
 };
 
-std::vector<std::string> Clap::flagArgs(const std::string flag)
+std::vector<std::string> Clap::flagArgs(const std::string flag) const
 {
 	std::vector<std::string> flagArgsVec;
 	
@@ -63,20 +63,20 @@ void Clap::getFlags() {
 			});
 }
 
-bool Clap::hasFlag(const std::string flag)
+bool Clap::hasFlag(const std::string flag) const
 {
 	/* Returns true if args contain charFlag */
 	return std::find(begin(), end(), flag) != end();
 }
 
-bool Clap::hasParam(const std::string flag)
+bool Clap::hasParam(const std::string flag) const
 {
 	return std::adjacent_find(begin(), end(), [&flag](auto &s1, auto &s2) {
 				return s1 == flag && s2[0] != '-';
 			}) != end();
 }
 
-std::string Clap::getParam(const std::string flag)
+std::string Clap::getParam(const std::string flag) const
 {
 	/* adjacent_find returns a pointer to the first of two elements that meet 
 	 * the condition given by the lambda, in this case that the second string 

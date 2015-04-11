@@ -10,14 +10,14 @@ class PivClap :
 		PivClap(int argc, char** argv);
 		~PivClap();
 
-		bool userConfig();
-		bool printResults();
-		bool writeResults();
-		bool viewVectors();
-		bool doPostProc();
+		bool userConfig() const;
+		bool printResults() const;
+		bool writeResults() const;
+		bool viewVectors() const;
+		bool doPostProc() const;
 
-		std::string writeFile();
-		std::string configFile();
+		std::string writeFile() const;
+		std::string configFile() const;
 
 		/* Add method that tells you off if the flag specified 
 		 * requires an option */

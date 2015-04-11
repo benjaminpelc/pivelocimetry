@@ -15,19 +15,19 @@ class Clap
 		Clap(int argc, char** argv);
 		~Clap() {};
 
-		char** begin();
-		char** end();
+		char** begin() const;
+		char** end() const;
 	
-		bool hasFlag(const std::string flag);
-		bool hasParam(const std::string flag);
+		bool hasFlag(const std::string flag) const;
+		bool hasParam(const std::string flag) const;
 
-		int numArgs();
-		std::string progName();
+		int numArgs() const;
+		std::string progName() const;
 
-		std::string getParam(const std::string flag);
+		std::string getParam(const std::string flag) const;
 
 		std::set<std::string>& flagSet();
-		std::vector<std::string> flagArgs(const std::string flag);
+		std::vector<std::string> flagArgs(const std::string flag) const;
 
 		FlagArgsMap& getFlagsWithArgs();
 		std::set<std::string> m_flags;
