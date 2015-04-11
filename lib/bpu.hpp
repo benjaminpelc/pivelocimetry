@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <algorithm>
+// #include <utility>
 
 namespace bpu {
 
@@ -20,10 +21,10 @@ template<typename T>
 	using Value_type = typename T::value_type;
 
 template<typename It, typename Pred>
-std::vector<Value_type<It>> collect(It first, It last, Pred pred)
+std::vector<Value_type<It>> collect(It beg, It end, Pred pred)
 {
 	std::vector<Value_type<It>> res;
-	for_each(first, last, [&](auto& x) { if(pred(x)) res.push_back(x); });
+	for_each(beg, end, [&](auto& x) { if(pred(x)) res.push_back(x); });
 	return res;
 };
 
@@ -37,7 +38,7 @@ void for_each(Container&& c, Pred pred)
 /* Calculate the median value of a container with specified
  * return type. Original container is not modified */
 template<typename To, typename Container>
-To median(Container&& c);
+To median(Container c);
 
 /* Same as median but container is modified by partially 
  * sorting contents */
@@ -128,10 +129,9 @@ To cast_round_if_integral(const From f)
 }
 
 template<typename To, typename Container>
-To median(Container&& c)
+To median(Container c)
 {
-	auto cCopy = c;
-	return median_modify_container<To>(cCopy);
+	return median_modify_container<To>(std::move(c));
 }
 
 template<typename To, typename Container>
