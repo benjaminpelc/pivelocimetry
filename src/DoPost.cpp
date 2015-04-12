@@ -7,17 +7,23 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 	// std::cout << gridCols << std::endl;
 
 	auto us = std::vector<double>(pointsVector.size(), 0.0);
+	auto vs = std::vector<double>(pointsVector.size(), 0.0);
 	auto valid = std::vector<bool>(pointsVector.size(), false);
 
 	auto uBeginPtr = us.begin();
+	auto vBeginPtr = vs.begin();
 	auto uPtr = uBeginPtr;
+	auto vPtr = vBeginPtr;
 
 	auto validBeginPtr = valid.begin();
 
 	/* For each grid point get the first displacement values and validity */
-	std::for_each(pointsVector.begin(), pointsVector.end(), [&uPtr, &validBeginPtr](auto& pivPoint){
-				*(uPtr++) = pivPoint.dispsVec()[0].get_u();
-				*(validBeginPtr++) = pivPoint.dispsVec()[0].is_valid();
+	std::for_each(pointsVector.begin(), pointsVector.end(), [&uPtr, &vPtr, &validBeginPtr](auto& pivPoint){
+				auto disp = pivPoint.dispsVec()[0];
+
+				*(uPtr++) = disp.get_u();
+				*(vPtr++) = disp.get_v();
+				*(validBeginPtr++) = disp.is_valid();
 			});
 
 	/* Do with radius of just one for now */
@@ -37,7 +43,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 
 	/* Calculate normalised residual of velocity component under inspection,
 	 * the central vector u0 */
-	auto normalisedFluct = [](double u0, double medianRes) -> double {
+	auto normalisedFluct = [](const double u0, const double medianRes) -> double {
 		return std::abs(u0 / (medianRes + 0.1));
 	};
 
@@ -114,16 +120,6 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
 		}
 	}
 
-	// ctr = 0;
-	// for(bool v : valid) {
-	// 	if(!v) {
-	// 		std::cout << "Invalid at (" << ctr % gridCols + 1 << ", " << ctr / gridCols + 1<< ")" << std::endl;
-	// 	}
-	// 	ctr++;
-	// }
-
-
-	
 }
 
 DoPost::~DoPost() {}
