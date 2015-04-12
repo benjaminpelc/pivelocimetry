@@ -14,6 +14,7 @@ template<typename T>
 class Mat2
 {
 	public:
+		using Mat2D = Mat2<double>;
 		/* Constructors:
 		 * Provide dimensions and an initial value or just dimenstions */
 		Mat2(const unsigned int rows, const unsigned int cols);

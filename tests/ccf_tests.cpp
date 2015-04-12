@@ -1,13 +1,12 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "../src/Ccf.hpp"
+#include "../lib/Mat2.hpp"
 // #include <algorithm>
-using namespace PivEng;
 
 TEST_CASE( "Test CCF", "Initialisation"){
 	
-	PivEng::CCF c(17, 17);	
+	Mat2<double> c(17, 17);	
 	
 	SECTION( "All elements should be equal to -1.0" ) {
 		std::for_each(c.begin(), c.end(), [](auto el) { 
@@ -17,7 +16,7 @@ TEST_CASE( "Test CCF", "Initialisation"){
 }
 
 TEST_CASE( "Set elements", "Use setElem to set correlation values")	{
-	CCF c(17, 17);	
+	Mat2<double> c(17, 17);	
 
 	c.setElem(2, 4, 0.998);
 	c.setElem(5, 14, 0.810);
@@ -33,12 +32,12 @@ TEST_CASE( "Set elements", "Use setElem to set correlation values")	{
 TEST_CASE( "CCF::offsetX, CCF::offsetY" ) {
 
 	SECTION( "Offset should = 4" ) {
-		CCF m_a(9, 9);
+		Mat2<double> m_a(9, 9);
 		CHECK(m_a.offsetX() == 4);
 	}
 	
 	SECTION( "Offset should = 4" ) {
-		CCF m_a(10, 10);
+		Mat2<double> m_a(10, 10);
 		CHECK(m_a.offsetX() == 4);
 	}
 }

@@ -19,7 +19,6 @@ find_package(SFML 2 REQUIRED system window graphics)
 add_executable(${EXECUTABLE_NAME} 
 		../lib/Clap.cpp
 		find_peaks.cpp
-		Ccf.cpp
 		Disp.cpp
 		DoPiv.cpp
 		DoPost.cpp

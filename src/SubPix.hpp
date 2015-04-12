@@ -1,7 +1,8 @@
 #ifndef SUBPIXEL_FITTERS_H
 #define SUBPIXEL_FITTERS_H
 
-#include "Ccf.hpp"
+#include "../lib/Mat2.hpp"
+
 #include "Peak.hpp"
 #include "Disp.hpp"
 
@@ -13,8 +14,7 @@ namespace PivEng {
 class SubPixel
 {
 	public:
-		static void gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacements);
-		// static double gauss3(const double a, const double b, const double c);
+		static void gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp::DispVec& displacements);
 		static double gauss3(const double* a, const double* b, const double* c);
 	private:
 		

@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-#include "Ccf.hpp"
+#include "../lib/Mat2.hpp"
 #include "Peak.hpp"
 
 namespace PivEng {
@@ -14,7 +14,7 @@ bool in_valid_range(const double value, const double min, const double max);
 
 void find_ccf_peaks(
 		std::vector<Peak>& peaks_container,
-		const CCF& ccf,
+		const Mat2<double>& ccf,
 		const int max_disp);
 }
 

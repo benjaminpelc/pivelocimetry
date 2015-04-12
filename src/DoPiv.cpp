@@ -3,7 +3,7 @@
 namespace PivEng {
 DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :  
 		m_num_points(g.size()),
-		m_ccfs(m_num_points, CCF(options.winHeight() + 1, options.winWidth() + 1)),
+		m_ccfs(m_num_points, Mat2<double>(options.winHeight() + 1, options.winWidth() + 1)),
 		m_points(m_num_points, PivPoint(-1, -1, options))
 {
 	/* Create a vector of PivPoints when the object is instantiated, 
@@ -23,7 +23,7 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 		m_points[idx].set_coords(g[idx]);
 
 	auto ccfBatch = [&](int beg, int end) {
-		CCF* ccf = nullptr;
+		Mat2<double>* ccf = nullptr;
 		PivPoint* p = nullptr;
 		Peak::PeaksVec* pks= nullptr;
 
@@ -48,27 +48,6 @@ DoPiv::PivPointVec& DoPiv::pointsVector()
 {
 	return m_points;
 }
-
-// void DoPiv::doPivPoint(PivPoint& pivPoint, CCF& ccf)
-// {
-// 	/* Steps to do the PIV analysis for the current interrogation window 
-// 	 * 1) set the PivPoint coordinates
-// 	 * 2) do the cross-correlation
-// 	 * 3) find the correlation function peaks
-// 	 * 4) calculate the total displacements using sub-pixel peak fitting */
-//
-// 	/* The ccf and peaks are referenced multiple times so create 
-// 	 * pointers to clean up a little */
-// 	// CCF* ccf        = pivPoint.get_ccf();
-// 	Peak::PeaksVec& peaks = pivPoint.peaks();
-//
-// 	/* Store coords and do the cross-correlation */
-// 	// XCorr2::xCorr2n(*ccf, 512, im1firstPix, im2firstPix, pivPoint.x(), pivPoint.y());
-//
-// 	/* Here the maximum search value needs replacing with variable */
-// 	ccf.findPeaks(peaks, 7);
-// 	SubPixel::gauss(ccf, peaks, pivPoint.dispsVec());
-// }
 
 void DoPiv::write(const std::string filename)
 {

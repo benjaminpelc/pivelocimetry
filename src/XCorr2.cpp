@@ -2,7 +2,7 @@
 
 namespace PivEng {
 
-void XCorr2::xCorr2n(CCF& ccf,
+void XCorr2::xCorr2n(Mat2<double>& ccf,
 		const int imageCols,
 		const uint16_t* im1pixel,
 		const uint16_t* im2pixel,

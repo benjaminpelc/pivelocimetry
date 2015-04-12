@@ -20,6 +20,7 @@
 #include "PivPoint.hpp"
 #include "SubPix.hpp"
 #include "find_peaks.hpp"
+#include "../lib/Mat2.hpp"
 
 #include "../lib/alias.hpp"
 
@@ -39,11 +40,8 @@ class DoPiv
 
 	private:
 		int m_num_points;
-		// void doPivPoint(PivPoint& pivPoint, CCF& c);
-		// void doPivPoint(PivPoint& pivPoint, uint16_t* im1firstPix, uint16_t* im2firstPix);
-		std::vector<CCF> m_ccfs;
+		std::vector<Mat2<double>> m_ccfs;
 		PivPointVec m_points;
-		// int m_numX, m_numY;
 };
 
 }

@@ -7,7 +7,7 @@
  *
  */
 
-#include "Ccf.hpp"
+#include "../lib/Mat2.hpp"
 #include "IntMap.hpp"
 
 #include <cmath>
@@ -21,7 +21,7 @@ namespace PivEng {
 			typedef std::pair<int, int> IntPair;
 			typedef std::pair<double, double> DoublePair;
 
-			static void xCorr2n(CCF& ccf,
+			static void xCorr2n(Mat2<double>& ccf,
 				const int imageCols,
 				const uint16_t* im1pixel,
 				const uint16_t* im2pixel,

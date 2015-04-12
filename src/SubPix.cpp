@@ -1,7 +1,8 @@
 #include "SubPix.hpp"
 
 namespace PivEng {
-void SubPixel::gauss(CCF& ccf, Peak::PeaksVec& peaks, Disp::DispVec& displacements)
+
+void SubPixel::gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp::DispVec& displacements)
 {
 	// std::cout << "In Gauss, eww!" << std::endl;
 	uint_fast16_t i, j;

@@ -20,7 +20,7 @@
 #include <iomanip>
 
 #include "PivOptions.hpp"
-#include "Ccf.hpp"
+#include "../lib/Mat2.hpp"
 #include "IntMap.hpp"
 #include "Peak.hpp"
 #include "Disp.hpp"
