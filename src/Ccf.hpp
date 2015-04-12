@@ -21,9 +21,6 @@ namespace PivEng {
 			CCF(unsigned int rows, unsigned int cols);
 			~CCF();
 
-			void findPeaks(Peak::PeaksVec& pv, int maxDisp) const;
-			bool isLocalPeak(double *  j) const;
-
 		private:	
 	};
 
