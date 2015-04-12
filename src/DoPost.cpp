@@ -46,7 +46,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int grid_cols, const
 
 void DoPost::interpolate_if_no_valid_disp(const NeighboursInfo& u, const NeighboursInfo& v, std::vector<Disp>& dvs)
 {
-	auto fv = std::find_if(dvs.begin(), dvs.end(), [](auto& dv) { return dv.is_valid(); });
+	auto fv = std::find_if(dvs.begin(), dvs.end(), [](const auto& dv) { return dv.is_valid(); });
 	if (fv == dvs.end()) {
 		dvs.push_back(Disp(u.neighs_median, v.neighs_median, true));
 	}
