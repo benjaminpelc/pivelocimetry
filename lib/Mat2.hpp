@@ -42,8 +42,8 @@ class Mat2
 		 * 2) method call with subscript access 
 		 * 3) method call with coordinate access */
 		T& operator[](const int i) const { return m_mat[i]; };
-		T getElem(const int idx) const { return m_mat[idx]; };
-		T getElem(const int j, const int i) const { return m_mat[m_cols * j + i]; };
+		T at(const int idx) const { return m_mat[idx]; };
+		T at(const int j, const int i) const { return m_mat[m_cols * j + i]; };
 
 		/* Return the linear index from 2D matrix coordinates */
 		int getIndex(const int j, const int i) const;
