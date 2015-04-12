@@ -38,9 +38,17 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int grid_cols, const
 			if (u_info.test_value() > threshold || v_info.test_value() > threshold) {
 				auto& dvs = pointsVector[idx_i].dispsVec();
 				mark_invalid_check_lower_peaks(current_disp, u_info, v_info, dvs, threshold);
+				interpolate_if_no_valid_disp(u_info, v_info, dvs);
 			}
-			// std::cout << "Normalised fluct: " << normFluct << std::endl;
 		}
+	}
+}
+
+void DoPost::interpolate_if_no_valid_disp(const NeighboursInfo& u, const NeighboursInfo& v, std::vector<Disp>& dvs)
+{
+	auto fv = std::find_if(dvs.begin(), dvs.end(), [](auto& v) { return v.is_valid(); });
+	if (fv == dvs.end()) {
+		dvs.push_back(Disp(u.neighs_median, v.neighs_median, true));
 	}
 }
 
@@ -55,7 +63,6 @@ void DoPost::mark_invalid_check_lower_peaks(Disp* current_disp, NeighboursInfo& 
 				if (u.test_value() > threshold || v.test_value() > threshold)
 					d.set_valid(false);
 			});
-
 }
 
 double DoPost::get_median_residual(std::vector<double>& neighbours, const double neighbours_median)

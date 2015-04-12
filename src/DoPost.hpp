@@ -36,6 +36,7 @@ class DoPost
 		~DoPost();
 		
 	private:
+		void interpolate_if_no_valid_disp(const NeighboursInfo& u, const NeighboursInfo& v, std::vector<Disp>& dvs);
 		double get_median_residual(std::vector<double>& neighbours, const double neighbours_median);
 
 		bool above_thresh(const double element_residual, const double neighbours_median_residual, const double thresh);
