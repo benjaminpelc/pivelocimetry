@@ -6,17 +6,16 @@ namespace PivEng {
  * Must be passed with row and column number specifiers.
  * Calls default Matrix2<double> constructor.
  * Initialize all values to -1.0  */
-CCF::CCF(unsigned int rows, unsigned int cols) : 
-	Mat2<double>(rows, cols, -1.0) {}
+CCF::CCF(unsigned int rows, unsigned int cols) : Mat2<double>(rows, cols, -1.0) {}
 
 /* Destructor:
  * Nothing exciting here, all memory is deallocated inside Matrix2 
  * parent class */
 CCF::~CCF() {}
 
-int CCF::offsetX() const { return (m_cols - 1) / 2; }
-
-int CCF::offsetY() const { return (m_rows - 1) / 2; }
+// int CCF::offsetX() const { return (m_cols - 1) / 2; }
+//
+// int CCF::offsetY() const { return (m_rows - 1) / 2; }
 
 void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp) const
 {
@@ -31,13 +30,13 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp) const
 	/* Define the boundary of the correlation function search region
 	 * 1) pretty sure this needs 1 subtracting
 	 * 2) Add check to make sure maxDisp does not exceed CCF boundaries */
-	maxDisp = floor(m_rows / 2) - maxDisp + 1;
+	maxDisp = m_rows / 2 - maxDisp + 1;
 
 	double maxVal = 0.0, /* Something silly big negative */
-	       preMax = BIG_DOUBLE; /* something silly big for first iteration */
+	       preMax = 9999999999.9; /* something silly big for first iteration */
 	double* currentElemPtr = nullptr;
 
-	/* coords of peack value, set to initial coord */
+	/* coords of peak value, set to initial coord */
 	int j(0), i(0),
 		jC = maxDisp,
 		iC = maxDisp,
@@ -47,7 +46,9 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp) const
 	/* Be cynical, do not believe any peak to be automatically valid */
 	bool valid = false;
 	auto * cp = &m_mat[0];
-	auto inValidRange = [&]() -> bool { return *currentElemPtr > maxVal && *currentElemPtr < preMax; };
+	auto inValidRange = [&maxVal, &preMax](const auto currentElemPtr) {
+			return *currentElemPtr > maxVal && *currentElemPtr < preMax;
+		};
 
 	/* iterate through each of the number of peaks specified to search for */
 	for (auto& peak : pv) {
@@ -60,7 +61,7 @@ void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp) const
 				/* Check to see if point is larger than current max but smaller than 
 				 * the previous peak. Check surrounding values to make sure it is in 
 				 * fact a peak value */
-				if ( inValidRange() && isLocalPeak(currentElemPtr) ) {
+				if ( inValidRange(currentElemPtr) && isLocalPeak(currentElemPtr) ) {
 					/* All things being good, update the current peak value, coords
 					 * and validity. These will be used if no other peak is found */
 					maxVal = *currentElemPtr;

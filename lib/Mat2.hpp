@@ -52,6 +52,9 @@ class Mat2
 		constexpr int size() const { return m_size; };
 		constexpr int rows() const { return m_rows; };
 		constexpr int cols() const { return m_cols; };
+
+		constexpr int offsetX() const { return (m_cols - 1) / 2; }
+		constexpr int offsetY() const { return (m_rows - 1) / 2; }
 		
 		/* Set element method, use if can't use index notation [] */
 		void setElem(const int j, const int i, const T v);
@@ -65,37 +68,37 @@ class Mat2
 		T sum() const;
 
 	protected:
-		T* m_mat;
-		int m_size;
 		int m_rows, m_cols;
+		int m_size;
+		T* m_mat;
 };
 
 template<typename T>
 Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols) :
-	m_size(rows * cols),
 	m_rows(rows),
-	m_cols(cols)
+	m_cols(cols),
+	m_size(rows * cols),
+	m_mat{new T[m_size]{0}}
 {
 	/* Constructor, must provide the number of rows, number of 
 	 * columns and an initial value */
-	m_mat = new T[m_size]{0};
 }
 
 template<typename T>
 Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols, const T v) :
-	Mat2(rows, cols)
+	m_rows(rows),
+	m_cols(cols),
+	m_size(rows * cols),
+	m_mat{new T[m_size]{v}}
 {
 	/* Constructor, must provide the number of rows, number of 
 	 * columns and an initial value */
-	std::fill(m_mat, m_mat + m_size, v);
+	// std::fill(m_mat, m_mat + m_size, v);
 }
 
 template<typename T>
 Mat2<T>::Mat2(const Mat2<T>& m) :
-	m_mat(new T[m.size()]),
-	m_size(m.size()),
-	m_rows(m.rows()),
-	m_cols(m.cols())
+	Mat2(m.rows(), m.cols())
 {
 	// m_mat = new T[m_size];
 	for(int i = 0; i != m_size; i ++) {

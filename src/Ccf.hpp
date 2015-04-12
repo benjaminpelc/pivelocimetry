@@ -23,11 +23,8 @@ namespace PivEng {
 
 			void findPeaks(Peak::PeaksVec& pv, int maxDisp) const;
 			bool isLocalPeak(double *  j) const;
-			int offsetX() const;
-			int offsetY() const;
 
 		private:	
-			const double BIG_DOUBLE = 9999999999999.9;
 	};
 
 }
