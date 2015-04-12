@@ -45,7 +45,7 @@ class DoPost
 		std::vector<Disp*> get_primary_disp_ptrs(std::vector<PivEng::PivPoint>& pointsVector);
 		void update_limits(Limits& lims, const int i, const int j, const int rad, const int grid_colums, const int grid_rows);
 		
-		void get_neighbours(const int i, const int j, const Limits& lims, const int grid_rows, const std::vector<Disp*>& primary_disps, 
+		void get_neighbours(const int i, const int j, const Limits& lims, const int grid_cols, const std::vector<Disp*>& primary_disps, 
 							std::vector<double>& u_neighbours,
 							std::vector<double>& v_neighbours);
 		

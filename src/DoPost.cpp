@@ -17,7 +17,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int grid_cols, const
 	for(auto j = 0; j < grid_rows; j++) {
 		for(auto i = 0; i < grid_cols; i++) {
 
-			idx_i = PivEng::subsrcipts_to_index(i, j, grid_rows);
+			idx_i = PivEng::subsrcipts_to_index(i, j, grid_cols);
 			auto current_disp = primary_disps[idx_i];
 			update_limits(lims, i, j, rad, grid_cols, grid_rows);
 
@@ -26,7 +26,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int grid_cols, const
 			auto u_neighbours = std::vector<double>(num_neighbours, 0.0);
 			auto v_neighbours = std::vector<double>(num_neighbours, 0.0);
 
-			get_neighbours(i, j, lims, grid_rows, primary_disps, u_neighbours, v_neighbours);
+			get_neighbours(i, j, lims, grid_cols, primary_disps, u_neighbours, v_neighbours);
 
 			auto u_info = get_neighbours_info(u_neighbours, current_disp->get_u());
 			auto v_info = get_neighbours_info(v_neighbours, current_disp->get_v());
@@ -46,7 +46,7 @@ DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int grid_cols, const
 
 void DoPost::interpolate_if_no_valid_disp(const NeighboursInfo& u, const NeighboursInfo& v, std::vector<Disp>& dvs)
 {
-	auto fv = std::find_if(dvs.begin(), dvs.end(), [](auto& v) { return v.is_valid(); });
+	auto fv = std::find_if(dvs.begin(), dvs.end(), [](auto& dv) { return dv.is_valid(); });
 	if (fv == dvs.end()) {
 		dvs.push_back(Disp(u.neighs_median, v.neighs_median, true));
 	}
@@ -101,7 +101,7 @@ void DoPost::update_limits(Limits& lims, const int i, const int j, const int rad
 		lims.j_max = std::min(j + rad, grid_rows - 1);
 }
 
-void DoPost::get_neighbours(const int i, const int j, const Limits& lims, const int grid_rows, const std::vector<Disp*>& primary_disps, 
+void DoPost::get_neighbours(const int i, const int j, const Limits& lims, const int grid_cols, const std::vector<Disp*>& primary_disps, 
 		std::vector<double>& u_neighbours,
 		std::vector<double>& v_neighbours)
 {
@@ -117,7 +117,7 @@ void DoPost::get_neighbours(const int i, const int j, const Limits& lims, const 
 
 	for (jj = lims.j_min; jj <= lims.j_max; jj++) {
 		for (ii = lims.i_min; ii <= lims.i_max; ii++) {
-			idx_ii = PivEng::subsrcipts_to_index(ii, jj, grid_rows);
+			idx_ii = PivEng::subsrcipts_to_index(ii, jj, grid_cols);
 			if (validNeighbour()) {
 				*(u_neighbour_itr++) = primary_disps[idx_ii]->get_u();
 				*(v_neighbour_itr++) = primary_disps[idx_ii]->get_v();
