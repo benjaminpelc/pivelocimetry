@@ -20,6 +20,11 @@ struct Limits {
 	int i_min, i_max, j_min, j_max;
 };
 
+struct NeighboursInfo {
+	double neighs_median{0.0}, fluct_0{0.0}, median_residual{0.0};
+	double test_value() const { return std::abs(fluct_0 / (median_residual + 0.1)); };
+};
+
 class DoPost
 {
 	public:
@@ -28,19 +33,25 @@ class DoPost
 		 * 		  Number of columns
 		 */
 		DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols, const double threshold = 2.0);
+		~DoPost();
 		
+	private:
 		double get_median_residual(std::vector<double>& neighbours, const double neighbours_median);
+
 		bool above_thresh(const double element_residual, const double neighbours_median_residual, const double thresh);
+		double test_value(const NeighboursInfo& neigh_info);
+
 		std::vector<Disp*> get_primary_disp_ptrs(std::vector<PivEng::PivPoint>& pointsVector);
 		void update_limits(Limits& lims, const int i, const int j, const int rad, const int grid_colums, const int grid_rows);
 		
 		void get_neighbours(const int i, const int j, const Limits& lims, const int grid_rows, const std::vector<Disp*>& primary_disps, 
 							std::vector<double>& u_neighbours,
 							std::vector<double>& v_neighbours);
-		/* Destructor */
-		~DoPost();
+		
+		NeighboursInfo get_neighbours_info(std::vector<double> neighbours, const double current_disp);
 
-	private:
+		void mark_invalid_check_lower_peaks(Disp* current_disp, NeighboursInfo& u, NeighboursInfo& v, std::vector<Disp>& dvs, const double threshold);
+
 
 };
 }

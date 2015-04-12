@@ -2,64 +2,59 @@
 
 namespace PivEng {
 
-DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols, const double threshold)
+DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int grid_cols, const double threshold)
 {
 	auto primary_disps = get_primary_disp_ptrs(pointsVector);
 
-	/* Do with radius of just one for now */
 	int rad{2}, num_neighbours{0};
 
-	const int gridRows = pointsVector.size() / gridCols;
+	const int grid_rows = pointsVector.size() / grid_cols;
 
 	auto lims = Limits{};
 
-	int idx_i{0}, i{0}, j{0};
+	int idx_i{0};
 
+	for(auto j = 0; j < grid_rows; j++) {
+		for(auto i = 0; i < grid_cols; i++) {
 
-	double u_median_residual{0.0}, u_neighs_median{0.0}, u_fluct_0{0.0};
-	double v_median_residual{0.0}, v_neighs_median{0.0}, v_fluct_0{0.0};
-
-	for(j = 0; j < gridRows; j++) {
-		for(i = 0; i < gridCols; i++) {
-			idx_i = PivEng::subsrcipts_to_index(i, j, gridRows);
+			idx_i = PivEng::subsrcipts_to_index(i, j, grid_rows);
 			auto current_disp = primary_disps[idx_i];
-			update_limits(lims, i, j, rad, gridCols, gridRows);
+			update_limits(lims, i, j, rad, grid_cols, grid_rows);
 
 			num_neighbours = lims.num_indexes() - 1;
 
 			auto u_neighbours = std::vector<double>(num_neighbours, 0.0);
 			auto v_neighbours = std::vector<double>(num_neighbours, 0.0);
 
-			get_neighbours(i, j, lims, gridRows, primary_disps, u_neighbours, v_neighbours);
+			get_neighbours(i, j, lims, grid_rows, primary_disps, u_neighbours, v_neighbours);
 
-			u_neighs_median = bpu::median<double>(u_neighbours);
-			v_neighs_median = bpu::median<double>(v_neighbours);
-
-			u_fluct_0 = current_disp->get_u() - u_neighs_median;
-			v_fluct_0 = current_disp->get_v() - v_neighs_median;
-
-			u_median_residual = get_median_residual(u_neighbours, u_neighs_median);
-			v_median_residual = get_median_residual(v_neighbours, v_neighs_median);
+			auto u_info = get_neighbours_info(u_neighbours, current_disp->get_u());
+			auto v_info = get_neighbours_info(v_neighbours, current_disp->get_v());
 
 			/* Check if the normalised fluctuation value exceeds the threshold
 		 	 * value (typically 2.0). If so, flag the displacement as invalid.
 		 	 * Itterate through displacements calculated from subsequant CCF peaks
 		 	 * if this displacement is also out of range, flag as invalid */
-			if (above_thresh(u_fluct_0, u_median_residual, threshold) ||
-					above_thresh(v_fluct_0, v_median_residual, threshold) ) {
-
-				current_disp->set_valid(false);
+			if (u_info.test_value() > threshold || v_info.test_value() > threshold) {
 				auto& dvs = pointsVector[idx_i].dispsVec();
-				dvs[0].set_valid(false);
-
-				for_each(dvs.begin() + 1, dvs.end(),[&](auto& d) {
-							if (above_thresh(d.get_u() - u_neighs_median, u_median_residual, threshold) || above_thresh(d.get_v() - v_neighs_median, v_median_residual, threshold) )
-								d.set_valid(false);
-						});
+				mark_invalid_check_lower_peaks(current_disp, u_info, v_info, dvs, threshold);
 			}
 			// std::cout << "Normalised fluct: " << normFluct << std::endl;
 		}
 	}
+}
+
+void DoPost::mark_invalid_check_lower_peaks(Disp* current_disp, NeighboursInfo& u, NeighboursInfo& v, std::vector<Disp>& dvs, const double threshold)
+{
+	current_disp->set_valid(false);
+
+	for_each(dvs.begin() + 1, dvs.end(),[&](auto& d) {
+				u.fluct_0 = d.get_u() - u.neighs_median;
+				v.fluct_0 = d.get_v() - v.neighs_median;
+
+				if (u.test_value() > threshold || v.test_value() > threshold)
+					d.set_valid(false);
+			});
 
 }
 
@@ -71,9 +66,14 @@ double DoPost::get_median_residual(std::vector<double>& neighbours, const double
 	return bpu::median_modify_container<double>(neighbours);
 }
 
-bool DoPost::above_thresh(const double element_residual, const double neighbours_median_residual, const double thresh)
+// double DoPost::test_value(const double element_residual, const double neighbours_median_residual)
+// {
+// 	return std::abs(element_residual / (neighbours_median_residual + 0.1));
+// }
+
+double DoPost::test_value(const NeighboursInfo& neigh_info)
 {
-	return std::abs(element_residual / (neighbours_median_residual + 0.1)) > thresh;
+	return std::abs(neigh_info.fluct_0 / (neigh_info.median_residual + 0.1));
 }
 
 std::vector<Disp*> DoPost::get_primary_disp_ptrs(std::vector<PivEng::PivPoint>& points_vector)
@@ -120,6 +120,17 @@ void DoPost::get_neighbours(const int i, const int j, const Limits& lims, const 
 	}
 	u_neighbours.resize(num_neighbours);
 	v_neighbours.resize(num_neighbours);
+}
+
+NeighboursInfo DoPost::get_neighbours_info(std::vector<double> neighbours, const double current_disp)
+{
+	auto stats = NeighboursInfo();
+
+	stats.neighs_median = bpu::median<double>(neighbours);
+	stats.fluct_0 = current_disp - stats.neighs_median;
+	stats.median_residual = get_median_residual(neighbours, stats.neighs_median);
+
+	return stats;
 }
 
 DoPost::~DoPost() {}
