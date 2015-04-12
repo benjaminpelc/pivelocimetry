@@ -6,8 +6,8 @@ PivView::PivView(PivEng::PivPoint::PivPointVec& vs) :
 {
 	get_piv_vectors_and_maximum_velocity();
 
-	auto unique_x_coords = get_unique_grid_values();
-	bpu::print_each(unique_x_coords, ", ");
+	// auto unique_x_coords = get_unique_grid_values();
+	// bpu::print_each(unique_x_coords, ", ");
 
 	// std::vector<sf::VertexArray> vel_vector_graphics(num_vectors);
 

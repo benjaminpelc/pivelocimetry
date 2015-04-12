@@ -1,125 +1,125 @@
 #include "DoPost.hpp"
 
-namespace PivPost {
+namespace PivEng {
 
-DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols)
+DoPost::DoPost(std::vector<PivEng::PivPoint>& pointsVector, int gridCols, const double threshold)
 {
-	// std::cout << gridCols << std::endl;
-
-	auto us = std::vector<double>(pointsVector.size(), 0.0);
-	auto vs = std::vector<double>(pointsVector.size(), 0.0);
-	auto valid = std::vector<bool>(pointsVector.size(), false);
-
-	auto uBeginPtr = us.begin();
-	auto vBeginPtr = vs.begin();
-	auto uPtr = uBeginPtr;
-	auto vPtr = vBeginPtr;
-
-	auto validBeginPtr = valid.begin();
-
-	/* For each grid point get the first displacement values and validity */
-	std::for_each(pointsVector.begin(), pointsVector.end(), [&uPtr, &vPtr, &validBeginPtr](auto& pivPoint){
-				auto disp = pivPoint.dispsVec()[0];
-
-				*(uPtr++) = disp.get_u();
-				*(vPtr++) = disp.get_v();
-				*(validBeginPtr++) = disp.is_valid();
-			});
+	auto primary_disps = get_primary_disp_ptrs(pointsVector);
 
 	/* Do with radius of just one for now */
-	int rad{2}, nNeighs{0};
+	int rad{2}, num_neighbours{0};
 
-	auto ctr = 0;
-	int gridRows = pointsVector.size() / gridCols;
-	// int idx = 0;
-	int idx_i{0}, idx_ii{0},i{0}, j{0}, ii{0}, jj{0},
-		iMin{0}, iMax{0}, jMin{0}, jMax{0};
+	const int gridRows = pointsVector.size() / gridCols;
 
-	/* Get linear index from coordinate pair using the number of rows
-	 * in the grid */
-	auto idx = [gridRows](const int i, const int j) {
-		return j * gridRows + i;
-	};
+	auto lims = Limits{};
 
-	/* Calculate normalised residual of velocity component under inspection,
-	 * the central vector u0 */
-	auto normalisedFluct = [](const double u0, const double medianRes) -> double {
-		return std::abs(u0 / (medianRes + 0.1));
-	};
+	int idx_i{0}, i{0}, j{0};
 
-	/* Is ccf displacement an actual value and is it not the element
-	 * under inspection */
-	auto validNeighbour = [&] () {
-		return (ii != i || jj != j) && valid[idx_ii];
-	};
 
-	/* where to seach for neighbouring vectors */
-	auto searchBounds = [&] () {
-		iMin = std::max(0, i- rad);
-		iMax = std::min(i + rad, gridCols - 1);
-		jMin = std::max(0, j - rad);
-		jMax = std::min(j + rad, gridRows - 1);
-	};
-
-	double* neighsPtr = nullptr;
-	double medianRes{0.0}, median{0.0}, fluct0{0.0};
+	double u_median_residual{0.0}, u_neighs_median{0.0}, u_fluct_0{0.0};
+	double v_median_residual{0.0}, v_neighs_median{0.0}, v_fluct_0{0.0};
 
 	for(j = 0; j < gridRows; j++) {
 		for(i = 0; i < gridCols; i++) {
-			idx_i = idx(i, j);
-			searchBounds();
+			idx_i = PivEng::subsrcipts_to_index(i, j, gridRows);
+			auto current_disp = primary_disps[idx_i];
+			update_limits(lims, i, j, rad, gridCols, gridRows);
 
-			nNeighs = (iMax - iMin + 1) * (jMax - jMin + 1) - 1;
-			std::vector<double> neighs(nNeighs, 0.0);
-			nNeighs = 0;
-			neighsPtr = &neighs[0];
+			num_neighbours = lims.num_indexes() - 1;
 
-			for (jj = jMin; jj <= jMax; jj++) {
-				for (ii = iMin; ii <= iMax; ii++) {
-					// std::cout << std::fixed << std::setprecision(3) << us[jj * gridCols + ii] << "\t";
-					idx_ii = idx(ii, jj);
-					if (validNeighbour()) {
-						*(neighsPtr++) = us[idx_ii];
-						nNeighs++;
-					}
-				}
-				// std::cout << std::endl;
-			}
-			neighs.resize(nNeighs);
+			auto u_neighbours = std::vector<double>(num_neighbours, 0.0);
+			auto v_neighbours = std::vector<double>(num_neighbours, 0.0);
 
-			median = bpu::median<double>(neighs);
-			fluct0 = (us[idx_i] - median);
+			get_neighbours(i, j, lims, gridRows, primary_disps, u_neighbours, v_neighbours);
 
-			for (auto& n : neighs) {
-				n = std::abs(n - median);
-			}
+			u_neighs_median = bpu::median<double>(u_neighbours);
+			v_neighs_median = bpu::median<double>(v_neighbours);
 
-			medianRes = bpu::median<double>(neighs);
+			u_fluct_0 = current_disp->get_u() - u_neighs_median;
+			v_fluct_0 = current_disp->get_v() - v_neighs_median;
 
-			// double normFluct = std::abs(fluct0 / (medianRes + 0.1));
-			// std::cout << "normFluct:\t" << normFluct << std::endl;
-			// std::cout << "normalisedFluct:\t" << normalisedFluct(fluct0, medianRes) << std::endl;
+			u_median_residual = get_median_residual(u_neighbours, u_neighs_median);
+			v_median_residual = get_median_residual(v_neighbours, v_neighs_median);
 
 			/* Check if the normalised fluctuation value exceeds the threshold
 		 	 * value (typically 2.0). If so, flag the displacement as invalid.
 		 	 * Itterate through displacements calculated from subsequant CCF peaks
 		 	 * if this displacement is also out of range, flag as invalid */
-			if (normalisedFluct(fluct0, medianRes) > 2.0) {
+			if (above_thresh(u_fluct_0, u_median_residual, threshold) ||
+					above_thresh(v_fluct_0, v_median_residual, threshold) ) {
 
-				valid[idx_i] = false;
-				auto& dvs = pointsVector[ctr].dispsVec();
+				current_disp->set_valid(false);
+				auto& dvs = pointsVector[idx_i].dispsVec();
 				dvs[0].set_valid(false);
 
 				for_each(dvs.begin() + 1, dvs.end(),[&](auto& d) {
-							if (normalisedFluct(d.get_u() - median, medianRes) > 2)
+							if (above_thresh(d.get_u() - u_neighs_median, u_median_residual, threshold) || above_thresh(d.get_v() - v_neighs_median, v_median_residual, threshold) )
 								d.set_valid(false);
 						});
 			}
 			// std::cout << "Normalised fluct: " << normFluct << std::endl;
-			ctr++;
 		}
 	}
 
+}
+
+double DoPost::get_median_residual(std::vector<double>& neighbours, const double neighbours_median)
+{
+	for(auto& neighbour : neighbours) {
+		neighbour = std::abs(neighbour - neighbours_median);
+	}	
+	return bpu::median_modify_container<double>(neighbours);
+}
+
+bool DoPost::above_thresh(const double element_residual, const double neighbours_median_residual, const double thresh)
+{
+	return std::abs(element_residual / (neighbours_median_residual + 0.1)) > thresh;
+}
+
+std::vector<Disp*> DoPost::get_primary_disp_ptrs(std::vector<PivEng::PivPoint>& points_vector)
+{
+	auto primary_disps = std::vector<Disp*>(points_vector.size());
+	auto primary_disps_itr = primary_disps.begin();
+	std::for_each(points_vector.begin(), points_vector.end(), [&primary_disps_itr](auto& pivPoint){
+				*(primary_disps_itr++) = &pivPoint.dispsVec()[0];
+			});
+	return primary_disps;
+}
+
+void DoPost::update_limits(Limits& lims, const int i, const int j, const int rad, const int grid_cols, const int grid_rows)
+{
+		lims.i_min = std::max(0, i- rad);
+		lims.i_max = std::min(i + rad, grid_cols - 1);
+		lims.j_min = std::max(0, j - rad);
+		lims.j_max = std::min(j + rad, grid_rows - 1);
+}
+
+void DoPost::get_neighbours(const int i, const int j, const Limits& lims, const int grid_rows, const std::vector<Disp*>& primary_disps, 
+		std::vector<double>& u_neighbours,
+		std::vector<double>& v_neighbours)
+{
+	auto u_neighbour_itr = u_neighbours.begin();
+	auto v_neighbour_itr = v_neighbours.begin();
+
+	auto ii = 0, jj = 0, idx_ii = 0;
+	auto num_neighbours = 0;
+
+	auto validNeighbour = [&] () {
+		return (ii != i || jj != j) && primary_disps[idx_ii]->is_valid();
+	};
+
+	for (jj = lims.j_min; jj <= lims.j_max; jj++) {
+		for (ii = lims.i_min; ii <= lims.i_max; ii++) {
+			idx_ii = PivEng::subsrcipts_to_index(ii, jj, grid_rows);
+			if (validNeighbour()) {
+				*(u_neighbour_itr++) = primary_disps[idx_ii]->get_u();
+				*(v_neighbour_itr++) = primary_disps[idx_ii]->get_v();
+				num_neighbours++;
+			}
+		}
+	}
+	u_neighbours.resize(num_neighbours);
+	v_neighbours.resize(num_neighbours);
 }
 
 DoPost::~DoPost() {}
