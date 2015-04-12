@@ -93,7 +93,6 @@ Mat2<T>::Mat2(const unsigned int rows, const unsigned int cols, const T v) :
 {
 	/* Constructor, must provide the number of rows, number of 
 	 * columns and an initial value */
-	// std::fill(m_mat, m_mat + m_size, v);
 }
 
 template<typename T>

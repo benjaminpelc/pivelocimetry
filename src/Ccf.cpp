@@ -13,10 +13,6 @@ CCF::CCF(unsigned int rows, unsigned int cols) : Mat2<double>(rows, cols, -1.0) 
  * parent class */
 CCF::~CCF() {}
 
-// int CCF::offsetX() const { return (m_cols - 1) / 2; }
-//
-// int CCF::offsetY() const { return (m_rows - 1) / 2; }
-
 void CCF::findPeaks(Peak::PeaksVec& pv, int maxDisp) const
 {
 	/* FindPeaks
