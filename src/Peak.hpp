@@ -26,6 +26,12 @@ namespace PivEng {
 		int i, j; 
 		double val;
 		bool valid; 
+
+		void set_value(const double peak_value) { val = peak_value; };
+
+		double get_value() const { return val; }; 
+		int get_i() const { return i; };
+		int get_j() const { return j; };
 	};
 }
 #endif

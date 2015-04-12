@@ -12,12 +12,15 @@
 #include <thread>
 
 
+
 #include "PivOptions.hpp"
 #include "IntMap.hpp"
 #include "Grid.hpp"
 #include "XCorr2.hpp"
 #include "PivPoint.hpp"
 #include "SubPix.hpp"
+#include "find_peaks.hpp"
+
 #include "../lib/alias.hpp"
 
 namespace PivEng {

@@ -33,7 +33,8 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 			pks = &p->peaks();
 
 			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, p->i, p->j);
-			ccf->findPeaks(*pks, 7);
+			// ccf->findPeaks(*pks, 7);
+			find_ccf_peaks(*pks, *ccf, 7);
 			SubPixel::gauss(*ccf, *pks, p->dispsVec());
 		}
 	};

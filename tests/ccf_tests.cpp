@@ -64,31 +64,31 @@ TEST_CASE( "CCF::offsetX, CCF::offsetY" ) {
 // 	Peak p2 = ps[1];
 // 	Peak p3 = ps[2];
 //
-// 	SECTION( "First peak should be 0.998" ) {
-// 		CHECK(p1.val() == 0.998 );
-// 	}
-//
-// 	SECTION( "First peak should be 0.810" ) {
-// 		CHECK(p2.val() == 0.810 );
-// 	}
-//
-// 	SECTION( "First peak should be 0.321" ) {
-// 		CHECK(p3.val() == 0.321 );
-// 	}
-//
-//
-// 	SECTION( "First peak should have coords (i, j) = (4, 2)" ) {
-// 		CHECK(p1.get_iCoord() == 4);
-// 		CHECK(p1.get_jCoord() == 2);
-// 	}
-// 	
-// 	SECTION( "Second peak should have coords (i, j) = (14, 5)" ) {
-// 		CHECK(p2.get_iCoord() == 14);
-// 		CHECK(p2.get_jCoord() == 5);
-// 	}
-// 	
-// 	SECTION( "Third peak should have coords (i, j) = (9, 13)" ) {
-// 		CHECK(p3.get_iCoord() == 9);
-// 		CHECK(p3.get_jCoord() == 13);
-// 	}
+	// SECTION( "First peak should be 0.998" ) {
+	// 	CHECK(p1.get_value() == 0.998 );
+	// }
+    //
+	// SECTION( "First peak should be 0.810" ) {
+	// 	CHECK(p2.get_value() == 0.810 );
+	// }
+    //
+	// SECTION( "First peak should be 0.321" ) {
+	// 	CHECK(p3.get_value() == 0.321 );
+	// }
+    //
+    //
+	// SECTION( "First peak should have coords (i, j) = (4, 2)" ) {
+	// 	CHECK(p1.get_i() == 4);
+	// 	CHECK(p1.get_j() == 2);
+	// }
+    //
+	// SECTION( "Second peak should have coords (i, j) = (14, 5)" ) {
+	// 	CHECK(p2.get_i() == 14);
+	// 	CHECK(p2.get_j() == 5);
+	// }
+    //
+	// SECTION( "Third peak should have coords (i, j) = (9, 13)" ) {
+	// 	CHECK(p3.get_i() == 9);
+	// 	CHECK(p3.get_j() == 13);
+	// }
 // }
