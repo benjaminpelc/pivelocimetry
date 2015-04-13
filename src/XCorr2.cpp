@@ -14,8 +14,8 @@ void x_corr_n_2(Mat2<double>& ccf,
 			   winRows = ccfRows - 1,
 			   winCols = ccfCols - 1;
 
-	const auto mOffset = winRows + ccfRows/2 - winRows,
-		 	   nOffset = winCols + ccfCols/2 - winCols;
+	const auto mOffset = ccfRows / 2,
+		 	   nOffset = ccfCols / 2;
 
 		/* Upper left corner WRT interrogation window centre */
 	const auto xOff = col - winCols / 2 + 1,

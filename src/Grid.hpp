@@ -28,11 +28,11 @@ namespace PivEng {
 
 			Grid(PivOptions& config, IntMap& image);
 			~Grid();
-			int x(int i);
-			int y(int i);
-			int numX();
-			int numY();
-			int size();
+			int x(int i) const;
+			int y(int i) const;
+			int numX() const;
+			int numY() const;
+			int size() const;
 
 			CoordPair& operator[](const int i) { return m_coords[i]; };
 

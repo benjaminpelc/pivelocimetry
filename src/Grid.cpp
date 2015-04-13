@@ -7,14 +7,14 @@ Grid::Grid( PivOptions& config, IntMap& image ) :
 	m_ptsY(),
 	m_coords()
 {
-	auto imW = image.cols(),
+	const auto imW = image.cols(),
 		 imH = image.rows();
-	auto winW = config.winWidth(),
+	const auto winW = config.winWidth(),
 		 winH = config.winHeight();
-	auto ovlpX = config.olvpHoriz(),
+	const auto ovlpX = config.olvpHoriz(),
 		 ovlpY = config.olvpVert();
 
-	auto num_points_on_axis = [](int imDim, int winDim, int olp) -> int {
+	auto num_points_on_axis = [](const int imDim, const int winDim, const int olp) -> int {
 		return (imDim - winDim) / (winDim - olp) + 1;
 	};
 
@@ -44,27 +44,27 @@ Grid::Grid( PivOptions& config, IntMap& image ) :
 
 Grid::~Grid() {};
 
-int Grid::x(int i)
+int Grid::x(int i) const
 {
 	return m_ptsX[i];
 }
 
-int Grid::y(int i)
+int Grid::y(int i) const
 {
 	return m_ptsY[i];
 }
 
-int Grid::numX()
+int Grid::numX() const
 {
 	return m_ptsX.size();
 }
 
-int Grid::numY()
+int Grid::numY() const
 {
 	return m_ptsY.size();
 }
 
-int Grid::size()
+int Grid::size() const
 {
 	return m_ptsX.size() * m_ptsY.size();
 }
