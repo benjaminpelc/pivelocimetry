@@ -2,17 +2,17 @@
 
 namespace PivEng {
 PivVector::PivVector() :
-	x(0.0), y(0.0), velocities()
+	velocities(), x(0.0), y(0.0)
 {
 }
 
 PivVector::PivVector(const double x0, const double y0, const double u0, const double v0) :
-	x(x0), y(y0), velocities(u0, v0, true)
+	velocities(u0, v0, true), x(x0), y(y0)
 {
 }
 
 PivVector::PivVector(const double x0, const double y0, const Disp& disp_in) :
-	x(x0), y(y0), velocities(disp_in)
+	velocities(disp_in), x(x0), y(y0)
 {
 }
 

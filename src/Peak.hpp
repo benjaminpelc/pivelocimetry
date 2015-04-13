@@ -17,14 +17,14 @@ namespace PivEng {
 	{
 		typedef std::vector<Peak> PeaksVec;
 
-		Peak() : i(-1), j(-1), val(-1.0), valid(false) {};
-		Peak(int ic, int jc, double v, bool torf) : i(ic), j(jc), val(v), valid(torf) {};
+		Peak() : val(-1.0), i(-1), j(-1), valid(false) {};
+		Peak(const int ic, const int jc, const double v, const bool torf) : val(v), i(ic), j(jc), valid(torf) {};
 		~Peak() {};
 
-		void setPeak(int ic, int jc, double v, bool torf) { i = ic; j = jc; val = v; valid = torf; };
+		void setPeak(const int ic, const int jc, const double v, const bool torf) { val = v; i = ic; j = jc; valid = torf; };
 
-		int i, j; 
 		double val;
+		int i, j; 
 		bool valid; 
 
 		void set_value(const double peak_value) { val = peak_value; };

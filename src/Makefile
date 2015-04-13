@@ -114,29 +114,77 @@ bppiv/fast:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/build
 .PHONY : bppiv/fast
 
-Ccf.o: Ccf.cpp.o
-.PHONY : Ccf.o
+Disp.o: Disp.cpp.o
+.PHONY : Disp.o
 
 # target to build an object file
-Ccf.cpp.o:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Ccf.cpp.o
-.PHONY : Ccf.cpp.o
+Disp.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Disp.cpp.o
+.PHONY : Disp.cpp.o
 
-Ccf.i: Ccf.cpp.i
-.PHONY : Ccf.i
+Disp.i: Disp.cpp.i
+.PHONY : Disp.i
 
 # target to preprocess a source file
-Ccf.cpp.i:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Ccf.cpp.i
-.PHONY : Ccf.cpp.i
+Disp.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Disp.cpp.i
+.PHONY : Disp.cpp.i
 
-Ccf.s: Ccf.cpp.s
-.PHONY : Ccf.s
+Disp.s: Disp.cpp.s
+.PHONY : Disp.s
 
 # target to generate assembly for a file
-Ccf.cpp.s:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Ccf.cpp.s
-.PHONY : Ccf.cpp.s
+Disp.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Disp.cpp.s
+.PHONY : Disp.cpp.s
+
+DoPiv.o: DoPiv.cpp.o
+.PHONY : DoPiv.o
+
+# target to build an object file
+DoPiv.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/DoPiv.cpp.o
+.PHONY : DoPiv.cpp.o
+
+DoPiv.i: DoPiv.cpp.i
+.PHONY : DoPiv.i
+
+# target to preprocess a source file
+DoPiv.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/DoPiv.cpp.i
+.PHONY : DoPiv.cpp.i
+
+DoPiv.s: DoPiv.cpp.s
+.PHONY : DoPiv.s
+
+# target to generate assembly for a file
+DoPiv.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/DoPiv.cpp.s
+.PHONY : DoPiv.cpp.s
+
+DoPost.o: DoPost.cpp.o
+.PHONY : DoPost.o
+
+# target to build an object file
+DoPost.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/DoPost.cpp.o
+.PHONY : DoPost.cpp.o
+
+DoPost.i: DoPost.cpp.i
+.PHONY : DoPost.i
+
+# target to preprocess a source file
+DoPost.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/DoPost.cpp.i
+.PHONY : DoPost.cpp.i
+
+DoPost.s: DoPost.cpp.s
+.PHONY : DoPost.s
+
+# target to generate assembly for a file
+DoPost.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/DoPost.cpp.s
+.PHONY : DoPost.cpp.s
 
 Grid.o: Grid.cpp.o
 .PHONY : Grid.o
@@ -210,6 +258,30 @@ OcvImage.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.s
 .PHONY : OcvImage.cpp.s
 
+PivClap.o: PivClap.cpp.o
+.PHONY : PivClap.o
+
+# target to build an object file
+PivClap.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivClap.cpp.o
+.PHONY : PivClap.cpp.o
+
+PivClap.i: PivClap.cpp.i
+.PHONY : PivClap.i
+
+# target to preprocess a source file
+PivClap.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivClap.cpp.i
+.PHONY : PivClap.cpp.i
+
+PivClap.s: PivClap.cpp.s
+.PHONY : PivClap.s
+
+# target to generate assembly for a file
+PivClap.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivClap.cpp.s
+.PHONY : PivClap.cpp.s
+
 PivOptions.o: PivOptions.cpp.o
 .PHONY : PivOptions.o
 
@@ -234,6 +306,102 @@ PivOptions.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivOptions.cpp.s
 .PHONY : PivOptions.cpp.s
 
+PivPoint.o: PivPoint.cpp.o
+.PHONY : PivPoint.o
+
+# target to build an object file
+PivPoint.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivPoint.cpp.o
+.PHONY : PivPoint.cpp.o
+
+PivPoint.i: PivPoint.cpp.i
+.PHONY : PivPoint.i
+
+# target to preprocess a source file
+PivPoint.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivPoint.cpp.i
+.PHONY : PivPoint.cpp.i
+
+PivPoint.s: PivPoint.cpp.s
+.PHONY : PivPoint.s
+
+# target to generate assembly for a file
+PivPoint.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivPoint.cpp.s
+.PHONY : PivPoint.cpp.s
+
+PivVector.o: PivVector.cpp.o
+.PHONY : PivVector.o
+
+# target to build an object file
+PivVector.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivVector.cpp.o
+.PHONY : PivVector.cpp.o
+
+PivVector.i: PivVector.cpp.i
+.PHONY : PivVector.i
+
+# target to preprocess a source file
+PivVector.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivVector.cpp.i
+.PHONY : PivVector.cpp.i
+
+PivVector.s: PivVector.cpp.s
+.PHONY : PivVector.s
+
+# target to generate assembly for a file
+PivVector.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivVector.cpp.s
+.PHONY : PivVector.cpp.s
+
+PivView.o: PivView.cpp.o
+.PHONY : PivView.o
+
+# target to build an object file
+PivView.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.o
+.PHONY : PivView.cpp.o
+
+PivView.i: PivView.cpp.i
+.PHONY : PivView.i
+
+# target to preprocess a source file
+PivView.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.i
+.PHONY : PivView.cpp.i
+
+PivView.s: PivView.cpp.s
+.PHONY : PivView.s
+
+# target to generate assembly for a file
+PivView.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.s
+.PHONY : PivView.cpp.s
+
+SubPix.o: SubPix.cpp.o
+.PHONY : SubPix.o
+
+# target to build an object file
+SubPix.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/SubPix.cpp.o
+.PHONY : SubPix.cpp.o
+
+SubPix.i: SubPix.cpp.i
+.PHONY : SubPix.i
+
+# target to preprocess a source file
+SubPix.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/SubPix.cpp.i
+.PHONY : SubPix.cpp.i
+
+SubPix.s: SubPix.cpp.s
+.PHONY : SubPix.s
+
+# target to generate assembly for a file
+SubPix.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/SubPix.cpp.s
+.PHONY : SubPix.cpp.s
+
 XCorr2.o: XCorr2.cpp.o
 .PHONY : XCorr2.o
 
@@ -257,6 +425,30 @@ XCorr2.s: XCorr2.cpp.s
 XCorr2.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/XCorr2.cpp.s
 .PHONY : XCorr2.cpp.s
+
+find_peaks.o: find_peaks.cpp.o
+.PHONY : find_peaks.o
+
+# target to build an object file
+find_peaks.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/find_peaks.cpp.o
+.PHONY : find_peaks.cpp.o
+
+find_peaks.i: find_peaks.cpp.i
+.PHONY : find_peaks.i
+
+# target to preprocess a source file
+find_peaks.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/find_peaks.cpp.i
+.PHONY : find_peaks.cpp.i
+
+find_peaks.s: find_peaks.cpp.s
+.PHONY : find_peaks.s
+
+# target to generate assembly for a file
+find_peaks.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/find_peaks.cpp.s
+.PHONY : find_peaks.cpp.s
 
 home/ben/Dropbox/Development/C++/BPPIV/lib/Clap.o: home/ben/Dropbox/Development/C++/BPPIV/lib/Clap.cpp.o
 .PHONY : home/ben/Dropbox/Development/C++/BPPIV/lib/Clap.o
@@ -306,6 +498,30 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+utils.o: utils.cpp.o
+.PHONY : utils.o
+
+# target to build an object file
+utils.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/utils.cpp.o
+.PHONY : utils.cpp.o
+
+utils.i: utils.cpp.i
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/utils.cpp.i
+.PHONY : utils.cpp.i
+
+utils.s: utils.cpp.s
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/utils.cpp.s
+.PHONY : utils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -315,9 +531,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... bppiv"
-	@echo "... Ccf.o"
-	@echo "... Ccf.i"
-	@echo "... Ccf.s"
+	@echo "... Disp.o"
+	@echo "... Disp.i"
+	@echo "... Disp.s"
+	@echo "... DoPiv.o"
+	@echo "... DoPiv.i"
+	@echo "... DoPiv.s"
+	@echo "... DoPost.o"
+	@echo "... DoPost.i"
+	@echo "... DoPost.s"
 	@echo "... Grid.o"
 	@echo "... Grid.i"
 	@echo "... Grid.s"
@@ -327,18 +549,39 @@ help:
 	@echo "... OcvImage.o"
 	@echo "... OcvImage.i"
 	@echo "... OcvImage.s"
+	@echo "... PivClap.o"
+	@echo "... PivClap.i"
+	@echo "... PivClap.s"
 	@echo "... PivOptions.o"
 	@echo "... PivOptions.i"
 	@echo "... PivOptions.s"
+	@echo "... PivPoint.o"
+	@echo "... PivPoint.i"
+	@echo "... PivPoint.s"
+	@echo "... PivVector.o"
+	@echo "... PivVector.i"
+	@echo "... PivVector.s"
+	@echo "... PivView.o"
+	@echo "... PivView.i"
+	@echo "... PivView.s"
+	@echo "... SubPix.o"
+	@echo "... SubPix.i"
+	@echo "... SubPix.s"
 	@echo "... XCorr2.o"
 	@echo "... XCorr2.i"
 	@echo "... XCorr2.s"
+	@echo "... find_peaks.o"
+	@echo "... find_peaks.i"
+	@echo "... find_peaks.s"
 	@echo "... home/ben/Dropbox/Development/C++/BPPIV/lib/Clap.o"
 	@echo "... home/ben/Dropbox/Development/C++/BPPIV/lib/Clap.i"
 	@echo "... home/ben/Dropbox/Development/C++/BPPIV/lib/Clap.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 

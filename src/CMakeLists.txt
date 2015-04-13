@@ -13,7 +13,7 @@ endif()
 # Define sources and executable name
 set(EXECUTABLE_NAME "bppiv")
 
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
 find_package(OpenCV REQUIRED)
 find_package(SFML 2 REQUIRED system window graphics)
 add_executable(${EXECUTABLE_NAME} 

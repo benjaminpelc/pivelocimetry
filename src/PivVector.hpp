@@ -21,8 +21,8 @@ class PivVector {
 		double get_magnitude();
 
 	private:
-		double x, y;
 		Disp velocities;
+		double x, y;
 
 };
 }
