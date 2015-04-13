@@ -2,18 +2,19 @@
 
 namespace PivEng {
 
-bool is_local_peak(const double* p, const unsigned int ccf_cols)
+inline bool is_local_peak(const double* p, const unsigned int ccf_cols)
 {
 	/* Returns true if the point (i,j) has greater 
 	 * value than the four surrounding points */
 	/* auto * p = &m_mat[i]; */
-    return *(p) > *(p - ccf_cols) &&
-            *(p) > *(p + ccf_cols) &&
-	        *(p) > *(p + 1) &&
-	        *(p) > *(p - 1);
+	auto p_0 = *p;
+    return p_0 > *(p - ccf_cols) &&
+            p_0 > *(p + ccf_cols) &&
+	        p_0 > *(p + 1) &&
+	        p_0 > *(p - 1);
 }
 
-bool in_valid_range(const double value, const double min, const double max)
+inline bool in_valid_range(const double value, const double min, const double max)
 {
 	return value > min && value < max;
 }

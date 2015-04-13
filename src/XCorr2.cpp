@@ -4,8 +4,8 @@ namespace PivEng {
 
 void x_corr_n_2(Mat2<double>& ccf,
 		const int imageCols,
-		const uint16_t* im1pixel,
-		const uint16_t* im2pixel,
+		const uint16_t* im1_first_pixel,
+		const uint16_t* im2_first_pixel,
 		const int col,
 		const int row)
 {
@@ -68,8 +68,8 @@ void x_corr_n_2(Mat2<double>& ccf,
 			for (i = tOffxMin; i < tOffxMax; i++) {
 				idx = j * imageCols + i;
 
-				p1 = *(im1pixel + idx);
-				p2 = *(im2pixel + idx + image_2_offset);
+				p1 = *(im1_first_pixel + idx);
+				p2 = *(im2_first_pixel + idx + image_2_offset);
 
 				win1sum += p1;
 				win2sum += p2;
