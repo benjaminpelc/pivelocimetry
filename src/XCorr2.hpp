@@ -15,21 +15,14 @@
 
 namespace PivEng {
 
-	class XCorr2
-	{
-		public:
-			typedef std::pair<int, int> IntPair;
-			typedef std::pair<double, double> DoublePair;
+using PairD = std::pair<double, double>;
 
-			static void xCorr2n(Mat2<double>& ccf,
+void x_corr_n_2(Mat2<double>& ccf,
 				const int imageCols,
 				const uint16_t* im1pixel,
 				const uint16_t* im2pixel,
 				const int col,
 				const int row);
-		private:
-	};
-
 }
 
 #endif

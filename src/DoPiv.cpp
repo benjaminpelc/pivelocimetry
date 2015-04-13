@@ -32,7 +32,7 @@ DoPiv::DoPiv(PivOptions& options, const IntMap::Pair& imPair, Grid& g) :
 			p = &m_points[idx];
 			pks = &p->peaks();
 
-			XCorr2::xCorr2n(*ccf, imCols, im1Beg, im2Beg, p->i, p->j);
+			x_corr_n_2(*ccf, imCols, im1Beg, im2Beg, p->i, p->j);
 			find_ccf_peaks(*pks, *ccf, 7);
 			SubPixel::gauss(*ccf, *pks, p->dispsVec());
 		}

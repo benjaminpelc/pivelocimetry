@@ -2,7 +2,7 @@
 
 namespace PivEng {
 
-void XCorr2::xCorr2n(Mat2<double>& ccf,
+void x_corr_n_2(Mat2<double>& ccf,
 		const int imageCols,
 		const uint16_t* im1pixel,
 		const uint16_t* im2pixel,
@@ -34,7 +34,7 @@ void XCorr2::xCorr2n(Mat2<double>& ccf,
 	int tOffyMin, tOffyMax, tOffxMin, tOffxMax, numPix;
 
 	/* Store all the overlapping pixels as we will be using them twice */
-	std::vector<DoublePair> pixels(ccf.size());
+	std::vector<PairD> pixels(ccf.size());
 	int idx, idxShift, pixCtr, win1sum, win2sum;
 	/* Some image pixel coords */
 	int i(0), j(0);
