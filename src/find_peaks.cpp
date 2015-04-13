@@ -32,20 +32,20 @@ void find_ccf_peaks(
 	 * ToDo
  	 * 1) Add independent maximum x and y displacements */
 
-	const auto ccf_rows = ccf.rows();
-	const auto ccf_cols = ccf.cols();
+	const unsigned ccf_rows = ccf.rows();
+	const unsigned ccf_cols = ccf.cols();
 
-	const auto j_min = ccf_rows / 2 - max_disp + 1;
-	const auto i_min = ccf_cols / 2 - max_disp + 1;
-	const auto j_max = ccf_rows - j_min;
-	const auto i_max = ccf_cols - i_min;
+	const unsigned j_min = ccf_rows / 2 - max_disp + 1;
+	const unsigned i_min = ccf_cols / 2 - max_disp + 1;
+	const unsigned j_max = ccf_rows - j_min;
+	const unsigned i_max = ccf_cols - i_min;
 
 	// double current_max = 0.0, /* Something silly big negative */
 	double  previous_max = 9999999999.9; /* something silly big for first iteration */
 	double* currentElemPtr = nullptr;
 
 	/* coords of peak value, set to initial coord */
-	int j{0}, i{0};
+	unsigned j{0}, i{0};
 	
 	/* Be cynical, do not believe any peak to be automatically valid */
 	auto * const ccf_begin = ccf.begin();
