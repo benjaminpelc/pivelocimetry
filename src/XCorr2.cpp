@@ -43,13 +43,14 @@ void x_corr_n_2(Mat2<double>& ccf,
 		 p2subAvg = 0.0;
 
 	int p1, p2;
+	int image_2_offset;
+	auto current_pixels = std::make_pair(0.0, 0.0);
 
 	for (auto& ccfp : ccf) {
 		/* Correlation function coefficient index to correlation function plane coords */
 		m = ctr     / ccfCols + mMin;
 		n = (ctr++) % ccfCols + nMin;
 
-		win1Avg = win2Avg = bitProd = denom1 = denom2 = 0.0;
 
 		/* Overlapping window limits plus window offset in image plane */
 		tOffyMin = (m < 0 ? -m : 0) + yOff;
@@ -61,27 +62,31 @@ void x_corr_n_2(Mat2<double>& ccf,
 		numPix = (tOffyMax - tOffyMin) * (tOffxMax - tOffxMin);
 		pixCtr = win1sum = win2sum = 0;
 
+		image_2_offset = m * imageCols + n;
 		/* Calculate the overlapping segment averages */
 		for (j = tOffyMin ; j < tOffyMax; j++) {
 			for (i = tOffxMin; i < tOffxMax; i++) {
 				idx = j * imageCols + i;
 
 				p1 = *(im1pixel + idx);
-				p2 = *(im2pixel + idx + m * imageCols + n);
+				p2 = *(im2pixel + idx + image_2_offset);
 
 				win1sum += p1;
 				win2sum += p2;
 
-				pixels[pixCtr++] = std::make_pair(static_cast<double>(p1), static_cast<double>(p2));
+				pixels[pixCtr++] = {static_cast<double>(p1), static_cast<double>(p2)};
 			}
 		}
 
 		win1Avg = static_cast<double>(win1sum) / numPix;
 		win2Avg = static_cast<double>(win2sum) / numPix;
 
+		bitProd = denom1 = denom2 = 0.0;
 		for (idx = 0; idx < numPix; idx++) {
-			p1subAvg = pixels[idx].first - win1Avg;
-			p2subAvg = pixels[idx].second - win2Avg;
+			current_pixels = pixels[idx];
+
+			p1subAvg = current_pixels.first - win1Avg;
+			p2subAvg = current_pixels.second - win2Avg;
 			
 			bitProd += p1subAvg * p2subAvg;
 			denom1 += p1subAvg * p1subAvg;

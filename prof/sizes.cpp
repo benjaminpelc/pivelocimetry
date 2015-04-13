@@ -4,6 +4,7 @@
 #include "../src/Disp.hpp"
 #include "../src/PivVector.hpp"
 #include "../src/Peak.hpp"
+#include "../src/PivPoint.hpp"
 
 
 using namespace PivEng;
@@ -24,6 +25,9 @@ int main(int argc, char** argv)
 
 	Peak peak{};
 	std::cout << "Peak:              \t" << sizeof(peak) << std::endl;
+
+	PivPoint piv_point{};
+	std::cout << "PivPoint:          \t" << sizeof(piv_point) << std::endl;
 
 
 	return 0;

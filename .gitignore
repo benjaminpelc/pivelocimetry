@@ -3,6 +3,7 @@
 .*/.*.swp
 
 bin/CMakeFiles/
+src/CMakeFiles/
 
 bin/*
 bin/bppiv
