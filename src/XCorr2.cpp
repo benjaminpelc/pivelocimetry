@@ -35,11 +35,14 @@ void x_corr_n_2(Mat2<double>& ccf,
 
 	/* Store all the overlapping pixels as we will be using them twice */
 	std::vector<PairD> pixels(ccf.size());
-	int idx, idxShift, pixCtr, win1sum, win2sum;
+	int idx, pixCtr, win1sum, win2sum;
+	// int idxShift;
 	/* Some image pixel coords */
 	int i(0), j(0);
 	auto p1subAvg = 0.0,
 		 p2subAvg = 0.0;
+
+	int p1, p2;
 
 	for (auto& ccfp : ccf) {
 		/* Correlation function coefficient index to correlation function plane coords */
@@ -62,12 +65,14 @@ void x_corr_n_2(Mat2<double>& ccf,
 		for (j = tOffyMin ; j < tOffyMax; j++) {
 			for (i = tOffxMin; i < tOffxMax; i++) {
 				idx = j * imageCols + i;
-				idxShift = m * imageCols + n;
 
-				win1sum += *(im1pixel + idx );
-				win2sum += *(im2pixel + idx + idxShift);
+				p1 = *(im1pixel + idx);
+				p2 = *(im2pixel + idx + m * imageCols + n);
 
-				pixels[pixCtr++] = (std::make_pair(static_cast<double>(*(im1pixel + idx)), static_cast<double>( *(im2pixel + idx + idxShift)) ));
+				win1sum += p1;
+				win2sum += p2;
+
+				pixels[pixCtr++] = std::make_pair(static_cast<double>(p1), static_cast<double>(p2));
 			}
 		}
 
