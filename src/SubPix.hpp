@@ -11,15 +11,8 @@
 
 namespace PivEng {
 
-class SubPixel
-{
-	public:
-		static void gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp::DispVec& displacements);
-		static double gauss3(const double* a, const double* b, const double* c);
-	private:
-		
-};
-
+void gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp::DispVec& displacements);
+double gauss3(const double* a, const double* b, const double* c);
 
 }
 

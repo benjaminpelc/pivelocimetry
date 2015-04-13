@@ -2,7 +2,7 @@
 
 namespace PivEng {
 
-void SubPixel::gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp::DispVec& displacements)
+void gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp::DispVec& displacements)
 {
 	// std::cout << "In Gauss, eww!" << std::endl;
 	uint_fast16_t i, j;
@@ -44,7 +44,7 @@ void SubPixel::gauss(const Mat2<double>& ccf, const Peak::PeaksVec& peaks, Disp:
 	}
 }
 
-double SubPixel::gauss3(const double* a, const double* b, const double* c)
+double gauss3(const double* a, const double* b, const double* c)
 {
 	return  (log(*a) - log(*c)) / ( 2*log(*a) - 4*log(*b) + 2*log(*c)); 
 }
