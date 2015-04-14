@@ -7,40 +7,38 @@
 #include <set>
 #include <string>
 
-class Clap
-{
-	public:
-		typedef std::unordered_map<std::string, std::vector<std::string> > FlagArgsMap;
-		
-		Clap(int argc, char** argv);
-		~Clap() {};
+class Clap {
+public:
+  typedef std::unordered_map<std::string, std::vector<std::string>> FlagArgsMap;
 
-		char** begin() const;
-		char** end() const;
-	
-		bool hasFlag(const std::string flag) const;
-		bool hasParam(const std::string flag) const;
+  Clap(int argc, char **argv);
+  ~Clap(){};
 
-		int numArgs() const;
-		std::string progName() const;
+  char **begin() const;
+  char **end() const;
 
-		std::string getParam(const std::string flag) const;
+  bool hasFlag(const std::string flag) const;
+  bool hasParam(const std::string flag) const;
 
-		const std::set<std::string>& flagSet() const;
-		std::vector<std::string> flagArgs(const std::string flag) const;
+  int numArgs() const;
+  std::string progName() const;
 
-		const FlagArgsMap& getFlagsWithArgs() const;
-		std::set<std::string> m_flags;
+  std::string getParam(const std::string flag) const;
 
-	private:
-		int m_argc;
-		char** m_argv;
+  const std::set<std::string> &flagSet() const;
+  std::vector<std::string> flagArgs(const std::string flag) const;
 
-		void getFlags();
-		static bool isFlag(const std::string a);
+  const FlagArgsMap &getFlagsWithArgs() const;
+  std::set<std::string> m_flags;
 
-		FlagArgsMap m_flagArgsMap;
+private:
+  int m_argc;
+  char **m_argv;
 
+  void getFlags();
+  static bool isFlag(const std::string a);
+
+  FlagArgsMap m_flagArgsMap;
 };
 
 #endif

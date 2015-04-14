@@ -17,12 +17,9 @@ namespace PivEng {
 
 using PairD = std::pair<double, double>;
 
-void x_corr_n_2(Mat2<double>& ccf,
-				const int imageCols,
-				const uint16_t* im1pixel,
-				const uint16_t* im2pixel,
-				const int col,
-				const int row);
+void x_corr_n_2(Mat2<double> &ccf, const int imageCols,
+                const uint16_t *im1pixel, const uint16_t *im2pixel,
+                const int col, const int row);
 }
 
 #endif

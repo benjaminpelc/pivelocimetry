@@ -20,32 +20,29 @@
 
 namespace PivEng {
 
-	class Grid
-	{
-		public:
-			typedef std::unique_ptr<Grid> Uptr;
-			typedef std::pair<int, int> CoordPair;
+class Grid {
+public:
+  typedef std::unique_ptr<Grid> Uptr;
+  typedef std::pair<int, int> CoordPair;
 
-			Grid(PivOptions& config, IntMap& image);
-			~Grid();
-			int x(int i) const;
-			int y(int i) const;
-			int numX() const;
-			int numY() const;
-			int size() const;
+  Grid(PivOptions &config, IntMap &image);
+  ~Grid();
+  int x(int i) const;
+  int y(int i) const;
+  int numX() const;
+  int numY() const;
+  int size() const;
 
-			CoordPair& operator[](const int i) { return m_coords[i]; };
+  CoordPair &operator[](const int i) { return m_coords[i]; };
 
-			std::vector<int>& xVector();
-			std::vector<int>& yVector();
-			std::vector<CoordPair>& coordsVec();
+  std::vector<int> &xVector();
+  std::vector<int> &yVector();
+  std::vector<CoordPair> &coordsVec();
 
-		private:
-			int m_noX, m_noY;
-			std::vector<int> m_ptsX,
-						 	 m_ptsY;
-			std::vector<CoordPair> m_coords;	
-	};
-
+private:
+  int m_noX, m_noY;
+  std::vector<int> m_ptsX, m_ptsY;
+  std::vector<CoordPair> m_coords;
+};
 }
 #endif

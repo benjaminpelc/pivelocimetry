@@ -16,24 +16,27 @@ int main(int argc, char **argv) {
   const auto clArgs = PivClap(argc, argv);
 
   /* Check command line args for 'c' flag and a config file path */
-  auto cfgFilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/config/default.cfg");
+  auto cfgFilePath =
+      std::string("/home/ben/Dropbox/Development/C++/BPPIV/config/default.cfg");
   if (clArgs.userConfig())
     cfgFilePath = clArgs.configFile();
 
   /* Load options from config file */
   auto analysisOptions = PivOptions(cfgFilePath);
 
-  auto im1FilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/1.bmp"),
-  	   im2FilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/2.bmp");
-  
-  // auto im1FilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001a.tif"),
-  // 	   im2FilePath = std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001b.tif");
+  auto im1FilePath =
+      std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/1.bmp"),
+       im2FilePath =
+           std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/2.bmp");
+
+  // auto im1FilePath =
+  // std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001a.tif"),
+  // 	   im2FilePath =
+  // std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001b.tif");
 
   /* Load a raw images and extract pixel intensity maps */
-  std::unique_ptr<IntMappable> rawIm1 =
-                                   std::make_unique<OCVImage>(im1FilePath),
-                               rawIm2 =
-                                   std::make_unique<OCVImage>(im2FilePath);
+  std::unique_ptr<IntMappable> rawIm1 = std::make_unique<OCVImage>(im1FilePath),
+                               rawIm2 = std::make_unique<OCVImage>(im2FilePath);
 
   /* Extract pixel intensity maps */
   auto i1 = IntMap(rawIm1);
@@ -50,11 +53,11 @@ int main(int argc, char **argv) {
 
   /* Do some post processing */
   if (clArgs.doPostProc())
-  	  auto pp = PivEng::DoPost(piv.pointsVector(), g.numX());
+    auto pp = PivEng::DoPost(piv.pointsVector(), g.numX());
 
   /* Check command line args and print to screen/write to file as necessary */
   if (clArgs.viewVectors())
-  	  PivView pv(piv.pointsVector()); 
+    PivView pv(piv.pointsVector());
 
   if (clArgs.writeResults())
     piv.write(clArgs.writeFile());

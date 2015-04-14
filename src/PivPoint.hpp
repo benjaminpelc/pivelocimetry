@@ -1,13 +1,13 @@
 /* Class PivPoint
- * 
- * Here we will store all the wonderful things that each PIV 
- * point must have. This is more a container class with setters 
+ *
+ * Here we will store all the wonderful things that each PIV
+ * point must have. This is more a container class with setters
  * and getters rather than any functionality of its own
  *
  * Currently, each point has:
- * 1) A CCF 
- * 2) A vector of peak objects 
- * 3) A vector of displacement objects 
+ * 1) A CCF
+ * 2) A vector of peak objects
+ * 3) A vector of displacement objects
  * 4) A pair of pixel coordinates */
 
 #ifndef PIV_POINT_H
@@ -29,43 +29,38 @@
 
 namespace PivEng {
 
+class PivPoint {
+public:
+  using PivPointVec = std::vector<PivPoint>;
 
-class PivPoint
-{
-	public:
-		using PivPointVec = std::vector<PivPoint>;
+  PivPoint(int xCoord, int yCoord, PivOptions &options);
+  ~PivPoint();
 
-		PivPoint(int xCoord, int yCoord, PivOptions& options);
-		~PivPoint();
+  // CCF* get_ccf();
+  Peak::PeaksVec &peaks();
+  Disp::DispVec &dispsVec();
 
-		// CCF* get_ccf();
-		Peak::PeaksVec& peaks();
-		Disp::DispVec& dispsVec();
+  void set_xCoord(int x);
+  void set_yCoord(int y);
+  void set_coords(Grid::CoordPair &coords);
 
+  int x();
+  int y();
 
-		void set_xCoord(int x);
-		void set_yCoord(int y);
-		void set_coords(Grid::CoordPair& coords);
+  std::unique_ptr<PivVector> get_piv_vector();
 
-		int x();
-		int y();
-		
-		std::unique_ptr<PivVector> get_piv_vector();
-		
-		Disp& primaryDisp();
-		void printToOfstream(std::ofstream& file);
-		void printPeaks();
-		void printDisps();
-		
-		int i, j;
-		
+  Disp &primaryDisp();
+  void printToOfstream(std::ofstream &file);
+  void printPeaks();
+  void printDisps();
 
-	private:
-		// CCF::Sptr m_ccf;
-		Peak::PeaksVec m_peaksVector;
-		Disp::DispVec m_dispsVec;
+  int i, j;
+
+private:
+  // CCF::Sptr m_ccf;
+  Peak::PeaksVec m_peaksVector;
+  Disp::DispVec m_dispsVec;
 };
-
 }
 
 #endif

@@ -7,45 +7,46 @@
 #include <memory>
 #include <cmath>
 
-class PivOptions
-{
-	public:
-		typedef std::unique_ptr<PivOptions> Uptr;
-		typedef std::unordered_map<int, int> WinSizePair;
-			
-		PivOptions();
-		PivOptions(std::string fn);
-		PivOptions(std::unordered_map<std::string, std::string> optionMap);
-		~PivOptions();
+class PivOptions {
+public:
+  typedef std::unique_ptr<PivOptions> Uptr;
+  typedef std::unordered_map<int, int> WinSizePair;
 
-		// Getters
-		int winWidth();
-		int winHeight();
-		int olvpHoriz();
-		int olvpVert();
-		int numPeaks();
-		int maxDispX();
-		int maxDispY();
-		std::pair<int, int>& winSize();
+  PivOptions();
+  PivOptions(std::string fn);
+  PivOptions(std::unordered_map<std::string, std::string> optionMap);
+  ~PivOptions();
 
-		// Setters
-		void setWinWidth(int x);
-		void setWinHeight(int x);
-		void setOvlpHoriz(int x);
-		void setOvlpVert(int x);
-		void setNumPeaks(int n);
+  // Getters
+  int winWidth();
+  int winHeight();
+  int olvpHoriz();
+  int olvpVert();
+  int numPeaks();
+  int maxDispX();
+  int maxDispY();
+  std::pair<int, int> &winSize();
 
-		// Print in console
-		void print();
+  // Setters
+  void setWinWidth(int x);
+  void setWinHeight(int x);
+  void setOvlpHoriz(int x);
+  void setOvlpVert(int x);
+  void setNumPeaks(int n);
 
-	private:
-		// Properties
-		int m_noPeaks;
-		std::pair<int, int> m_overlap;
-		std::pair<int, int> m_winSize;
-		std::pair<int, int> m_maxDisp;
-		int findColon(const std::string& str);
+  // Print in console
+  void print();
 
-		static int keyExistsToInt(std::unordered_map<std::string, std::string>& optMap, std::string key, int defaultVal);
+private:
+  // Properties
+  int m_noPeaks;
+  std::pair<int, int> m_overlap;
+  std::pair<int, int> m_winSize;
+  std::pair<int, int> m_maxDisp;
+  int findColon(const std::string &str);
+
+  static int
+  keyExistsToInt(std::unordered_map<std::string, std::string> &optMap,
+                 std::string key, int defaultVal);
 };
 #endif
