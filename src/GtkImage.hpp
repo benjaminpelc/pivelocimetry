@@ -15,9 +15,12 @@ public:
   unsigned int width();
 
 private:
+	Glib::RefPtr<Gdk::Pixbuf> _pixBuff;
+	guchar *pixels;
+	int rowstrid;
+	int n_channels;
   void read(std::string filename);
 
-	Glib::RefPtr<Gdk::Pixbuf> _pixBuff;
 };
 
 #endif

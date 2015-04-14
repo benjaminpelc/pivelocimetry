@@ -1,11 +1,14 @@
 #include "myarea.h"
-#include <cairomm/context.h>
 
-MyArea::MyArea() {}
+MyArea::MyArea(PivEng::PivPoint::PivPointVec &vs)
+    : m_pivPointVec(vs), piv_vectors(vs.size())
+{
+}
 
 MyArea::~MyArea() {}
 
 bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
+	get_piv_vectors_and_maximum_velocity();
 
 	Gtk::Allocation allocation = get_allocation();
 
@@ -25,22 +28,48 @@ bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	cr->rectangle(0.0, 0.0, 0.9, 0.9);
 	cr->stroke();
 
-	auto x = 7.0;
-	auto y = 7.0;
-	auto u = 1.1758;
-	auto v = -1.2634;
-
 	cr->set_line_width(0.001);
 
-	add_vector_graphic(cr, x, y, u, v, vector_scale_factor);
-	add_vector_graphic(cr, 151, 319, -2.64234, -3.86374, vector_scale_factor);
-	add_vector_graphic(cr, 256, 256, -5, -5, vector_scale_factor);
+	for(auto& p : piv_vectors)
+		add_vector_graphic(cr, p, vector_scale_factor);
 
 	return true;
 }
 
+void MyArea::get_piv_vectors_and_maximum_velocity() {
+  auto vector_magnitude = 0.0;
+  auto counter = 0;
+  for (auto &piv_point : m_pivPointVec) {
+    auto piv_vector = piv_point.get_piv_vector();
+    if (piv_vector) {
+      vector_magnitude = piv_vector->get_magnitude();
+      piv_vectors[counter++] = *piv_vector;
+      if (vector_magnitude > max_velocity_magnitude)
+        max_velocity_magnitude = vector_magnitude;
+    }
+  }
+  piv_vectors.resize(counter);
+  num_vectors = counter;
+}
+
 void MyArea::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, double x, double y, double u, double v, const double vector_scale_factor) {
 	cr->set_source_rgb(0.8, 0.0, 0.0);
+	cr->move_to(x * axis_scale.x, y * axis_scale.y);
+	cr->line_to( (x + vector_scale_factor * u) * axis_scale.x, 
+							 (y + vector_scale_factor * v) * axis_scale.y);
+	cr->stroke();
+}
+
+void MyArea::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor) {
+	
+	auto const x = p.get_x();
+	auto const y = p.get_y();
+	auto const u = p.get_u();
+	auto const v = p.get_v();
+
+	auto magnitude_ratio = p.get_magnitude() / max_velocity_magnitude;
+
+	cr->set_source_rgb(1.0 - magnitude_ratio, 0.0, magnitude_ratio);
 	cr->move_to(x * axis_scale.x, y * axis_scale.y);
 	cr->line_to( (x + vector_scale_factor * u) * axis_scale.x, 
 							 (y + vector_scale_factor * v) * axis_scale.y);

@@ -10,9 +10,9 @@ PivViewGtk::PivViewGtk(PivEng::PivPoint::PivPointVec &vs)
 	window.set_title("Drawing Area");
 	std::cout << m_pivPointVec.size() << std::endl;
 
-	// MyArea area;
-	// window.add(area);
-	// area.show();
+	MyArea area(vs);
+	window.add(area);
+	area.show();
 
 	vector_viewer->run(window);
 }
