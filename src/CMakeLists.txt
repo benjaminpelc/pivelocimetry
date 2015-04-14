@@ -15,8 +15,13 @@ endif()
 set(EXECUTABLE_NAME "bppiv")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../bin/")
-find_package(OpenCV REQUIRED)
-find_package(SFML 2 REQUIRED system window graphics)
+# find_package(OpenCV REQUIRED)
+
+# find_package(SFML 2 REQUIRED system window graphics)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTKMM REQUIRED gtkmm-3.0)
+
 add_executable(${EXECUTABLE_NAME} 
 		../lib/Clap.cpp
 		find_peaks.cpp
@@ -26,14 +31,16 @@ add_executable(${EXECUTABLE_NAME}
 		DoPost.cpp
 		Grid.cpp
 		IntMap.cpp
-		OcvImage.cpp
+		GtkImage.cpp
 		PivClap.cpp
 		PivOptions.cpp
 		PivPoint.cpp
-		PivView.cpp
 		SubPix.cpp
 		PivVector.cpp
 		XCorr2.cpp
 		main.cpp
+		PivViewGtk.cpp
 	)
-target_link_libraries(${EXECUTABLE_NAME} ${OpenCV_LIBS} ${SFML_LIBRARIES})
+include_directories(${GTKMM_INCLUDE_DIRS})
+link_directories(${GTKMM_LIBRARY_DIRS})
+target_link_libraries(${EXECUTABLE_NAME} ${GTKMM_LIBRARIES})

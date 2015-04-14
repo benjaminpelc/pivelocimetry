@@ -1,17 +1,22 @@
 #include "DoPiv.hpp"
 #include "Grid.hpp"
 #include "IntMap.hpp"
-#include "OcvImage.hpp"
+// #include "OcvImage.hpp"
+#include "GtkImage.hpp"
 #include "PivClap.hpp"
 #include "PivOptions.hpp"
 #include "DoPost.hpp"
-#include "PivView.hpp"
+// #include "PivView.hpp"
+#include "PivViewGtk.hpp"
+#include <gtkmm.h>
 #include <cmath>
 #include <memory>
-#include <SFML/Graphics.hpp>
+// #include <SFML/Graphics.hpp>
 
 int main(int argc, char **argv) {
 
+
+	auto ggg = new Gtk::Main(0,0,false);
   /* Parse command line arguments */
   const auto clArgs = PivClap(argc, argv);
 
@@ -35,8 +40,12 @@ int main(int argc, char **argv) {
   // std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001b.tif");
 
   /* Load a raw images and extract pixel intensity maps */
-  std::unique_ptr<IntMappable> rawIm1 = std::make_unique<OCVImage>(im1FilePath),
-                               rawIm2 = std::make_unique<OCVImage>(im2FilePath);
+  // std::unique_ptr<IntMappable> rawIm1 = std::make_unique<OCVImage>(im1FilePath),
+  //                              rawIm2 = std::make_unique<OCVImage>(im2FilePath);
+
+  /* Load a raw images and extract pixel intensity maps */
+  std::unique_ptr<IntMappable> rawIm1 = std::make_unique<GtkBufImage>(im1FilePath),
+                               rawIm2 = std::make_unique<GtkBufImage>(im2FilePath);
 
   /* Extract pixel intensity maps */
   auto i1 = IntMap(rawIm1);
@@ -57,7 +66,8 @@ int main(int argc, char **argv) {
 
   /* Check command line args and print to screen/write to file as necessary */
   if (clArgs.viewVectors())
-    PivView pv(piv.pointsVector());
+    PivViewGtk pv(piv.pointsVector());
+    // PivView pv(piv.pointsVector());
 
   if (clArgs.writeResults())
     piv.write(clArgs.writeFile());
@@ -65,5 +75,6 @@ int main(int argc, char **argv) {
   if (clArgs.printResults())
     piv.print();
 
+	delete ggg;
   return 0;
 }
