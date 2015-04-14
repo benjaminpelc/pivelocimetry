@@ -19,14 +19,14 @@ Grid::Grid(PivOptions &config, IntMap &image) : m_ptsX(), m_ptsY(), m_coords() {
   m_coords.resize(m_noX * m_noY);
 
   /* Have repetition here. Perhaps refactor out */
-  size_t i = 0, j = 0;
+  auto i = 0, j = 0;
   std::for_each(m_ptsX.begin(), m_ptsX.end(),
                 [&](int &x) { x = (winW - ovlpX) * (i++) - 1 + winW / 2; });
 
   std::for_each(m_ptsY.begin(), m_ptsY.end(),
                 [&](int &y) { y = (winH - ovlpY) * (j++) - 1 + winH / 2; });
 
-  size_t ctr = 0;
+  auto ctr = 0;
   std::for_each(m_coords.begin(), m_coords.end(), [&](auto &c) {
     c = std::make_pair(m_ptsX[ctr % m_noX], m_ptsY[ctr / m_noX]);
     ctr++;
