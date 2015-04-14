@@ -1,14 +1,33 @@
 #include "myarea.h"
 
-MyArea::MyArea(PivEng::PivPoint::PivPointVec &vs)
-    : m_pivPointVec(vs), piv_vectors(vs.size())
+MyArea::MyArea(PivEng::PivPoint::PivPointVec &vs) :
+	m_pivPointVec(vs),
+	piv_vectors(vs.size())
 {
+	get_piv_vectors_and_maximum_velocity();
+	x_grid = get_unique_grid_values_x();
+	y_grid = get_unique_grid_values_y();
+
+	// Spatial resolution of vectors
+	dx = x_grid[1] - x_grid[0];
+	dy = y_grid[1] - y_grid[0];
+	
+	// Take minimum and maximum for plot area as min and 
+	// max x/y coords plus one dx/dy
+	x_min = x_grid.front() - dx;
+	y_min = y_grid.front() - dy;
+	max_x_coord = x_grid.back() + dx;
+	max_y_coord = y_grid.back() + dy;
+
+	axis_scale.x = axis_relative_width / (max_x_coord);
+	axis_scale.y = axis_relative_height / (max_y_coord);
+
+	std::cout << "Max velocity magnitude:\t" << max_velocity_magnitude << std::endl;
 }
 
 MyArea::~MyArea() {}
 
 bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
-	get_piv_vectors_and_maximum_velocity();
 
 	Gtk::Allocation allocation = get_allocation();
 
@@ -26,6 +45,7 @@ bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	cr->set_line_width(0.001);
 	cr->set_source_rgb(0.0, 0.0, 0.0);
 	cr->rectangle(0.0, 0.0, 0.9, 0.9);
+	cr->fill();
 	cr->stroke();
 
 	cr->set_line_width(0.001);
@@ -50,14 +70,6 @@ void MyArea::get_piv_vectors_and_maximum_velocity() {
   }
   piv_vectors.resize(counter);
   num_vectors = counter;
-}
-
-void MyArea::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, double x, double y, double u, double v, const double vector_scale_factor) {
-	cr->set_source_rgb(0.8, 0.0, 0.0);
-	cr->move_to(x * axis_scale.x, y * axis_scale.y);
-	cr->line_to( (x + vector_scale_factor * u) * axis_scale.x, 
-							 (y + vector_scale_factor * v) * axis_scale.y);
-	cr->stroke();
 }
 
 void MyArea::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor) {
