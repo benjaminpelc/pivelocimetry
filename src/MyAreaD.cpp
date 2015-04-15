@@ -41,7 +41,7 @@ void MyAreaD::init(VecPivVector pv, double const max_vel)
 	std::cout << "Max velocity magnitude:\t" << max_velocity_magnitude << std::endl;
 }
 
-bool MyAreaD::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
+bool MyAreaD::on_draw(const CContextRptr& cr) {
 
 	Gtk::Allocation allocation = get_allocation();
 
@@ -56,11 +56,7 @@ bool MyAreaD::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	cr->translate(axis_padding_x, axis_padding_y);
 
 	// Draw axis box
-	cr->set_line_width(0.001);
-	cr->set_source_rgb(0.0, 0.0, 0.0);
-	cr->rectangle(0.0, 0.0, 0.9, 0.9);
-	cr->fill();
-	cr->stroke();
+	plot_area_box(cr);
 
 	cr->set_line_width(0.001);
 
@@ -70,7 +66,15 @@ bool MyAreaD::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	return true;
 }
 
-void MyAreaD::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor) {
+void MyAreaD::plot_area_box(CContextRptr cr) {
+	cr->set_line_width(0.001);
+	cr->set_source_rgb(0.0, 0.0, 0.0);
+	cr->rectangle(0.0, 0.0, 1.0 - 2.0 * axis_padding_x, 1.0 - 2.0 * axis_padding_y);
+	cr->fill();
+	cr->stroke();
+}
+
+void MyAreaD::add_vector_graphic(CContextRptr cr, PivEng::PivVector& p, const double vector_scale_factor) {
 	
 	auto const x = p.get_x();
 	auto const y = p.get_y();

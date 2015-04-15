@@ -21,7 +21,7 @@ class MyArea : public Gtk::DrawingArea
 
 	protected:
 		// Override default signal handler:
-		virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
+		bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
 		void add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, double x, double y, double u, double v, const double vector_scale_factor);
 		void add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor);
 

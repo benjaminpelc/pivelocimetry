@@ -16,10 +16,11 @@ struct AxisScale {
 class MyAreaD : public Gtk::DrawingArea
 {
   using VecPivVector = std::vector<PivEng::PivVector>;
+  using CContextRptr = Cairo::RefPtr<Cairo::Context>;
+
 	public:
-		// MyArea(PivEng::PivPoint::PivPointVec &vs);
 		MyAreaD(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
-		virtual ~MyAreaD();
+		~MyAreaD() override;
 
 		void init(VecPivVector pv, double const max_velocity_magnitude);
 
@@ -30,13 +31,15 @@ class MyAreaD : public Gtk::DrawingArea
 
 		// MEMBERS 
 		VecPivVector piv_vectors;
+
 		std::vector<double> x_grid, y_grid;
+
 		double dx, dy;
 		double x_min, max_x_coord, y_min, max_y_coord;
 		double max_velocity_magnitude;
 
-		double const axis_padding_x = 0.05;
-		double const axis_padding_y = 0.05;
+		double const axis_padding_x = 0.025;
+		double const axis_padding_y = 0.025;
 
 		double const axis_relative_width = 1.0 - 2 * axis_padding_x;
 		double const axis_relative_height = 1.0 - 2 * axis_padding_y;
@@ -45,8 +48,9 @@ class MyAreaD : public Gtk::DrawingArea
 
 		// PRIVATE MEMBER FUNCTIONS 
 		// Override default signal handler:
-		virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
-		void add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor);
+		bool on_draw(const CContextRptr& cr) override;
+		void plot_area_box(CContextRptr cr);
+		void add_vector_graphic(CContextRptr cr, PivEng::PivVector& p, const double vector_scale_factor);
 
 		std::vector<double> get_unique_grid_values_x() {
   		auto get_x = [](auto &pv) { return pv.get_x(); };

@@ -21,6 +21,7 @@ public:
 private:
   PivEng::PivPoint::PivPointVec &m_pivPointVec;
   VecPivVector piv_vectors;
+
 	double max_velocity_magnitude{0};
 
 	Gtk::Window* pWindow;
