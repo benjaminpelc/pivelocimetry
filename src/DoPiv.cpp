@@ -34,7 +34,7 @@ DoPiv::DoPiv(PivOptions &options, const IntMap::Pair &imPair, Grid &g)
       pks = &p->peaks();
 
       x_corr_n_2(*ccf, imCols, im1Beg, im2Beg, p->i, p->j);
-      find_ccf_peaks(*pks, *ccf, 7);
+      find_ccf_peaks(*pks, *ccf, 13);
       gauss(*ccf, *pks, p->dispsVec());
     }
   };

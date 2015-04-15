@@ -5,7 +5,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
 	"${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	set(warnings "-Wall -Wextra -Werror")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings} -std=c++14 -Ofast -m64 -march=native -fdiagnostics-color=auto -g -fdiagnostics-show-template-tree")
-	# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings} -std=c++14 -Ofast -m64 -march=native -fdiagnostics-color=auto -g -fdiagnostics-show-template-tree -fsanitize=undefined,integer")
+	# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings} -std=c++14 -01 -m64 -march=native -fdiagnostics-color=auto -g -fdiagnostics-show-template-tree -fsanitize=address")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	set(warnings "/W4 /WX /EHsc")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /O2 ")
@@ -38,6 +38,7 @@ set(SOURCES
 		main.cpp
 		PivViewGtk.cpp
 		myarea.cpp
+		MyAreaD.cpp
 	)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCES} )

@@ -1,11 +1,26 @@
-#include "myarea.h"
+#include "MyAreaD.h"
 
-MyArea::MyArea(PivEng::PivPoint::PivPointVec &vs) :
-	m_pivPointVec(vs),
-	piv_vectors(vs.size())
+MyAreaD::MyAreaD(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade) : Gtk::DrawingArea(cobject),
+	m_refGlade(refGlade)
+	// m_pivPointVec(nullptr)
 {
-	set_size_request(600,600);
-	get_piv_vectors_and_maximum_velocity();
+}
+
+MyAreaD::~MyAreaD() {
+	// delete m_pivPointVec;
+}
+
+void MyAreaD::init(VecPivVector pv, double const max_vel)
+{
+	piv_vectors = pv;
+	max_velocity_magnitude = max_vel;
+	// m_pivPointVec = pv;
+	// piv_vectors.resize(m_pivPointVec->size());
+	// m_dx = dx;
+	// std::cout << m_pivPointVec->size() << std::endl;
+
+	set_size_request(800,600);
+	// get_piv_vectors_and_maximum_velocity();
 	x_grid = get_unique_grid_values_x();
 	y_grid = get_unique_grid_values_y();
 
@@ -26,9 +41,7 @@ MyArea::MyArea(PivEng::PivPoint::PivPointVec &vs) :
 	std::cout << "Max velocity magnitude:\t" << max_velocity_magnitude << std::endl;
 }
 
-MyArea::~MyArea() {}
-
-bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
+bool MyAreaD::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 
 	Gtk::Allocation allocation = get_allocation();
 
@@ -57,23 +70,7 @@ bool MyArea::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	return true;
 }
 
-void MyArea::get_piv_vectors_and_maximum_velocity() {
-  auto vector_magnitude = 0.0;
-  auto counter = 0;
-  for (auto &piv_point : m_pivPointVec) {
-    auto piv_vector = piv_point.get_piv_vector();
-    if (piv_vector) {
-      vector_magnitude = piv_vector->get_magnitude();
-      piv_vectors[counter++] = *piv_vector;
-      if (vector_magnitude > max_velocity_magnitude)
-        max_velocity_magnitude = vector_magnitude;
-    }
-  }
-  piv_vectors.resize(counter);
-  num_vectors = counter;
-}
-
-void MyArea::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor) {
+void MyAreaD::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVector& p, const double vector_scale_factor) {
 	
 	auto const x = p.get_x();
 	auto const y = p.get_y();
@@ -88,3 +85,5 @@ void MyArea::add_vector_graphic(Cairo::RefPtr<Cairo::Context> cr, PivEng::PivVec
 							 (y + vector_scale_factor * v) * axis_scale.y);
 	cr->stroke();
 }
+
+
