@@ -2,17 +2,9 @@
 
 namespace PivEng {
 
-PivPoint::PivPoint(int xCoord, int yCoord, PivOptions &options)
-    : // m_ccf(std::make_shared<CCF>(options.winHeight() + 1, options.winWidth()
-      // + 1)),
-      i(xCoord),
-      j(yCoord), m_peaksVector(options.numPeaks()),
+PivPoint::PivPoint(int xCoord, int yCoord, PivOptions &options) :
+      i(xCoord), j(yCoord), m_peaksVector(options.numPeaks()),
       m_dispsVec(options.numPeaks()) {}
-
-// CCF* PivPoint::get_ccf()
-// {
-// 	return m_ccf.get();
-// }
 
 std::unique_ptr<PivVector> PivPoint::get_piv_vector() {
   /* Search through the calculated displacements for the first valid one.
@@ -22,8 +14,6 @@ std::unique_ptr<PivVector> PivPoint::get_piv_vector() {
                         [](auto &d) { return d.is_valid(); });
 
   if (d != m_dispsVec.end()) {
-    // return std::make_unique<PivVector>(static_cast<double>(i),
-    // static_cast<double>(j), d->get_u(), d->get_v());
     return std::make_unique<PivVector>(static_cast<double>(i),
                                        static_cast<double>(j), *d);
   } else {

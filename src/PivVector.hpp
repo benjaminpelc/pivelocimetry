@@ -10,7 +10,7 @@ class PivVector {
 public:
   PivVector();
   PivVector(const double x0, const double y0, const double u0, const double v0);
-  PivVector(const double x0, const double y0, const Disp &disp_in);
+  PivVector(const double x0, const double y0, const Disp& disp_in);
   ~PivVector();
 
   double get_x() const;
