@@ -38,11 +38,11 @@ class MyAreaD : public Gtk::DrawingArea
 		double x_min, max_x_coord, y_min, max_y_coord;
 		double max_velocity_magnitude;
 
-		double const axis_padding_x = 0.025;
-		double const axis_padding_y = 0.025;
+		constexpr static double axis_padding_x = 0.025;
+		constexpr static double axis_padding_y = 0.025;
 
-		double const axis_relative_width = 1.0 - 2 * axis_padding_x;
-		double const axis_relative_height = 1.0 - 2 * axis_padding_y;
+		constexpr static double axis_relative_width = 1.0 - 2 * axis_padding_x;
+		constexpr static double axis_relative_height = 1.0 - 2 * axis_padding_y;
 
 		AxisScale axis_scale;
 
