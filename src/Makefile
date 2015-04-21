@@ -210,6 +210,30 @@ Grid.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Grid.cpp.s
 .PHONY : Grid.cpp.s
 
+GtkImage.o: GtkImage.cpp.o
+.PHONY : GtkImage.o
+
+# target to build an object file
+GtkImage.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/GtkImage.cpp.o
+.PHONY : GtkImage.cpp.o
+
+GtkImage.i: GtkImage.cpp.i
+.PHONY : GtkImage.i
+
+# target to preprocess a source file
+GtkImage.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/GtkImage.cpp.i
+.PHONY : GtkImage.cpp.i
+
+GtkImage.s: GtkImage.cpp.s
+.PHONY : GtkImage.s
+
+# target to generate assembly for a file
+GtkImage.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/GtkImage.cpp.s
+.PHONY : GtkImage.cpp.s
+
 IntMap.o: IntMap.cpp.o
 .PHONY : IntMap.o
 
@@ -234,29 +258,29 @@ IntMap.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/IntMap.cpp.s
 .PHONY : IntMap.cpp.s
 
-OcvImage.o: OcvImage.cpp.o
-.PHONY : OcvImage.o
+MyAreaD.o: MyAreaD.cpp.o
+.PHONY : MyAreaD.o
 
 # target to build an object file
-OcvImage.cpp.o:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.o
-.PHONY : OcvImage.cpp.o
+MyAreaD.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/MyAreaD.cpp.o
+.PHONY : MyAreaD.cpp.o
 
-OcvImage.i: OcvImage.cpp.i
-.PHONY : OcvImage.i
+MyAreaD.i: MyAreaD.cpp.i
+.PHONY : MyAreaD.i
 
 # target to preprocess a source file
-OcvImage.cpp.i:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.i
-.PHONY : OcvImage.cpp.i
+MyAreaD.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/MyAreaD.cpp.i
+.PHONY : MyAreaD.cpp.i
 
-OcvImage.s: OcvImage.cpp.s
-.PHONY : OcvImage.s
+MyAreaD.s: MyAreaD.cpp.s
+.PHONY : MyAreaD.s
 
 # target to generate assembly for a file
-OcvImage.cpp.s:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.s
-.PHONY : OcvImage.cpp.s
+MyAreaD.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/MyAreaD.cpp.s
+.PHONY : MyAreaD.cpp.s
 
 PivClap.o: PivClap.cpp.o
 .PHONY : PivClap.o
@@ -354,29 +378,29 @@ PivVector.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivVector.cpp.s
 .PHONY : PivVector.cpp.s
 
-PivView.o: PivView.cpp.o
-.PHONY : PivView.o
+PivViewGtk.o: PivViewGtk.cpp.o
+.PHONY : PivViewGtk.o
 
 # target to build an object file
-PivView.cpp.o:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.o
-.PHONY : PivView.cpp.o
+PivViewGtk.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivViewGtk.cpp.o
+.PHONY : PivViewGtk.cpp.o
 
-PivView.i: PivView.cpp.i
-.PHONY : PivView.i
+PivViewGtk.i: PivViewGtk.cpp.i
+.PHONY : PivViewGtk.i
 
 # target to preprocess a source file
-PivView.cpp.i:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.i
-.PHONY : PivView.cpp.i
+PivViewGtk.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivViewGtk.cpp.i
+.PHONY : PivViewGtk.cpp.i
 
-PivView.s: PivView.cpp.s
-.PHONY : PivView.s
+PivViewGtk.s: PivViewGtk.cpp.s
+.PHONY : PivViewGtk.s
 
 # target to generate assembly for a file
-PivView.cpp.s:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.s
-.PHONY : PivView.cpp.s
+PivViewGtk.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivViewGtk.cpp.s
+.PHONY : PivViewGtk.cpp.s
 
 SubPix.o: SubPix.cpp.o
 .PHONY : SubPix.o
@@ -498,6 +522,30 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+myarea.o: myarea.cpp.o
+.PHONY : myarea.o
+
+# target to build an object file
+myarea.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/myarea.cpp.o
+.PHONY : myarea.cpp.o
+
+myarea.i: myarea.cpp.i
+.PHONY : myarea.i
+
+# target to preprocess a source file
+myarea.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/myarea.cpp.i
+.PHONY : myarea.cpp.i
+
+myarea.s: myarea.cpp.s
+.PHONY : myarea.s
+
+# target to generate assembly for a file
+myarea.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/myarea.cpp.s
+.PHONY : myarea.cpp.s
+
 utils.o: utils.cpp.o
 .PHONY : utils.o
 
@@ -543,12 +591,15 @@ help:
 	@echo "... Grid.o"
 	@echo "... Grid.i"
 	@echo "... Grid.s"
+	@echo "... GtkImage.o"
+	@echo "... GtkImage.i"
+	@echo "... GtkImage.s"
 	@echo "... IntMap.o"
 	@echo "... IntMap.i"
 	@echo "... IntMap.s"
-	@echo "... OcvImage.o"
-	@echo "... OcvImage.i"
-	@echo "... OcvImage.s"
+	@echo "... MyAreaD.o"
+	@echo "... MyAreaD.i"
+	@echo "... MyAreaD.s"
 	@echo "... PivClap.o"
 	@echo "... PivClap.i"
 	@echo "... PivClap.s"
@@ -561,9 +612,9 @@ help:
 	@echo "... PivVector.o"
 	@echo "... PivVector.i"
 	@echo "... PivVector.s"
-	@echo "... PivView.o"
-	@echo "... PivView.i"
-	@echo "... PivView.s"
+	@echo "... PivViewGtk.o"
+	@echo "... PivViewGtk.i"
+	@echo "... PivViewGtk.s"
 	@echo "... SubPix.o"
 	@echo "... SubPix.i"
 	@echo "... SubPix.s"
@@ -579,6 +630,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... myarea.o"
+	@echo "... myarea.i"
+	@echo "... myarea.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"
