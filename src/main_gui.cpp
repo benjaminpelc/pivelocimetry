@@ -21,8 +21,6 @@
 
 #include "PivOptions.hpp"
 
-
-
 class ImageArea : public Gtk::DrawingArea {
 	public:
 		ImageArea() :
@@ -56,7 +54,6 @@ class ImageArea : public Gtk::DrawingArea {
 		};
 
 		void set_selected_image(const int im_no) { m_im_no = im_no;
-			std::cout << m_im_no << std::endl;
 			queue_draw(); };
 
 	protected:
@@ -110,7 +107,6 @@ class ImageViewer : public Gtk::VBox {
 
 		void on_image_slider_change()
 		{
-			std::cout << "image slider changed" << std::endl; 
 			auto im_no = static_cast<int>(m_image_select_scale.get_value());
 			m_image_area.set_selected_image(im_no);
 		};
@@ -164,12 +160,10 @@ class ImageFileChooser : public Gtk::Frame {
 	private:
 		void on_image_1_select()
 		{
-			std::cout << m_image1_chooser_button.get_filename() << std::endl;
 			m_image_area.load_image_1(m_image1_chooser_button.get_filename());
 		}
 		void on_image_2_select()
 		{
-			std::cout << m_image2_chooser_button.get_filename() << std::endl;
 			m_image_area.load_image_2(m_image2_chooser_button.get_filename());
 		}
 };
@@ -217,13 +211,13 @@ class WindowSizeOptions : public Gtk::Frame {
 	private:
 		void on_x_changed()
 		{
-			auto x = m_x_window_size_spin.get_value_as_int();
+			const auto x = m_x_window_size_spin.get_value_as_int();
 			m_piv_options.setWinWidth(x);
 		};
 
 		void on_y_changed()
 		{
-			auto y = m_y_window_size_spin.get_value_as_int();
+			const auto y = m_y_window_size_spin.get_value_as_int();
 			m_piv_options.setWinHeight(y);
 		};
 };
