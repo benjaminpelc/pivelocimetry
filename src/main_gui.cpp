@@ -33,7 +33,6 @@ class ImageArea : public Gtk::DrawingArea {
 		};
 		~ImageArea() override {};
 
-	
 		void load_image_1(const std::string fn) {
 			try {
 				m_image_1 = Gdk::Pixbuf::create_from_file(fn);
@@ -130,7 +129,7 @@ class ImageFileChooser : public Gtk::Frame {
 			m_image_filenames(),
 			m_image_area(image_area),
 			m_grid(),
-			m_label_image1("Image 1:"), m_label_image2("Image 2:"),
+			m_label_image1("Image 1:", Gtk::ALIGN_START), m_label_image2("Image 2:", Gtk::ALIGN_START),
 			m_image1_chooser_button(), m_image2_chooser_button()
 		{
 			set_label("Image Options");
@@ -142,9 +141,8 @@ class ImageFileChooser : public Gtk::Frame {
 			m_grid.attach(m_label_image2, 0, 1, 1, 1);
 			m_grid.attach(m_image2_chooser_button, 1, 1, 1, 1);
 			m_grid.set_border_width(5);
-
-			m_image1_chooser_button.set_border_width(10);
-			m_image2_chooser_button.set_border_width(10);
+			m_grid.set_row_spacing(5);
+			m_grid.set_column_spacing(5);
 
 			m_image1_chooser_button.signal_file_set().connect([this]{ on_image_1_select(); });
 			m_image2_chooser_button.signal_file_set().connect([this]{ on_image_2_select(); });
@@ -298,6 +296,7 @@ class AnalysisOptions : public Gtk::Frame {
 			set_label("Analysis Options");
 			set_label_align(Gtk::ALIGN_END);
 
+			m_grid.set_column_homogeneous(TRUE);
 			add(m_grid);
 			m_grid.set_border_width(5);
 			m_grid.set_row_spacing(5);
@@ -336,7 +335,7 @@ class LeftPanelMain : public Gtk::VBox {
 			m_analysis_options()
 		{
 			set_spacing(10);
-			pack_start(m_image_file_chooser);
+			pack_start(m_image_file_chooser, Gtk::PACK_SHRINK);
 			pack_start(m_analysis_options);
 		};
 		~LeftPanelMain() {};
@@ -371,7 +370,7 @@ class Application : public Gtk::Window {
 			m_main_box.pack_start(m_main_hbox, Gtk::PACK_EXPAND_WIDGET);
 			m_main_box.pack_start(m_statusbar, Gtk::PACK_SHRINK);
 
-			m_main_hbox.pack_start(m_left_main_panel);
+			m_main_hbox.pack_start(m_left_main_panel, Gtk::PACK_SHRINK);
 			m_main_hbox.pack_start(m_image_area, Gtk::PACK_EXPAND_WIDGET);
 
 			m_main_hbox.set_spacing(10);
@@ -389,7 +388,6 @@ class Application : public Gtk::Window {
 		Gtk::VBox m_main_box;
 		Gtk::Statusbar m_statusbar;
 		ImageViewer m_image_area;
-		// ImageArea m_image_area;
 	
 	private:
 		PivOptions& getPivOptions()
