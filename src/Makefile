@@ -231,6 +231,7 @@ Grid.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/Grid.cpp.s
 .PHONY : Grid.cpp.s
 
+<<<<<<< HEAD
 GtkImage.o: GtkImage.cpp.o
 
 .PHONY : GtkImage.o
@@ -258,6 +259,8 @@ GtkImage.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/GtkImage.cpp.s
 .PHONY : GtkImage.cpp.s
 
+=======
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 IntMap.o: IntMap.cpp.o
 
 .PHONY : IntMap.o
@@ -285,32 +288,47 @@ IntMap.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/IntMap.cpp.s
 .PHONY : IntMap.cpp.s
 
+<<<<<<< HEAD
 MyAreaD.o: MyAreaD.cpp.o
 
 .PHONY : MyAreaD.o
+=======
+OcvImage.o: OcvImage.cpp.o
+.PHONY : OcvImage.o
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 
 # target to build an object file
-MyAreaD.cpp.o:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/MyAreaD.cpp.o
-.PHONY : MyAreaD.cpp.o
+OcvImage.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.o
+.PHONY : OcvImage.cpp.o
 
+<<<<<<< HEAD
 MyAreaD.i: MyAreaD.cpp.i
 
 .PHONY : MyAreaD.i
+=======
+OcvImage.i: OcvImage.cpp.i
+.PHONY : OcvImage.i
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 
 # target to preprocess a source file
-MyAreaD.cpp.i:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/MyAreaD.cpp.i
-.PHONY : MyAreaD.cpp.i
+OcvImage.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.i
+.PHONY : OcvImage.cpp.i
 
+<<<<<<< HEAD
 MyAreaD.s: MyAreaD.cpp.s
 
 .PHONY : MyAreaD.s
+=======
+OcvImage.s: OcvImage.cpp.s
+.PHONY : OcvImage.s
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 
 # target to generate assembly for a file
-MyAreaD.cpp.s:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/MyAreaD.cpp.s
-.PHONY : MyAreaD.cpp.s
+OcvImage.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/OcvImage.cpp.s
+.PHONY : OcvImage.cpp.s
 
 PivClap.o: PivClap.cpp.o
 
@@ -420,32 +438,47 @@ PivVector.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivVector.cpp.s
 .PHONY : PivVector.cpp.s
 
+<<<<<<< HEAD
 PivViewGtk.o: PivViewGtk.cpp.o
 
 .PHONY : PivViewGtk.o
+=======
+PivView.o: PivView.cpp.o
+.PHONY : PivView.o
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 
 # target to build an object file
-PivViewGtk.cpp.o:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivViewGtk.cpp.o
-.PHONY : PivViewGtk.cpp.o
+PivView.cpp.o:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.o
+.PHONY : PivView.cpp.o
 
+<<<<<<< HEAD
 PivViewGtk.i: PivViewGtk.cpp.i
 
 .PHONY : PivViewGtk.i
+=======
+PivView.i: PivView.cpp.i
+.PHONY : PivView.i
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 
 # target to preprocess a source file
-PivViewGtk.cpp.i:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivViewGtk.cpp.i
-.PHONY : PivViewGtk.cpp.i
+PivView.cpp.i:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.i
+.PHONY : PivView.cpp.i
 
+<<<<<<< HEAD
 PivViewGtk.s: PivViewGtk.cpp.s
 
 .PHONY : PivViewGtk.s
+=======
+PivView.s: PivView.cpp.s
+.PHONY : PivView.s
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 
 # target to generate assembly for a file
-PivViewGtk.cpp.s:
-	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivViewGtk.cpp.s
-.PHONY : PivViewGtk.cpp.s
+PivView.cpp.s:
+	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/PivView.cpp.s
+.PHONY : PivView.cpp.s
 
 SubPix.o: SubPix.cpp.o
 
@@ -582,6 +615,7 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+<<<<<<< HEAD
 myarea.o: myarea.cpp.o
 
 .PHONY : myarea.o
@@ -609,6 +643,8 @@ myarea.cpp.s:
 	$(MAKE) -f CMakeFiles/bppiv.dir/build.make CMakeFiles/bppiv.dir/myarea.cpp.s
 .PHONY : myarea.cpp.s
 
+=======
+>>>>>>> parent of 117a2ce... Add consts to pivoptions
 utils.o: utils.cpp.o
 
 .PHONY : utils.o
@@ -657,15 +693,12 @@ help:
 	@echo "... Grid.o"
 	@echo "... Grid.i"
 	@echo "... Grid.s"
-	@echo "... GtkImage.o"
-	@echo "... GtkImage.i"
-	@echo "... GtkImage.s"
 	@echo "... IntMap.o"
 	@echo "... IntMap.i"
 	@echo "... IntMap.s"
-	@echo "... MyAreaD.o"
-	@echo "... MyAreaD.i"
-	@echo "... MyAreaD.s"
+	@echo "... OcvImage.o"
+	@echo "... OcvImage.i"
+	@echo "... OcvImage.s"
 	@echo "... PivClap.o"
 	@echo "... PivClap.i"
 	@echo "... PivClap.s"
@@ -678,9 +711,9 @@ help:
 	@echo "... PivVector.o"
 	@echo "... PivVector.i"
 	@echo "... PivVector.s"
-	@echo "... PivViewGtk.o"
-	@echo "... PivViewGtk.i"
-	@echo "... PivViewGtk.s"
+	@echo "... PivView.o"
+	@echo "... PivView.i"
+	@echo "... PivView.s"
 	@echo "... SubPix.o"
 	@echo "... SubPix.i"
 	@echo "... SubPix.s"
@@ -696,9 +729,6 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... myarea.o"
-	@echo "... myarea.i"
-	@echo "... myarea.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"

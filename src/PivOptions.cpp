@@ -85,19 +85,19 @@ int PivOptions::keyExistsToInt(
 PivOptions::~PivOptions() {}
 
 // Getters
-int PivOptions::winWidth() const { return m_winSize.first; }
+int PivOptions::winWidth() { return m_winSize.first; }
 
-int PivOptions::winHeight() const { return m_winSize.second; }
+int PivOptions::winHeight() { return m_winSize.second; }
 
-int PivOptions::olvpHoriz() const { return m_overlap.first; }
+int PivOptions::olvpHoriz() { return m_overlap.first; }
 
-int PivOptions::olvpVert() const { return m_overlap.second; }
+int PivOptions::olvpVert() { return m_overlap.second; }
 
-int PivOptions::numPeaks() const { return m_noPeaks; }
+int PivOptions::numPeaks() { return m_noPeaks; }
 
-int PivOptions::maxDispX() const { return m_maxDisp.first; }
+int PivOptions::maxDispX() { return m_maxDisp.first; }
 
-int PivOptions::maxDispY() const { return m_maxDisp.second; }
+int PivOptions::maxDispY() { return m_maxDisp.second; }
 
 std::pair<int, int> &PivOptions::winSize() { return m_winSize; }
 

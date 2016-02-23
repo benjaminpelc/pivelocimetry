@@ -18,13 +18,13 @@ public:
   ~PivOptions();
 
   // Getters
-  int winWidth() const;
-  int winHeight() const;
-  int olvpHoriz() const;
-  int olvpVert() const;
-  int numPeaks() const;
-  int maxDispX() const;
-  int maxDispY() const;
+  int winWidth();
+  int winHeight();
+  int olvpHoriz();
+  int olvpVert();
+  int numPeaks();
+  int maxDispX();
+  int maxDispY();
   std::pair<int, int> &winSize();
 
   // Setters
