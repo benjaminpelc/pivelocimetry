@@ -36,7 +36,8 @@ void gauss(const Mat2<double> &ccf, const Peak::PeaksVec &peaks,
      * logarithm of a negative correlation function element. Is it logical to
      * think
      * if a peak is invalid then all subsequent peaks will be invalid?  */
-    if (isnan(dx) || isnan(dy)) break;
+    if (std::isnan(dx) || std::isnan(dy))
+      break;
 
     d->set_displacement(dx, dy, true);
     p++, d++;

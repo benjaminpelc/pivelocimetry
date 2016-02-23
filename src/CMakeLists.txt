@@ -46,4 +46,4 @@ add_executable(${EXECUTABLE_NAME} ${SOURCES} )
 include_directories(${GTKMM_INCLUDE_DIRS})
 link_directories(${GTKMM_LIBRARY_DIRS})
 
-target_link_libraries(${EXECUTABLE_NAME} ${GTKMM_LIBRARIES})
+target_link_libraries(${EXECUTABLE_NAME} ${GTKMM_LIBRARIES} -lpthread)
