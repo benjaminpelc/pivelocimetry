@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>gtkmm-documentation - GNOME C++ bindings documentation</title>
+<meta name='generator' content='cgit v0.10.2'/>
+<meta name='robots' content='index, nofollow'/>
+<link rel='stylesheet' type='text/css' href='https://static.gnome.org/git.gnome.org/cgit-gnome.css'/>
+<link rel='shortcut icon' href='https://static.gnome.org/img/logo/foot-16.png'/>
+<link rel='alternate' title='Atom feed' href='https://git.gnome.org/browse/gtkmm-documentation/atom/examples/book/builder/basic/basic.glade?h=master' type='application/atom+xml'/>
+</head>
+<body>
+<div id="global_domain_bar">
+<div class="maxwidth">
+	<div class="tab">
+	<a class="root" href="https://www.gnome.org/">GNOME.org</a>
+	</div>
+</div>
+</div>
+
+<div id="page">
+    <div id="logo_bar" class="container_12">
+      <div id="logo" class="grid_3">
+        <a title="Go to home page" href="https://git.gnome.org/"><img src="https://static.gnome.org/img/gnome-git.png" alt="GNOME: Git Repository" /></a>
+      </div>
+
+      <div id="top_bar" class="grid_9">
+        <div class="left">
+          <div class="menu-globalnav-container">
+            <ul id="menu-globalnav" class="menu">
+              <li id="menu-item-1039" class=
+              "menu-item menu-item-type-post_type menu-item-object-page menu-item-1039">
+              <a href="https://git.gnome.org/">Home</a></li>
+
+              <li id="menu-item-1037" class=
+              "menu-item menu-item-type-post_type menu-item-object-page menu-item-1037">
+              <a href="https://wiki.gnome.org/Git">Git Help</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>
+<div id='cgit'><table id='header'>
+<tr>
+<td class='main'><a href='/browse/'>index</a> : <a title='gtkmm-documentation' href='/browse/gtkmm-documentation/'>gtkmm-documentation</a></td><td class='form'><form method='get' action=''>
+<select name='h' onchange='this.form.submit();'>
+<option value='gmenu'>gmenu</option>
+<option value='gtkapplication'>gtkapplication</option>
+<option value='gtkmm-2-22'>gtkmm-2-22</option>
+<option value='gtkmm-2-24'>gtkmm-2-24</option>
+<option value='gtkmm-3-2'>gtkmm-3-2</option>
+<option value='master' selected='selected'>master</option>
+</select> <input type='submit' name='' value='switch'/></form></td></tr>
+<tr><td class='sub'>GNOME C++ bindings documentation</td><td class='sub right'></td></tr></table>
+<table class='tabs'><tr><td>
+<a href='/browse/gtkmm-documentation/'>summary</a><a href='/browse/gtkmm-documentation/refs/'>refs</a><a href='/browse/gtkmm-documentation/log/examples/book/builder/basic/basic.glade'>log</a><a class='active' href='/browse/gtkmm-documentation/tree/examples/book/builder/basic/basic.glade'>tree</a><a href='/browse/gtkmm-documentation/commit/examples/book/builder/basic/basic.glade'>commit</a><a href='/browse/gtkmm-documentation/diff/examples/book/builder/basic/basic.glade'>diff</a><a href='/browse/gtkmm-documentation/stats/examples/book/builder/basic/basic.glade'>stats</a></td><td class='form'><form class='right' method='get' action='/browse/gtkmm-documentation/log/examples/book/builder/basic/basic.glade'>
+<select name='qt'>
+<option value='grep'>log msg</option>
+<option value='author'>author</option>
+<option value='committer'>committer</option>
+<option value='range'>range</option>
+</select>
+<input class='txt' type='text' size='10' name='q' value=''/>
+<input type='submit' value='search'/>
+</form>
+</td></tr></table>
+<div class='path'>path: <a href='/browse/gtkmm-documentation/tree/'>root</a>/<a href='/browse/gtkmm-documentation/tree/examples'>examples</a>/<a href='/browse/gtkmm-documentation/tree/examples/book'>book</a>/<a href='/browse/gtkmm-documentation/tree/examples/book/builder'>builder</a>/<a href='/browse/gtkmm-documentation/tree/examples/book/builder/basic'>basic</a>/<a href='/browse/gtkmm-documentation/tree/examples/book/builder/basic/basic.glade'>basic.glade</a></div><div class='content'>blob: b78a8731aa411f3c8449dd86d91803ccb7270b9f (<a href='/browse/gtkmm-documentation/plain/examples/book/builder/basic/basic.glade'>plain</a>)
+<table summary='blob content' class='blob'>
+<tr><td class='linenumbers'><pre><a id='n1' href='#n1'>1</a>
+<a id='n2' href='#n2'>2</a>
+<a id='n3' href='#n3'>3</a>
+<a id='n4' href='#n4'>4</a>
+<a id='n5' href='#n5'>5</a>
+<a id='n6' href='#n6'>6</a>
+<a id='n7' href='#n7'>7</a>
+<a id='n8' href='#n8'>8</a>
+<a id='n9' href='#n9'>9</a>
+<a id='n10' href='#n10'>10</a>
+<a id='n11' href='#n11'>11</a>
+<a id='n12' href='#n12'>12</a>
+<a id='n13' href='#n13'>13</a>
+<a id='n14' href='#n14'>14</a>
+<a id='n15' href='#n15'>15</a>
+<a id='n16' href='#n16'>16</a>
+<a id='n17' href='#n17'>17</a>
+<a id='n18' href='#n18'>18</a>
+<a id='n19' href='#n19'>19</a>
+<a id='n20' href='#n20'>20</a>
+<a id='n21' href='#n21'>21</a>
+<a id='n22' href='#n22'>22</a>
+<a id='n23' href='#n23'>23</a>
+<a id='n24' href='#n24'>24</a>
+<a id='n25' href='#n25'>25</a>
+<a id='n26' href='#n26'>26</a>
+<a id='n27' href='#n27'>27</a>
+<a id='n28' href='#n28'>28</a>
+<a id='n29' href='#n29'>29</a>
+<a id='n30' href='#n30'>30</a>
+<a id='n31' href='#n31'>31</a>
+<a id='n32' href='#n32'>32</a>
+<a id='n33' href='#n33'>33</a>
+<a id='n34' href='#n34'>34</a>
+<a id='n35' href='#n35'>35</a>
+<a id='n36' href='#n36'>36</a>
+<a id='n37' href='#n37'>37</a>
+<a id='n38' href='#n38'>38</a>
+<a id='n39' href='#n39'>39</a>
+<a id='n40' href='#n40'>40</a>
+<a id='n41' href='#n41'>41</a>
+<a id='n42' href='#n42'>42</a>
+<a id='n43' href='#n43'>43</a>
+<a id='n44' href='#n44'>44</a>
+<a id='n45' href='#n45'>45</a>
+<a id='n46' href='#n46'>46</a>
+<a id='n47' href='#n47'>47</a>
+<a id='n48' href='#n48'>48</a>
+<a id='n49' href='#n49'>49</a>
+<a id='n50' href='#n50'>50</a>
+<a id='n51' href='#n51'>51</a>
+<a id='n52' href='#n52'>52</a>
+<a id='n53' href='#n53'>53</a>
+<a id='n54' href='#n54'>54</a>
+<a id='n55' href='#n55'>55</a>
+<a id='n56' href='#n56'>56</a>
+<a id='n57' href='#n57'>57</a>
+<a id='n58' href='#n58'>58</a>
+<a id='n59' href='#n59'>59</a>
+<a id='n60' href='#n60'>60</a>
+<a id='n61' href='#n61'>61</a>
+<a id='n62' href='#n62'>62</a>
+<a id='n63' href='#n63'>63</a>
+</pre></td>
+<td class='lines'><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!-- Generated with glade 3.16.1 --&gt;
+&lt;interface&gt;
+  &lt;requires lib=&quot;gtk+&quot; version=&quot;3.0&quot;/&gt;
+  &lt;object class=&quot;GtkDialog&quot; id=&quot;DialogBasic&quot;&gt;
+    &lt;property name=&quot;can_focus&quot;&gt;False&lt;/property&gt;
+    &lt;property name=&quot;title&quot; translatable=&quot;yes&quot;&gt;Basic Builder example&lt;/property&gt;
+    &lt;property name=&quot;default_width&quot;&gt;250&lt;/property&gt;
+    &lt;property name=&quot;default_height&quot;&gt;100&lt;/property&gt;
+    &lt;property name=&quot;type_hint&quot;&gt;normal&lt;/property&gt;
+    &lt;child internal-child=&quot;vbox&quot;&gt;
+      &lt;object class=&quot;GtkBox&quot; id=&quot;dialog-vbox2&quot;&gt;
+        &lt;property name=&quot;visible&quot;&gt;True&lt;/property&gt;
+        &lt;property name=&quot;can_focus&quot;&gt;False&lt;/property&gt;
+        &lt;property name=&quot;orientation&quot;&gt;vertical&lt;/property&gt;
+        &lt;child internal-child=&quot;action_area&quot;&gt;
+          &lt;object class=&quot;GtkButtonBox&quot; id=&quot;dialog-action_area2&quot;&gt;
+            &lt;property name=&quot;visible&quot;&gt;True&lt;/property&gt;
+            &lt;property name=&quot;can_focus&quot;&gt;False&lt;/property&gt;
+            &lt;property name=&quot;layout_style&quot;&gt;end&lt;/property&gt;
+            &lt;child&gt;
+              &lt;object class=&quot;GtkButton&quot; id=&quot;quit_button&quot;&gt;
+                &lt;property name=&quot;label&quot;&gt;_Quit&lt;/property&gt;
+                &lt;property name=&quot;visible&quot;&gt;True&lt;/property&gt;
+                &lt;property name=&quot;can_focus&quot;&gt;True&lt;/property&gt;
+                &lt;property name=&quot;can_default&quot;&gt;True&lt;/property&gt;
+                &lt;property name=&quot;receives_default&quot;&gt;False&lt;/property&gt;
+                &lt;property name=&quot;use_underline&quot;&gt;True&lt;/property&gt;
+              &lt;/object&gt;
+              &lt;packing&gt;
+                &lt;property name=&quot;expand&quot;&gt;False&lt;/property&gt;
+                &lt;property name=&quot;fill&quot;&gt;False&lt;/property&gt;
+                &lt;property name=&quot;position&quot;&gt;0&lt;/property&gt;
+              &lt;/packing&gt;
+            &lt;/child&gt;
+          &lt;/object&gt;
+          &lt;packing&gt;
+            &lt;property name=&quot;expand&quot;&gt;False&lt;/property&gt;
+            &lt;property name=&quot;fill&quot;&gt;True&lt;/property&gt;
+            &lt;property name=&quot;pack_type&quot;&gt;end&lt;/property&gt;
+            &lt;property name=&quot;position&quot;&gt;0&lt;/property&gt;
+          &lt;/packing&gt;
+        &lt;/child&gt;
+        &lt;child&gt;
+          &lt;object class=&quot;GtkLabel&quot; id=&quot;label1&quot;&gt;
+            &lt;property name=&quot;visible&quot;&gt;True&lt;/property&gt;
+            &lt;property name=&quot;can_focus&quot;&gt;False&lt;/property&gt;
+            &lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;This is a basic Glade and Gtk::Builder example&lt;/property&gt;
+            &lt;property name=&quot;wrap&quot;&gt;True&lt;/property&gt;
+          &lt;/object&gt;
+          &lt;packing&gt;
+            &lt;property name=&quot;expand&quot;&gt;True&lt;/property&gt;
+            &lt;property name=&quot;fill&quot;&gt;True&lt;/property&gt;
+            &lt;property name=&quot;position&quot;&gt;1&lt;/property&gt;
+          &lt;/packing&gt;
+        &lt;/child&gt;
+      &lt;/object&gt;
+    &lt;/child&gt;
+    &lt;action-widgets&gt;
+      &lt;action-widget response=&quot;0&quot;&gt;quit_button&lt;/action-widget&gt;
+    &lt;/action-widgets&gt;
+  &lt;/object&gt;
+&lt;/interface&gt;
+</code></pre></td></tr></table>
+</div> <!-- class=content -->
+</div>
+  <div id="footer_community"></div>
+
+  <div id="footer_grass"></div>
+
+  <div id="footer">
+    <div class="container_13" id="container_12">
+      <div class="links grid_9">
+        <div class="menu-footer-container">
+          <ul id="menu-footer" class="menu">
+            <li id="menu-item-1048" class=
+            "menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-1048">
+            <a href="/">The GNOME Project</a>
+
+              <ul class="sub-menu">
+                <li id="menu-item-1049" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-1049">
+                <a href="https://www.gnome.org/about/">About Us</a></li>
+
+                <li id="menu-item-1050" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-1050">
+                <a href="https://www.gnome.org/get-involved/">Get Involved</a></li>
+
+                <li id="menu-item-1051" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-1051">
+                <a href="https://www.gnome.org/teams/">Teams</a></li>
+
+                <li id="menu-item-1053" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-1053">
+                <a href="https://www.gnome.org/support-gnome/">Support GNOME</a></li>
+
+                <li id="menu-item-1054" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-1054">
+                <a href="https://www.gnome.org/contact/">Contact Us</a></li>
+
+                <li id="menu-item-2246" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-2246">
+                <a href="https://www.gnome.org/foundation/">The GNOME Foundation</a></li>
+              </ul>
+            </li>
+
+            <li id="menu-item-1047" class=
+            "menu-item menu-item-type-custom menu-item-object-custom menu-item-1047">
+              <a href="#">Resources</a>
+
+              <ul class="sub-menu">
+                <li id="menu-item-1055" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1055">
+                <a href="https://developer.gnome.org">Developer Center</a></li>
+
+                <li id="menu-item-1056" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1056">
+                <a href="https://help.gnome.org">Documentation</a></li>
+
+                <li id="menu-item-1057" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1057">
+                <a href="https://wiki.gnome.org">Wiki</a></li>
+
+                <li id="menu-item-1058" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1058">
+                <a href="https://mail.gnome.org/mailman/listinfo">Mailing Lists</a></li>
+
+                <li id="menu-item-1059" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1059">
+                <a href="https://wiki.gnome.org/GnomeIrcChannels">IRC Channels</a></li>
+
+                <li id="menu-item-1060" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1060">
+                <a href="https://bugzilla.gnome.org/">Bug Tracker</a></li>
+
+                <li id="menu-item-1061" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1061">
+                <a href="https://git.gnome.org/browse/">Development Code</a></li>
+
+                <li id="menu-item-1062" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1062">
+                <a href="https://wiki.gnome.org/Jhbuild">Build Tool</a></li>
+              </ul>
+            </li>
+
+            <li id="menu-item-1046" class=
+            "menu-item menu-item-type-custom menu-item-object-custom menu-item-1046">
+              <a href="/news">News</a>
+
+              <ul class="sub-menu">
+                <li id="menu-item-1063" class=
+                "menu-item menu-item-type-post_type menu-item-object-page menu-item-1063">
+                <a href="https://www.gnome.org/press/">Press Releases</a></li>
+
+                <li id="menu-item-1064" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1064">
+                <a href="https://www.gnome.org/start/stable">Latest Release</a></li>
+
+                <li id="menu-item-1065" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1065">
+                <a href="https://planet.gnome.org">Planet GNOME</a></li>
+
+                <li id="menu-item-1067" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1067">
+                <a href="https://news.gnome.org">Development News</a></li>
+
+                <li id="menu-item-1068" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1068">
+                <a href="https://identi.ca/gnome">Identi.ca</a></li>
+
+                <li id="menu-item-1069" class=
+                "menu-item menu-item-type-custom menu-item-object-custom menu-item-1069">
+                <a href="https://twitter.com/gnome">Twitter</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="footnotes" class="grid_9">
+<p>Copyright &copy; 2004&ndash;2015, <a href="https://www.gnome.org/">The GNOME Project</a>.</p>
+<br />
+  <small><p>Hosted by <a href="http://www.redhat.com/">Red Hat</a>. 
+   Powered by <a href="http://hjemli.net/git/cgit/">cgit</a>.</p>
+  <p>To follow the commits, subscribe to <a href="http://mail.gnome.org/mailman/listinfo/commits-list">commits-list</a>. (can be limited to specific modules)</p></small>
+</div>
+    </div>
+  </div>
+</div> <!-- id=cgit -->
+</body>
+</html>
