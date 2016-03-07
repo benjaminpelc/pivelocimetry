@@ -20,7 +20,7 @@ void find_ccf_peaks(std::vector<Peak> &peaks_container, const Mat2<double> &ccf,
                     const int max_disp) {
   /* FindPeaks
    * Find peaks in the correlation function. Pass a vector of peak objects to
-   *store
+   * store
    * the results. The number of peaks searched for is dictated by the length of
    * the peak vector passed as an argument.
    *

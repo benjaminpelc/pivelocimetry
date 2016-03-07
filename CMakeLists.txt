@@ -43,7 +43,7 @@ set(SOURCES
 		./src/XCorr2.cpp
 		./src/main.cpp
 		./src/PivViewGtk.cpp
-		./src/myarea.cpp
+		# ./src/myarea.cpp
 		./src/MyAreaD.cpp
 	)
 
