@@ -2,10 +2,12 @@
 .*.swp
 .*/.*.swp
 
-bin/CMakeFiles/
+build/CMakeFiles/
+build/CMakeFiles/bppiv.dir/src
+build/CMakeFiles
 src/CMakeFiles/
 
-bin/*
+build/*
 main_gui
 bin/bppiv
 dump
