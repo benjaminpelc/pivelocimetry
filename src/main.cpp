@@ -13,7 +13,6 @@
 
 int main(int argc, char **argv) {
 
-
 	auto ggg = new Gtk::Main(0,0,false);
 
   // Parse command line arguments
