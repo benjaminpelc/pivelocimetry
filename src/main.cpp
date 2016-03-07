@@ -11,7 +11,6 @@
 #include <gtkmm.h>
 #include <cmath>
 #include <memory>
-// #include <SFML/Graphics.hpp>
 
 int main(int argc, char **argv) {
 
