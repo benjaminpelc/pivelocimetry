@@ -8,6 +8,8 @@
 #include "DoPost.hpp"
 // #include "PivView.hpp"
 #include "PivViewGtk.hpp"
+#include "cli_args.hpp"
+
 #include <gtkmm.h>
 #include <cmath>
 #include <memory>
@@ -16,14 +18,18 @@ int main(int argc, char **argv) {
 
 
 	auto ggg = new Gtk::Main(0,0,false);
+
   /* Parse command line arguments */
-  const auto clArgs = PivClap(argc, argv);
+  // const auto clArgs = PivClap(argc, argv);
+
+	CliArgs args(argc, argv);
 
   /* Check command line args for 'c' flag and a config file path */
   auto cfgFilePath =
       std::string("/home/ben/Dropbox/Development/C++/BPPIV/config/default.cfg");
-  if (clArgs.userConfig())
-    cfgFilePath = clArgs.configFile();
+
+	// if (clArgs.userConfig())
+  //   cfgFilePath = clArgs.configFile();
 
   /* Load options from config file */
   auto analysisOptions = PivOptions(cfgFilePath);
@@ -56,18 +62,18 @@ int main(int argc, char **argv) {
   auto piv = PivEng::DoPiv(analysisOptions, imPair, g);
 
   /* Do some post processing */
-  if (clArgs.doPostProc())
+  if (args.getPostProcessingFlag())
     auto pp = PivEng::DoPost(piv.pointsVector(), g.numX());
 
   /* Check command line args and print to screen/write to file as necessary */
-  if (clArgs.viewVectors())
+  if (args.getViewVectorsFlag())
     PivViewGtk pv(piv.pointsVector());
     // PivView pv(piv.pointsVector());
 
-  if (clArgs.writeResults())
-    piv.write(clArgs.writeFile());
+  if (!args.getOutputFilePath().empty())
+    piv.write(args.getOutputFilePath());
 
-  if (clArgs.printResults())
+  if (args.getPrintResultsFlag())
     piv.print();
 
 	delete ggg;
