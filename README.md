@@ -1,4 +1,4 @@
-# <NAME>PIV
+# <NAME>Particle Image Velocimetry
 
 ## Contents
 1. Introduction
