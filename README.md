@@ -18,7 +18,7 @@ make
 ```
 
 ## Usage Instructions
-After compiling and from the 'build' directory run `./bppib`
+After compiling and from the 'build' directory run `./piv`
 
 ## References
 [1] Huang, H. and Dabiri, D. and Gharib, M. (1997) *On errors of digital particle image velocimetry*. Measurement Science and Technology, 8 (12). pp. 1427-1440. ISSN 0957-0233.
