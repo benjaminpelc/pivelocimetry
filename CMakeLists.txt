@@ -26,7 +26,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTKMM REQUIRED gtkmm-3.0)
 
 set(SOURCES
-		./lib/Clap.cpp
+		# ./lib/Clap.cpp
 		./src/find_peaks.cpp
 		./src/utils.cpp
 		./src/Disp.cpp
@@ -35,7 +35,7 @@ set(SOURCES
 		./src/Grid.cpp
 		./src/IntMap.cpp
 		./src/GtkImage.cpp
-		./src/PivClap.cpp
+		# ./src/PivClap.cpp
 		./src/PivOptions.cpp
 		./src/PivPoint.cpp
 		./src/SubPix.cpp

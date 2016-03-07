@@ -3,7 +3,7 @@
 #include "IntMap.hpp"
 // #include "OcvImage.hpp"
 #include "GtkImage.hpp"
-#include "PivClap.hpp"
+// #include "PivClap.hpp"
 #include "PivOptions.hpp"
 #include "DoPost.hpp"
 // #include "PivView.hpp"
