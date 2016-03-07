@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   // If a custom config file is specified, load it. If not, use the default
   // configuration
   auto cfgFilePath =
-      std::string("/home/ben/Dropbox/Development/C++/BPPIV/config/default.cfg");
+      std::string("../config/default.cfg");
 
   if (!args.getConfigFilePath().empty())
     cfgFilePath = args.getConfigFilePath();
