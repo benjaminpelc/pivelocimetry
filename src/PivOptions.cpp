@@ -4,9 +4,7 @@
 PivOptions::PivOptions()
     : m_noPeaks(3), m_overlap(0, 0), m_winSize(16, 16), m_maxDisp(7, 7) {}
 
-/*
- * Constructor for when given a map of key value pairs
- */
+// Constructor for when given a map of key value pairs
 PivOptions::PivOptions(std::unordered_map<std::string, std::string> optionMap) {
   /* Check for window size */
   m_winSize.first = keyExistsToInt(optionMap, "interrogation_window_x", 16);
@@ -26,6 +24,7 @@ PivOptions::PivOptions(std::unordered_map<std::string, std::string> optionMap) {
                                     floor(m_winSize.second / 2) - 1);
 }
 
+// Constructor given the location of a custom configuration file
 PivOptions::PivOptions(std::string fn) {
   std::ifstream configFile(fn);
   std::string line, k, v;
@@ -42,22 +41,25 @@ PivOptions::PivOptions(std::string fn) {
     }
   }
   configFile.close();
-  /* Check for window size */
+
+  // Check for window size
   m_winSize.first = keyExistsToInt(optionMap, "interrogation_window_x", 16);
   m_winSize.second = keyExistsToInt(optionMap, "interrogation_window_y", 16);
 
-  /* Check for overlap */
+  // Check for overlap
   m_overlap.first = keyExistsToInt(optionMap, "window_overlap_x", 0);
   m_overlap.second = keyExistsToInt(optionMap, "window_overlap_y", 0);
 
-  /* Check for number of correlation peaks to find */
+  // Check for number of correlation peaks to find
   m_noPeaks = keyExistsToInt(optionMap, "num_ccf_peaks", 3);
 
-  /* Max displacements */
+  // Max displacements
   m_maxDisp.first = keyExistsToInt(optionMap, "max_displacement_x",
                                    floor(m_winSize.first / 2) - 1);
   m_maxDisp.second = keyExistsToInt(optionMap, "max_displacement_y",
                                     floor(m_winSize.second / 2) - 1);
+
+  print();
 }
 
 int PivOptions::findColon(const std::string &str) {
@@ -67,16 +69,17 @@ int PivOptions::findColon(const std::string &str) {
   return colon > 0 ? colon : 0;
 }
 
+// If the value of the map with key key is an empty string then
+// return a default integer otherwise convert the string to an
+// integer.
+//
+// todo:
+// 1) Add some checking, if string conversion is unsuccessful return
+// 	  the default integer.
 int PivOptions::keyExistsToInt(
     std::unordered_map<std::string, std::string> &optMap, std::string key,
-    int defaultVal) {
-  /* If the value of the map with key key is an empty string then
-   * return a default integer otherwise convert the string to an
-   * integer.
-   *
-   * todo:
-   * 1) Add some checking, if string conversion is unsuccessful return
-   * 	  the default integer. */
+    int defaultVal)
+{
   std::string &entry = optMap[key];
   return !entry.empty() ? std::stoi(entry) : defaultVal;
 }

@@ -29,15 +29,12 @@ int main(int argc, char **argv) {
   // Load options from config file
   auto analysisOptions = PivOptions(cfgFilePath);
 
-  // auto im1FilePath =
-  //     std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/1.bmp"),
-  //      im2FilePath =
-  //          std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/2.bmp");
+  auto im1FilePath = std::string("../img/1.bmp"),
+       im2FilePath = std::string("../img/2.bmp");
 
-  auto im1FilePath =
-  std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001a.tif"),
-  	   im2FilePath =
-  std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001b.tif");
+  // auto im1FilePath = std::string("../img/A001a.tif"),
+  // 	   im2FilePath = std::string("../img/A001b.tif");
+
 
   // Load a raw images and extract pixel intensity maps
   std::unique_ptr<IntMappable> rawIm1 = std::make_unique<GtkBufImage>(im1FilePath),

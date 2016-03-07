@@ -11,7 +11,8 @@ std::unique_ptr<PivVector> PivPoint::get_piv_vector() {
    * If a valid displacement is found, return a pointer to a new displacement
    * vector object. If no valid displacements are found return a null pointer */
   auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(),
-                        [](auto &d) { return d.is_valid(); });
+                        [](auto &d) { return d.is_valid(); }
+                       );
 
   if (d != m_dispsVec.end()) {
     return std::make_unique<PivVector>(static_cast<double>(i),
@@ -21,9 +22,13 @@ std::unique_ptr<PivVector> PivPoint::get_piv_vector() {
   }
 }
 
-Peak::PeaksVec &PivPoint::peaks() { return m_peaksVector; }
+Peak::PeaksVec &PivPoint::peaks() {
+  return m_peaksVector;
+}
 
-Disp::DispVec &PivPoint::dispsVec() { return m_dispsVec; }
+Disp::DispVec &PivPoint::dispsVec() {
+  return m_dispsVec;
+}
 
 Disp &PivPoint::primaryDisp() {
   // auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(), [](auto& d){
