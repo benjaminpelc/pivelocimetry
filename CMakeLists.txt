@@ -16,9 +16,7 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif()
 
 # Define sources and executable name
-set(EXECUTABLE_NAME "bppiv")
-
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "./bin/")
+set(EXECUTABLE_NAME "piv")
 
 include_directories(include)
 
@@ -26,7 +24,6 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTKMM REQUIRED gtkmm-3.0)
 
 set(SOURCES
-		# ./lib/Clap.cpp
 		./src/find_peaks.cpp
 		./src/utils.cpp
 		./src/Disp.cpp
@@ -35,7 +32,6 @@ set(SOURCES
 		./src/Grid.cpp
 		./src/IntMap.cpp
 		./src/GtkImage.cpp
-		# ./src/PivClap.cpp
 		./src/PivOptions.cpp
 		./src/PivPoint.cpp
 		./src/SubPix.cpp
