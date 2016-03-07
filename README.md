@@ -4,15 +4,11 @@
 
 A C++ PIV implementation utilizing the Gonzales[1] normalized cross-correlation algorithm.
 
-## Application Overview
+## Build
 
-1. Application front end
-2. PIV 
+From the base directory:
+```cd build
+cmake ..
+make```
 
-  * Image pre-processing
-  * PIV vector calculation
-  * Vector validation
-
-3. Vector visualisation
-
-[1] GNZ 
+[1] GNZ
