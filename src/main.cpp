@@ -16,19 +16,18 @@ int main(int argc, char **argv) {
 
 	auto ggg = new Gtk::Main(0,0,false);
 
-  /* Parse command line arguments */
-  // const auto clArgs = PivClap(argc, argv);
-
+  // Parse command line arguments
 	CliArgs args(argc, argv);
 
-  /* Check command line args for 'c' flag and a config file path */
+  // If a custom config file is specified, load it. If not, use the default
+  // configuration
   auto cfgFilePath =
       std::string("/home/ben/Dropbox/Development/C++/BPPIV/config/default.cfg");
 
-	// if (clArgs.userConfig())
-  //   cfgFilePath = clArgs.configFile();
+  if (!args.getConfigFilePath().empty())
+    cfgFilePath = args.getConfigFilePath();
 
-  /* Load options from config file */
+  // Load options from config file
   auto analysisOptions = PivOptions(cfgFilePath);
 
   // auto im1FilePath =
@@ -41,38 +40,42 @@ int main(int argc, char **argv) {
   	   im2FilePath =
   std::string("/home/ben/Dropbox/Development/C++/BPPIV/img/A001b.tif");
 
-  /* Load a raw images and extract pixel intensity maps */
+  // Load a raw images and extract pixel intensity maps
   std::unique_ptr<IntMappable> rawIm1 = std::make_unique<GtkBufImage>(im1FilePath),
                                rawIm2 = std::make_unique<GtkBufImage>(im2FilePath);
 
-  /* Extract pixel intensity maps */
+  // Extract pixel intensity maps
   auto i1 = IntMap(rawIm1);
   auto i2 = IntMap(rawIm2);
 
-  /* Box images in a pair for easy handling */
+  // Box images in a pair for easy handling
   IntMap::Pair imPair{&i1, &i2};
 
-  /* Create a grid */
+  // Create a grid of image coordinates where vectors will be calculated
   auto g = PivEng::Grid(analysisOptions, i1);
 
-  /* We have options, images and a grid, now do some PIV */
+  // We have options, images and a grid, now do some PIV
   auto piv = PivEng::DoPiv(analysisOptions, imPair, g);
 
-  /* Do some post processing */
+  // Do some post processing
   if (args.getPostProcessingFlag())
     auto pp = PivEng::DoPost(piv.pointsVector(), g.numX());
 
-  /* Check command line args and print to screen/write to file as necessary */
+  // Check command line args and print to screen/write to file as necessary
   if (args.getViewVectorsFlag())
     PivViewGtk pv(piv.pointsVector());
     // PivView pv(piv.pointsVector());
 
+  // Save vectors to file if an output file is specified
   if (!args.getOutputFilePath().empty())
     piv.write(args.getOutputFilePath());
 
+  // Print results to STDOUT if print flag is selected
   if (args.getPrintResultsFlag())
     piv.print();
 
+  // Clean up
 	delete ggg;
+
   return 0;
 }
