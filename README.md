@@ -6,6 +6,34 @@
 3. Usage Instructions
 4. References
 
+## Repository Directory Structure
+<pre>
+├── build
+|     binaries and CMakeFiles
+|
+├── config
+|     configuration files containing PIV analysis
+|     options.
+|
+├── img
+|     source images to do PIV analysis on
+|
+├── include
+|     C++ header files
+|
+├── lib
+|     external libraries
+|
+├── prof
+|     profiling files
+|
+├── src
+|     C++ source files
+|
+└── tests
+      C++ source test files
+</pre>
+
 ## Introduction
 A C++ PIV implementation utilizing the Gonzalez [1, 2] normalized cross-correlation algorithm.
 
