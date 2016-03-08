@@ -4,7 +4,7 @@
 // and replace with interpolated ones.
 //
 // Author: Benjamin Pelc <pelc.benjamin@gmail.com>
-// Date created: 
+// Date created:
 
 #include "DoPost.hpp"
 
@@ -40,10 +40,10 @@ DoPost::DoPost(std::vector<PivEng::PivPoint> &pointsVector, int grid_cols,
       auto u_info = get_neighbours_info(u_neighbours, current_disp->get_u());
       auto v_info = get_neighbours_info(v_neighbours, current_disp->get_v());
 
-      /* Check if the normalised fluctuation value exceeds the threshold
-       * value (typically 2.0). If so, flag the displacement as invalid.
-       * Itterate through displacements calculated from subsequant CCF peaks
-       * if this displacement is also out of range, flag as invalid */
+       // Check if the normalised fluctuation value exceeds the threshold
+       // value (typically 2.0). If so, flag the displacement as invalid.
+       // Itterate through displacements calculated from subsequant CCF peaks
+       // if this displacement is also out of range, flag as invalid.
       if (u_info.test_value() > threshold || v_info.test_value() > threshold) {
         auto &dvs = pointsVector[idx_i].dispsVec();
         mark_invalid_check_lower_peaks(current_disp, u_info, v_info, dvs,

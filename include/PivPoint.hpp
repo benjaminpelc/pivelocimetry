@@ -60,7 +60,6 @@ public:
   int i, j;
 
 private:
-  // CCF::Sptr m_ccf;
   Peak::PeaksVec m_peaksVector;
   Disp::DispVec m_dispsVec;
 };
