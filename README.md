@@ -3,6 +3,8 @@
 ## Introduction
 A C++ PIV implementation utilizing the Gonzalez [1, 2] normalized spatial cross-correlation algorithm. The cross-correlation algorithm implementation can be found in 'src/XCorr2.cpp'. 
 
+N.B. Top level class and function/method comments are written in the header files stored in the 'include' directory. These comments are not repeated in the implementation files to avoid divergence. 
+
 ## Repository Directory Structure
 <pre>
 ├── build
