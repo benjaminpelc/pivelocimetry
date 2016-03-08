@@ -1,5 +1,8 @@
 # <NAME>Particle Image Velocimetry
 
+## Introduction
+A C++ PIV implementation utilizing the Gonzalez [1, 2] normalized cross-correlation algorithm.
+
 ## Repository Directory Structure
 <pre>
 ├── build
@@ -27,9 +30,6 @@
 └── tests
       C++ source test files
 </pre>
-
-## Introduction
-A C++ PIV implementation utilizing the Gonzalez [1, 2] normalized cross-correlation algorithm.
 
 ## Build Instructions
 ### Dependencies
