@@ -15,6 +15,8 @@ IntMap::IntMap(IntMappable *raw) : Mat2<uint16_t>(raw->height(), raw->width()) {
   unsigned int wdth = raw->width();
   unsigned int height = raw->height();
 
+  // Loop through each element of raw and copy the pixel intensities to this
+  // IntMap
   for (size_t j = 0; j < height; j++) {
     for (size_t i = 0; i < wdth; i++) {
       setElem((j * wdth) + i, raw->pixelInt(j, i));

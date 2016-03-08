@@ -1,6 +1,6 @@
 // Grid.cpp
 // Implementation of Grid class. Generate a grid of (x, y) coordinate points at
-// which vectors will be calculated. 
+// which vectors will be calculated.
 //
 // Author: Benjamin Pelc <pelc.benjamin@gmail.com>
 // Date created:
@@ -14,9 +14,10 @@ Grid::Grid(PivOptions &config, IntMap &image) : m_ptsX(), m_ptsY(), m_coords() {
   const auto winW = config.winWidth(), winH = config.winHeight();
   const auto ovlpX = config.olvpHoriz(), ovlpY = config.olvpVert();
 
-  auto num_points_on_axis =
-      [](const int imDim, const int winDim, const int olp)
-          -> int { return (imDim - winDim) / (winDim - olp) + 1; };
+  auto num_points_on_axis = [](const int imDim, const int winDim,
+                               const int olp) -> int {
+    return (imDim - winDim) / (winDim - olp) + 1;
+  };
 
   m_noX = num_points_on_axis(imW, winW, ovlpX);
   m_noY = num_points_on_axis(imH, winH, ovlpY);
@@ -25,7 +26,7 @@ Grid::Grid(PivOptions &config, IntMap &image) : m_ptsX(), m_ptsY(), m_coords() {
   m_ptsY.resize(m_noY);
   m_coords.resize(m_noX * m_noY);
 
-  /* Have repetition here. Perhaps refactor out */
+  // Have repetition here. Perhaps refactor out
   auto i = 0, j = 0;
   std::for_each(m_ptsX.begin(), m_ptsX.end(),
                 [&](int &x) { x = (winW - ovlpX) * (i++) - 1 + winW / 2; });

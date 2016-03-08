@@ -1,8 +1,9 @@
 #ifndef BPU_UTILITY_FUNCTIONS_H
 #define BPU_UTILITY_FUNCTIONS_H
 
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <iostream>
 
 namespace bpu {
 
@@ -80,10 +81,10 @@ std::pair<TFirst, TSecond> mean_pairs(Container &&c) {
   size_t cSize = c.size();
   auto result = std::make_pair(TFirst(), TSecond());
 
-  auto add_pair =
-      [](std::pair<TFirst, TSecond> a, std::pair<TFirst, TSecond> b) {
-        return std::make_pair(a.first + b.first, a.second + b.second);
-      };
+  auto add_pair = [](std::pair<TFirst, TSecond> a,
+                     std::pair<TFirst, TSecond> b) {
+    return std::make_pair(a.first + b.first, a.second + b.second);
+  };
 
   result = std::accumulate(c.begin(), c.end(), result, add_pair);
   result.first /= cSize;

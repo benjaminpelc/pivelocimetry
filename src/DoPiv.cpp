@@ -56,9 +56,7 @@ DoPiv::DoPiv(PivOptions &options, const IntMap::Pair &imPair, Grid &g)
   t1.join();
 }
 
-DoPiv::PivPointVec &DoPiv::pointsVector() {
-  return m_points;
-}
+DoPiv::PivPointVec &DoPiv::pointsVector() { return m_points; }
 
 void DoPiv::write(const std::string filename) {
   std::ofstream outfile(filename);

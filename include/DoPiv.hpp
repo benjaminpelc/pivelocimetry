@@ -8,19 +8,19 @@
 #ifndef BPPIV_DO_PIV_H
 #define BPPIV_DO_PIV_H
 
-#include <fstream>
 #include <algorithm>
+#include <fstream>
 #include <iomanip>
 #include <thread>
 
-#include "PivOptions.hpp"
-#include "IntMap.hpp"
+#include "../lib/Mat2.hpp"
 #include "Grid.hpp"
-#include "XCorr2.hpp"
+#include "IntMap.hpp"
+#include "PivOptions.hpp"
 #include "PivPoint.hpp"
 #include "SubPix.hpp"
+#include "XCorr2.hpp"
 #include "find_peaks.hpp"
-#include "../lib/Mat2.hpp"
 
 #include "../lib/alias.hpp"
 
@@ -53,7 +53,7 @@ public:
   void write(const std::string filename);
 
   // PivPointVec
-  // Return a reference to the vector of PIV points. 
+  // Return a reference to the vector of PIV points.
   PivPointVec &pointsVector();
 
   ~DoPiv();

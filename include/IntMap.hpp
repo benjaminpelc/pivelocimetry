@@ -16,12 +16,26 @@
 
 class IntMap : public Mat2<uint16_t> {
 public:
-  /* unique pointer typedef call with IntMap::Uptr */
+  // Type definitions
   typedef std::unique_ptr<IntMap> Uptr;
   typedef std::pair<IntMap *, IntMap *> Pair;
 
+  // IntMap
+  // Create an IntMap of fixed size with all array elements equal to zero.
+  //  -- rows : number of rows in array
+  //  -- cols : number of columns in array
   IntMap(unsigned int rows, unsigned int cols);
+
+  // IntMap
+  // Create an IntMap from an instance of an object satisfying the IntMappable
+  // interface.
+  //  -- raw : IntMappable instance containing pixel intensities.
   IntMap(IntMappable *raw);
+
+  // IntMap
+  // Create an IntMap from an instance of an object satisfying the IntMappable
+  // interface.
+  //  -- raw : IntMappable instance containing pixel intensities.
   IntMap(const std::unique_ptr<IntMappable> &raw);
 
   ~IntMap();
