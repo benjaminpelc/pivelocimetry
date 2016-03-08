@@ -1,3 +1,10 @@
+// DoPiv.cpp
+// Implementation of DoPIV class. The main PIV vector calculation
+// Loop.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "DoPiv.hpp"
 
 namespace PivEng {

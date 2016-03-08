@@ -1,3 +1,10 @@
+// Disp.cpp
+// Implementation of the displacement vector class. Contains u and v components
+// of velocity and a bool flag indicating the validity.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "Disp.hpp"
 
 namespace PivEng {

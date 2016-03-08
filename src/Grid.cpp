@@ -1,3 +1,10 @@
+// Grid.cpp
+// Implementation of Grid class. Generate a grid of (x, y) coordinate points at
+// which vectors will be calculated. 
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "Grid.hpp"
 
 namespace PivEng {

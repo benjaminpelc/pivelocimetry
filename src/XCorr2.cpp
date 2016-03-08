@@ -1,3 +1,10 @@
+// PivVector.cpp
+// Implementation of x_corr_n_2. Calculate the cross-correlation function for a
+// of images. 
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "XCorr2.hpp"
 
 namespace PivEng {

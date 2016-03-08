@@ -1,3 +1,9 @@
+// main.cpp
+// Entry point for Particle Image Velocimetry.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created: 
+
 #include "DoPiv.hpp"
 #include "DoPost.hpp"
 #include "Grid.hpp"
@@ -33,7 +39,7 @@ int main(int argc, char **argv) {
        im2FilePath = std::string("../img/2.bmp");
 
   // auto im1FilePath = std::string("../img/A001a.tif"),
-  // 	   im2FilePath = std::string("../img/A001b.tif");
+  // 	  im2FilePath = std::string("../img/A001b.tif");
 
 
   // Load a raw images and extract pixel intensity maps

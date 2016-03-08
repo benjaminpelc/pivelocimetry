@@ -1,3 +1,11 @@
+// PivOptions.cpp
+// Implementation of PivOptions class. Container class for PIV analysis options.
+// Either loads options from file, applies default options or acccepts a map of
+// key value pairs. 
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "PivOptions.hpp"
 
 // Constructor

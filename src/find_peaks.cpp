@@ -1,3 +1,9 @@
+// find_peaks.cpp
+// Implementation of correlation function peak finding functions.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "find_peaks.hpp"
 
 namespace PivEng {

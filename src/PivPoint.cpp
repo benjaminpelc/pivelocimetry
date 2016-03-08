@@ -1,3 +1,12 @@
+// PivPoint.cpp
+// Implementation of PivPoint class. Basically a container containing all
+// information about a PIV vector point, such as coodinates, a list of
+// cross-correlation function displacement peaks and the corresponding
+// displacement vectors.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "PivPoint.hpp"
 
 namespace PivEng {

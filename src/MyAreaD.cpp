@@ -1,3 +1,10 @@
+// MyAreaD.cpp
+// Implementation of MyAreaD class. This is the Gtk drawing area on which
+// velocity vectors are plotted.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "MyAreaD.h"
 
 MyAreaD::MyAreaD(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade) : Gtk::DrawingArea(cobject),
@@ -27,8 +34,8 @@ void MyAreaD::init(VecPivVector pv, double const max_vel)
 	// Spatial resolution of vectors
 	dx = x_grid[1] - x_grid[0];
 	dy = y_grid[1] - y_grid[0];
-	
-	// Take minimum and maximum for plot area as min and 
+
+	// Take minimum and maximum for plot area as min and
 	// max x/y coords plus one dx/dy
 	x_min = x_grid.front() - dx;
 	y_min = y_grid.front() - dy;
@@ -75,7 +82,7 @@ void MyAreaD::plot_area_box(CContextRptr cr) {
 }
 
 void MyAreaD::add_vector_graphic(CContextRptr cr, PivEng::PivVector& p, const double vector_scale_factor) {
-	
+
 	auto const x = p.get_x();
 	auto const y = p.get_y();
 	auto const u = p.get_u();
@@ -85,9 +92,7 @@ void MyAreaD::add_vector_graphic(CContextRptr cr, PivEng::PivVector& p, const do
 
 	cr->set_source_rgb(1.0 - magnitude_ratio, 0.0, magnitude_ratio);
 	cr->move_to(x * axis_scale.x, y * axis_scale.y);
-	cr->line_to( (x + vector_scale_factor * u) * axis_scale.x, 
+	cr->line_to( (x + vector_scale_factor * u) * axis_scale.x,
 							 (y + vector_scale_factor * v) * axis_scale.y);
 	cr->stroke();
 }
-
-

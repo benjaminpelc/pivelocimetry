@@ -1,3 +1,11 @@
+// IntMap.cpp
+// Implementation of IntMap class. A two-dimensional matrix with unsigned 16-bit
+// integer elements. Instances of this class are used to contain image pixel
+// intensity values.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "IntMap.hpp"
 
 IntMap::IntMap(unsigned int rows, unsigned int cols)

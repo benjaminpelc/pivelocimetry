@@ -1,3 +1,10 @@
+// Vec2C2D.cpp
+// Implementation of PivVector class. Contains a Disp vector as well as
+// the spatial coordinates.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "PivVector.hpp"
 
 namespace PivEng {

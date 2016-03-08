@@ -1,3 +1,10 @@
+// find_peaks.cpp
+// Stand-alone functions for calculating the sub-pixel location of a gaussian
+// curve passing through three equally spaced points. 
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "SubPix.hpp"
 
 namespace PivEng {

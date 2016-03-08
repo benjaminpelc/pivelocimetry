@@ -1,3 +1,10 @@
+// cli_args.cpp
+// Implementation of CliArgs class. This class handles parsing command line
+// arguments.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created: 01/03/2016
+
 #include "cli_args.hpp"
 
 CliArgs::CliArgs(int argc, char** argv) : cli("PIVelocimetry", ' ', "0.1") {

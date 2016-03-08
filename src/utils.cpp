@@ -1,3 +1,9 @@
+// utils.cpp
+// Utility helper functions that do not belong in a class of their own.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "utils.hpp"
 
 namespace PivEng {

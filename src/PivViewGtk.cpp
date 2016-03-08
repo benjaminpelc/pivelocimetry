@@ -1,3 +1,9 @@
+// PivViewGtk.cpp
+// GTK Vector Viewer GUI class. 
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "PivViewGtk.hpp"
 
 PivViewGtk::PivViewGtk(PivEng::PivPoint::PivPointVec &vs)
@@ -9,8 +15,8 @@ PivViewGtk::PivViewGtk(PivEng::PivPoint::PivPointVec &vs)
 {
 	// Greate an application
 	Glib::RefPtr<Gtk::Application> vector_viewer = Gtk::Application::create();
-		
-	// Get just the piv (x,y,u,v) vectors and the maximum velocity 
+
+	// Get just the piv (x,y,u,v) vectors and the maximum velocity
 	get_piv_vectors_and_maximum_velocity();
 
 	// GLADE
@@ -24,7 +30,7 @@ PivViewGtk::PivViewGtk(PivEng::PivPoint::PivPointVec &vs)
 	refBuilder->get_widget_derived("drawingarea1", pMyArea);
 	pMyArea->init(piv_vectors, max_velocity_magnitude);
 
-	// Label for number of vectors 
+	// Label for number of vectors
 	refBuilder->get_widget("label_num_vectors_number", pNumVectorsLabel);
 	pNumVectorsLabel->set_text(std::to_string(piv_vectors.size()));
 

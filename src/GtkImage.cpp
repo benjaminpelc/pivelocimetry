@@ -1,3 +1,10 @@
+// GtkImage.cpp
+// Implementation of GtkImage class. Handle loading of images and retrieval of
+// pixel intensity values and various image properties.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #include "GtkImage.hpp"
 
 GtkBufImage::GtkBufImage(std::string fn) :
