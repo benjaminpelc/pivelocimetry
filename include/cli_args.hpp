@@ -1,3 +1,10 @@
+// cli_args.hpp
+// CliArgs class header file. Parse command line
+// arguments.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created: 01/03/2016
+
 #ifndef CLI_ARGS_H
 #define CLI_ARGS_H
 

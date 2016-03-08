@@ -22,7 +22,9 @@ void Disp::set_displacement(const double u_in, const double v_in,
   valid = valid_in;
 }
 
-void Disp::set_valid(bool valid_in) { valid = valid_in; }
+void Disp::set_valid(bool bool valid_in) {
+  valid = valid_in;
+}
 
 double Disp::get_u() const { return u; }
 double Disp::get_v() const { return v; }
