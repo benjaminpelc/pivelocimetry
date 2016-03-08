@@ -23,14 +23,14 @@ inline bool in_valid_range(const double value, const double min,
 
 void find_ccf_peaks(std::vector<Peak> &peaks_container, const Mat2<double> &ccf,
                     const int max_disp) {
-  /* FindPeaks
-   * Find peaks in the correlation function. Pass a vector of peak objects to
-   * store
-   * the results. The number of peaks searched for is dictated by the length of
-   * the peak vector passed as an argument.
-   *
-   * ToDo
-   * 1) Add independent maximum x and y displacements */
+  // FindPeaks
+  // Find peaks in the correlation function. Pass a vector of peak objects to
+  // store
+  // the results. The number of peaks searched for is dictated by the length of
+  // the peak vector passed as an argument.
+  //
+  // ToDo
+  // 1) Add independent maximum x and y displacements */
 
   const unsigned ccf_rows = ccf.rows();
   const unsigned ccf_cols = ccf.cols();
