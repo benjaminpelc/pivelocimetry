@@ -9,9 +9,8 @@
 namespace PivEng {
 
 inline bool is_local_peak(const double *p, const unsigned int ccf_cols) {
-  /* Returns true if the point (i,j) has greater
-   * value than the four surrounding points */
-  /* auto * p = &m_mat[i]; */
+  // Returns true if the point (i,j) has greater
+  // value than the four surrounding points.
   auto p_0 = *p;
   return p_0 > *(p - ccf_cols) && p_0 > *(p + ccf_cols) && p_0 > *(p + 1) &&
          p_0 > *(p - 1);
@@ -41,23 +40,21 @@ void find_ccf_peaks(std::vector<Peak> &peaks_container, const Mat2<double> &ccf,
   const unsigned j_max = ccf_rows - j_min;
   const unsigned i_max = ccf_cols - i_min;
 
-  // double current_max = 0.0, /* Something silly big negative */
-  double previous_max =
-      9999999999.9; /* something silly big for first iteration */
+  // something silly big for first iteration
+  double previous_max = 9999999999.9;
   double *currentElemPtr = nullptr;
 
-  /* coords of peak value, set to initial coord */
+  // coords of peak value, set to initial coord
   unsigned j{0}, i{0};
 
-  /* Be cynical, do not believe any peak to be automatically valid */
+  // Be cynical, do not believe any peak to be automatically valid
   auto *const ccf_begin = ccf.begin();
-
   auto temp_peak = Peak();
 
-  /* iterate through each of the number of peaks specified to search for */
+  // iterate through each of the number of peaks specified to search for
   for (auto &peak : peaks_container) {
-    /* Loop through each point in the CCF matrix.
-     * Using raw loop as index values as well as element values are required*/
+    // Loop through each point in the CCF matrix.
+    // Using raw loop as index values as well as element values are required
     for (j = j_min; j <= j_max; j++) {
       for (i = i_min; i <= i_max; i++) {
         currentElemPtr = ccf_begin + ccf_cols * j + i;
@@ -67,16 +64,18 @@ void find_ccf_peaks(std::vector<Peak> &peaks_container, const Mat2<double> &ccf,
         }
       }
     }
-    /* Once valid peaks have stopped turning up we really should not bother
-     * to continue, so we will break out of the peak vector loop */
-    /** to continue, so we will break out of the peak vector loop */
+
+    // Once valid peaks have stopped turning up we really should not bother
+    // to continue, so we will break out of the peak vector loop
     if (!temp_peak.valid) {
       break;
     } else {
       peak = temp_peak;
       previous_max = temp_peak.val;
       temp_peak.val = 0.0;
-      temp_peak.valid = false; /* reset validity to false for next round */
+
+      // reset validity to false for next round.
+      temp_peak.valid = false;
     }
   }
 }
