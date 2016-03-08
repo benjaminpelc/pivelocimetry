@@ -9,9 +9,6 @@
 
 namespace PivEng {
 
-// gauss
-// Calculate sub-pixel displacement components for each of the peaks in peaks
-// for the correlation function ccf.
 void gauss(const Mat2<double> &ccf, const Peak::PeaksVec &peaks,
            Disp::DispVec &displacements) {
   // std::cout << "In Gauss, eww!" << std::endl;
@@ -53,15 +50,12 @@ void gauss(const Mat2<double> &ccf, const Peak::PeaksVec &peaks,
   }
 }
 
-// gauss3
-// Calculate the sub-pixel peak location of the gausian curve passing through
-// points a, b and c. If the denominator is undefined or equal to zero, return
-// a NAN.
 double gauss3(const double *a, const double *b, const double *c) {
 
 	auto const numer = log(*a) - log(*c);
 	auto const denom = 2 * log(*a) - 4 * log(*b) + 2 * log(*c);
 
+  // Do not divide by zero! 
 	if (!denom) return NAN;
 
   return numer / denom;
