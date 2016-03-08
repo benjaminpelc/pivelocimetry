@@ -1,6 +1,6 @@
 // find_peaks.cpp
 // Stand-alone functions for calculating the sub-pixel location of a gaussian
-// curve passing through three equally spaced points. 
+// curve passing through three equally spaced points.
 //
 // Author: Benjamin Pelc <pelc.benjamin@gmail.com>
 // Date created:
@@ -41,12 +41,10 @@ void gauss(const Mat2<double> &ccf, const Peak::PeaksVec &peaks,
     dy = j + gauss3((e - cols), e, (e + cols)) - offsetY;
 
     // A number is only not equal to itself iff it is a NaN. If the peak is
-    // invalid,
-    // assume subsequent peaks are also invalid. Invalidity is caused by taking
-    // the
-    // logarithm of a negative correlation function element. Is it logical to
-    // think
-    // if a peak is invalid then all subsequent peaks will be invalid?
+    // invalid, assume subsequent peaks are also invalid. Invalidity is caused
+    // by taking the logarithm of a negative correlation function element.
+    // Is it logical to think if a peak is invalid then all subsequent peaks
+    // will be invalid?
     if (std::isnan(dx) || std::isnan(dy))
       break;
 
