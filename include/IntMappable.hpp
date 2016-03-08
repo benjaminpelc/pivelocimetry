@@ -1,3 +1,9 @@
+// IntMappable.hpp
+// Interface for objects that can be used to generate an IntMap
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef INT_MAPPABLE_H
 #define INT_MAPPABLE_H
 

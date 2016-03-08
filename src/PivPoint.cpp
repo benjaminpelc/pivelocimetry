@@ -16,9 +16,9 @@ PivPoint::PivPoint(int xCoord, int yCoord, PivOptions &options) :
       m_dispsVec(options.numPeaks()) {}
 
 std::unique_ptr<PivVector> PivPoint::get_piv_vector() {
-  /* Search through the calculated displacements for the first valid one.
-   * If a valid displacement is found, return a pointer to a new displacement
-   * vector object. If no valid displacements are found return a null pointer */
+  // Search through the calculated displacements for the first valid one.
+  // If a valid displacement is found, return a pointer to a new displacement
+  // vector object. If no valid displacements are found return a null pointer
   auto d = std::find_if(m_dispsVec.begin(), m_dispsVec.end(),
                         [](auto &d) { return d.is_valid(); }
                        );

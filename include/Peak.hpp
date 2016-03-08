@@ -1,10 +1,13 @@
-/* Struct Peak
- *
- * Container class for a correlation function peak,
- * Contains two integer correlation function coordinates and
- * the  correlation function value at those coordinates.
- * Contains a validity flag which can be switched on/off as
- * appropriate */
+// Peak.hpp
+// Struct Peak
+// Container struct for a correlation function peak,
+// Contains two integer correlation function coordinates and
+// the correlation function value at those coordinates.
+// Contains a validity flag which can be switched on/off as
+// appropriate.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
 
 #ifndef BPPIB_PIV_ENGINE_PEAK_H
 #define BPPIB_PIV_ENGINE_PEAK_H

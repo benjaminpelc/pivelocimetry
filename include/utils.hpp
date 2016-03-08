@@ -1,3 +1,9 @@
+// utils.hpp
+// Utility helper functions that do not belong in a class of their own.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef BPPIV_UTILS_H
 #define BPPIV_UTILS_H
 

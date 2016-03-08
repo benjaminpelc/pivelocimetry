@@ -1,3 +1,10 @@
+// PivVector.hpp
+// Header forPivVector class. Contains a Disp vector as well as
+// the spatial coordinates.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef BPPIV_VECTOR_2D_2C_H
 #define BPPIV_VECTOR_2D_2C_H
 

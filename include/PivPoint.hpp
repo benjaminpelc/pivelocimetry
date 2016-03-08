@@ -1,14 +1,17 @@
-/* Class PivPoint
- *
- * Here we will store all the wonderful things that each PIV
- * point must have. This is more a container class with setters
- * and getters rather than any functionality of its own
- *
- * Currently, each point has:
- * 1) A CCF
- * 2) A vector of peak objects
- * 3) A vector of displacement objects
- * 4) A pair of pixel coordinates */
+// PivPoint.hpp
+// Implementation of PivPoint class. Basically a container containing all
+// information about a PIV vector point, such as coodinates, a list of
+// cross-correlation function displacement peaks and the corresponding
+// displacement vectors.
+//
+// Currently, each point has:
+// 1) A CCF
+// 2) A vector of peak objects
+// 3) A vector of displacement objects
+// 4) A pair of pixel coordinates
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
 
 #ifndef PIV_POINT_H
 #define PIV_POINT_H

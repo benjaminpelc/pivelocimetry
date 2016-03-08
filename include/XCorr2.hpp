@@ -1,11 +1,12 @@
+// PivVector.hpp
+// Header for x_corr_n_2. Calculate the cross-correlation function for a
+// of images.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef XCORR2_H
 #define XCORR2_H
-
-/*
- * XCorr2.h
- * 2D cross-correlation functions
- *
- */
 
 #include "../lib/Mat2.hpp"
 #include "IntMap.hpp"

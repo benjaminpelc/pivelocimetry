@@ -1,8 +1,9 @@
-/* Class Grid
- *
- * Grid of integer image plane coordinates.
- * Coordinates mark the centre of a PIV interrogation window.
- */
+// Grid.hpp
+// Header file for Grid class. Generate a grid of (x, y) coordinate points at
+// which vectors will be calculated. 
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
 
 #ifndef GRID_H
 #define GRID_H

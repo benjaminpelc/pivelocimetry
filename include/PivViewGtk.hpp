@@ -1,3 +1,9 @@
+// PivViewGtk.hpp
+// Header for GTK Vector Viewer GUI class.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef BPPIV_PIV_VIEW_GTK_H
 #define BPPIV_PIV_VIEW_GTK_H
 

@@ -1,3 +1,10 @@
+// MyAreaD.hpp
+// Header for MyAreaD class. This is the Gtk drawing area on which
+// velocity vectors are plotted.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef GTKMM_EXAMPLE_MYAREA_D_H
 #define GTKMM_EXAMPLE_MYAREA_D_H
 
@@ -29,7 +36,7 @@ class MyAreaD : public Gtk::DrawingArea
 
 	private:
 
-		// MEMBERS 
+		// MEMBERS
 		VecPivVector piv_vectors;
 
 		std::vector<double> x_grid, y_grid;
@@ -46,7 +53,7 @@ class MyAreaD : public Gtk::DrawingArea
 
 		AxisScale axis_scale;
 
-		// PRIVATE MEMBER FUNCTIONS 
+		// PRIVATE MEMBER FUNCTIONS
 		// Override default signal handler:
 		bool on_draw(const CContextRptr& cr) override;
 		void plot_area_box(CContextRptr cr);
@@ -65,4 +72,3 @@ class MyAreaD : public Gtk::DrawingArea
 };
 
 #endif
-

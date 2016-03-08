@@ -1,3 +1,11 @@
+// DoPost.hpp
+// Header file for DoPost class. Do vector post-processing after DoPIV has
+// calculated initial vectors. Remove spurious/outlying/non-calculated vectors
+// and replace with interpolated ones.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef BPPIV_DO_POST_PROCESSING_H
 #define BPPIV_DO_POST_PROCESSING_H
 

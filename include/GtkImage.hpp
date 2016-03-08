@@ -1,9 +1,15 @@
+// GtkImage.hpp
+// Header for GtkImage class. Handle loading of images and retrieval of
+// pixel intensity values and various image properties.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef GTK_IMAGE_H
 #define GTK_IMAGE_H
 
 #include "IntMappable.hpp"
 #include <iostream>
-// #include <opencv2/highgui/highgui.hpp>
 #include <gtkmm.h>
 
 class GtkBufImage : public IntMappable {

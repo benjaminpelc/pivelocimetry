@@ -1,3 +1,11 @@
+// IntMap.hpp
+// Header for IntMap class. A two-dimensional matrix with unsigned 16-bit
+// integer elements. Instances of this class are used to contain image pixel
+// intensity values.
+//
+// Author: Benjamin Pelc <pelc.benjamin@gmail.com>
+// Date created:
+
 #ifndef INT_MAP_H
 #define INT_MAP_H
 
