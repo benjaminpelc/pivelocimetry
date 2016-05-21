@@ -36,14 +36,14 @@ public:
   std::pair<int, int> &winSize();
 
   // Setters
-  void setWinWidth(int x);
-  void setWinHeight(int x);
-  void setOvlpHoriz(int x);
-  void setOvlpVert(int x);
-  void setNumPeaks(int n);
+  void setWinWidth(const int x);
+  void setWinHeight(const int x);
+  void setOvlpHoriz(const int x);
+  void setOvlpVert(const int x);
+  void setNumPeaks(const int n);
 
   // Print in console
-  void print();
+  void print() const;
 
 private:
   // Properties
@@ -55,6 +55,6 @@ private:
 
   static int
   keyExistsToInt(std::unordered_map<std::string, std::string> &optMap,
-                 std::string key, int defaultVal);
+                 const std::string key, const int defaultVal);
 };
 #endif

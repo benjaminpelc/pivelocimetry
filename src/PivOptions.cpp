@@ -85,8 +85,8 @@ int PivOptions::findColon(const std::string &str) {
 // 1) Add some checking, if string conversion is unsuccessful return
 // 	  the default integer.
 int PivOptions::keyExistsToInt(
-    std::unordered_map<std::string, std::string> &optMap, std::string key,
-    int defaultVal)
+    std::unordered_map<std::string, std::string> &optMap, const std::string key,
+    const int defaultVal)
 {
   std::string &entry = optMap[key];
   return !entry.empty() ? std::stoi(entry) : defaultVal;
@@ -113,17 +113,17 @@ int PivOptions::maxDispY()  const{ return m_maxDisp.second; }
 std::pair<int, int> &PivOptions::winSize() { return m_winSize; }
 
 // Setters
-void PivOptions::setWinWidth(int x) { m_winSize.first = x; }
+void PivOptions::setWinWidth(const int x) { m_winSize.first = x; }
 
-void PivOptions::setWinHeight(int x) { m_winSize.second = x; }
+void PivOptions::setWinHeight(const int x) { m_winSize.second = x; }
 
-void PivOptions::setOvlpHoriz(int x) { m_overlap.first = x; }
+void PivOptions::setOvlpHoriz(const int x) { m_overlap.first = x; }
 
-void PivOptions::setOvlpVert(int x) { m_overlap.second = x; }
+void PivOptions::setOvlpVert(const int x) { m_overlap.second = x; }
 
-void PivOptions::setNumPeaks(int n) { m_noPeaks = n; }
+void PivOptions::setNumPeaks(const int n) { m_noPeaks = n; }
 
-void PivOptions::print() {
+void PivOptions::print() const {
   std::cout << "Ix: " << winWidth() << "\tIy: " << winHeight()
             << "\nOx: " << olvpHoriz() << "\tOy: " << olvpVert()
             << "\nxMax: " << maxDispX() << "\tyMax: " << maxDispY()
