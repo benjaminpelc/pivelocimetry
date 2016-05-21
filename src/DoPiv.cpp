@@ -51,8 +51,12 @@ DoPiv::DoPiv(PivOptions &options, const IntMap::Pair &imPair, Grid &g)
   };
 
   // Run on two threads, splitting the points evenly between the two.
-  std::thread t1{ccfBatch, 0, m_num_points / 2};
-  ccfBatch(m_num_points / 2, m_num_points);
+  //
+  // ToDo:
+  // Modify this to count the number of cores available on the host system.
+	unsigned num_cores{2};
+  std::thread t1{ccfBatch, 0, m_num_points / num_cores};
+  ccfBatch(m_num_points / num_cores, m_num_points);
   t1.join();
 }
 
